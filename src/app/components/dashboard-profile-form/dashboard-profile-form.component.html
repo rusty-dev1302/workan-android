@@ -1,0 +1,216 @@
+<!-- <label for="firstName">First Name</label>
+<input required ngModel #firstName="ngModel" minlength="3" maxlength="10" pattern="banana" name="firstName" id="firstName" type="text" class="form-control">
+<div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+    <div *ngIf="firstName.errors?.required">First Name is required.</div>
+    <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+    <div *ngIf="firstName.errors?.pattern">Pattern is banana.</div>
+</div> -->
+
+
+<!-- Edit Section start -->
+
+<div class="col-xl-12 col-md-12">
+
+    <div class="form-section">
+
+        <!-- User Form Starts -->
+        <form #editProfile="ngForm" (ngSubmit)="onClickSubmit()">
+
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h5>Email: <span>{{emailValue}}</span></h5>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input  #firstName="ngModel" required [(ngModel)]="user.firstName" minlength="3" maxlength="15" name="firstName"
+                                id="firstName" type="text" class="form-control" [readonly]="!isEditable">
+                            <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15" name="lastName"
+                                id="lastName" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="row">
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Gender</label>
+                        </div>
+                        <div class="input-group mb-3 dropdown">
+                            <input type="text" class="form-control" [style]="isEditable?'background-color: white':''" [ngModel]="user.gender" name="user.gender" readonly>
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isEditable">
+                            Select
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" (click)="editGender('Male')">Male</a></li>
+                                <li><a class="dropdown-item" (click)="editGender('Female')">Female</a></li>
+                              </ul>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Languages</label>
+                            
+                        </div>
+                        <div class="input-group mb-3 dropdown">
+                            <input type="text" class="form-control" [style]="isEditable?'background-color: white':''" [ngModel]="user.languages" name="user.languages" readonly>
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isEditable">
+                            Select
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" (click)="addLanguage('Clear All')">Clear All</a></li>
+                                <li><a class="dropdown-item" (click)="addLanguage('English')">English</a></li>
+                                <li><a class="dropdown-item" (click)="addLanguage('French')">French</a></li>
+                                <li><a class="dropdown-item" (click)="addLanguage('Mandarin')">Mandarin</a></li>
+                                <li><a class="dropdown-item" (click)="addLanguage('Cantonese')">Cantonese</a></li>
+                                <li><a class="dropdown-item" (click)="addLanguage('Punjabi')">Punjabi</a></li>
+                                <li><a class="dropdown-item" (click)="addLanguage('Hindi')">Hindi</a></li>
+                              </ul>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="mobile">Mobile</label>
+                            <input required #mobile="ngModel" [(ngModel)]="user.mobile" minlength="3" maxlength="15" name="mobile"
+                                id="mobile" type="number" class="form-control" [readonly]="!isEditable">
+                            <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">
+                                {{mobile.errors}}
+                                <!-- <div *ngIf="mobile.errors?.minlength">Min length should be 3.</div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h5>Contact Details</h5>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="address1">Address Line 1</label>
+                            <input required ngModel #address1="ngModel" minlength="3" maxlength="15" name="address1"
+                                id="address1" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="address2">Address Line 2</label>
+                            <input required ngModel #address2="ngModel" minlength="3" maxlength="15" name="address2"
+                                id="address2" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="address3">Address Line 3</label>
+                            <input required ngModel #address3="ngModel" minlength="3" maxlength="15" name="address3"
+                                id="address3" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="row">
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input required ngModel #city="ngModel" minlength="3" maxlength="15" name="city" id="city"
+                                type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input required ngModel #pincode="ngModel" minlength="3" maxlength="15" name="pincode"
+                                id="pincode" type="text" class="form-control" [readonly]="!isEditable">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Edit buttons -->
+            <div class="mb-3" *ngIf="isEditable">
+                <div class="row">
+                    <div class="col-1">
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-1">
+                        <button class="btn btn-danger" type="button" (click)="toggleEdit()">{{ isEditable == false ? 'Edit' : 'Cancel' }}</button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+        <!-- User Form Ends -->
+    </div>
+</div>
+
+<script>
+    $('#customfileinput').on('change', function(){
+        files = $(this)[0].files; 
+        name = ''; 
+        for(var i = 0; i < files.length; i++){
+            name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); 
+        } 
+        $(".custom-file-label").html(name);
+    })
+</script>
+

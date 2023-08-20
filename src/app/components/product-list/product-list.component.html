@@ -1,0 +1,70 @@
+<div class="content-box">
+  <nav class="nav navbar nav-underline justify-content-center navbar-dark bg-color">
+    <a class="nav-link" type="button" routerLink="/listings">Clear Filters</a>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown"
+        aria-expanded="false">Specialization: {{currentSubcategory||"All"}} </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown01">
+        <li><a class="dropdown-item" *ngFor="let subcategory of subcategories" type="button"
+            [routerLink]="['/listings',subcategory,currentLocation]">{{subcategory}}</a></li>
+      </ul>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-bs-toggle="dropdown"
+        aria-expanded="false">Location: {{currentLocation||"All"}} </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown02">
+        <li><a class="dropdown-item" type="button" *ngFor="let location of locations"
+            [routerLink]="['/listings',currentSubcategory,location]">{{location}}</a></li>
+      </ul>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Sort
+        By: Ratings </a>
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown03">
+        <li><a class="dropdown-item" href="#">Ratings</a></li>
+        <li><a class="dropdown-item" href="#">Charges low to high</a></li>
+        <li><a class="dropdown-item" href="#">Charges high to low</a></li>
+      </ul>
+    </li>
+  </nav>
+
+  <section class="common-section blog-section">
+
+    <div class="container my-5">
+      <div class="row g-5  ">
+
+        <div class="col-xl-3 col-md-6 col-12" *ngFor="let product of products">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="card" style="width: 18rem;">
+              <img alt="..." class="card-img-top" src="assets/profile.png">
+              <div class="card-body">
+                <div class="d-flex justify-content-between">
+
+                  <p class="small text-grey "><i class="fa-solid fa-book-open-reader"></i> : 5000 </p>
+                  <p class="small text-grey "> March 3, 2020 </p>
+                </div>
+                <h5 class="card-title mt-3">{{product.professional.firstName}} {{product.professional.lastName}}</h5>
+
+                <p class="card-text mt-2 mb-3">
+                <h6><b>Speciality:</b><span> {{product.subCategory.subCategoryName}}</span></h6>
+                <h6><b>Languages:</b>
+                  <span>
+                    {{product.professional.languages.join(', ')}}
+                  </span>
+                </h6>
+                <h6><b>Location:</b><span> {{product.location}}</span></h6>
+                <h6><b>{{product.chargesType}}:</b><span> {{product.charges}} CAD</span></h6>
+                <a class="px-4 py-2 btn btn-danger" routerLink="/professional/1">View Listing</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
+          Nothing Found.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

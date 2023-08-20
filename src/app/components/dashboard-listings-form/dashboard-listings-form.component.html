@@ -1,0 +1,116 @@
+<!-- <label for="firstName">First Name</label>
+<input required ngModel #firstName="ngModel" minlength="3" maxlength="10" pattern="banana" name="firstName" id="firstName" type="text" class="form-control">
+<div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+    <div *ngIf="firstName.errors?.required">First Name is required.</div>
+    <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+    <div *ngIf="firstName.errors?.pattern">Pattern is banana.</div>
+</div> -->
+
+
+<!-- Edit Section start -->
+
+<div class="col-xl-12 col-md-12">
+
+    <div class="form-section">
+
+        <!-- User Form Starts -->
+        <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <h5>Email: <span>{{emailValue}}</span></h5>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="subCategoryName">Speciality</label>
+                            <input  #subCategoryName="ngModel" required [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15" name="subCategoryName"
+                                id="subCategoryName" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input #location="ngModel" required [(ngModel)]="listing.location" minlength="3" maxlength="15" name="location"
+                                id="location" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="row">
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="chargesType">Charges Type</label>
+                            <input  #chargesType="ngModel" required [(ngModel)]="listing.chargesType" minlength="3" maxlength="15" name="chargesType"
+                                id="chargesType" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="charges">Charges</label>
+                            <input #charges required [(ngModel)]="listing.charges" minlength="3" maxlength="15" name="charges"
+                                id="charges" type="text" class="form-control" [readonly]="!isEditable">
+                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
+                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Edit buttons -->
+            <div class="mb-3" *ngIf="isEditable">
+                <div class="row">
+                    <div class="col-1">
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-1">
+                        <button class="btn btn-danger" type="button" (click)="toggleEdit()">{{ isEditable == false ? 'Edit' : 'Cancel' }}</button>
+                    </div>
+                </div>
+            </div>
+            
+        </form>
+        <!-- User Form Ends -->
+    </div>
+</div>
+
+<script>
+    $('#customfileinput').on('change', function(){
+        files = $(this)[0].files; 
+        name = ''; 
+        for(var i = 0; i < files.length; i++){
+            name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); 
+        } 
+        $(".custom-file-label").html(name);
+    })
+</script>
+
