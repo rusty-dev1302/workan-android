@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-motorspin": {
+    "angular-workan": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-motorspin",
+            "outputPath": "dist/angular-workan",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-motorspin:build:production"
+              "browserTarget": "angular-workan:build:production"
             },
             "development": {
-              "browserTarget": "angular-motorspin:build:development"
+              "browserTarget": "angular-workan:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-motorspin:build"
+            "browserTarget": "angular-workan:build"
           }
         },
         "test": {
