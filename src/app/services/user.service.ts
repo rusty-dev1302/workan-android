@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Customer } from '../common/customer';
 import { Observable } from 'rxjs';
 import { ContactDetail } from '../common/contact-detail';
+import { constants } from 'src/environments/constants';
 
 
 
@@ -11,7 +12,7 @@ import { ContactDetail } from '../common/contact-detail';
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:8081/api/v1/customer';
+  private baseUrl = constants.API_SERVER+'/api/v1/customer';
 
   constructor(private httpClient: HttpClient) { }
 

@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <label for="firstName">First Name</label>
                             <input  #firstName="ngModel" required [(ngModel)]="user.firstName" minlength="3" maxlength="15" name="firstName"
-                                id="firstName" type="text" class="form-control" [readonly]="!isProfileEditable">
+                                id="firstName" type="text" class="form-control" [readonly]="!isProfileEditable" autocomplete="off">
                             <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
                                 <div *ngIf="firstName.errors?.required">First Name is required.</div>
                                 <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
                             <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15" name="lastName"
-                                id="lastName" type="text" class="form-control" [readonly]="!isProfileEditable">
+                                id="lastName" type="text" class="form-control" [readonly]="!isProfileEditable" autocomplete="off">
                             <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
                                 <div *ngIf="firstName.errors?.required">First Name is required.</div>
                                 <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
@@ -98,7 +98,7 @@
                         <div class="form-group">
                             <label for="mobile">Mobile</label>
                             <input required #mobile="ngModel" [(ngModel)]="user.mobile" minlength="3" maxlength="15" name="mobile"
-                                id="mobile" type="number" class="form-control" [readonly]="!isProfileEditable">
+                                id="mobile" type="number" class="form-control" [readonly]="!isProfileEditable" autocomplete="off">
                             <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">
                                 {{mobile.errors}}
                                 <!-- <div *ngIf="mobile.errors?.minlength">Min length should be 3.</div> -->
@@ -148,21 +148,21 @@
                         <div class="form-group">
                             <label for="address1">Address Line 1</label>
                             <input required [(ngModel)]="contactDetail.addressLine1" #address1="ngModel" minlength="3" maxlength="50" name="address1"
-                                id="address1" type="text" class="form-control" [readonly]="!isContactEditable">
+                                id="address1" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="address2">Address Line 2</label>
                             <input required [(ngModel)]="contactDetail.addressLine2" #address2="ngModel" maxlength="50" name="address2"
-                                id="address2" type="text" class="form-control" [readonly]="!isContactEditable">
+                                id="address2" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="address3">Address Line 3</label>
                             <input required [(ngModel)]="contactDetail.addressLine3" #address3="ngModel" maxlength="50" name="address3"
-                                id="address3" type="text" class="form-control" [readonly]="!isContactEditable">
+                                id="address3" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
 
@@ -187,7 +187,7 @@
                         <div class="form-group">
                             <label for="pincode">Pincode</label>
                             <input required [(ngModel)]="contactDetail.pincode" #pincode="ngModel" minlength="3" maxlength="15" name="pincode"
-                                id="pincode" type="text" class="form-control" [readonly]="!isContactEditable">
+                                id="pincode" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
 

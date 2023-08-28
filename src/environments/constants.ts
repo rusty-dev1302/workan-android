@@ -1,4 +1,5 @@
 export const constants = {
+  API_SERVER: "http://localhost:8081",
   ERROR_STATE: "ERROR",
   DEFAULT_CUSTOMER: {
     id: 0,
