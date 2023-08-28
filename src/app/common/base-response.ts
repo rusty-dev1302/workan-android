@@ -1,6 +1,6 @@
-export class PostResponse {
+export class BaseResponse {
     constructor(
-        public status: string,
+        public state: string,
         public message: string,
     ) { }
 }

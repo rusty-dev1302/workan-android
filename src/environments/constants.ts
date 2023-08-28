@@ -1,31 +1,50 @@
 export const constants = {
-    DEFAULT_CUSTOMER: {
-    id:0,
-    firstName:"",
-    gender:"",
-    mobile:0,
-    lastName:"",
-    email:"",
-    languages:[]
+  ERROR_STATE: "ERROR",
+  DEFAULT_CUSTOMER: {
+    id: 0,
+    firstName: "",
+    gender: "",
+    mobile: 0,
+    lastName: "",
+    email: "",
+    languages: [],
+    state: "",
+    message: "",
+    enabled: false
   },
   DEFAULT_LISTING: {
-    id:0,
-    charges:0,
-    chargesType:"",
-    professionalEmail:"",
+    id: 0,
+    charges: 0,
+    chargesType: "",
+    professionalEmail: "",
     professional: {
-      id:0,
-      firstName:"",
-      gender:"",
-      mobile:0,
-      lastName:"",
-      email:"",
-      languages:[]
+      id: 0,
+      firstName: "",
+      gender: "",
+      mobile: 0,
+      lastName: "",
+      email: "",
+      languages: [],
+      state: "",
+      message: "",
+      enabled: false
     },
-    subCategoryName:"",
+    subCategoryName: "",
     subCategory: {
-      subCategoryName:""
+      subCategoryName: ""
     },
-    location:"",
+    location: "",
+  },
+  DEFAULT_CONTACT_DETAIL: {
+    customerId: 0,
+    email: "",
+    mobile: 0,
+    addressLine1: "",
+    addressLine2: "",
+    addressLine3: "",
+    city: "",
+    pincode: 0,
+    state: "",
+    message: ""
   }
 };

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
+import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
 import { FileHandle } from 'src/app/model/file-handle.model';
 import { UserService } from 'src/app/services/user.service';
@@ -15,11 +15,11 @@ import { constants } from 'src/environments/constants';
 })
 export class DashboardProfileFormComponent implements OnInit{
 
-  subscription!: Subscription;
-
-  isEditable: boolean = false;
+  isProfileEditable: boolean = false;
+  isContactEditable: boolean = false;
 
   user: Customer = constants.DEFAULT_CUSTOMER;
+  contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
 
   profilePhoto: any;
   firstNameValue: string = "";
@@ -40,20 +40,38 @@ export class DashboardProfileFormComponent implements OnInit{
 
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
+    this.loadUserData();
+  }
 
-    this.subscription = this.userService.getUserByEmail(this.emailValue).subscribe(
+  loadUserData() {
+    const subscription = this.userService.getUserByEmail(this.emailValue).subscribe(
       (data)=>{
-        if(data!=null){
+        if(data.state!=constants.ERROR_STATE){
           // Populate form from data
           this.user = data;
+          this.loadContactDetails();
+
         } else {
           // Set Default Values
           this.user.languages = [];
           this.user.gender = "";
           this.user = constants.DEFAULT_CUSTOMER;
-          this.user.email = this.emailValue;
         }
-        this.subscription.unsubscribe();
+        subscription.unsubscribe();
+      }
+    );
+    this.user.email = this.emailValue;
+  }
+
+  loadContactDetails() {
+    const contactSubscription = this.userService.getContactDetailByUserId(this.user.id).subscribe(
+      (contact) => {
+        if(contact.state!=constants.ERROR_STATE){
+          this.contactDetail = contact;
+        } else {
+          this.contactDetail = constants.DEFAULT_CONTACT_DETAIL;
+        }
+        contactSubscription.unsubscribe();
       }
     );
   }
@@ -71,19 +89,43 @@ export class DashboardProfileFormComponent implements OnInit{
     this.user.gender = gender;
   }
 
-  onClickSubmit() {
-    this.userService.saveUserData(this.user).subscribe(
+  submitUserDetail() {
+    console.log(this.user);
+    const subscription = this.userService.saveUserData(this.user).subscribe(
       (data)=>{
-        this.user = data;
-        this.isEditable = false;
+
+        this.isProfileEditable = false;
+        this.loadUserData();
+
+        subscription.unsubscribe();
       });
   }
 
-  toggleEdit() {
-    this.isEditable = !this.isEditable;
-    if(!this.isEditable) {
+  submitContactDetail() {
+    this.contactDetail.customerId = this.user.id;
+    const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
+      (data)=>{
+
+        this.isContactEditable = false;
+        this.loadUserData();
+
+        subscription.unsubscribe();
+      });
+  }
+
+  toggleProfileEdit() {
+    this.isProfileEditable = !this.isProfileEditable;
+    if(!this.isProfileEditable) {
       this.loadFormValues();
-      this.isEditable=false;
+      this.isProfileEditable=false;
+    }
+  }
+
+  toggleContactEdit() {
+    this.isContactEditable = !this.isContactEditable;
+    if(!this.isContactEditable) {
+      this.loadFormValues();
+      this.isContactEditable=false;
     }
   }
 

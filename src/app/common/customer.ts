@@ -1,6 +1,6 @@
-import { FileHandle } from "../model/file-handle.model";
+import { BaseResponse } from "./base-response";
 
-export class Customer {
+export class Customer extends BaseResponse{
 
     constructor(
         public id: number,
@@ -10,5 +10,10 @@ export class Customer {
         public mobile: number,
         public email: string,
         public languages: string[],
-    ) {}
+        public enabled: boolean,
+        state: string,
+        message: string
+    ) {
+        super(state, message);
+    }
 }
