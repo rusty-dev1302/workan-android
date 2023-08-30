@@ -8,6 +8,11 @@
     font-family: "Urbanist", sans-serif;
 }
 
+.dropdown-menu {
+    max-height:200px;
+    overflow:scroll; 
+ }
+
 :root{
     --bs-dark-color: #1a1d20;
     --bs-dark-primary:#1c1c1c;

@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardProfileFormComponent } from './components/dashboard-profile-form/dashboard-profile-form.component';
 import { DashboardListingsFormComponent } from './components/dashboard-listings-form/dashboard-listings-form.component';
 import { UserService } from './services/user.service';
+import { ProductListFilterComponent } from './components/product-list-filter/product-list-filter.component';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -59,7 +60,8 @@ const routes: Routes = [
     DashboardListingsComponent,
     SlotSelectorComponent,
     DashboardProfileFormComponent,
-    DashboardListingsFormComponent
+    DashboardListingsFormComponent,
+    ProductListFilterComponent
   ],
   imports: [
     FormsModule,
