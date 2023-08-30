@@ -1,7 +1,7 @@
 <form class="d-flex">
   <div class="row">
     <div class="col-8">
-      <input #myInput class="form-control" list="datalistOptions" placeholder="Type a speciality" style="width: 15rem;">
+      <input #myInput class="form-control" list="datalistOptions" placeholder="Type a speciality" style="width: 9rem;">
       <datalist id="datalistOptions">
         <option value="Langley">
         <option value="Calgary">
@@ -11,7 +11,7 @@
       </datalist>
     </div>
     <div class="col-4">
-      <button class="btn btn-danger btn-sm" type="submit" (click)="doSearch(myInput.value)">Search</button>
+      <button class="btn btn-danger btn-sm" type="submit" (click)="doSearch(myInput.value)">GO</button>
     </div>
   </div>
 </form>

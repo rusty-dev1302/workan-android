@@ -1,0 +1,25 @@
+<div class="offcanvas offcanvas-start custom-side-bar" tabindex="-1" id="sidebarMain" aria-labelledby="sidebarMainLabel">
+    <div class="offcanvas-header" style="padding-bottom: 0;font-size: large;color: white;">
+        <ul class="list-unstyled">
+            <li><img alt="Profile Image" class="img-fluid" width="30%" src="assets/profile.png"></li>
+            <li style="font-size: larger;"><b>Vaibhav Agochiya</b></li>
+            <li><span type="button">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
+            <li><hr class="style1"></li>
+        </ul>
+    </div>
+    <div class="offcanvas-body justify-content-center" style="padding-left: 20px;font-size: large;">
+
+      <ul class="list-unstyled">
+        <li><b>Dashboard</b></li>
+        <li><span type="button" routerLink="/dashboard/editprofile">My Profile</span></li>
+        <li><span type="button" routerLink="/dashboard/myorders">My Orders</span></li>
+        <li><span type="button" routerLink="/dashboard/managelisting">Manage Listing</span></li>
+        <li><hr class="style1"></li>
+      </ul>
+
+      <ul class="list-unstyled">
+        <li><app-search></app-search></li>
+      </ul>
+    </div>
+    
+</div>

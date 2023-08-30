@@ -24,6 +24,7 @@ import { DashboardProfileFormComponent } from './components/dashboard-profile-fo
 import { DashboardListingsFormComponent } from './components/dashboard-listings-form/dashboard-listings-form.component';
 import { UserService } from './services/user.service';
 import { ProductListFilterComponent } from './components/product-list-filter/product-list-filter.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -39,7 +40,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
                       children: [{ path: 'editprofile', component: DashboardProfileComponent },
                                   { path: 'myorders', component: DashboardOrdersComponent },
-                                  { path: 'managelistings', component: DashboardListingsComponent },
+                                  { path: 'managelisting', component: DashboardListingsComponent },
                                   {path: '', component: DashboardProfileComponent} 
                                   ]},
   { path: '', redirectTo: '/listings', pathMatch: 'full' },
@@ -61,7 +62,8 @@ const routes: Routes = [
     SlotSelectorComponent,
     DashboardProfileFormComponent,
     DashboardListingsFormComponent,
-    ProductListFilterComponent
+    ProductListFilterComponent,
+    SidebarComponent
   ],
   imports: [
     FormsModule,
