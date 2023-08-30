@@ -1,15 +1,16 @@
+
+
 <div class="content-box">
 
   <app-product-filter></app-product-filter>
 
   <!-- navigation bar starts -->
-  <nav class="nav navbar nav-underline justify-content-start navbar-dark bg-color">
-    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></a>
+  <nav class="nav navbar nav-underline justify-content-end navbar-dark bg-color">
+    <a class="nav-link active" style="margin-right: 5px;">Ratings <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
+    <a class="nav-link active" style="margin-right: 5px;">Paris <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
+
     <i class="fa-solid fa-ellipsis-vertical" style="color: white;"></i>
-
-    <a class="nav-link active border" style="margin: 10px;">Sort By: Ratings <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
-    <a class="nav-link active border" style="margin: 10px;">Location: Paris <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
-
+    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></a>
 
     <!-- to be removed start -->
 
@@ -47,8 +48,9 @@
   <section class="common-section blog-section">
 
     <div class="container my-5">
+      
       <div class="row g-5  ">
-
+        <h1>Listings</h1>
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let product of products">
           <div class="d-flex justify-content-center align-items-center">
             <div class="card" style="width: 18rem;">
