@@ -75,14 +75,20 @@ a{
     color: var( --bs-supporting-color);
 }
 
+.nav-link-custom{
+    color: var(--bs-main-color)!important;
+    font-weight: bold;
+}
+
 .nav-link{
     color: var(--bs-main-color)!important;
     font-weight: bold;
 }
 
-.nav-link:hover{
+.nav-link-custom:hover{
     color: var(--secondary-color) !important;
 }
+
 
 /*hero section style */
 

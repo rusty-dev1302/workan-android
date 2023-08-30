@@ -5,7 +5,7 @@
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end navbar-dark bg-color">
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown"
+      <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown"
         aria-expanded="false">Specialization: {{currentSubcategory||"All"}} </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown01">
         <li><a class="dropdown-item" *ngFor="let subcategory of subcategories" type="button"
@@ -13,7 +13,7 @@
       </ul>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-bs-toggle="dropdown"
+      <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown02" data-bs-toggle="dropdown"
         aria-expanded="false">Location: {{currentLocation||"All"}} </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown02">
         <li><a class="dropdown-item" type="button" *ngFor="let location of locations"
@@ -21,7 +21,7 @@
       </ul>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Sort
+      <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Sort
         By: Ratings </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown03">
         <li><a class="dropdown-item" href="#">Ratings</a></li>
@@ -29,7 +29,11 @@
         <li><a class="dropdown-item" href="#">Charges high to low</a></li>
       </ul>
     </li>
-    <a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup">Filters</a>
+    <a class="nav-link active border" style="margin-right: 10px;">Sort By: Ratings <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
+    <br>
+    <a class="nav-link active border">Location: Paris</a>
+    <br>
+    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup">Filters</a>
   </nav>
   <!-- navigation bar ends -->
 
