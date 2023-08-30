@@ -3,7 +3,8 @@
   <app-product-filter></app-product-filter>
 
   <!-- navigation bar starts -->
-  <nav class="nav navbar nav-underline justify-content-end navbar-dark bg-color">
+  <nav class="nav navbar nav-underline justify-content-start navbar-dark bg-color">
+    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i class="fa-solid fa-magnifying-glass" style="color: white;"></i></a>
     <li class="nav-item dropdown">
       <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown"
         aria-expanded="false">Specialization: {{currentSubcategory||"All"}} </a>
@@ -29,11 +30,8 @@
         <li><a class="dropdown-item" href="#">Charges high to low</a></li>
       </ul>
     </li>
-    <a class="nav-link active border" style="margin-right: 10px;">Sort By: Ratings <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
-    <br>
-    <a class="nav-link active border">Location: Paris</a>
-    <br>
-    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup">Filters</a>
+    <a class="nav-link active border" style="margin-right: 10px;margin-right: 10px;">Sort By: Ratings <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
+    <a class="nav-link active border" style="margin-right: 10px;margin-right: 10px;">Location: Paris</a>
   </nav>
   <!-- navigation bar ends -->
 
