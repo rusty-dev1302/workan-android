@@ -1,66 +1,24 @@
- <!-- Edit Photo Modal -->
- <div class="modal fade" id="changeProfilePicture" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="changeProfilePictureLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="changeProfilePictureLabel">Profile Photo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-          <section class="container">
-              <div class="row">
-      
-                  <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
-                      <div class="img-wrapper">
-                          <img alt="Profile Image" class="img-fluid" width="50%" src="assets/profile.png">
-                       <div class="img-overlay">
-                          <button class="btn" data-bs-toggle="modal" data-bs-target="#changeProfilePicture">Change</button>
-                       </div>
-                       </div>
-                  </div>
-      
-                  <div
-                      class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
-                      <h1 class=" text-capitalize fw-bolder text-white">
-                          Edit Profile
-                      </h1>
-                  </div>
-      
-              </div>
-          </section>
-          
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Edit Photo Modal Ends -->
 
 <div class="offcanvas offcanvas-start custom-side-bar" tabindex="-1" id="sidebarMain" aria-labelledby="sidebarMainLabel">
-    <div class="offcanvas-header" style="padding-bottom: 0;font-size: large;color: white;">
+    <div class="offcanvas-header" style="font-size: large;color: white;">
         <ul class="list-unstyled">
-            <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button"></li>
-            <li>{{email}}</li>
+            <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" type="button" routerLink="/dashboard/editprofile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
+            <li>{{firstName}} {{lastName}}</li>
             <li><span type="button" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
+            <li><hr class="style1"></li>
         </ul>
     </div>
-    <div class="offcanvas-body justify-content-center" style="padding-left: 20px;font-size: large;">
-
+    <div class="offcanvas-body justify-content-center" style="padding-top: 6px;padding-left: 20px;font-size: large;">
       <ul class="list-unstyled">
-        <li><hr class="style1"></li>
-        <li><span class="border p-2">L I S T I N G S</span><br><br></li>
-        <li><span type="button" routerLink="/listings">All Listings</span></li>
-        <li>Browse Categories</li>
+        <li><span class="p-2 border rounded">L I S T I N G S</span><br><br></li>
+        <li><span type="button" routerLink="/listings"  data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">All Listings</span></li>
+        <li><span type="button"  data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Browse Categories</span></li>
       </ul>
       
       <ul class="list-unstyled">
         <li><hr class="style1"></li>
-        <li><span class="border p-2">A C C O U N T</span><br><br></li>
-        <li><span type="button" routerLink="/dashboard/editprofile">Edit Profile</span></li>
-        <li><span type="button" routerLink="/dashboard/myorders">My Orders</span></li>
+        <li><span class="p-2 border rounded">A C C O U N T</span><br><br></li>
+        <li><span type="button" routerLink="/dashboard/myorders" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Orders</span></li>
       </ul>
 
       <!-- <ul class="list-unstyled">
@@ -83,11 +41,11 @@
       
       <ul class="list-unstyled">
         <li><hr class="style1"></li>
-        <li><span class="border p-2">P R O F E S S I O N A L</span><br><br></li>
-        <li><span type="button" routerLink="/dashboard/editprofile">Apply as Professional</span></li>
-        <li><span type="button" routerLink="/dashboard/editprofile">Manage Documents</span></li>
-        <li><span type="button" routerLink="/dashboard/managelisting">Manage Listing</span></li>
-        <li><span type="button" routerLink="/dashboard/editprofile">Orders Taken</span></li>
+        <li><span class="p-2 border rounded">P R O F E S S I O N A L</span><br><br></li>
+        <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Apply as Professional</span></li>
+        <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Manage Documents</span></li>
+        <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Manage Listing</span></li>
+        <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Orders Taken</span></li>
       </ul>
     </div>
     

@@ -11,21 +11,28 @@
 
 <div class="col-xl-12 col-md-12">
 
-    <div class="form-section">
+    <div class="form-section border rounded p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()">
 
             <div class="mb-3">
+
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h5>Email: <span>{{emailValue}}</span></h5>
+                            <img alt="Profile Image" class="img-fluid" width="10%" src="assets/profile.png" data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button">
+                            <h5><span>{{emailValue}}</span></h5>
                         </div>
-
                     </div>
                 </div>
+                <hr class="style1">
+
                 <div class="row">
+
+                    <div class="form-group">
+                        <h5>Personal Details <i class="fa-regular fa-pen-to-square"></i></h5>
+                    </div>
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
@@ -110,7 +117,7 @@
             </div>
 
             <!-- Edit buttons -->
-            <div class="mb-3" *ngIf="isProfileEditable">
+            <!-- <div class="mb-3" *ngIf="isProfileEditable">
                 <div class="row">
                     <div class="col-1">
                         <button type="submit" class="btn btn-danger">Save</button>
@@ -123,21 +130,23 @@
                         <button class="btn btn-danger" type="button" (click)="toggleProfileEdit()">{{ isProfileEditable == false ? 'Edit' : 'Cancel' }}</button>
                     </div>
                 </div>
-            </div>
-            
+            </div> -->
+
+
         </form>
         <!-- User Form Ends -->
     </div>
 
-    <div class="form-section" *ngIf="user.enabled">
+    <div class="form-section border rounded p-3 m-3" *ngIf="user.enabled">
 
         <!-- User Form Starts -->
         <form #editContact="ngForm" (ngSubmit)="submitContactDetail()">
             <div class="mb-3">
                 <div class="row">
                     <div class="col">
+
                         <div class="form-group">
-                            <h5>Contact Details</h5>
+                            <h5>Contact Details <i class="fa-regular fa-pen-to-square"></i></h5>
                         </div>
 
                     </div>
@@ -195,7 +204,7 @@
             </div>
 
             <!-- Edit buttons -->
-            <div class="mb-3" *ngIf="isContactEditable">
+            <!-- <div class="mb-3" *ngIf="isContactEditable">
                 <div class="row">
                     <div class="col-1">
                         <button type="submit" class="btn btn-danger">Save</button>
@@ -208,7 +217,7 @@
                         <button class="btn btn-danger" type="button" (click)="toggleContactEdit()">{{ isContactEditable == false ? 'Edit' : 'Cancel' }}</button>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
         </form>
         <!-- User Form Ends -->

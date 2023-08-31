@@ -9,7 +9,8 @@ import { KeycloakProfile } from 'keycloak-js';
 })
 export class SidebarComponent implements OnInit{
 
-  email: string = "";
+  firstName: string = "";
+  lastName: string = "";
   userProfile!: KeycloakProfile;
   isAuthenticated: boolean = false;
 
@@ -26,7 +27,8 @@ export class SidebarComponent implements OnInit{
       this.keycloakService.loadUserProfile().then(
         (userProfile) => {
             this.userProfile = userProfile;
-            this.email = this.userProfile.email!;
+            this.firstName = this.userProfile.firstName!;
+            this.lastName = this.userProfile.lastName!;
             console.log(this.userProfile)
         }
         );
