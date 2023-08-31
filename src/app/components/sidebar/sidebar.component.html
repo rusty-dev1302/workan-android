@@ -42,35 +42,27 @@
 <div class="offcanvas offcanvas-start custom-side-bar" tabindex="-1" id="sidebarMain" aria-labelledby="sidebarMainLabel">
     <div class="offcanvas-header" style="padding-bottom: 0;font-size: large;color: white;">
         <ul class="list-unstyled">
-            <li><img alt="Profile Image" class="img-fluid" width="30%" src="assets/profile.png" data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button"></li>
-            <li style="font-size: larger;"><b>Vaibhav Agochiya</b></li>
+            <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button"></li>
+            <li style="font-size: larger;">Vaibhav Agochiya</li>
             <li><span type="button">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
-            <li><hr class="style1"></li>
-            <li><span class="border p-2">P R O F E S S I O N A L</span></li>
         </ul>
     </div>
     <div class="offcanvas-body justify-content-center" style="padding-left: 20px;font-size: large;">
 
       <ul class="list-unstyled">
-        <li><span type="button" routerLink="/dashboard/editprofile">Apply As Professional</span></li>
-        <li><span type="button" routerLink="/dashboard/editprofile">Orders Taken</span></li>
-        <li><span type="button" routerLink="/dashboard/managelisting">Manage Listing</span></li>
         <li><hr class="style1"></li>
-        <li><span class="border p-2">A C C O U N T</span></li>
-      </ul>
-
-      <ul class="list-unstyled">
+        <li><span class="border p-2">A C C O U N T</span><br><br></li>
         <li><span type="button" routerLink="/dashboard/editprofile">Edit Profile</span></li>
         <li><span type="button" routerLink="/dashboard/myorders">My Orders</span></li>
-        <li><hr class="style1"></li>
-        <li><span class="border p-2">L I S T I N G S</span></li>
       </ul>
 
       <ul class="list-unstyled">
+        <li><hr class="style1"></li>
+        <li><span class="border p-2">L I S T I N G S</span><br><br></li>
         <li><span type="button" routerLink="/listings">All Listings</span></li>
+        <li>Browse Categories</li>
       </ul>
-      <ul class="list-unstyled">
-        <li><b>Top Categories:</b></li>
+      <!-- <ul class="list-unstyled">
         <li><span type="button" routerLink="/listings">Makeup</span></li>
         <li><span type="button" routerLink="/listings">Haircare</span></li>
         <li><span type="button" routerLink="/listings">Skincare</span></li>
@@ -85,6 +77,16 @@
         <li><span type="button" routerLink="/listings">Laptop Repair</span></li>
         <li><span type="button" routerLink="/listings">Phone Repair</span></li>
         <li><span type="button" routerLink="/listings">Electronics Miscellaneous</span></li>
+      </ul> -->
+
+      
+      <ul class="list-unstyled">
+        <li><hr class="style1"></li>
+        <li><span class="border p-2">P R O F E S S I O N A L</span><br><br></li>
+        <li><span type="button" routerLink="/dashboard/editprofile">Apply as Professional</span></li>
+        <li><span type="button" routerLink="/dashboard/editprofile">Manage Documents</span></li>
+        <li><span type="button" routerLink="/dashboard/managelisting">Manage Listing</span></li>
+        <li><span type="button" routerLink="/dashboard/editprofile">Orders Taken</span></li>
       </ul>
     </div>
     
