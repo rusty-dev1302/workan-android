@@ -43,8 +43,8 @@
     <div class="offcanvas-header" style="padding-bottom: 0;font-size: large;color: white;">
         <ul class="list-unstyled">
             <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button"></li>
-            <li style="font-size: larger;">Vaibhav Agochiya</li>
-            <li><span type="button">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
+            <li style="font-size: larger;">{{firstName}} {{lastName}}</li>
+            <li><span type="button" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
         </ul>
     </div>
     <div class="offcanvas-body justify-content-center" style="padding-left: 20px;font-size: large;">
