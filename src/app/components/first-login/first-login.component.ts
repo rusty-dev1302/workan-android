@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/common/customer';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
@@ -15,6 +16,7 @@ export class FirstLoginComponent implements OnInit{
   isProfessional: boolean =  false;
   isFirstLogin: boolean = false;
   user: Customer = constants.DEFAULT_CUSTOMER;
+  subscription!: Subscription;
 
   constructor(
     private userService: UserService,
@@ -22,7 +24,7 @@ export class FirstLoginComponent implements OnInit{
     ) {}
 
   ngOnInit(): void {
-    this.userService.getIsFirstLogin().subscribe(
+    this.subscription = this.userService.getIsFirstLogin().subscribe(
       (isFirstLogin) => {
         this.isFirstLogin = isFirstLogin;
         if(!this.isFirstLogin) {
@@ -62,5 +64,9 @@ export class FirstLoginComponent implements OnInit{
         }
         subscription.unsubscribe();
       });
+   }
+
+   ngOnDestroy() {
+    this.subscription.unsubscribe();
    }
 }
