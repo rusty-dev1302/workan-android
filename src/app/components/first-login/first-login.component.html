@@ -1,0 +1,31 @@
+<!--first login section-->
+
+<section class="services-section">
+    <div class="container text-center common-title fw-bold">
+        <h2 class="my-3 fw-normal ">Select Account Type</h2>
+        <hr class="w-25 mx-auto ">
+    </div>
+
+    <div class="container mt-5">
+        <div class="row g-5 ">
+            <div class="col-xxl-6 col-lg-6 col-12 ">
+                <div class="card-box border rounded-2 p-5 text-center" type="button" (click)="setAccountType('GENERAL')" [ngClass]="isProfessional==false ? 'shadow' : ''">
+                    <h2 class="common-heading">General Account</h2>
+                </div>
+            </div>
+
+            <div class="col-xxl-6 col-lg-6 col-12  ">
+                <div class=" card-box border rounded-2 p-5 text-center" type="button" (click)="setAccountType('PROFESSIONAL')" [ngClass]="isProfessional==true ? 'shadow' : ''">
+                    <h2 class="common-heading">Professional Account</h2>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+    <div class="container text-center p-5">
+        <button type="button" class="btn btn-success" (click)="submitAccountType()">Create!</button>
+    </div>
+
+</section>
+
+<!--first login section-->

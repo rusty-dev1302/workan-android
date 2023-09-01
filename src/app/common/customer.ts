@@ -11,6 +11,7 @@ export class Customer extends BaseResponse{
         public email: string,
         public languages: string[],
         public enabled: boolean,
+        public professional: boolean,
         state: string,
         message: string
     ) {

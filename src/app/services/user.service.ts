@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Customer } from '../common/customer';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ContactDetail } from '../common/contact-detail';
 import { constants } from 'src/environments/constants';
+import { KeycloakProfile } from 'keycloak-js';
+import { KeycloakService } from 'keycloak-angular';
 
 
 
@@ -13,8 +15,12 @@ import { constants } from 'src/environments/constants';
 export class UserService {
 
   private baseUrl = constants.API_SERVER+'/api/v1/customer';
+  private isFirstLogin$ = new Subject<boolean>();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private keycloakService: KeycloakService,
+    ) {}
 
   getUserByEmail(email: string): Observable<Customer> {
     const getUrl = `${this.baseUrl}/detail?email=${email}`;
@@ -35,5 +41,47 @@ export class UserService {
     const postUrl = `${this.baseUrl}/contact/save`;
     return this.httpClient.post<ContactDetail>(postUrl, contactDetail);
   }
+
+  getCurrentUserProfile(): Observable<KeycloakProfile> {
+    const result = new Observable<KeycloakProfile>((observer) => {
+      this.keycloakService.isLoggedIn().then(
+        (isLoggedIn) => {
+          if(isLoggedIn) {
+            this.keycloakService.loadUserProfile().then(
+              (userProfile) => {
+                observer.next(userProfile);
+              }
+            );
+          }
+        }
+      );
+    });
+    return result;
+  }
+
+  getIsFirstLogin(): Observable<boolean> {
+    return this.isFirstLogin$.asObservable();
+  }
   
+  updateFirstLogin() {
+    this.getCurrentUserProfile().subscribe(
+      (userProfile) => {
+        if(userProfile) {
+
+          this.getUserByEmail(userProfile.email!).subscribe(
+            (user) => {
+
+              if(user.state==constants.ERROR_STATE && user.message=='Customer does not exist') {
+                // user does not exist 
+                this.isFirstLogin$.next(true);
+              } else {
+                // user already exists 
+                this.isFirstLogin$.next(false);
+              }
+            }
+          );
+        }
+      }
+    );
+   }
 }

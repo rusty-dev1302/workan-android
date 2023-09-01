@@ -7,27 +7,29 @@
 </div> -->
 
 
-<!-- Edit Section start -->
-
+<!-- Edit Section starts -->
 <div class="col-xl-12 col-md-12">
 
     <div class="form-section border rounded p-3 m-3">
 
-        <!-- User Form Starts -->
         <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()">
 
             <div class="mb-3">
 
+                <!-- display profile and name  -->
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <img alt="Profile Image" class="img-fluid" width="10%" src="assets/profile.png" data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button">
+                            <img alt="Profile Image" class="img-fluid" width="10%" src="assets/profile.png"
+                                data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button">
+                            <h5><span>{{firstNameValue}} {{lastNameValue}}</span></h5>
                             <h5><span>{{emailValue}}</span></h5>
                         </div>
                     </div>
                 </div>
                 <hr class="style1">
 
+                <!-- User Form Starts -->
                 <div class="row">
 
                     <div class="form-group">
@@ -37,8 +39,9 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label for="firstName">First Name</label>
-                            <input  #firstName="ngModel" required [(ngModel)]="user.firstName" minlength="3" maxlength="15" name="firstName"
-                                id="firstName" type="text" class="form-control" [readonly]="!isProfileEditable" autocomplete="off">
+                            <input #firstName="ngModel" required [(ngModel)]="user.firstName" minlength="3"
+                                maxlength="15" name="firstName" id="firstName" type="text" class="form-control"
+                                [readonly]="!isProfileEditable" autocomplete="off">
                             <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
                                 <div *ngIf="firstName.errors?.required">First Name is required.</div>
                                 <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
@@ -49,7 +52,8 @@
                         <div class="form-group">
                             <label for="lastName">Last Name</label>
                             <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15" name="lastName"
-                                id="lastName" type="text" class="form-control" [readonly]="!isProfileEditable" autocomplete="off">
+                                id="lastName" type="text" class="form-control" [readonly]="!isProfileEditable"
+                                autocomplete="off">
                             <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
                                 <div *ngIf="firstName.errors?.required">First Name is required.</div>
                                 <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
@@ -68,26 +72,34 @@
                             <label>Gender</label>
                         </div>
                         <div class="input-group mb-3 dropdown">
-                            <input type="text" class="form-control" [style]="isProfileEditable?'background-color: white':''" [ngModel]="user.gender" name="user.gender" readonly>
-                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isProfileEditable">
-                            Select
+                            <input type="text" class="form-control"
+                                [style]="isProfileEditable?'background-color: white':''" [ngModel]="user.gender"
+                                name="user.gender" readonly>
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                [disabled]="!isProfileEditable">
+                                Select
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" (click)="editGender('Male')">Male</a></li>
                                 <li><a class="dropdown-item" (click)="editGender('Female')">Female</a></li>
-                              </ul>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
                             <label>Languages</label>
-                            
+
                         </div>
                         <div class="input-group mb-3 dropdown">
-                            <input type="text" class="form-control" [style]="isProfileEditable?'background-color: white':''" [ngModel]="user.languages" name="user.languages" readonly>
-                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" [disabled]="!isProfileEditable">
-                            Select
+                            <input type="text" class="form-control"
+                                [style]="isProfileEditable?'background-color: white':''" [ngModel]="user.languages"
+                                name="user.languages" readonly>
+                            <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
+                                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                [disabled]="!isProfileEditable">
+                                Select
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" (click)="addLanguage('Clear All')">Clear All</a></li>
@@ -97,15 +109,16 @@
                                 <li><a class="dropdown-item" (click)="addLanguage('Cantonese')">Cantonese</a></li>
                                 <li><a class="dropdown-item" (click)="addLanguage('Punjabi')">Punjabi</a></li>
                                 <li><a class="dropdown-item" (click)="addLanguage('Hindi')">Hindi</a></li>
-                              </ul>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
                             <label for="mobile">Mobile</label>
-                            <input required #mobile="ngModel" [(ngModel)]="user.mobile" minlength="3" maxlength="15" name="mobile"
-                                id="mobile" type="number" class="form-control" [readonly]="!isProfileEditable" autocomplete="off">
+                            <input required #mobile="ngModel" [(ngModel)]="user.mobile" minlength="3" maxlength="15"
+                                name="mobile" id="mobile" type="number" class="form-control"
+                                [readonly]="!isProfileEditable" autocomplete="off">
                             <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">
                                 {{mobile.errors}}
                                 <!-- <div *ngIf="mobile.errors?.minlength">Min length should be 3.</div> -->
@@ -156,22 +169,25 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="address1">Address Line 1</label>
-                            <input required [(ngModel)]="contactDetail.addressLine1" #address1="ngModel" minlength="3" maxlength="50" name="address1"
-                                id="address1" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
+                            <input required [(ngModel)]="contactDetail.addressLine1" #address1="ngModel" minlength="3"
+                                maxlength="50" name="address1" id="address1" type="text" class="form-control"
+                                [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="address2">Address Line 2</label>
-                            <input required [(ngModel)]="contactDetail.addressLine2" #address2="ngModel" maxlength="50" name="address2"
-                                id="address2" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
+                            <input required [(ngModel)]="contactDetail.addressLine2" #address2="ngModel" maxlength="50"
+                                name="address2" id="address2" type="text" class="form-control"
+                                [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="address3">Address Line 3</label>
-                            <input required [(ngModel)]="contactDetail.addressLine3" #address3="ngModel" maxlength="50" name="address3"
-                                id="address3" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
+                            <input required [(ngModel)]="contactDetail.addressLine3" #address3="ngModel" maxlength="50"
+                                name="address3" id="address3" type="text" class="form-control"
+                                [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
 
@@ -184,8 +200,9 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input required [(ngModel)]="contactDetail.city" #city="ngModel" minlength="3" maxlength="15" name="city" id="city"
-                                type="text" class="form-control" [readonly]="!isContactEditable">
+                            <input required [(ngModel)]="contactDetail.city" #city="ngModel" minlength="3"
+                                maxlength="15" name="city" id="city" type="text" class="form-control"
+                                [readonly]="!isContactEditable">
                             <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
                                 <div *ngIf="firstName.errors?.required">First Name is required.</div>
                                 <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
@@ -195,8 +212,9 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="pincode">Pincode</label>
-                            <input required [(ngModel)]="contactDetail.pincode" #pincode="ngModel" minlength="3" maxlength="15" name="pincode"
-                                id="pincode" type="text" class="form-control" [readonly]="!isContactEditable" autocomplete="off">
+                            <input required [(ngModel)]="contactDetail.pincode" #pincode="ngModel" minlength="3"
+                                maxlength="15" name="pincode" id="pincode" type="text" class="form-control"
+                                [readonly]="!isContactEditable" autocomplete="off">
                         </div>
                     </div>
 
@@ -218,20 +236,20 @@
                     </div>
                 </div>
             </div> -->
-            
+
         </form>
         <!-- User Form Ends -->
     </div>
 </div>
+<!-- Edit Section ends -->
 
 <script>
-    $('#customfileinput').on('change', function(){
-        files = $(this)[0].files; 
-        name = ''; 
-        for(var i = 0; i < files.length; i++){
-            name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); 
-        } 
+    $('#customfileinput').on('change', function () {
+        files = $(this)[0].files;
+        name = '';
+        for (var i = 0; i < files.length; i++) {
+            name += '\"' + files[i].name + '\"' + (i != files.length - 1 ? ", " : "");
+        }
         $(".custom-file-label").html(name);
     })
 </script>
-

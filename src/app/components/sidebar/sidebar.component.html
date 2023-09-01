@@ -2,13 +2,12 @@
 <div class="offcanvas offcanvas-start custom-side-bar" tabindex="-1" id="sidebarMain" aria-labelledby="sidebarMainLabel">
     <div class="offcanvas-header" style="font-size: large;color: white;">
         <ul class="list-unstyled">
-            <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" type="button" routerLink="/dashboard/editprofile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
-            <li>{{firstName}} {{lastName}}</li>
-            <li><span type="button" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
+            <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
+            <li src="assets/profile.png" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">{{firstName}} {{lastName}}</li>
             <li><hr class="style1"></li>
         </ul>
     </div>
-    <div class="offcanvas-body justify-content-center" style="padding-top: 6px;padding-left: 20px;font-size: large;">
+    <div class="offcanvas-body justify-content-center" style="padding-top: 7px;padding-left: 20px;font-size: large;">
       <ul class="list-unstyled">
         <li><span class="p-2 border rounded">L I S T I N G S</span><br><br></li>
         <li><span type="button" routerLink="/listings"  data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">All Listings</span></li>
@@ -21,24 +20,7 @@
         <li><span type="button" routerLink="/dashboard/myorders" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Orders</span></li>
       </ul>
 
-      <!-- <ul class="list-unstyled">
-        <li><span type="button" routerLink="/listings">Makeup</span></li>
-        <li><span type="button" routerLink="/listings">Haircare</span></li>
-        <li><span type="button" routerLink="/listings">Skincare</span></li>
-        <li><span type="button" routerLink="/listings">Nailcare</span></li>
-        <li><span type="button" routerLink="/listings">Physiotherapy</span></li>
-        <li><span type="button" routerLink="/listings">Chiropathy</span></li>
-        <li><span type="button" routerLink="/listings">Selfcare Miscellaneous</span></li>
-        <li><span type="button" routerLink="/listings">Electricals</span></li>
-        <li><span type="button" routerLink="/listings">Home Renovation</span></li>
-        <li><span type="button" routerLink="/listings">Furniture Assembly</span></li>
-        <li><span type="button" routerLink="/listings">Home Miscellaneous</span></li>
-        <li><span type="button" routerLink="/listings">Laptop Repair</span></li>
-        <li><span type="button" routerLink="/listings">Phone Repair</span></li>
-        <li><span type="button" routerLink="/listings">Electronics Miscellaneous</span></li>
-      </ul> -->
-
-      
+      <!-- professional section starts -->
       <ul class="list-unstyled">
         <li><hr class="style1"></li>
         <li><span class="p-2 border rounded">P R O F E S S I O N A L</span><br><br></li>
@@ -47,6 +29,12 @@
         <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Manage Listing</span></li>
         <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Orders Taken</span></li>
       </ul>
+      <!-- professional section ends -->
+
+      <ul class="list-unstyled sidebar-footer">
+        <li><hr class="style1"></li>
+        <li><span type="button" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
+      </ul>
+
     </div>
-    
 </div>

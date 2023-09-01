@@ -1,5 +1,6 @@
 export const constants = {
   API_SERVER: "http://localhost:8081",
+  SUCCESS_STATE: "SUCCESS",
   ERROR_STATE: "ERROR",
   DEFAULT_CUSTOMER: {
     id: 0,
@@ -11,7 +12,8 @@ export const constants = {
     languages: [],
     state: "",
     message: "",
-    enabled: false
+    enabled: false,
+    professional: false
   },
   DEFAULT_LISTING: {
     id: 0,
@@ -28,7 +30,8 @@ export const constants = {
       languages: [],
       state: "",
       message: "",
-      enabled: false
+      enabled: false,
+      professional: false
     },
     subCategoryName: "",
     subCategory: {

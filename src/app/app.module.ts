@@ -25,6 +25,7 @@ import { DashboardListingsFormComponent } from './components/dashboard-listings-
 import { UserService } from './services/user.service';
 import { ProductListFilterComponent } from './components/product-list-filter/product-list-filter.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { FirstLoginComponent } from './components/first-login/first-login.component';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -33,12 +34,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 // }
 
 const routes: Routes = [
+  { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard]},
   { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard]},
   { path: 'listings/:subcategory/:location', component: ProductListComponent, canActivate: [AuthGuard]},
   { path: 'listings', component: ProductListComponent, canActivate: [AuthGuard]},
   { path: 'professional/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
-                      children: [{ path: 'editprofile', component: DashboardProfileComponent },
+                      children: [{ path: 'profile', component: DashboardProfileComponent },
                                   { path: 'myorders', component: DashboardOrdersComponent },
                                   { path: 'managelisting', component: DashboardListingsComponent },
                                   {path: '', component: DashboardProfileComponent} 
@@ -63,7 +65,8 @@ const routes: Routes = [
     DashboardProfileFormComponent,
     DashboardListingsFormComponent,
     ProductListFilterComponent,
-    SidebarComponent
+    SidebarComponent,
+    FirstLoginComponent
   ],
   imports: [
     FormsModule,

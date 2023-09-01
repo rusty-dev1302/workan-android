@@ -15,4 +15,10 @@
     width: 100%;
 }
 
+.sidebar-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 /* Sidebar related styles end */
