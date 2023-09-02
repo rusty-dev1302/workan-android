@@ -1,10 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-color">
   <div class="container-fluid d-flex justify-content-start">
-    <div data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">
-      <i *ngIf="!isFirstLogin" class="fa-solid fa-bars px-2" style="color: white;font-size: larger;" type="button">
-      </i>
-    </div>
-    <a class="navbar-brand"><img src="assets/workan.png"></a>
+    <a *ngIf="isFirstLogin" class="navbar-brand"><img src="assets/workan.png"></a>
+    <a *ngIf="!isFirstLogin" class="navbar-brand" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"><img src="assets/workan.png"></a>
   </div>
 </nav>
 

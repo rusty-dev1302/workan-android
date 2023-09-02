@@ -438,3 +438,25 @@ button, a{
 hr.style1{
 	border-top: 1px solid #8c8b8b;
 }
+
+.img-wrapper {
+    position: relative;
+    width: 100%;
+    text-align: left;
+   }
+  
+  .img-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    text-align: center;
+  }
+  
+  .img-overlay:before {
+    content: ' ';
+    display: block;
+    /* adjust 'height' to position overlay content vertically */
+    height: 75%;
+  }

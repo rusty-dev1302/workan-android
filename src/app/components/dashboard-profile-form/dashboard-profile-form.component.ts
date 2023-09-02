@@ -22,8 +22,6 @@ export class DashboardProfileFormComponent implements OnInit{
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
 
   profilePhoto: any;
-  firstNameValue: string = "";
-  lastNameValue: string = "";
   genderValue: string = "";
   mobileValue: string = "";
   emailValue: string = "";

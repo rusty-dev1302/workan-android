@@ -18,12 +18,15 @@
 
                 <!-- display profile and name  -->
                 <div class="row">
-                    <div class="col">
+                    <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
+                        <div class="img-wrapper">
+                          <img alt="Profile Image" class="img-fluid" width="50%" src="assets/profile.png">
+                          <div class="img-overlay">
+                            <i class="fa-solid fa-pen-to-square" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
+                          </div>
+                        </div>
                         <div class="form-group">
-                            <img alt="Profile Image" class="img-fluid" width="10%" src="assets/profile.png"
-                                data-bs-toggle="modal" data-bs-target="#changeProfilePicture" type="button">
-                            <h5><span>{{firstNameValue}} {{lastNameValue}}</span></h5>
-                            <h5><span>{{emailValue}}</span></h5>
+                            <h4>{{user.firstName}} {{user.lastName}}</h4>
                         </div>
                     </div>
                 </div>
