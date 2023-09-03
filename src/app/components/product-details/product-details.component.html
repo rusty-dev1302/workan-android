@@ -28,7 +28,7 @@
                     <!-- display profile and name  -->
                     <div class="row">
                       <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
-                        <img alt="Profile Image" class="img-fluid" src="assets/profile.png">
+                        <img alt="Profile Image" class="img-fluid" width="70%" src="assets/profile.png">
                       </div>
                       <div class="col-12">
                         <div class="form-group">
@@ -75,20 +75,15 @@
                           <h5> English, French, Hindi</h5>
                         </div>
                       </div>
+                      <hr class="style1">
 
+                      <div class="col-12">
+                        <button class="btn btn-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#slotSelectorModal">Book A Slot</button>
+                      </div>
                     </div>
                   </div>
-
                 </form>
-                <hr class="style1">
-
                 <!-- User Form Ends -->
-              </div>
-
-              <div class="form-section border rounded p-3 m-3">
-
-                <app-slot-selector></app-slot-selector>
-
               </div>
             </div>
 
@@ -217,3 +212,29 @@
   </section>
 
   <!-- main section ends  -->
+
+
+
+  <!-- Modal section begins -->
+
+  <!-- Slot Selector Modal -->
+<div class="modal fade" id="slotSelectorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="slotSelectorModalLabel">Select A Slot</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-section p-3 m-3">
+            <app-slot-selector></app-slot-selector>
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Slot Selector Modal Ends -->
+
+
+  <!-- Modals section ends -->
