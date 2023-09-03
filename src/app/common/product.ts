@@ -1,20 +1,17 @@
-import { Professional } from "./professional";
+import { BaseResponse } from "./base-response";
 
-export class Product {
+export class Product extends BaseResponse{
     constructor(
         public id: number,
         public charges: number,
         public chargesType: string,
-        public professionalId: number,
-        public subCategoryName: string,
-        public subCategory: SubCategory,
         public professionalEmail: string,
-        public location: string
+        public subCategoryName: string,
+        public location: string,
+        public professionalId: number,
+        state: string,
+        message: string
     ) {
-        
+        super(state, message);
     }
 }
-
-interface SubCategory {
-    subCategoryName: string;
-  }

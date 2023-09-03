@@ -32,10 +32,6 @@
                             <label for="subCategoryName">Speciality</label>
                             <input  #subCategoryName="ngModel" required [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15" name="subCategoryName"
                                 id="subCategoryName" type="text" class="form-control" [readonly]="!isEditable">
-                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
@@ -43,10 +39,6 @@
                             <label for="location">Location</label>
                             <input #location="ngModel" required [(ngModel)]="listing.location" minlength="3" maxlength="15" name="location"
                                 id="location" type="text" class="form-control" [readonly]="!isEditable">
-                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                            </div> -->
                         </div>
                     </div>
 
@@ -61,10 +53,6 @@
                             <label for="chargesType">Charges Type</label>
                             <input  #chargesType="ngModel" required [(ngModel)]="listing.chargesType" minlength="3" maxlength="15" name="chargesType"
                                 id="chargesType" type="text" class="form-control" [readonly]="!isEditable">
-                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
@@ -72,10 +60,6 @@
                             <label for="charges">Charges</label>
                             <input #charges required [(ngModel)]="listing.charges" minlength="3" maxlength="15" name="charges"
                                 id="charges" type="text" class="form-control" [readonly]="!isEditable">
-                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                            </div> -->
                         </div>
                     </div>
 

@@ -56,12 +56,10 @@ export class DashboardListingsFormComponent implements OnInit{
 
   
   onClickSubmit() {
+    this.listing.professionalEmail = this.emailValue;
     this.productService.saveProduct(this.listing).subscribe(
       (data)=>{
-        this.listing = data;
-        console.log("listing: "+this.listing.subCategoryName);
-        console.log("data: "+data.subCategoryName);
-
+        this.loadFormValues();
         this.isEditable = false;
       }
     );

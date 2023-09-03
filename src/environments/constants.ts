@@ -22,6 +22,8 @@ export const constants = {
     professionalEmail: "",
     professionalId: 0,
     subCategoryName: "",
+    state: "",
+    message: "",
     subCategory: {
       subCategoryName: ""
     },
