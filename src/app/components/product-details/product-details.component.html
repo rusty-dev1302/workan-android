@@ -1,271 +1,219 @@
 <div class="content-box">
   <nav class="nav navbar ms-auto nav-underline navbar-dark bg-color">
-  <a class="nav-link-custom nav-link fa fa-arrow-left" href="#"></a>
-</nav>
+    <a class="nav-link-custom nav-link fa fa-arrow-left" href="#"></a>
+  </nav>
 
 
-<!-- Profile Section Starts  -->
+  <!-- main section starts  -->
 
-<div class="col-xl-12 col-md-12">
+  <section class="common-section business-section" id="online_services">
 
-  <div class="form-section border rounded p-3 m-3">
+    <div class="container">
+      <!-- <h1>Profile</h1> -->
+      <div class="row g-5">
+        <div class="col-xl-12 col-md-12 ">
+          <!-- dashboard-profile-form panel starts -->
+          <div class="row g-5">
 
-      <form>
+            <!-- user profile starts  -->
 
-          <div class="mb-3">
+            <div class="col-xl-6 col-md-6">
 
-              <!-- display profile and name  -->
-              <div class="row">
-                  <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
-                      <div class="img-wrapper">
-                          <img alt="Profile Image" class="img-fluid" width="50%" src="assets/profile.png">
-                          <div class="img-overlay">
-                              <i class="fa-solid fa-pen-to-square" type="button" data-bs-toggle="modal"
-                                  data-bs-target="#profilePhotoModal"></i>
-                          </div>
+              <div class="form-section p-3 m-3">
+
+                <form>
+
+                  <div class="mb-3">
+
+                    <!-- display profile and name  -->
+                    <div class="row">
+                      <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
+                        <img alt="Profile Image" class="img-fluid" src="assets/profile.png">
                       </div>
-                  </div>
-              </div>
-              <hr class="style1">
-
-              <!-- User Form Starts -->
-              <div class="row">
-
-                  <div class="form-group">
-                      <h4>Personal Details <i class="fa-regular fa-pen-to-square" type="button" data-bs-toggle="modal"
-                              data-bs-target="#personalDetailsModal"></i></h4>
-                  </div>
-
-                  <div class="col-xxl-6 col-lg-6 col-12">
-                      <div class="form-group">
-                          <label for="firstName">Name</label>
-                          <h5> </h5>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <h4> Vaibhav Agochiya</h4>
+                        </div>
                       </div>
-                  </div>
-                  <div class="col-xxl-6 col-lg-6 col-12">
-                      <div class="form-group">
-                          <label for="firstName">Email</label>
-                          <h5> </h5>
+                    </div>
+                    <hr class="style1">
+
+                    <!-- User Form Starts -->
+                    <div class="row">
+
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="firstName">Charges (Per Visit)</label>
+                          <h5> 20 CAD</h5>
+                        </div>
                       </div>
-                  </div>
 
-              </div>
-          </div>
-
-          <div class="mb-3">
-              <div class="row">
-
-                  <div class="col">
-                      <div class="form-group">
-                          <label>Gender</label>
-                          <h5> </h5>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="firstName">Location</label>
+                          <h5> Vancouver</h5>
+                        </div>
                       </div>
-                  </div>
 
-                  <div class="col">
-                      <div class="form-group">
-                          <label for="mobile">Mobile</label>
-                          <h5> </h5>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="firstName">Speciality</label>
+                          <h5> Mobile Repairing</h5>
+                        </div>
                       </div>
-                  </div>
 
-                  <div class="col">
-                      <div class="form-group">
-                          <label>Languages</label>
-                          <h5> </h5>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="firstName">Experience</label>
+                          <h5> 5 Years</h5>
+                        </div>
                       </div>
+
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="firstName">Languages</label>
+                          <h5> English, French, Hindi</h5>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
 
+                </form>
+                <hr class="style1">
+
+                <!-- User Form Ends -->
               </div>
-          </div>
-      </form>
-      <!-- User Form Ends -->
-  </div>
-</div>
 
-<!-- Profile Section Ends  -->
+              <div class="form-section border rounded p-3 m-3">
 
-<!--Divider section-->
+                <app-slot-selector></app-slot-selector>
 
-<section class="bg-color py-2">
-  <section class="container ">
-    <div class="row">
-      <div
-        class="d-flex flex-column align-items-start justify-content-center col-xl-12 xol-lg-6 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
-        <h1 class=" text-capitalize fw-bolder text-white">
-          Available Slots
-        </h1>
-      </div>
-    </div>
-  </section>
-</section>
-
-<!--Divider section end -->
-
-<!-- Profile Section Starts  -->
-
-<div class="col-xl-12 col-md-12">
-  <div class="form-section border rounded p-3 m-3">
-
-    <app-slot-selector></app-slot-selector>
-      
-  </div>
-</div>
-
-<!-- Profile Section Ends  -->
-
-
-<!--Divider section-->
-
-<section class="bg-color py-2">
-  <section class="container ">
-    <div class="row">
-      <div
-        class="d-flex flex-column align-items-start justify-content-center col-xl-12 xol-lg-6 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
-        <h1 class=" text-capitalize fw-bolder text-white">
-          Ratings And Reviews
-        </h1>
-      </div>
-    </div>
-  </section>
-</section>
-
-<!--Divider section end -->
-
-<!-- Reviews Section Starts  -->
-
-<section class="common-section business-section" id="online_services">
-
-  <div class="container">
-    <div class="row g-5">
-      <div class="col-xl-12 col-md-12 ">
-        <!-- Ratings panel starts -->
-        <div class="row g-5">
-          <!-- Rating card start -->
-          <div class="card p-3">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2 class="review-count">Total Reviews</h2>
-              <h2 class="review-count">Rating</h2>
-
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center">
-              <h4 class="review-count">102</h4>
-              <h4 class="review-count">4.2</h4>
-            </div>
-
-            <div class="mt-1 d-flex justify-content-between align-items-center">
-              <div class="ratings">
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star"></i>
               </div>
-              <h5 class="review-stat">25%</h5>
             </div>
 
-            <div class="mt-1 d-flex justify-content-between align-items-center">
-              <div class="ratings">
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <h5 class="review-stat">25%</h5>
-            </div>
+            <!-- user profile ends  -->
 
-            <div class="mt-1 d-flex justify-content-between align-items-center">
-              <div class="ratings">
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="far fa-star rating-color"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <h5 class="review-stat">25%</h5>
-            </div>
 
-            <div class="mt-1 d-flex justify-content-between align-items-center">
-              <div class="ratings">
-                <i class="fa fa-star rating-color"></i>
-                <i class="fa fa-star rating-color"></i>
-                <i class="far fa-star rating-color"></i>
-                <i class="far fa-star rating-color"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <h5 class="review-stat">25%</h5>
-            </div>
 
-            <div class="mt-1 d-flex justify-content-between align-items-center">
-              <div class="ratings">
-                <i class="fa fa-star rating-color"></i>
-                <i class="far fa-star rating-color"></i>
-                <i class="far fa-star rating-color"></i>
-                <i class="far fa-star rating-color"></i>
-                <i class="far fa-star"></i>
-              </div>
-              <h5 class="review-stat">25%</h5>
-            </div>
+            <!-- review section starts  -->
+            <div class="col-xl-6 col-md-6 border" style="max-height: 900px;overflow-y: scroll;">
+              <!-- Ratings panel starts -->
+              <div class="row g-5">
+                <div class="col-12">
+                  <!-- Rating card start -->
+                  <div class="p-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h2 class="review-count">Total Reviews</h2>
+                      <h2 class="review-count">Rating</h2>
 
-          </div>
-          <!-- Rating card end -->
+                    </div>
 
-          <!-- Ratings start -->
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="review-count">102</h4>
+                      <h4 class="review-count">4.2</h4>
+                    </div>
 
-          <div class="col-xl-12 col-md-12 ">
-            <div class="d-flex px-3 py-5 shadow ">
-              <img alt="GIF Image" class=" d-md-block d-none  img-fluid mx-3" src="assets/profile.png" width="150px">
-              <div class="row ">
-                <p class="mb-3 fw-bolder">Content Marketing </p>
-                <div class="ratings">
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="far fa-star rating-color"></i>
-                  <i class="far fa-star rating-color"></i>
-                  <i class="far fa-star rating-color"></i>
-                  <i class="far fa-star"></i>
+                    <div class="mt-1 d-flex justify-content-between align-items-center">
+                      <div class="ratings">
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <h5 class="review-stat">25%</h5>
+                    </div>
+
+                    <div class="mt-1 d-flex justify-content-between align-items-center">
+                      <div class="ratings">
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <h5 class="review-stat">25%</h5>
+                    </div>
+
+                    <div class="mt-1 d-flex justify-content-between align-items-center">
+                      <div class="ratings">
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <h5 class="review-stat">25%</h5>
+                    </div>
+
+                    <div class="mt-1 d-flex justify-content-between align-items-center">
+                      <div class="ratings">
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <h5 class="review-stat">25%</h5>
+                    </div>
+
+                    <div class="mt-1 d-flex justify-content-between align-items-center">
+                      <div class="ratings">
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <h5 class="review-stat">25%</h5>
+                    </div>
+
+                  </div>
+                  <!-- Rating card end -->
                 </div>
-                <p>Publish valuable and optimized content on your website's blog. Attract organic traffic,
-                  position your brand as an authority, and encourage visitors to engage and make a
-                  purchase. </p>
-              </div>
-            </div>
-            <div class="d-flex  px-3 py-5 shadow ">
-              <img alt="GIF Image" class=" d-md-block d-none  img-fluid mx-3" src="assets/profile.png" width="150px">
+                <!-- Ratings end -->
 
-              <div class="row ">
-                <p class="mb-3 fw-bolder">Content Marketing </p>
-                <div class="ratings">
-                  <i class="fa fa-star rating-color"></i>
-                  <i class="far fa-star rating-color"></i>
-                  <i class="far fa-star rating-color"></i>
-                  <i class="far fa-star rating-color"></i>
-                  <i class="far fa-star"></i>
+                <!-- start of card section (to be iterated over reviews)  -->
+                <div class="col-12">
+                  <div class="card shadow p-3">
+                    <div class="row">
+                      <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
+                        <img alt="Profile Image" class="img-fluid" width="50%" src="assets/profile.png">
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <h4> Vaibhav Agochiya</h4>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row ">
+                      <div class="ratings">
+                        <i class="fa fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star rating-color"></i>
+                        <i class="far fa-star"></i>
+                      </div>
+                      <p>Publish valuable and optimized content on your website's blog. Attract organic traffic,
+                        position your brand as an authority, and encourage visitors to engage and make a
+                        purchase. </p>
+                    </div>
+                  </div>
                 </div>
-                <p>Publish valuable and optimized content on your website's blog. Attract organic traffic,
-                  position your brand as an authority, and encourage visitors to engage and make a
-                  purchase. </p>
+                <!-- end of card section (to be iterated over reviews) -->
+
               </div>
+              <!-- Ratings panel ends -->
+
+
             </div>
+            <!-- review section ends  -->
           </div>
-
-          <!-- Ratings start -->
-
         </div>
-        <!-- Ratings panel ends -->
-
-
       </div>
-
-
-
-
-
     </div>
-  </div>
 
-</section>
+  </section>
 
-<!-- Reviews Section Ends  -->
-</div>
+  <!-- main section ends  -->
