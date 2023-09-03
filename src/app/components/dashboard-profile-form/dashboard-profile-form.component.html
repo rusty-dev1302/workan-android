@@ -26,9 +26,6 @@
                                     data-bs-target="#profilePhotoModal"></i>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <h4>{{user.firstName}} {{user.lastName}}</h4>
-                        </div>
                     </div>
                 </div>
                 <hr class="style1">
@@ -37,15 +34,20 @@
                 <div class="row">
 
                     <div class="form-group">
-                        <h5>Personal Details <i class="fa-regular fa-pen-to-square" 
-                                type="button" data-bs-toggle="modal"
-                                data-bs-target="#personalDetailsModal"></i></h5>
+                        <h4>Personal Details <i class="fa-regular fa-pen-to-square" type="button" data-bs-toggle="modal"
+                                data-bs-target="#personalDetailsModal"></i></h4>
                     </div>
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label for="firstName">Name</label>
-                            <h5>{{user.firstName}} {{user.lastName}}</h5>
+                            <h5>{{displayUser.firstName}} {{displayUser.lastName}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label for="firstName">Email</label>
+                            <h5>{{displayUser.email}}</h5>
                         </div>
                     </div>
 
@@ -58,21 +60,21 @@
                     <div class="col">
                         <div class="form-group">
                             <label>Gender</label>
-                            <h5>{{user.gender}}</h5>
+                            <h5>{{displayUser.gender}}</h5>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
                             <label for="mobile">Mobile</label>
-                            <h5>{{user.mobile}}</h5>
+                            <h5>{{displayUser.mobile}}</h5>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
                             <label>Languages</label>
-                            <h5>{{user.languages}}</h5>
+                            <h5>{{displayUser.languages}}</h5>
                         </div>
                     </div>
 
@@ -82,44 +84,39 @@
         <!-- User Form Ends -->
     </div>
 
-    <div class="form-section border rounded p-3 m-3" *ngIf="user.enabled">
+    <div class="form-section border rounded p-3 m-3">
 
-        <!-- User Form Starts -->
-        <form #editContact="ngForm" (ngSubmit)="submitContactDetail()">
+        <!-- Contact Form Starts -->
+        <form>
             <div class="mb-3">
                 <div class="row">
                     <div class="col">
 
                         <div class="form-group">
-                            <h5>Contact Details <i class="fa-regular fa-pen-to-square"></i></h5>
+                            <h4>Contact Details <i class="fa-regular fa-pen-to-square" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#contactDetailsModal"></i></h4>
                         </div>
 
                     </div>
                 </div>
                 <div class="row">
 
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="address1">Address Line 1</label>
-                            <input required [(ngModel)]="contactDetail.addressLine1" #address1="ngModel" minlength="3"
-                                maxlength="50" name="address1" id="address1" type="text" class="form-control"
-                                autocomplete="off">
+                            <h5>{{displayContact.addressLine1}}</h5>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="address2">Address Line 2</label>
-                            <input required [(ngModel)]="contactDetail.addressLine2" #address2="ngModel" maxlength="50"
-                                name="address2" id="address2" type="text" class="form-control"
-                                 autocomplete="off">
+                            <h5>{{displayContact.addressLine2}}</h5>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-12">
                         <div class="form-group">
                             <label for="address3">Address Line 3</label>
-                            <input required [(ngModel)]="contactDetail.addressLine3" #address3="ngModel" maxlength="50"
-                                name="address3" id="address3" type="text" class="form-control"
-                                 autocomplete="off">
+                            <h5>{{displayContact.addressLine3}}</h5>
                         </div>
                     </div>
 
@@ -132,45 +129,21 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="city">City</label>
-                            <input required [(ngModel)]="contactDetail.city" #city="ngModel" minlength="3"
-                                maxlength="15" name="city" id="city" type="text" class="form-control"
-                                >
-                            <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                            </div> -->
+                            <h5>{{displayContact.city}}</h5>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
                             <label for="pincode">Pincode</label>
-                            <input required [(ngModel)]="contactDetail.pincode" #pincode="ngModel" minlength="3"
-                                maxlength="15" name="pincode" id="pincode" type="text" class="form-control"
-                                 autocomplete="off">
+                            <h5>{{displayContact.pincode}}</h5>
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- Edit buttons -->
-            <!-- <div class="mb-3" *ngIf="isContactEditable">
-                <div class="row">
-                    <div class="col-1">
-                        <button type="submit" class="btn btn-danger">Save</button>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-1">
-                        <button class="btn btn-danger" type="button" (click)="toggleContactEdit()">{{ isContactEditable == false ? 'Edit' : 'Cancel' }}</button>
-                    </div>
-                </div>
-            </div> -->
-
         </form>
-        <!-- User Form Ends -->
+        <!-- Contact Form Ends -->
     </div>
 </div>
 <!-- Edit Section ends -->
@@ -178,140 +151,255 @@
 <!-- MODALS START  -->
 <!-- Personal Details Modal -->
 <div class="modal fade" id="personalDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="personalDetailsModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="personalDetailsModalLabel">Personal Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <section class="container">
-          <div class="row">
-
-            <div class="form-section">
-
-                <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()">
-        
-                    <div class="mb-3">
-        
-                        <!-- User Form Starts -->
-                        <div class="row">
-        
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="firstName">First Name</label>
-                                    <input #firstName="ngModel" required [(ngModel)]="user.firstName" minlength="3"
-                                        maxlength="15" name="firstName" id="firstName" type="text" class="form-control"
-                                         autocomplete="off">
-                                    <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                        <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                        <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="lastName">Last Name</label>
-                                    <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15" name="lastName"
-                                        id="lastName" type="text" class="form-control" 
-                                        autocomplete="off">
-                                    <!-- <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
-                                        <div *ngIf="firstName.errors?.required">First Name is required.</div>
-                                        <div *ngIf="firstName.errors?.minlength">Min length should be 3.</div>
-                                    </div> -->
-                                </div>
-                            </div>
-        
-                        </div>
-                    </div>
-        
-                    <div class="mb-3">
-                        <div class="row">
-        
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Gender</label>
-                                </div>
-                                <div class="input-group mb-3 dropdown">
-                                    <input type="text" class="form-control"
-                                        [ngModel]="user.gender"
-                                        name="user.gender" readonly>
-                                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                        >
-                                        Select
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" (click)="editGender('Male')">Male</a></li>
-                                        <li><a class="dropdown-item" (click)="editGender('Female')">Female</a></li>
-                                        <li><a class="dropdown-item" (click)="editGender('Others')">Others</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-        
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Languages</label>
-        
-                                </div>
-                                <div class="input-group mb-3 dropdown">
-                                    <input type="text" class="form-control"
-                                         [ngModel]="user.languages"
-                                        name="user.languages" readonly>
-                                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                        >
-                                        Select
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" (click)="addLanguage('Clear All')">Clear All</a></li>
-                                        <li><a class="dropdown-item" (click)="addLanguage('English')">English</a></li>
-                                        <li><a class="dropdown-item" (click)="addLanguage('French')">French</a></li>
-                                        <li><a class="dropdown-item" (click)="addLanguage('Mandarin')">Mandarin</a></li>
-                                        <li><a class="dropdown-item" (click)="addLanguage('Cantonese')">Cantonese</a></li>
-                                        <li><a class="dropdown-item" (click)="addLanguage('Punjabi')">Punjabi</a></li>
-                                        <li><a class="dropdown-item" (click)="addLanguage('Hindi')">Hindi</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-        
-                            <div class="col">
-                                <div class="form-group">
-                                    <label for="mobile">Mobile</label>
-                                    <input required #mobile="ngModel" [(ngModel)]="user.mobile" minlength="3" maxlength="15"
-                                        name="mobile" id="mobile" type="number" class="form-control"
-                                         autocomplete="off">
-                                    <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">
-                                        {{mobile.errors}}
-                                        <!-- <div *ngIf="mobile.errors?.minlength">Min length should be 3.</div> -->
-                                    </div>
-                                </div>
-                            </div>
-        
-                        </div>
-                    </div>
-        
-                    <!-- Edit buttons -->
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-danger btn-rounded">Save</button>
-                              </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- User Form Ends -->
+    aria-labelledby="personalDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="personalDetailsModalLabel">Personal Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
 
-          </div>
-        </section>
+                        <div class="form-section">
 
-      </div>
+                            <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()">
+
+                                <div class="mb-3">
+
+                                    <!-- User Form Starts -->
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="firstName">First Name</label>
+                                                <input #firstName="ngModel" required [(ngModel)]="user.firstName"
+                                                    minlength="3" maxlength="15" name="firstName" id="firstName"
+                                                    type="text" class="form-control" autocomplete="off">
+                                                <div class="alert alert-danger"
+                                                    *ngIf="firstName.touched && !firstName.valid">
+                                                    <div *ngIf="firstName.errors?.required">First Name is required.
+                                                    </div>
+                                                    <div *ngIf="firstName.errors?.minlength">Min length should be 3.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="lastName">Last Name</label>
+                                                <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15"
+                                                    name="lastName" id="lastName" type="text" class="form-control"
+                                                    autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="input-group mb-3 dropdown">
+                                                <input type="text" class="form-control" [ngModel]="user.gender"
+                                                    name="user.gender" readonly style="background-color: white;">
+                                                <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    Select
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item" (click)="editGender('Male')">Male</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="editGender('Female')">Female</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="editGender('Others')">Others</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Languages</label>
+
+                                            </div>
+                                            <div class="input-group mb-3 dropdown">
+                                                <input type="text" class="form-control" [ngModel]="user.languages"
+                                                    name="user.languages" readonly readonly style="background-color: white;">
+                                                <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    Select
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('Clear All')">Clear All</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('English')">English</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('French')">French</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('Mandarin')">Mandarin</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('Cantonese')">Cantonese</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('Punjabi')">Punjabi</a></li>
+                                                    <li><a class="dropdown-item"
+                                                            (click)="addLanguage('Hindi')">Hindi</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label for="mobile">Mobile</label>
+                                                <input required #mobile="ngModel" [(ngModel)]="user.mobile"
+                                                    minlength="3" maxlength="15" name="mobile" id="mobile" type="number"
+                                                    class="form-control" autocomplete="off">
+                                                <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">
+                                                    {{mobile.errors}}
+                                                    <!-- <div *ngIf="mobile.errors?.minlength">Min length should be 3.</div> -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#personalDetailsModal">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <!-- Personal Details Modal Ends -->
+
+
+<!-- Contact Details Modal -->
+<div class="modal fade" id="contactDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="contactDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contactDetailsModalLabel">Contact Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
+
+                        <div class="form-section">
+
+                            <!-- Contact Form Starts -->
+                            <form #editContact="ngForm" (ngSubmit)="submitContactDetail()">
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="address1">Address Line 1</label>
+                                                <input required [(ngModel)]="contactDetail.addressLine1"
+                                                    #address1="ngModel" minlength="3" maxlength="30" name="address1"
+                                                    id="address1" type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label for="address2">Address Line 2</label>
+                                                <input required [(ngModel)]="contactDetail.addressLine2"
+                                                    #address2="ngModel" maxlength="30" name="address2" id="address2"
+                                                    type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="address3">Address Line 3</label>
+                                                <input required [(ngModel)]="contactDetail.addressLine3"
+                                                    #address3="ngModel" maxlength="30" name="address3" id="address3"
+                                                    type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="pincode">Pincode</label>
+                                                <input required [(ngModel)]="contactDetail.pincode" #pincode="ngModel"
+                                                    minlength="3" maxlength="15" name="pincode" id="pincode" type="text"
+                                                    class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="city">City</label>
+                                                <div class="input-group mb-3 dropdown">
+                                                    <input type="text" class="form-control" [ngModel]="contactDetail.city"
+                                                        name="city" readonly style="background-color: white;">
+                                                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                                                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        Select
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                        <li *ngFor="let location of availableLocations"><a class="dropdown-item" type="button" (click)="setContactLocation(location)">{{location}}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#contactDetailsModal">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- Contact Form Ends -->
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact Details Modal Ends -->
 
 
 <!-- MODALS END  -->

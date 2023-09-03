@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
 import { FileHandle } from 'src/app/model/file-handle.model';
+import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
@@ -16,17 +17,21 @@ import { constants } from 'src/environments/constants';
 export class DashboardProfileFormComponent implements OnInit{
 
   user: Customer = constants.DEFAULT_CUSTOMER;
+  displayUser: Customer = constants.DEFAULT_CUSTOMER;
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
+  displayContact: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
 
   profilePhoto: any;
   genderValue: string = "";
   mobileValue: string = "";
   emailValue: string = "";
   languagesValue: string[] = [];
+  availableLocations: string[] = [];
 
   constructor(private router: Router,
     private keycloakService: KeycloakService,
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
     ) { }
 
   ngOnInit(): void {
@@ -36,6 +41,7 @@ export class DashboardProfileFormComponent implements OnInit{
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
     this.loadUserData();
+    this.loadAvailableLocations();
   }
 
   loadUserData() {
@@ -50,12 +56,12 @@ export class DashboardProfileFormComponent implements OnInit{
           // Set Default Values
           this.user.languages = [];
           this.user.gender = "";
-          this.user = constants.DEFAULT_CUSTOMER;
         }
+        this.user.email = this.emailValue;
+        this.displayUser = JSON.parse(JSON.stringify(this.user));
         subscription.unsubscribe();
       }
     );
-    this.user.email = this.emailValue;
   }
 
   loadContactDetails() {
@@ -66,6 +72,7 @@ export class DashboardProfileFormComponent implements OnInit{
         } else {
           this.contactDetail = constants.DEFAULT_CONTACT_DETAIL;
         }
+        this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
         contactSubscription.unsubscribe();
       }
     );
@@ -104,6 +111,19 @@ export class DashboardProfileFormComponent implements OnInit{
 
         subscription.unsubscribe();
       });
+  }
+
+  loadAvailableLocations() {
+    this.productService.getAllLocations().subscribe(
+      (data) => {
+        this.availableLocations = data;
+        console.log("locations "+this.availableLocations)
+      }
+    );
+  }
+
+  setContactLocation(location: string) {
+    this.contactDetail.city = location;
   }
 
 

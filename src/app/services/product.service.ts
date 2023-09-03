@@ -39,12 +39,15 @@ export class ProductService {
   }
 
 
-  // searchProducts(subcategory: string): Observable<Product[]> {
-  //   const searchUrl = `${this.baseUrl}/listing/search?name=${subcategory}`;
-  //   return this.httpClient.get<GetProductsResponse>(searchUrl).pipe(
-  //     map(response => response._embedded.products)
-  //   )
-  // }
+  getAllLocations(): Observable<string[]> {
+    const getUrl = `${this.baseUrl}/location/all`;
+    return this.httpClient.get<string[]>(getUrl)
+  }
+
+  getAllSubcategories(): Observable<string[]> {
+    const getUrl = `${this.baseUrl}/subcategory/all`;
+    return this.httpClient.get<string[]>(getUrl)
+  }
 }
 
 interface GetProductsResponse {

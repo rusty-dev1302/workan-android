@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
@@ -8,14 +8,12 @@ import { ProductService } from 'src/app/services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit{
 
   products: Product[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
   currentLocation: string = "";
-  locations: string[] = [];
-  subcategories: string[] = [];
   searchKeyword: string = "";
 
 
@@ -24,8 +22,6 @@ export class ProductListComponent {
     ) { }
 
   ngOnInit() {
-    this.getListingLocations();
-    this.getListingSubcategories();
     this.route.paramMap.subscribe(()=>{
       this.handleProductsRouting();
     });
@@ -56,21 +52,5 @@ export class ProductListComponent {
         }
       }
     );
-  }
-
-  getListingLocations() {
-    this.productService.getListingLocations().subscribe(
-      data => {
-        this.locations = data;
-      }
-    )
-  }
-
-  getListingSubcategories() {
-    this.productService.getListingSubcategories().subscribe(
-      data => {
-        this.subcategories = data;
-      }
-    )
   }
 }
