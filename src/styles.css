@@ -460,3 +460,7 @@ hr.style1{
     /* adjust 'height' to position overlay content vertically */
     height: 75%;
   }
+
+  .btn.btn-rounded { 
+    border-radius: 50px 
+}

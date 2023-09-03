@@ -15,9 +15,6 @@ import { constants } from 'src/environments/constants';
 })
 export class DashboardProfileFormComponent implements OnInit{
 
-  isProfileEditable: boolean = false;
-  isContactEditable: boolean = false;
-
   user: Customer = constants.DEFAULT_CUSTOMER;
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
 
@@ -92,7 +89,6 @@ export class DashboardProfileFormComponent implements OnInit{
     const subscription = this.userService.saveUserData(this.user).subscribe(
       (data)=>{
 
-        this.isProfileEditable = false;
         this.loadUserData();
 
         subscription.unsubscribe();
@@ -104,27 +100,10 @@ export class DashboardProfileFormComponent implements OnInit{
     const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
       (data)=>{
 
-        this.isContactEditable = false;
         this.loadUserData();
 
         subscription.unsubscribe();
       });
-  }
-
-  toggleProfileEdit() {
-    this.isProfileEditable = !this.isProfileEditable;
-    if(!this.isProfileEditable) {
-      this.loadFormValues();
-      this.isProfileEditable=false;
-    }
-  }
-
-  toggleContactEdit() {
-    this.isContactEditable = !this.isContactEditable;
-    if(!this.isContactEditable) {
-      this.loadFormValues();
-      this.isContactEditable=false;
-    }
   }
 
 
