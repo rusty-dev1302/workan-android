@@ -36,7 +36,7 @@
                 <div class="row">
 
                     <div class="form-group">
-                        <h5>Personal Details <i class="fa-regular fa-pen-to-square"></i></h5>
+                        <h5>Personal Details <i class="fa-regular fa-pen-to-square" (click)="toggleProfileEdit()" type="button"></i></h5>
                     </div>
 
                     <div class="col-xxl-6 col-lg-6 col-12">
@@ -133,22 +133,18 @@
             </div>
 
             <!-- Edit buttons -->
-            <!-- <div class="mb-3" *ngIf="isProfileEditable">
+            <div class="mb-3" *ngIf="isProfileEditable">
                 <div class="row">
-                    <div class="col-1">
-                        <button type="submit" class="btn btn-danger">Save</button>
+                    <div class="col">
+                        <button type="submit" class="btn btn-sm btn-danger">Save</button>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col">
+                        <button class="btn btn-sm btn-danger" type="button" (click)="toggleProfileEdit()">Cancel</button>
                     </div>
                 </div>
             </div>
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-1">
-                        <button class="btn btn-danger" type="button" (click)="toggleProfileEdit()">{{ isProfileEditable == false ? 'Edit' : 'Cancel' }}</button>
-                    </div>
-                </div>
-            </div> -->
-
-
         </form>
         <!-- User Form Ends -->
     </div>

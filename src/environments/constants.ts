@@ -20,19 +20,7 @@ export const constants = {
     charges: 0,
     chargesType: "",
     professionalEmail: "",
-    professional: {
-      id: 0,
-      firstName: "",
-      gender: "",
-      mobile: 0,
-      lastName: "",
-      email: "",
-      languages: [],
-      state: "",
-      message: "",
-      enabled: false,
-      professional: false
-    },
+    professionalId: 0,
     subCategoryName: "",
     subCategory: {
       subCategoryName: ""

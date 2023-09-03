@@ -1,11 +1,11 @@
-import { Customer } from "./customer"
+import { Professional } from "./professional";
 
 export class Product {
     constructor(
         public id: number,
         public charges: number,
         public chargesType: string,
-        public professional: Customer,
+        public professionalId: number,
         public subCategoryName: string,
         public subCategory: SubCategory,
         public professionalEmail: string,

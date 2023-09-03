@@ -51,8 +51,9 @@ export class ProductListComponent {
   handleListProducts() {
     this.productService.getProductList(this.currentSubcategory, this.currentLocation).subscribe(
       data => {
-        this.products = data;
-        console.log(this.products[0].professional.languages)
+        if(data) {
+          this.products = data;
+        }
       }
     );
   }
