@@ -472,3 +472,21 @@ hr.style1 {
 .btn.btn-rounded {
     border-radius: 50px
 }
+
+.sidebar-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.workan-header {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+}
+
+.workan-body {
+    padding-top: 52px;
+}
+
