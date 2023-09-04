@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/common/product';
 import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,7 +18,8 @@ export class ProductDetailsComponent implements OnInit{
 
   constructor(
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private navigation: NavigationService
     ) { }
 
   ngOnInit(): void {
@@ -46,4 +48,7 @@ export class ProductDetailsComponent implements OnInit{
     this.currentSlotTime = slotTime;
   }
 
+  navigateBack(): void {
+    this.navigation.back()
+  }
 }

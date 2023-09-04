@@ -9,13 +9,13 @@
     <div class="container mt-5">
         <div class="row g-5 ">
             <div class="col-xxl-6 col-lg-6 col-12 ">
-                <div class="card-box border rounded-2 p-5 text-center" type="button" (click)="setAccountType('GENERAL')" [ngClass]="isProfessional==false ? 'shadow' : ''">
+                <div class="card-box -2 p-5 text-center" type="button" (click)="setAccountType('GENERAL')" [ngClass]="isProfessional==false ? 'shadow' : ''">
                     <h2 class="common-heading">General Account</h2>
                 </div>
             </div>
 
             <div class="col-xxl-6 col-lg-6 col-12  ">
-                <div class=" card-box border rounded-2 p-5 text-center" type="button" (click)="setAccountType('PROFESSIONAL')" [ngClass]="isProfessional==true ? 'shadow' : ''">
+                <div class=" card-box -2 p-5 text-center" type="button" (click)="setAccountType('PROFESSIONAL')" [ngClass]="isProfessional==true ? 'shadow' : ''">
                     <h2 class="common-heading">Professional Account</h2>
                 </div>
             </div>

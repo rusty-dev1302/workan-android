@@ -381,6 +381,11 @@ a {
     padding-top: 10rem;
 }
 
+.form-section {
+background-color: white;
+padding: 50px;
+}
+
 .contact-section .form-section {
     width: 50%;
 }
@@ -488,5 +493,8 @@ hr.style1 {
 
 .workan-body {
     padding-top: 52px;
+    /* base background grey for everything  */
+    background-color: rgb(245, 245, 245);
+    width: 100%;
 }
 
