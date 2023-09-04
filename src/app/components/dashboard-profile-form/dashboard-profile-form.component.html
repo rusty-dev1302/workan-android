@@ -20,7 +20,8 @@
                 <div class="row">
                     <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
                         <div class="img-wrapper">
-                            <img alt="Profile Image" class="img-fluid" width="50%" src="assets/profile.png">
+                            <img alt="Profile Image" class="img-fluid" width="50%" src="assets/profile.png" type="button" data-bs-toggle="modal"
+                            data-bs-target="#profilePhotoModal">
                             <div class="img-overlay">
                                 <i class="fa-solid fa-pen-to-square" type="button" data-bs-toggle="modal"
                                     data-bs-target="#profilePhotoModal"></i>
@@ -57,21 +58,21 @@
             <div class="mb-3">
                 <div class="row">
 
-                    <div class="col">
+                    <div class="col-12">
                         <div class="form-group">
                             <label>Gender</label>
                             <h5>{{displayUser.gender}}</h5>
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-12">
                         <div class="form-group">
                             <label for="mobile">Mobile</label>
                             <h5>{{displayUser.mobile}}</h5>
                         </div>
                     </div>
 
-                    <div class="col">
+                    <div class="col-12">
                         <div class="form-group">
                             <label>Languages</label>
                             <h5>{{displayUser.languages}}</h5>
@@ -101,21 +102,19 @@
                 </div>
                 <div class="row">
 
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="form-group">
-                            <label for="address1">Address Line 1</label>
+                            <label for="address1">Address</label>
                             <h5>{{displayContact.addressLine1}}</h5>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="form-group">
-                            <label for="address2">Address Line 2</label>
                             <h5>{{displayContact.addressLine2}}</h5>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <label for="address3">Address Line 3</label>
                             <h5>{{displayContact.addressLine3}}</h5>
                         </div>
                     </div>

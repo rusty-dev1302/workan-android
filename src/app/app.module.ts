@@ -26,6 +26,7 @@ import { UserService } from './services/user.service';
 import { ProductListFilterComponent } from './components/product-list-filter/product-list-filter.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FirstLoginComponent } from './components/first-login/first-login.component';
+import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -66,7 +67,8 @@ const routes: Routes = [
     DashboardListingsFormComponent,
     ProductListFilterComponent,
     SidebarComponent,
-    FirstLoginComponent
+    FirstLoginComponent,
+    PhotoUploaderComponent
   ],
   imports: [
     FormsModule,
