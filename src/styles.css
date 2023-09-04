@@ -5,7 +5,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Urbanist", sans-serif;
+    /* font-family: "Urbanist", sans-serif; */
+    font-family: Arial, sans-serif!important;
+}
+
+i {
+    font-family: FontAwesome!important;
 }
 
 .dropdown-menu {
