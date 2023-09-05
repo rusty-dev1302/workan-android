@@ -503,3 +503,7 @@ hr.style1 {
     width: 100%;
 }
 
+.form-section {
+    border-radius: 8px;
+}
+
