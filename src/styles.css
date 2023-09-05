@@ -387,7 +387,7 @@ a {
 }
 
 .form-section {
-background-color: white;
+background-color: rgb(255, 255, 255);
 padding: 50px;
 }
 
@@ -499,7 +499,7 @@ hr.style1 {
 .workan-body {
     padding-top: 52px;
     /* base background for everything  */
-    background-color: rgba(190, 190, 190, 0.701);
+    background-color: rgb(225, 225, 225);
     width: 100%;
 }
 
