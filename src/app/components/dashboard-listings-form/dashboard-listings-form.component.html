@@ -102,7 +102,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -133,7 +133,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -164,7 +164,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -195,7 +195,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -226,7 +226,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -257,7 +257,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -288,7 +288,7 @@
                                 </div>
 
                                 <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary"><i class="fa-solid fa-plus"></i></span>
+                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal" data-bs-target="#addSlotModal"><i class="fa-solid fa-plus"></i></span>
                                 </div>
                                 
                             </div>
@@ -397,6 +397,95 @@
     </div>
 </div>
 <!-- Listing Details Modal Ends -->
+
+<!-- Add Slot Modal -->
+<div class="modal fade" id="addSlotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addSlotModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSlotModalLabel">Add time slot</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
+
+                        <div class="form-section">
+
+                            <!-- User Form Starts -->
+                            <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="subCategoryName">Speciality</label>
+                                                <input #subCategoryName="ngModel" required
+                                                    [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15"
+                                                    name="subCategoryName" id="subCategoryName" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="location">Location</label>
+                                                <input #location="ngModel" required [(ngModel)]="listing.location"
+                                                    minlength="3" maxlength="15" name="location" id="location"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="chargesType">Charges Type</label>
+                                                <input #chargesType="ngModel" required [(ngModel)]="listing.chargesType"
+                                                    minlength="3" maxlength="15" name="chargesType" id="chargesType"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="charges">Charges</label>
+                                                <input #charges required [(ngModel)]="listing.charges" minlength="3"
+                                                    maxlength="15" name="charges" id="charges" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#listingDetailsModal">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Slot Modal Ends -->
 
 <script>
     $('#customfileinput').on('change', function () {
