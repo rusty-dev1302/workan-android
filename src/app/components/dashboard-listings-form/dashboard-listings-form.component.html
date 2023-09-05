@@ -11,7 +11,7 @@
 
 <div class="col-xl-12 col-md-12">
 
-    <div class="form-section">
+    <div class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -20,25 +20,26 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h5>Email: <span>{{emailValue}}</span></h5>
+                            <h4>Listing Details <i class="fa-regular fa-pen-to-square" type="button"
+                                    data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h4>
                         </div>
-
                     </div>
                 </div>
+                <hr class="style1">
                 <div class="row">
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
-                            <label for="subCategoryName">Speciality</label>
-                            <input  #subCategoryName="ngModel" required [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15" name="subCategoryName"
-                                id="subCategoryName" type="text" class="form-control" [readonly]="!isEditable">
+                            <label>Speciality</label>
+                            <h5>{{listing.subCategoryName}}</h5>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <input #location="ngModel" required [(ngModel)]="listing.location" minlength="3" maxlength="15" name="location"
-                                id="location" type="text" class="form-control" [readonly]="!isEditable">
+                        <div class="col-xxl-6 col-lg-6 col-12">
+                            <div class="form-group">
+                                <label>Location</label>
+                                <h5>{{listing.location}}</h5>
+                            </div>
                         </div>
                     </div>
 
@@ -50,51 +51,306 @@
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
-                            <label for="chargesType">Charges Type</label>
-                            <input  #chargesType="ngModel" required [(ngModel)]="listing.chargesType" minlength="3" maxlength="15" name="chargesType"
-                                id="chargesType" type="text" class="form-control" [readonly]="!isEditable">
+                            <label>Charges Type</label>
+                            <h5>{{listing.chargesType}}</h5>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
-                            <label for="charges">Charges</label>
-                            <input #charges required [(ngModel)]="listing.charges" minlength="3" maxlength="15" name="charges"
-                                id="charges" type="text" class="form-control" [readonly]="!isEditable">
+                            <label>Charges</label>
+                            <h5>{{listing.charges}}</h5>
                         </div>
                     </div>
 
                 </div>
             </div>
+        </form>
+        <!-- User Form Ends -->
+    </div>
 
-            <!-- Edit buttons -->
-            <div class="mb-3" *ngIf="isEditable">
-                <div class="row">
-                    <div class="col-1">
-                        <button type="submit" class="btn btn-danger">Save</button>
-                    </div>
-                </div>
-            </div>
+    <div class="form-section p-3 m-3">
+
+        <!-- User Form Starts -->
+        <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+
             <div class="mb-3">
                 <div class="row">
-                    <div class="col-1">
-                        <button class="btn btn-danger" type="button" (click)="toggleEdit()">{{ isEditable == false ? 'Edit' : 'Cancel' }}</button>
+                    <div class="col">
+                        <div class="form-group">
+                            <h4>Slot Template</h4>
+                        </div>
                     </div>
+                    <hr class="style1">
                 </div>
+
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Monday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Tuesday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Wednesday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Thursday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Friday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Monday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+                <!-- Slots for the day start  -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Day</label>
+                            <h5>Sunday</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Slots</label>
+                            <div class="row">
+                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12">
+                                    <h5>12:00 AM - 1:00 PM</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="style1">
+                </div>
+
+                <!-- Slots for the day end  -->
+
             </div>
-            
         </form>
         <!-- User Form Ends -->
     </div>
 </div>
 
+
+
+
+<!-- MODALS START  -->
+<!-- Listing Details Modal -->
+<div class="modal fade" id="listingDetailsModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="listingDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="listingDetailsModalLabel">Listing Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
+
+                        <div class="form-section">
+
+                            <!-- User Form Starts -->
+                            <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="subCategoryName">Speciality</label>
+                                                <input #subCategoryName="ngModel" required
+                                                    [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15"
+                                                    name="subCategoryName" id="subCategoryName" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="location">Location</label>
+                                                <input #location="ngModel" required [(ngModel)]="listing.location"
+                                                    minlength="3" maxlength="15" name="location" id="location"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="row">
+
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="chargesType">Charges Type</label>
+                                                <input #chargesType="ngModel" required [(ngModel)]="listing.chargesType"
+                                                    minlength="3" maxlength="15" name="chargesType" id="chargesType"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <label for="charges">Charges</label>
+                                                <input #charges required [(ngModel)]="listing.charges" minlength="3"
+                                                    maxlength="15" name="charges" id="charges" type="text"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#listingDetailsModal">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Listing Details Modal Ends -->
+
 <script>
-    $('#customfileinput').on('change', function(){
-        files = $(this)[0].files; 
-        name = ''; 
-        for(var i = 0; i < files.length; i++){
-            name += '\"' + files[i].name + '\"' + (i != files.length-1 ? ", " : ""); 
-        } 
+    $('#customfileinput').on('change', function () {
+        files = $(this)[0].files;
+        name = '';
+        for (var i = 0; i < files.length; i++) {
+            name += '\"' + files[i].name + '\"' + (i != files.length - 1 ? ", " : "");
+        }
         $(".custom-file-label").html(name);
     })
 </script>
-
