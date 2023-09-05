@@ -498,8 +498,8 @@ hr.style1 {
 
 .workan-body {
     padding-top: 52px;
-    /* base background grey for everything  */
-    background-color: rgb(245, 245, 245);
+    /* base background for everything  */
+    background-color: rgba(190, 190, 190, 0.701);
     width: 100%;
 }
 
