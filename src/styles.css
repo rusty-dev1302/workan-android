@@ -513,7 +513,7 @@ hr.style1 {
 
 /* Custom toggle switches  */
 .custom-control.teleport-switch {
-    --color: #008716;
+    --color: white;
     padding-left: 0;
 }
 
@@ -523,6 +523,7 @@ hr.style1 {
 
 .custom-control.teleport-switch .teleport-switch-control-input:checked~.teleport-switch-control-indicator {
     border-color: var(--color);
+    background-color: #008716;
 }
 
 .custom-control.teleport-switch .teleport-switch-control-input:checked~.teleport-switch-control-indicator::after {

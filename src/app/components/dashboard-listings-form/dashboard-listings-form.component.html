@@ -37,7 +37,7 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="col-xxl-6 col-lg-6 col-12">
                             <div class="form-group">
-                                <label>Location</label>
+                                <label>City</label>
                                 <h5>{{listing.location}}</h5>
                             </div>
                         </div>
@@ -78,6 +78,7 @@
                     <div class="col">
                         <div class="form-group">
                             <h4>Slot Template</h4>
+                            <h6><b>** Time slots are in the local time of the listing city</b></h6>
                         </div>
                     </div>
                     <hr class="style1">
@@ -376,7 +377,7 @@
                                         </div>
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <label for="location">Location</label>
+                                                <label for="location">City</label>
                                                 <input #location="ngModel" required [(ngModel)]="listing.location"
                                                     minlength="3" maxlength="15" name="location" id="location"
                                                     type="text" class="form-control">
@@ -456,7 +457,7 @@
 
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <label for="subCategoryName">Speciality</label>
+                                                <label for="subCategoryName">Start Time</label>
                                                 <input #subCategoryName="ngModel" required
                                                     [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15"
                                                     name="subCategoryName" id="subCategoryName" type="text"
@@ -465,33 +466,10 @@
                                         </div>
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <label for="location">Location</label>
+                                                <label for="location">End Time</label>
                                                 <input #location="ngModel" required [(ngModel)]="listing.location"
                                                     minlength="3" maxlength="15" name="location" id="location"
                                                     type="text" class="form-control">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="mb-3">
-                                    <div class="row">
-
-                                        <div class="col-xxl-6 col-lg-6 col-12">
-                                            <div class="form-group">
-                                                <label for="chargesType">Charges Type</label>
-                                                <input #chargesType="ngModel" required [(ngModel)]="listing.chargesType"
-                                                    minlength="3" maxlength="15" name="chargesType" id="chargesType"
-                                                    type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-xxl-6 col-lg-6 col-12">
-                                            <div class="form-group">
-                                                <label for="charges">Charges</label>
-                                                <input #charges required [(ngModel)]="listing.charges" minlength="3"
-                                                    maxlength="15" name="charges" id="charges" type="text"
-                                                    class="form-control">
                                             </div>
                                         </div>
 
