@@ -145,6 +145,11 @@ export class DashboardListingsFormComponent implements OnInit{
     this.listing.professionalEmail = this.emailValue;
     this.productService.saveProduct(this.listing).subscribe(
       (data)=>{
+        if(data.state==constants.SUCCESS_STATE) {
+          this.toastrService.success(constants.SUCCESS_STATE);
+        } else {
+          this.toastrService.error(data.message);
+        }
         this.loadFormValues();
         this.isEditable = false;
       }
