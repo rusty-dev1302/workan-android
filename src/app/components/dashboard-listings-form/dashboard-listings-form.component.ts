@@ -17,7 +17,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   subscription!: Subscription;
 
-  listing!: Product;
+  listing: Product=constants.DEFAULT_LISTING;
   slotTemplates!: SlotTemplate[];
   emailValue!:string;
 

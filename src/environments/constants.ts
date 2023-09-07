@@ -15,6 +15,20 @@ export const constants = {
     enabled: false,
     professional: false
   },
+  DEFAULT_LISTING: {
+    id: 0,
+    charges: 0,
+    chargesType: "",
+    professionalEmail: "",
+    professionalId: 0,
+    subCategoryName: "",
+    state: "",
+    message: "",
+    subCategory: {
+      subCategoryName: ""
+    },
+    location: "",
+  },
   DEFAULT_CONTACT_DETAIL: {
     customerId: 0,
     email: "",

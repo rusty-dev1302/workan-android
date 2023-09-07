@@ -29,7 +29,6 @@ export class SidebarComponent implements OnInit{
             this.userProfile = userProfile;
             this.firstName = this.userProfile.firstName!;
             this.lastName = this.userProfile.lastName!;
-            console.log(this.userProfile)
         }
         );
     }

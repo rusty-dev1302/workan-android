@@ -94,7 +94,6 @@ export class DashboardProfileFormComponent implements OnInit{
   }
 
   submitUserDetail() {
-    console.log(this.user);
     const subscription = this.userService.saveUserData(this.user).subscribe(
       (data)=>{
         this.loadUserData();
@@ -121,7 +120,6 @@ export class DashboardProfileFormComponent implements OnInit{
     this.productService.getAllLocations().subscribe(
       (data) => {
         this.availableLocations = data;
-        console.log("locations "+this.availableLocations)
       }
     );
   }
