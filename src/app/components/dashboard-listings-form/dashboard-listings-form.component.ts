@@ -93,6 +93,8 @@ export class DashboardListingsFormComponent implements OnInit{
     this.toastrService.error("StartTime Should be Less Than EndTime");
   }
 
+  this.dialogSlotTemplateEndTime="";
+  this.dialogSlotTemplateStartTime="";
   }
 
   // methods to add values to slot dialog start 
