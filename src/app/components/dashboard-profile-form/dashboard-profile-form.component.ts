@@ -18,9 +18,9 @@ import { constants } from 'src/environments/constants';
 export class DashboardProfileFormComponent implements OnInit{
 
   user: Customer = constants.DEFAULT_CUSTOMER;
-  displayUser: Customer = constants.DEFAULT_CUSTOMER;
+  displayUser!: Customer;
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
-  displayContact: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
+  displayContact!: ContactDetail;
 
   profilePhoto: any;
   genderValue: string = "";

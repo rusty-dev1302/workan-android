@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Product } from 'src/app/common/product';
+import { SlotTemplate } from 'src/app/common/slot-template';
 import { ProductService } from 'src/app/services/product.service';
 import { constants } from 'src/environments/constants';
 
@@ -16,7 +17,8 @@ export class DashboardListingsFormComponent implements OnInit{
 
   subscription!: Subscription;
 
-  listing: Product = constants.DEFAULT_LISTING;
+  listing!: Product;
+  slotTemplates!: SlotTemplate[];
   emailValue!:string;
 
   constructor(
@@ -35,11 +37,6 @@ export class DashboardListingsFormComponent implements OnInit{
         if(data!=null){
           // Populate form from data
           this.listing = data;
-        } else {
-          // Set Default Values
-          this.listing = constants.DEFAULT_LISTING;
-          this.listing.professionalEmail = this.emailValue;
-
         }
         this.subscription.unsubscribe();
       }

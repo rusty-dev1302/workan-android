@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { constants } from 'src/environments/constants';
+import { SlotTemplate } from '../common/slot-template';
 
 @Injectable({
   providedIn: 'root'
@@ -48,16 +49,9 @@ export class ProductService {
     const getUrl = `${this.baseUrl}/subcategory/all`;
     return this.httpClient.get<string[]>(getUrl)
   }
-}
 
-interface GetProductsResponse {
-  _embedded: {
-    products: Product[];
-  }
-}
-
-interface GetProductDetailsResponse {
-  _embedded: {
-    product: Product;
+  getSlotTemplates(listingId: number): Observable<SlotTemplate[]> {
+    const getUrl = `${this.baseUrl}/slotTemplates?listingId=${listingId}`;
+    return this.httpClient.get<SlotTemplate[]>(getUrl)
   }
 }
