@@ -18,6 +18,7 @@ export class DashboardListingsFormComponent implements OnInit{
   subscription!: Subscription;
 
   listing: Product=constants.DEFAULT_LISTING;
+  displayListing!: Product;
   slotTemplates!: SlotTemplate[];
   emailValue!:string;
 
@@ -34,13 +35,33 @@ export class DashboardListingsFormComponent implements OnInit{
     this.emailValue = this.keycloakService.getUsername();
     this.subscription = this.productService.getProductByEmail(this.emailValue).subscribe(
       (data)=>{
-        if(data!=null){
+        if(data.state==constants.SUCCESS_STATE){
           // Populate form from data
           this.listing = data;
+          console.log(this.listing)
+          this.displayListing = JSON.parse(JSON.stringify(this.listing));
+          this.loadSlotTemplates(this.listing.id);
         }
         this.subscription.unsubscribe();
       }
     );
+  }
+
+  loadSlotTemplates(listingId: number) {
+    const subscription = this.productService.getSlotTemplates(listingId).subscribe(
+      (data) => {
+        this.slotTemplates = data;
+        subscription.unsubscribe();
+      }
+    );
+  }
+
+  addSlot(slotTemplateId: number) {
+
+  }
+
+  removeSlot(slotId: number) {
+
   }
 
   toggleEdit() {

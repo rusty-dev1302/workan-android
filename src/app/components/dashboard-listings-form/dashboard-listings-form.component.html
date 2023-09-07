@@ -26,19 +26,19 @@
                     </div>
                 </div>
                 <hr class="style1">
-                <div *ngIf="listing" class="row">
+                <div *ngIf="displayListing" class="row">
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Speciality</label>
-                            <h5>{{listing.subCategoryName}}</h5>
+                            <h5>{{displayListing.subCategoryName}}</h5>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="col-xxl-6 col-lg-6 col-12">
                             <div class="form-group">
                                 <label>City</label>
-                                <h5>{{listing.location}}</h5>
+                                <h5>{{displayListing.location}}</h5>
                             </div>
                         </div>
                     </div>
@@ -46,19 +46,19 @@
                 </div>
             </div>
 
-            <div *ngIf="listing" class="mb-3">
+            <div *ngIf="displayListing" class="mb-3">
                 <div class="row">
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges Type</label>
-                            <h5>{{listing.chargesType}}</h5>
+                            <h5>{{displayListing.chargesType}}</h5>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges</label>
-                            <h5>{{listing.charges}}</h5>
+                            <h5>{{displayListing.charges}}</h5>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@
         <!-- User Form Ends -->
     </div>
 
-    <div class="form-section p-3 m-3">
+    <div *ngIf="displayListing" class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -86,14 +86,14 @@
 
                 <!-- Slots for the day start  -->
 
-                <div *ngIf="slotTemplates" class="row py-4">
+                <div *ngFor="let template of slotTemplates" class="row py-4">
                     <div class="col-12">
                         <div class="form-group">
                             <label>Day <label class="custom-control teleport-switch" type="button">
-                                <input type="checkbox" class="teleport-switch-control-input" checked>
+                                <input type="checkbox" class="teleport-switch-control-input" [checked]="template.enabled">
                                 <span class="teleport-switch-control-indicator"></span>
                             </label></label>
-                            <h4>Monday</h4>
+                            <h4>{{template.dayName}}</h4>
                         </div>
                     </div>
                     <div class="col-12">
