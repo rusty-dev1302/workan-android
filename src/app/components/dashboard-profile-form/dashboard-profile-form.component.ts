@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
@@ -31,7 +32,8 @@ export class DashboardProfileFormComponent implements OnInit{
   constructor(private router: Router,
     private keycloakService: KeycloakService,
     private userService: UserService,
-    private productService: ProductService
+    private productService: ProductService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -95,8 +97,9 @@ export class DashboardProfileFormComponent implements OnInit{
     console.log(this.user);
     const subscription = this.userService.saveUserData(this.user).subscribe(
       (data)=>{
-
         this.loadUserData();
+
+        this.sendToastrMessage(data);
 
         subscription.unsubscribe();
       });
@@ -106,8 +109,9 @@ export class DashboardProfileFormComponent implements OnInit{
     this.contactDetail.customerId = this.user.id;
     const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
       (data)=>{
-
         this.loadUserData();
+
+        this.sendToastrMessage(data);
 
         subscription.unsubscribe();
       });
@@ -124,6 +128,14 @@ export class DashboardProfileFormComponent implements OnInit{
 
   setContactLocation(location: string) {
     this.contactDetail.city = location;
+  }
+
+  sendToastrMessage(data: any) {
+    if(data.state==constants.SUCCESS_STATE) {
+      this.toastr.success(constants.SUCCESS_STATE);
+    } else {
+      this.toastr.error(data.message);
+    }
   }
 
 

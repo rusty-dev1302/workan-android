@@ -24,6 +24,7 @@
     "bootstrap": "5.0",
     "keycloak-angular": "^14.0.0",
     "keycloak-js": "^21.1.2",
+    "ngx-toastr": "^17.0.2",
     "oidc-client": "^1.11.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
