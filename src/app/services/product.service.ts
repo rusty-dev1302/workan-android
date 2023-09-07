@@ -5,6 +5,7 @@ import { Product } from '../common/product';
 import { constants } from 'src/environments/constants';
 import { SlotTemplate } from '../common/slot-template';
 import { SlotTemplateItem } from '../common/slot-template-item';
+import { BaseResponse } from '../common/base-response';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +60,11 @@ export class ProductService {
   saveSlotTemplateItem(slotTemplateId: number, slotTemplateItem: SlotTemplateItem): Observable<SlotTemplateItem> {
     const postUrl = `${this.baseUrl}/slotTemplateItem/save?slotTemplateId=${slotTemplateId}`;
     return this.httpClient.post<SlotTemplateItem>(postUrl, slotTemplateItem);
+  }
+
+  removeSlotTemplateItem(slotTemplateItemId: number): Observable<BaseResponse> {
+    
+    const postUrl = `${this.baseUrl}/slotTemplateItem/remove?slotTemplateItemId=${slotTemplateItemId}`;
+    return this.httpClient.delete<BaseResponse>(postUrl);
   }
 }

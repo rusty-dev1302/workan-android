@@ -93,8 +93,12 @@ export class DashboardListingsFormComponent implements OnInit{
     this.toastrService.error("StartTime Should be Less Than EndTime");
   }
 
-  this.dialogSlotTemplateEndTime="";
-  this.dialogSlotTemplateStartTime="";
+  this.resetSlotDialog();
+  }
+
+  resetSlotDialog() {
+    this.dialogSlotTemplateEndTime="";
+    this.dialogSlotTemplateStartTime="";
   }
 
   // methods to add values to slot dialog start 
@@ -114,8 +118,18 @@ export class DashboardListingsFormComponent implements OnInit{
   }
   // methods to add values to slot dialog end 
 
-  removeSlot(slotTemplateItemId: number) {
-
+  removeSlotTemplateItem(slotTemplateItemId: number) {
+    const subscription = this.productService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
+      (data) => {
+        if(data.state==constants.SUCCESS_STATE){
+          this.toastrService.success(constants.SUCCESS_STATE);
+        } else {
+          this.toastrService.error(data.message);
+        }
+        this.loadSlotTemplates(this.listing.id);
+        subscription.unsubscribe();
+      }
+    );
   }
 
   toggleEdit() {
