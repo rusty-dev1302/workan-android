@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../common/product';
 import { constants } from 'src/environments/constants';
 import { SlotTemplate } from '../common/slot-template';
+import { SlotTemplateItem } from '../common/slot-template-item';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,10 @@ export class ProductService {
   getSlotTemplates(listingId: number): Observable<SlotTemplate[]> {
     const getUrl = `${this.baseUrl}/slotTemplates?listingId=${listingId}`;
     return this.httpClient.get<SlotTemplate[]>(getUrl)
+  }
+
+  saveSlotTemplateItem(slotTemplateId: number, slotTemplateItem: SlotTemplateItem): Observable<SlotTemplateItem> {
+    const postUrl = `${this.baseUrl}/slotTemplateItem/save?slotTemplateId=${slotTemplateId}`;
+    return this.httpClient.post<SlotTemplateItem>(postUrl, slotTemplateItem);
   }
 }

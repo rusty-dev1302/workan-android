@@ -52,6 +52,11 @@ export class DashboardProfileFormComponent implements OnInit{
         if(data.state!=constants.ERROR_STATE){
           // Populate form from data
           this.user = data;
+          
+          if(this.user.languages[0]=="") {
+            this.user.languages=[];
+          }
+
           this.loadContactDetails();
 
         } else {
@@ -84,8 +89,8 @@ export class DashboardProfileFormComponent implements OnInit{
     if(language=="Clear All") {
       this.user.languages = [];
     } else {
-      this.user.languages.push(language);
       this.user.languages = JSON.parse(JSON.stringify(this.user.languages));
+      this.user.languages.push(language);
     }
   }
 

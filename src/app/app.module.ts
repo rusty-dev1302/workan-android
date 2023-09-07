@@ -28,6 +28,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FirstLoginComponent } from './components/first-login/first-login.component';
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
 import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -82,6 +83,7 @@ const routes: Routes = [
       }}),
       KeycloakAngularModule,
       ToastrModule.forRoot(),
+      BrowserAnimationsModule
   ],
   providers: [
     ProductService,
