@@ -12,35 +12,35 @@ import { constants } from 'src/environments/constants';
 })
 export class ListingDetailsComponent implements OnInit{
 
-  product!: Listing;
-  currentProductId: number = 0;
+  listing!: Listing;
+  currentListingId: number = 0;
   currentSlotDay: string = "";
   currentSlotTime: string = "";
 
   constructor(
-    private productService: ListingService,
+    private listingService: ListingService,
     private route: ActivatedRoute,
     private navigation: NavigationService
     ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(()=>{
-      this.handleProductsRouting();
+      this.handleListingRouting();
     });
   }
 
-  handleProductsRouting() {
+  handleListingRouting() {
     if(this.route.snapshot.paramMap.has("id")) {
-      this.currentProductId = +this.route.snapshot.paramMap.get("id")!;
+      this.currentListingId = +this.route.snapshot.paramMap.get("id")!;
       this.loadListingDetails();
     }
   }
 
   loadListingDetails() {
-    const subscription = this.productService.getListingById(this.currentProductId).subscribe(
+    const subscription = this.listingService.getListingById(this.currentListingId).subscribe(
       (listing) => {
         if(listing.state!=constants.ERROR_STATE){
-          this.product = listing;
+          this.listing = listing;
         }
         
       }

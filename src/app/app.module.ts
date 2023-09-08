@@ -2,12 +2,12 @@ import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './components/product-list/product-list.component';
+import { BrowseListingsComponent } from './components/browse-listings/browse-listings.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListingService } from './services/listing.service';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
-import { ListingDetailsComponent } from './components/product-details/listing-details.component';
+import { ListingDetailsComponent } from './components/listing-details/listing-details.component';
 import { HeaderComponent } from './components/header/header.component'
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardProfileFormComponent } from './components/dashboard-profile-form/dashboard-profile-form.component';
 import { DashboardListingsFormComponent } from './components/dashboard-listings-form/dashboard-listings-form.component';
 import { UserService } from './services/user.service';
-import { ProductListFilterComponent } from './components/product-list-filter/product-list-filter.component';
+import { BrowseListingsFilterComponent } from './components/browse-listings-filter/browse-listings-filter.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FirstLoginComponent } from './components/first-login/first-login.component';
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
@@ -40,8 +40,8 @@ import { DatePipe } from '@angular/common';
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard]},
   { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard]},
-  { path: 'listings/:subcategory/:location', component: ProductListComponent, canActivate: [AuthGuard]},
-  { path: 'listings', component: ProductListComponent, canActivate: [AuthGuard]},
+  { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard]},
+  { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard]},
   { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
                       children: [{ path: 'profile', component: DashboardProfileComponent },
@@ -56,7 +56,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
+    BrowseListingsComponent,
     SearchComponent,
     ListingDetailsComponent,
     HeaderComponent,
@@ -68,7 +68,7 @@ const routes: Routes = [
     SlotSelectorComponent,
     DashboardProfileFormComponent,
     DashboardListingsFormComponent,
-    ProductListFilterComponent,
+    BrowseListingsFilterComponent,
     SidebarComponent,
     FirstLoginComponent,
     PhotoUploaderComponent

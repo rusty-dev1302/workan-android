@@ -34,7 +34,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   constructor(
     private keycloakService: KeycloakService,
-    private productService: ListingService,
+    private listingService: ListingService,
     private toastrService: ToastrService,
     ) { }
 
@@ -44,7 +44,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
-    this.subscription = this.productService.getListingByEmail(this.emailValue).subscribe(
+    this.subscription = this.listingService.getListingByEmail(this.emailValue).subscribe(
       (data)=>{
         if(data.state==constants.SUCCESS_STATE){
           // Populate form from data
@@ -59,7 +59,7 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   loadSlotTemplates(listingId: number) {
-    const subscription = this.productService.getSlotTemplates(listingId).subscribe(
+    const subscription = this.listingService.getSlotTemplates(listingId).subscribe(
       (data) => {
         this.slotTemplates = data;
         subscription.unsubscribe();
@@ -81,7 +81,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
 
     if(startTime<endTime) {
-      const subscription = this.productService.saveSlotTemplateItem(this.dialogSlotTemplateId, slot).subscribe(
+      const subscription = this.listingService.saveSlotTemplateItem(this.dialogSlotTemplateId, slot).subscribe(
       (data) => {
         if(data.state==constants.SUCCESS_STATE) {
           this.loadSlotTemplates(this.listing.id);
@@ -119,7 +119,7 @@ export class DashboardListingsFormComponent implements OnInit{
   // methods to add values to slot dialog end 
 
   removeSlotTemplateItem(slotTemplateItemId: number) {
-    const subscription = this.productService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
+    const subscription = this.listingService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
       (data) => {
         if(data.state==constants.SUCCESS_STATE){
           this.toastrService.success(constants.SUCCESS_STATE);
@@ -133,7 +133,7 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   toggleSlotTemplate(slotTemplateId: number) {
-    const subscription = this.productService.toggleSlotTemplate(slotTemplateId).subscribe(
+    const subscription = this.listingService.toggleSlotTemplate(slotTemplateId).subscribe(
       (response) => {
         if(response.state==constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);
@@ -157,7 +157,7 @@ export class DashboardListingsFormComponent implements OnInit{
   
   onClickSubmit() {
     this.listing.professionalEmail = this.emailValue;
-    this.productService.saveListing(this.listing).subscribe(
+    this.listingService.saveListing(this.listing).subscribe(
       (data)=>{
         if(data.state==constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);

@@ -25,7 +25,7 @@
 
 <div class="content-box">
 
-  <app-product-filter></app-product-filter>
+  <app-browse-listings-filter></app-browse-listings-filter>
 
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end navbar-dark" style="background-color: #222;">
@@ -71,7 +71,7 @@
     <div class="container my-5">
       
       <div class="row g-5  ">
-        <div class="col-xl-3 col-md-6 col-12" *ngFor="let product of products">
+        <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
             <div class="card" style="width: 18rem;">
               <img alt="..." class="card-img-top" src="assets/profile.png">
@@ -84,15 +84,15 @@
                 <!-- <h5 class="card-title mt-3">{{product.professional.firstName}} {{product.professional.lastName}}</h5> -->
 
                 <p class="card-text mt-2 mb-3">
-                <h6><b>Speciality:</b><span> {{product.subCategoryName}}</span></h6>
+                <h6><b>Speciality:</b><span> {{listing.subCategoryName}}</span></h6>
                 <h6><b>Languages:</b>
                   <span>
                     <!-- {{product.professional.languages.join(', ')}} -->
                   </span>
                 </h6>
-                <h6><b>Location:</b><span> {{product.location}}</span></h6>
-                <h6><b>{{product.chargesType}}:</b><span> {{product.charges}} CAD</span></h6>
-                <a class="px-4 py-2 btn btn-danger btn-rounded" [routerLink]="['/listingDetail',product.professionalId]">View Listing</a>
+                <h6><b>Location:</b><span> {{listing.location}}</span></h6>
+                <h6><b>{{listing.chargesType}}:</b><span> {{listing.charges}} CAD</span></h6>
+                <a class="px-4 py-2 btn btn-danger btn-rounded" [routerLink]="['/listingDetail',listing.professionalId]">View Listing</a>
               </div>
             </div>
           </div>

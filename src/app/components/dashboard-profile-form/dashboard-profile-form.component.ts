@@ -32,7 +32,7 @@ export class DashboardProfileFormComponent implements OnInit{
   constructor(private router: Router,
     private keycloakService: KeycloakService,
     private userService: UserService,
-    private productService: ListingService,
+    private listingService: ListingService,
     private toastr: ToastrService
     ) { }
 
@@ -122,7 +122,7 @@ export class DashboardProfileFormComponent implements OnInit{
   }
 
   loadAvailableLocations() {
-    this.productService.getAllLocations().subscribe(
+    this.listingService.getAllLocations().subscribe(
       (data) => {
         this.availableLocations = data;
       }

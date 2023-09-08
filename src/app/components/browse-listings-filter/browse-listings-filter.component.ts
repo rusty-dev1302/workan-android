@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
-  selector: 'app-product-filter',
-  templateUrl: './product-list-filter.component.html',
-  styleUrls: ['./product-list-filter.component.css']
+  selector: 'app-browse-listings-filter',
+  templateUrl: './browse-listings-filter.component.html',
+  styleUrls: ['./browse-listings-filter.component.css']
 })
-export class ProductListFilterComponent implements OnInit {
+export class BrowseListingsFilterComponent implements OnInit {
 
   locations: string[] = [];
   subcategories: string[] = [];
@@ -16,7 +16,7 @@ export class ProductListFilterComponent implements OnInit {
   currentLocation: string = "";
 
   constructor(
-    private productService: ListingService,
+    private listingService: ListingService,
     private router: Router
   ) { }
 
@@ -27,7 +27,7 @@ export class ProductListFilterComponent implements OnInit {
 
 
   getListingLocations() {
-    this.productService.getListingLocations().subscribe(
+    this.listingService.getListingLocations().subscribe(
       data => {
         this.locations = data;
       }
@@ -35,7 +35,7 @@ export class ProductListFilterComponent implements OnInit {
   }
 
   getListingSubcategories() {
-    this.productService.getListingSubcategories().subscribe(
+    this.listingService.getListingSubcategories().subscribe(
       data => {
         this.subcategories = data;
       }

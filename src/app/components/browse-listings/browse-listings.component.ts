@@ -4,20 +4,20 @@ import { Listing } from 'src/app/common/listing';
 import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-browse-listings',
+  templateUrl: './browse-listings.component.html',
+  styleUrls: ['./browse-listings.component.css']
 })
-export class ProductListComponent implements OnInit{
+export class BrowseListingsComponent implements OnInit{
 
-  products: Listing[] = [];
+  listings: Listing[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
   currentLocation: string = "";
   searchKeyword: string = "";
 
 
-  constructor(private productService: ListingService,
+  constructor(private listingService: ListingService,
               private route: ActivatedRoute
     ) { }
 
@@ -31,7 +31,7 @@ export class ProductListComponent implements OnInit{
     const hasSubcategory: boolean = this.route.snapshot.paramMap.has('subcategory');
     const hasLocation: boolean = this.route.snapshot.paramMap.has('location');
     
-    this.products = [];
+    this.listings = [];
 
     if(hasSubcategory) {
       this.currentSubcategory = this.route.snapshot.paramMap.get('subcategory')!;
@@ -45,10 +45,10 @@ export class ProductListComponent implements OnInit{
   }
 
   handleListProducts() {
-    this.productService.getListingsByFilters(this.currentSubcategory, this.currentLocation).subscribe(
+    this.listingService.getListingsByFilters(this.currentSubcategory, this.currentLocation).subscribe(
       data => {
         if(data) {
-          this.products = data;
+          this.listings = data;
         }
       }
     );

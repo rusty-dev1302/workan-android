@@ -32,8 +32,8 @@ export class ListingService {
     return this.httpClient.get<string[]>(getUrl)
   }
 
-  getListingById(productId: number): Observable<Listing> {
-    const getUrl = `${this.baseUrl}?id=${productId}`;
+  getListingById(listingId: number): Observable<Listing> {
+    const getUrl = `${this.baseUrl}?id=${listingId}`;
     return this.httpClient.get<Listing>(getUrl);
   }
 
@@ -47,9 +47,9 @@ export class ListingService {
     return this.httpClient.get<Customer>(getUrl);
   }
 
-  saveListing(product: Listing): Observable<Listing> {
+  saveListing(listing: Listing): Observable<Listing> {
     const postUrl = `${this.baseUrl}/save`;
-    return this.httpClient.post<Listing>(postUrl, product);
+    return this.httpClient.post<Listing>(postUrl, listing);
   }
 
 
