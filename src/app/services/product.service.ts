@@ -63,8 +63,12 @@ export class ProductService {
   }
 
   removeSlotTemplateItem(slotTemplateItemId: number): Observable<BaseResponse> {
-    
     const postUrl = `${this.baseUrl}/slotTemplateItem/remove?slotTemplateItemId=${slotTemplateItemId}`;
     return this.httpClient.delete<BaseResponse>(postUrl);
+  }
+
+  toggleSlotTemplate(slotTemplateId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/slotTemplate/toggle?slotTemplateId=${slotTemplateId}`;
+    return this.httpClient.get<BaseResponse>(postUrl);
   }
 }

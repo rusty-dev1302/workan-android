@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <label>Day <label class="custom-control teleport-switch" type="button">
                                     <input type="checkbox" class="teleport-switch-control-input"
-                                        [checked]="template.enabled">
+                                        [checked]="template.enabled" (click)="toggleSlotTemplate(template.id)">
                                     <span class="teleport-switch-control-indicator"></span>
                                 </label></label>
                             <h4>{{template.dayName}}</h4>

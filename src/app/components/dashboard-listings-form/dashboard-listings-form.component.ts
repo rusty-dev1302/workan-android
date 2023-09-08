@@ -132,6 +132,20 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
+  toggleSlotTemplate(slotTemplateId: number) {
+    const subscription = this.productService.toggleSlotTemplate(slotTemplateId).subscribe(
+      (response) => {
+        if(response.state==constants.SUCCESS_STATE) {
+          this.toastrService.success(constants.SUCCESS_STATE);
+        } else {
+          this.toastrService.error(response.message);
+        }
+        this.loadSlotTemplates(this.listing.id);
+        subscription.unsubscribe();
+      }
+    );
+  }
+
   toggleEdit() {
     this.isEditable = !this.isEditable;
     if(!this.isEditable) {
