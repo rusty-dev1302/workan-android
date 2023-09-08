@@ -65,5 +65,5 @@ export const constants = {
               "9:00PM","9:30PM",
               "10:00PM","10:30PM",
               "11:00PM","11:30PM",
-            ]
+            ],
 };

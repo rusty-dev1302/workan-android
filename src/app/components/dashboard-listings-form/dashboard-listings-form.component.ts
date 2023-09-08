@@ -40,7 +40,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadFormValues();
-   }
+  }
 
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();

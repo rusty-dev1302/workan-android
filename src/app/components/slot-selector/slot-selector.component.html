@@ -10,37 +10,33 @@
 
             <div class="row g-2">
               <div class="col-lg-12">
-                <h5 class="review-count">Date</h5>
+                <h5 class="review-count">Day</h5>
                 <div class="input-group mb-3 dropdown">
-                  <input type="text" class="form-control" name="user.gender" readonly style="background-color: white;">
-                  <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1"
+                  <input type="text" class="form-control" name="slotDay" readonly style="background-color: white;">
+                  <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="slotDayButton1"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Select
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item">Male</a>
+                  <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
+                    <li *ngFor="let e of [].constructor(7); let i = index"><a class="dropdown-item" type="button">{{slotDate(i)|date:'dd-MMM'}}</a>
                     </li>
-                    <li><a class="dropdown-item">Female</a></li>
-                    <li><a class="dropdown-item">Others</a></li>
                   </ul>
                 </div>
               </div>
-              <div class="col-lg-12">
-                <h5 class="review-count">Time Slot</h5>
-                <div class="input-group mb-3 dropdown">
-                  <input type="text" class="form-control" name="user.gender" readonly style="background-color: white;">
-                  <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Select
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item">Male</a>
-                    </li>
-                    <li><a class="dropdown-item">Female</a></li>
-                    <li><a class="dropdown-item">Others</a></li>
-                  </ul>
+              <div class="col-12">
+                <div class="form-group">
+                    <label class="py-3">Slots</label>
+                    <div class="row">
+                      <!-- Time slot to be iterated  -->
+                        <div class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
+                            <span class="btn btn-rounded" [ngClass]="'btn-secondary'">12:00-12:00 <i
+                                    class="fa-regular fa-circle-xmark"></i></span>
+                        </div>
+                      <!-- Time slot to be iterated end -->
+                    </div>
                 </div>
-              </div>
+                <hr class="style1">
+            </div>
               </div>
 
           </div>
