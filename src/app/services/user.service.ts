@@ -43,13 +43,13 @@ export class UserService {
   }
 
   getCurrentUserProfile(): Observable<KeycloakProfile> {
-    const result = new Observable<KeycloakProfile>((observer) => {
+    const result = new Observable<KeycloakProfile>((subject) => {
       this.keycloakService.isLoggedIn().then(
         (isLoggedIn) => {
           if(isLoggedIn) {
             this.keycloakService.loadUserProfile().then(
               (userProfile) => {
-                observer.next(userProfile);
+                subject.next(userProfile);
               }
             );
           }
