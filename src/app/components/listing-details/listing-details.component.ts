@@ -6,11 +6,11 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+  selector: 'app-listing-details',
+  templateUrl: './listing-details.component.html',
+  styleUrls: ['./listing-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit{
+export class ListingDetailsComponent implements OnInit{
 
   product!: Listing;
   currentProductId: number = 0;

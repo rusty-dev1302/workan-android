@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListingService } from './services/listing.service';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ListingDetailsComponent } from './components/product-details/listing-details.component';
 import { HeaderComponent } from './components/header/header.component'
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard]},
   { path: 'listings/:subcategory/:location', component: ProductListComponent, canActivate: [AuthGuard]},
   { path: 'listings', component: ProductListComponent, canActivate: [AuthGuard]},
-  { path: 'listingDetail/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
                       children: [{ path: 'profile', component: DashboardProfileComponent },
                                   { path: 'myorders', component: DashboardOrdersComponent },
@@ -58,7 +58,7 @@ const routes: Routes = [
     AppComponent,
     ProductListComponent,
     SearchComponent,
-    ProductDetailsComponent,
+    ListingDetailsComponent,
     HeaderComponent,
     DashboardComponent,
     LandingPageComponent,
