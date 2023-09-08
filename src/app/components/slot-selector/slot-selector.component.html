@@ -18,7 +18,7 @@
                     Select
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                    <li *ngFor="let e of [].constructor(7); let i = index"><a class="dropdown-item" type="button">{{slotDate(i)|date:'dd-MMM'}}</a>
+                    <li *ngFor="let e of [].constructor(7); let i = index"><a class="dropdown-item" type="button" (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE dd-MMM'}}</a>
                     </li>
                   </ul>
                 </div>

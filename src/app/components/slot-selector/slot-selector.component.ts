@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { constants } from 'src/environments/constants';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-slot-selector',
@@ -7,8 +7,11 @@ import { constants } from 'src/environments/constants';
   styleUrls: ['./slot-selector.component.css']
 })
 export class SlotSelectorComponent implements OnInit{
+  currentDate!: string;
 
-  constructor() {
+  constructor(
+    private datePipe: DatePipe
+  ) {
   }
 
   ngOnInit(): void {
@@ -19,6 +22,13 @@ export class SlotSelectorComponent implements OnInit{
     date.setDate(date.getDate()+index);
 
     return date;
+  }
+
+  getSlotsForDay(date: Date) {
+    if(date){
+      this.currentDate = this.datePipe.transform(date, 'EEEE')!;
+      console.log(this.currentDate)
+    }
   }
 
 }

@@ -29,6 +29,7 @@ import { FirstLoginComponent } from './components/first-login/first-login.compon
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { DatePipe } from '@angular/common';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -93,7 +94,8 @@ const routes: Routes = [
       useFactory: initializeKeycloak,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

@@ -313,8 +313,17 @@ a {
     margin-bottom: 4.2rem;
 }
 
+.card-box {
+    background-color: rgb(255, 255, 255);
+}
+
+.box-shadow{
+    box-shadow: rgba(0, 0, 0, 0.5) 0 8px 24px;
+}
+
+
 .card-box:hover {
-    box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 8px 24px;
 }
 
 .services-section .card-box {
