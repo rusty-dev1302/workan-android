@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from 'src/app/services/product.service';
+import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
   selector: 'app-product-filter',
@@ -16,7 +16,7 @@ export class ProductListFilterComponent implements OnInit {
   currentLocation: string = "";
 
   constructor(
-    private productService: ProductService,
+    private productService: ListingService,
     private router: Router
   ) { }
 

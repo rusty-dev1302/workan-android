@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/common/product';
-import { ProductService } from 'src/app/services/product.service';
+import { Listing } from 'src/app/common/listing';
+import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,14 +10,14 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductListComponent implements OnInit{
 
-  products: Product[] = [];
+  products: Listing[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
   currentLocation: string = "";
   searchKeyword: string = "";
 
 
-  constructor(private productService: ProductService,
+  constructor(private productService: ListingService,
               private route: ActivatedRoute
     ) { }
 
@@ -45,7 +45,7 @@ export class ProductListComponent implements OnInit{
   }
 
   handleListProducts() {
-    this.productService.getProductList(this.currentSubcategory, this.currentLocation).subscribe(
+    this.productService.getListingsByFilters(this.currentSubcategory, this.currentLocation).subscribe(
       data => {
         if(data) {
           this.products = data;

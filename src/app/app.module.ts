@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ProductService } from './services/product.service';
+import { ListingService } from './services/listing.service';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard]},
   { path: 'listings/:subcategory/:location', component: ProductListComponent, canActivate: [AuthGuard]},
   { path: 'listings', component: ProductListComponent, canActivate: [AuthGuard]},
-  { path: 'professional/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'listingDetail/:id', component: ProductDetailsComponent, canActivate: [AuthGuard]},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
                       children: [{ path: 'profile', component: DashboardProfileComponent },
                                   { path: 'myorders', component: DashboardOrdersComponent },
@@ -87,7 +87,7 @@ const routes: Routes = [
       BrowserAnimationsModule
   ],
   providers: [
-    ProductService,
+    ListingService,
     UserService,
     {
       provide: APP_INITIALIZER,

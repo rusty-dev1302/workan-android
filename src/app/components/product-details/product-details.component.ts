@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/common/product';
-import { ProductService } from 'src/app/services/product.service';
+import { Listing } from 'src/app/common/listing';
+import { ListingService } from 'src/app/services/listing.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-product-details',
@@ -11,13 +12,13 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class ProductDetailsComponent implements OnInit{
 
-  product!: Product;
+  product!: Listing;
   currentProductId: number = 0;
   currentSlotDay: string = "";
   currentSlotTime: string = "";
 
   constructor(
-    private productService: ProductService,
+    private productService: ListingService,
     private route: ActivatedRoute,
     private navigation: NavigationService
     ) { }
@@ -31,12 +32,27 @@ export class ProductDetailsComponent implements OnInit{
   handleProductsRouting() {
     if(this.route.snapshot.paramMap.has("id")) {
       this.currentProductId = +this.route.snapshot.paramMap.get("id")!;
-      // this.productService.getProductById(this.currentProductId).subscribe(
-      //   (data) => {
-      //     this.product = data;
-      //   }
-      // );
+      this.loadListingDetails();
     }
+  }
+
+  loadListingDetails() {
+    const subscription = this.productService.getListingById(this.currentProductId).subscribe(
+      (listing) => {
+        if(listing.state!=constants.ERROR_STATE){
+          this.product = listing;
+        }
+        
+      }
+    );
+  }
+
+  getListingById() {
+
+  }
+
+  getProfessionalById() {
+
   }
 
 

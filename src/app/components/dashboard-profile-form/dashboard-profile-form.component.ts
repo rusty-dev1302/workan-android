@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
 import { FileHandle } from 'src/app/model/file-handle.model';
-import { ProductService } from 'src/app/services/product.service';
+import { ListingService } from 'src/app/services/listing.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
@@ -32,7 +32,7 @@ export class DashboardProfileFormComponent implements OnInit{
   constructor(private router: Router,
     private keycloakService: KeycloakService,
     private userService: UserService,
-    private productService: ProductService,
+    private productService: ListingService,
     private toastr: ToastrService
     ) { }
 

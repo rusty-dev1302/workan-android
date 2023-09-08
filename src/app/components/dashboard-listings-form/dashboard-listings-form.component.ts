@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
-import { Product } from 'src/app/common/product';
+import { Listing } from 'src/app/common/listing';
 import { SlotTemplate } from 'src/app/common/slot-template';
 import { SlotTemplateItem } from 'src/app/common/slot-template-item';
-import { ProductService } from 'src/app/services/product.service';
+import { ListingService } from 'src/app/services/listing.service';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
 
@@ -19,8 +19,8 @@ export class DashboardListingsFormComponent implements OnInit{
 
   subscription!: Subscription;
 
-  listing: Product=constants.DEFAULT_LISTING;
-  displayListing!: Product;
+  listing: Listing=constants.DEFAULT_LISTING;
+  displayListing!: Listing;
   slotTemplates!: SlotTemplate[];
   emailValue!:string;
 
@@ -34,7 +34,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   constructor(
     private keycloakService: KeycloakService,
-    private productService: ProductService,
+    private productService: ListingService,
     private toastrService: ToastrService,
     ) { }
 
@@ -44,7 +44,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
-    this.subscription = this.productService.getProductByEmail(this.emailValue).subscribe(
+    this.subscription = this.productService.getListingByEmail(this.emailValue).subscribe(
       (data)=>{
         if(data.state==constants.SUCCESS_STATE){
           // Populate form from data
@@ -157,7 +157,7 @@ export class DashboardListingsFormComponent implements OnInit{
   
   onClickSubmit() {
     this.listing.professionalEmail = this.emailValue;
-    this.productService.saveProduct(this.listing).subscribe(
+    this.productService.saveListing(this.listing).subscribe(
       (data)=>{
         if(data.state==constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);

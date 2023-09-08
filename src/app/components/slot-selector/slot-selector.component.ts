@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
   selector: 'app-slot-selector',
@@ -9,8 +10,11 @@ import { DatePipe } from '@angular/common';
 export class SlotSelectorComponent implements OnInit{
   currentDate!: string;
 
+  @Input() listingId:number=0;
+
   constructor(
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private productService: ListingService
   ) {
   }
 
@@ -26,8 +30,12 @@ export class SlotSelectorComponent implements OnInit{
 
   getSlotsForDay(date: Date) {
     if(date){
-      this.currentDate = this.datePipe.transform(date, 'EEEE')!;
-      console.log(this.currentDate)
+      this.currentDate = this.datePipe.transform(date, 'EE')!;
+      this.productService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, this.currentDate)!).subscribe(
+        (data) => {
+          console.log("slots"+data)
+        }
+      );
     }
   }
 
