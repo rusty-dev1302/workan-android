@@ -23,7 +23,7 @@
 
                 <form>
 
-                  <div class="mb-3">
+                  <div *ngIf="professional" class="mb-3">
 
                     <!-- display profile and name  -->
                     <div class="row">
@@ -32,47 +32,47 @@
                       </div>
                       <div class="col-12">
                         <div class="form-group">
-                          <h4> Vaibhav Agochiya</h4>
+                          <h4>{{professional.firstName}} {{professional.lastName}}</h4>
                         </div>
                       </div>
                     </div>
                     <hr class="style1">
 
                     <!-- User Form Starts -->
-                    <div class="row">
+                    <div *ngIf="listing" class="row">
 
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Charges (Per Visit)</label>
-                          <h5> 20 CAD</h5>
+                          <h5> {{listing.charges}} CAD</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="firstName">Location</label>
-                          <h5> Vancouver</h5>
+                          <label for="firstName">City</label>
+                          <h5> {{listing.location}}</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Speciality</label>
-                          <h5> Mobile Repairing</h5>
+                          <h5> {{listing.subCategoryName}}</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Experience</label>
-                          <h5> 5 Years</h5>
+                          <h5> Aloo</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Languages</label>
-                          <h5> English, French, Hindi</h5>
+                          <h5>{{professional.languages}}</h5>
                         </div>
                       </div>
                       <hr class="style1">
