@@ -321,6 +321,12 @@ a {
     height: fit-content!important;
 }
 
+.list-card {
+    width: 100%;
+    min-height: 28rem!important;
+    height: fit-content!important;
+}
+
 .box-shadow {
     box-shadow: rgba(0, 0, 0, 0.5) 0 8px 24px;
 }
@@ -496,10 +502,10 @@ hr.style1 {
     border-radius: 50px
 }
 
-/* .btn.btn-sm {
+.btn.btn-small {
     height: fit-content;
     font-size: .9rem!important;
-} */
+}
 
 .sidebar-footer {
     position: fixed;

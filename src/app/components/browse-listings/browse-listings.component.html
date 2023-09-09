@@ -76,24 +76,26 @@
       <div class="row g-5">
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
-            <div class="card py-3" style="width: 25rem;">
+            <div class="card list-card py-3" style="width: 25rem;" [routerLink]="['/listingDetail',listing.id]" type="button">
               <img alt="..." class="card-img-top" src="assets/profile.png">
               <div class="card-body">
                 <h4 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
+
                 <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD ({{listing.chargesType}})</h6>
+                
                 <h6><i class="fa fa-star rating-color"></i> 0.0</h6>
+                
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
-                <h6><b>Speciality:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
-                <h6><b>Location:</b><span> {{listing.location}}</span></h6>
-                <h6><b>Languages:</b>
+                <h6><b>Loc:</b><span> {{listing.location}}</span></h6>
+                <h6><b>Exp:</b><span> 10 Years</span></h6>
+                <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
+                <h6><b>Speaks:</b>
                   <span>
-                    {{listing.professional.languages.join(', ')}}
+                    {{listing.professional.languages.join(', ').length>15?(listing.professional.languages.join(', ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
                   </span>
                 </h6>
-                <hr class="style1">
-                <a class="px-4 py-2 btn btn-danger btn-rounded"
-                  [routerLink]="['/listingDetail',listing.id]">View Listing</a>
+
               </div>
             </div>
           </div>
