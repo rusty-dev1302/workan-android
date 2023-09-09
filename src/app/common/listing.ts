@@ -1,4 +1,5 @@
 import { BaseResponse } from "./base-response";
+import { Professional } from "./professional";
 
 // These are ad listings 
 
@@ -11,6 +12,7 @@ export class Listing extends BaseResponse{
         public subCategoryName: string,
         public location: string,
         public professionalId: number,
+        public professional: Professional,
         state: string,
         message: string
     ) {

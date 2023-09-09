@@ -6,7 +6,6 @@ export class Professional extends BaseResponse{
         public id: number,
         public firstName: string,
         public lastName: string,
-        public gender: string,
         public languages: string[],
         public enabled: boolean,
         public professional: boolean,
