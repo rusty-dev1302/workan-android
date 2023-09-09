@@ -76,17 +76,20 @@
             <div class="card" style="width: 18rem;">
               <img alt="..." class="card-img-top" src="assets/profile.png">
               <div class="card-body">
-                <h5 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h5>
+                <div class="d-flex justify-content-between">
+                  <a type="button" class="btn btn-sm btn-warning disabled btn-rounded">{{listing.chargesType}}</a>
+                  <a type="button" class="btn btn-sm btn-success disabled btn-rounded"><i class="fa-solid fa-dollar-sign"></i>{{listing.charges}} CAD</a>
+                </div>
+                <h4 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
                 <h6><b>Speciality:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
+                <h6><b>Location:</b><span> {{listing.location}}</span></h6>
                 <h6><b>Languages:</b>
                   <span>
                     {{listing.professional.languages.join(', ')}}
                   </span>
                 </h6>
-                <h6><b>Location:</b><span> {{listing.location}}</span></h6>
-                <h6><b>Charges:</b><span> {{listing.charges}} CAD ({{listing.chargesType}})</span></h6>
                 <hr class="style1">
                 <a class="px-4 py-2 btn btn-danger btn-rounded" [routerLink]="['/listingDetail',listing.professional.id]">View Listing</a>
               </div>

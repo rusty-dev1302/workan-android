@@ -33,18 +33,22 @@
                       <div class="col-12">
                         <div class="form-group">
                           <h4>{{professional.firstName}} {{professional.lastName}}</h4>
+                          <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD ({{listing.chargesType}})</h6>
                         </div>
                       </div>
                     </div>
                     <hr class="style1">
-
                     <!-- User Form Starts -->
                     <div *ngIf="listing" class="row">
-
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="firstName">Charges (Per Visit)</label>
-                          <h5> {{listing.charges}} CAD</h5>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label for="firstName">Speciality</label>
+                          <h5> {{listing.subCategory.subCategoryName}}</h5>
                         </div>
                       </div>
 
@@ -52,13 +56,6 @@
                         <div class="form-group">
                           <label for="firstName">City</label>
                           <h5> {{listing.location}}</h5>
-                        </div>
-                      </div>
-
-                      <div class="col-12">
-                        <div class="form-group">
-                          <label for="firstName">Speciality</label>
-                          <h5> {{listing.subCategory.subCategoryName}}</h5>
                         </div>
                       </div>
 
@@ -72,7 +69,7 @@
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Languages</label>
-                          <h5>{{professional.languages}}</h5>
+                          <h5>{{professional.languages.join(', ')}}</h5>
                         </div>
                       </div>
                       <hr class="style1">
@@ -218,7 +215,7 @@
   <!-- Modal section begins -->
 
   <!-- Slot Selector Modal -->
-<div class="modal fade" id="slotSelectorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div *ngIf="listing" class="modal fade" id="slotSelectorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
@@ -228,7 +225,7 @@ aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
         </div>
         <div class="modal-body">
           <div class="form-section p-3 m-3">
-            <app-slot-selector ></app-slot-selector>
+            <app-slot-selector [listingId]="listing.id"></app-slot-selector>
           </div>
         </div>
     </div>

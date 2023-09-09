@@ -30,8 +30,8 @@ export class SlotSelectorComponent implements OnInit{
 
   getSlotsForDay(date: Date) {
     if(date){
-      this.currentDate = this.datePipe.transform(date, 'EE')!;
-      this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, this.currentDate)!).subscribe(
+      this.currentDate = this.datePipe.transform(date, `EEEE`)!;
+      this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate).subscribe(
         (data) => {
           console.log("slots"+data)
         }
