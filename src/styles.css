@@ -492,10 +492,10 @@ hr.style1 {
     border-radius: 50px
 }
 
-.btn.btn-sm {
+/* .btn.btn-sm {
     height: fit-content;
     font-size: .9rem!important;
-}
+} */
 
 .sidebar-footer {
     position: fixed;

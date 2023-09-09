@@ -2,7 +2,7 @@
         <div *ngIf="products?.length == 0" class="alert alert-warning col-md-12" role="alert">
           Nothing Found.
         </div> -->
-        
+
 <!--Divider section-->
 
 <section class="bg-color py-2">
@@ -29,9 +29,12 @@
 
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end navbar-dark" style="background-color: #222;">
-    <a class="nav-link active" style="margin-right: 5px;">Ratings <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
-    <a class="nav-link active" style="margin-right: 5px;">Paris <i class="fa-sharp fa-solid fa-xmark" type="button"></i></a>
-    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i class="fa-solid fa-filter" style="color: white;"></i></a>
+    <a class="nav-link active" style="margin-right: 5px;">Ratings <i class="fa-sharp fa-solid fa-xmark"
+        type="button"></i></a>
+    <a class="nav-link active" style="margin-right: 5px;">Paris <i class="fa-sharp fa-solid fa-xmark"
+        type="button"></i></a>
+    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i
+        class="fa-solid fa-filter" style="color: white;"></i></a>
 
     <!-- to be removed start -->
 
@@ -69,18 +72,16 @@
   <section class="common-section blog-section">
 
     <div class="container my-5">
-      
+
       <div class="row g-5  ">
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
             <div class="card" style="width: 18rem;">
               <img alt="..." class="card-img-top" src="assets/profile.png">
               <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <a type="button" class="btn btn-sm btn-warning disabled btn-rounded">{{listing.chargesType}}</a>
-                  <a type="button" class="btn btn-sm btn-success disabled btn-rounded"><i class="fa-solid fa-dollar-sign"></i>{{listing.charges}} CAD</a>
-                </div>
                 <h4 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
+                <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD ({{listing.chargesType}})</h6>
+                <h6><i class="fa fa-star rating-color"></i> 0.0</h6>
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
                 <h6><b>Speciality:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
@@ -91,7 +92,8 @@
                   </span>
                 </h6>
                 <hr class="style1">
-                <a class="px-4 py-2 btn btn-danger btn-rounded" [routerLink]="['/listingDetail',listing.professional.id]">View Listing</a>
+                <a class="px-4 py-2 btn btn-danger btn-rounded"
+                  [routerLink]="['/listingDetail',listing.professional.id]">View Listing</a>
               </div>
             </div>
           </div>

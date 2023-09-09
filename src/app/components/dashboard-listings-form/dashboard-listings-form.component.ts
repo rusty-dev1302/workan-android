@@ -154,6 +154,17 @@ export class DashboardListingsFormComponent implements OnInit{
     }
   }
 
+  setSpeciality() {
+
+  }
+
+  setCity() {
+
+  }
+
+  setChargesType() {
+    
+  }
   
   onClickSubmit() {
     this.listing.professionalEmail = this.emailValue;
@@ -187,7 +198,7 @@ export class DashboardListingsFormComponent implements OnInit{
       min = +time.split(":")[1].split("AM")[0];
     } else if(time.includes("PM")) {
       min = +time.split(":")[1].split("PM")[0];
-      hour = (hour+12)%24;
+      hour = hour==12?12:(hour+12)%24;
     }
 
     return hour*100 + min;

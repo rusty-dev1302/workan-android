@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ListingService } from 'src/app/services/listing.service';
+import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 
 @Component({
   selector: 'app-slot-selector',
@@ -9,6 +10,7 @@ import { ListingService } from 'src/app/services/listing.service';
 })
 export class SlotSelectorComponent implements OnInit{
   currentDate!: string;
+  currentSlots!: SlotTemplateItem[];
 
   @Input() listingId:number=0;
 
@@ -19,6 +21,7 @@ export class SlotSelectorComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.getSlotsForDay(new Date());
   }
 
   slotDate(index: number): Date {
@@ -30,13 +33,23 @@ export class SlotSelectorComponent implements OnInit{
 
   getSlotsForDay(date: Date) {
     if(date){
-      this.currentDate = this.datePipe.transform(date, `EEEE`)!;
-      this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate).subscribe(
+      this.currentDate = this.datePipe.transform(date, 'EEEE dd-MMM')!;
+      this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, 'EEEE')!).subscribe(
         (data) => {
-          console.log("slots"+data)
+          if(data) {
+            this.currentSlots = data;
+          }
         }
       );
     }
+  }
+
+  convertTimeToString(time: number): string{
+    let hour = Math.floor(time/100)<=12?Math.floor(time/100):Math.floor(time/100)%12;
+    let min = (time%100==0?"00":time%100);
+    let merd = (Math.floor(time/100)<12?"AM":"PM");
+
+    return (hour==0?"00":hour)+":"+min+merd;
   }
 
 }
