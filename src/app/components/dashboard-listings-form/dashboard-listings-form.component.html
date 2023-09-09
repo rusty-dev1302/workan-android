@@ -31,7 +31,7 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Speciality</label>
-                            <h5>{{displayListing.subCategoryName}}</h5>
+                            <h5>{{displayListing.subCategory.subCategoryName}}</h5>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
@@ -155,7 +155,7 @@
                                             <div class="form-group">
                                                 <label for="subCategoryName">Speciality</label>
                                                 <input #subCategoryName="ngModel" required
-                                                    [(ngModel)]="listing.subCategoryName" minlength="3" maxlength="15"
+                                                    [(ngModel)]="listing.subCategory.subCategoryName" minlength="3" maxlength="15"
                                                     name="subCategoryName" id="subCategoryName" type="text"
                                                     class="form-control">
                                             </div>

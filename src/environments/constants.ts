@@ -25,7 +25,9 @@ export const constants = {
     state: "",
     message: "",
     subCategory: {
-      subCategoryName: ""
+      id:0,
+      subCategoryName: "",
+      categoryName: ""
     },
     location: "",
     professional: {
@@ -37,7 +39,7 @@ export const constants = {
       message: "",
       enabled: false,
       professional: false
-    }
+    },
   },
   DEFAULT_CONTACT_DETAIL: {
     customerId: 0,
