@@ -318,13 +318,13 @@ a {
 }
 
 .card {
-    height: fit-content!important;
+    height: fit-content !important;
 }
 
 .list-card {
     width: 100%;
-    min-height: 28rem!important;
-    height: fit-content!important;
+    min-height: 28rem !important;
+    height: fit-content !important;
 }
 
 .box-shadow {
@@ -504,7 +504,7 @@ hr.style1 {
 
 .btn.btn-small {
     height: fit-content;
-    font-size: .9rem!important;
+    font-size: .9rem !important;
 }
 
 .sidebar-footer {
@@ -610,3 +610,11 @@ hr.style1 {
 }
 
 /* Custom toggle switches end*/
+
+.link {
+    text-decoration: none;
+}
+
+.btn-warning {
+    color: rgb(67, 67, 67)!important;
+}
