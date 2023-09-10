@@ -87,7 +87,7 @@
                 
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
-                <h6><b>Loc:</b><span> {{listing.location}}</span></h6>
+                <h6><b>City:</b><span> {{listing.location}}</span></h6>
                 <h6><b>Exp:</b><span> 10 Years</span></h6>
                 <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
                 <h6><b>Speaks:</b>
@@ -95,10 +95,25 @@
                     {{listing.professional.languages.join(', ').length>15?(listing.professional.languages.join(', ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
                   </span>
                 </h6>
-
+                <hr class="style1">
+                <div class="d-flex justify-content-end">
+                  <div class="row g-2">
+                    <div class="col-12">
+                      <h6><b>Availability:</b></h6>
+                    </div>
+                    <div class="col-12">
+                      <a type="button" class="btn border btn-small btn-secondary disabled btn-rounded">Today</a>
+                      <a type="button" class="btn border btn-small btn-warning btn-rounded">Tomorrow</a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="listings.length == 0" class="alert alert-warning col-md-12" role="alert">
+          No Listings Found.
         </div>
       </div>
     </div>

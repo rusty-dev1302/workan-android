@@ -162,7 +162,7 @@
                                         </div>
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <label for="location">City</label>
+                                                <label for="location">Listing City</label>
                                                 <input #location="ngModel" required [(ngModel)]="listing.location"
                                                     minlength="3" maxlength="15" name="location" id="location"
                                                     type="text" class="form-control">
@@ -198,6 +198,7 @@
                                 <!-- Edit buttons -->
                                 <div class="mb-3">
                                     <div class="row">
+                                        <h6>** Listing city can be different from your profile city</h6>
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-danger btn-rounded"
                                                 data-bs-toggle="modal"

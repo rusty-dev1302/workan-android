@@ -18,15 +18,15 @@
                     Select
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                    <li *ngFor="let e of [].constructor(3); let i = index"><a class="dropdown-item" type="button" (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE dd-MMM'}}</a>
+                    <li *ngFor="let e of [].constructor(2); let i = index"><a class="dropdown-item" type="button" (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE dd-MMM'}}</a>
                     </li>
                   </ul>
                 </div>
               </div>
               <div class="col-12">
                 <div class="form-group">
-                    <label class="py-3">Slots</label>
-                    <div class="row">
+                  <h5 class="review-count">Slots</h5>
+                  <div class="row">
                       <!-- Time slot to be iterated  -->
                         <div *ngFor="let slot of currentSlots" class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
                             <span class="btn btn-rounded" [ngClass]="'btn-secondary'">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
