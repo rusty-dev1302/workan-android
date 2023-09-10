@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-color workan-header">
   <div class="container-fluid d-flex justify-content-start">
     <a *ngIf="isFirstLogin" class="navbar-brand"><img src="assets/workan.png"></a>
-    <a *ngIf="!isFirstLogin" class="navbar-brand" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"><img src="assets/workan.png"></a>
+    <a *ngIf="!isFirstLogin" class="navbar-brand"><i class="fa-solid fa-bars px-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></i><img src="assets/workan.png" type="button" routerLink="/listings"></a>
   </div>
 </nav>
 
