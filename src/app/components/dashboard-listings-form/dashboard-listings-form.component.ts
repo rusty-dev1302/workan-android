@@ -62,6 +62,14 @@ export class DashboardListingsFormComponent implements OnInit{
     const subscription = this.listingService.getSlotTemplates(listingId).subscribe(
       (data) => {
         this.slotTemplates = data;
+        for(let i=0; i<this.slotTemplates.length; i++) {
+          this.slotTemplates[i].items.sort(
+            (a,b) => {
+              return a.startTimeHhmm - b.startTimeHhmm;
+            }
+            );
+        }
+        this.slotTemplates[0].items.sort();
         subscription.unsubscribe();
       }
     );

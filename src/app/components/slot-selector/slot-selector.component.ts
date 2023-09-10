@@ -11,6 +11,8 @@ import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 export class SlotSelectorComponent implements OnInit{
   currentDate!: string;
   currentSlots!: SlotTemplateItem[];
+  selectedSlot!: SlotTemplateItem;
+  currentStep: number = 0;
 
   @Input() listingId:number=0;
 
@@ -33,11 +35,17 @@ export class SlotSelectorComponent implements OnInit{
 
   getSlotsForDay(date: Date) {
     if(date){
-      this.currentDate = this.datePipe.transform(date, 'EEEE dd-MMM')!;
+      this.currentDate = this.datePipe.transform(date, 'EEEE')!;
       this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, 'EEEE')!).subscribe(
         (data) => {
           if(data) {
             this.currentSlots = data;
+            this.currentSlots.sort(
+              (a,b) => {
+                return a.startTimeHhmm - b.startTimeHhmm;
+              }
+              );
+              
           }
         }
       );
@@ -50,6 +58,19 @@ export class SlotSelectorComponent implements OnInit{
     let merd = (Math.floor(time/100)<12?"AM":"PM");
 
     return (hour==0?"00":hour)+":"+min+merd;
+  }
+
+  selectSlot(slot: SlotTemplateItem) {
+    this.selectedSlot = slot;
+  }
+
+  closeDialog() {
+    this.selectedSlot = null!;
+    this.currentStep = 0;
+  }
+
+  nextStep() {
+    this.currentStep++;
   }
 
 }

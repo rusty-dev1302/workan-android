@@ -14,6 +14,7 @@ export class Listing extends BaseResponse{
         public professionalId: number,
         public professional: Professional,
         public subCategory: SubCategory,
+        public experience: number,
         state: string,
         message: string
     ) {

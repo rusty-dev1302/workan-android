@@ -33,7 +33,8 @@
                       <div class="col-12">
                         <div class="form-group">
                           <h4>{{professional.firstName}} {{professional.lastName}}</h4>
-                          <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD ({{listing.chargesType}})</h6>
+                          <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD
+                            ({{listing.chargesType}})</h6>
                           <h6><i class="fa fa-star rating-color"></i> 0.0</h6>
                         </div>
                       </div>
@@ -45,7 +46,7 @@
                         <div class="form-group">
                         </div>
                       </div>
-                      
+
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Speciality</label>
@@ -63,7 +64,7 @@
                       <div class="col-12">
                         <div class="form-group">
                           <label for="firstName">Experience</label>
-                          <h5> Aloo</h5>
+                          <h5> {{listing.experience}} Years</h5>
                         </div>
                       </div>
 
@@ -76,7 +77,8 @@
                       <hr class="style1">
 
                       <div class="col-12">
-                        <button class="btn btn-danger btn-rounded" type="button" data-bs-toggle="modal" data-bs-target="#slotSelectorModal">Book A Slot</button>
+                        <button class="btn btn-danger btn-rounded" type="button" data-bs-toggle="modal"
+                          data-bs-target="#slotSelectorModal">Book A Slot</button>
                       </div>
                     </div>
                   </div>
@@ -216,23 +218,13 @@
   <!-- Modal section begins -->
 
   <!-- Slot Selector Modal -->
-<div *ngIf="listing" class="modal fade" id="slotSelectorModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="slotSelectorModalLabel">Select A Slot</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="form-section p-3">
-            <app-slot-selector [listingId]="listing.id"></app-slot-selector>
-          </div>
-        </div>
+  <div *ngIf="listing" class="modal fade" id="slotSelectorModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-slot-selector [listingId]="listing.id"></app-slot-selector>
     </div>
-</div>
-</div>
-<!-- Slot Selector Modal Ends -->
+  </div>
+  <!-- Slot Selector Modal Ends -->
 
 
   <!-- Modals section ends -->

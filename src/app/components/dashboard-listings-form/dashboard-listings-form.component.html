@@ -34,6 +34,14 @@
                             <h5>{{displayListing.subCategory.subCategoryName}}</h5>
                         </div>
                     </div>
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label>Experience</label>
+                            <h5>{{displayListing.experience}} Years</h5>
+                        </div>
+                    </div>
+
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="col-xxl-6 col-lg-6 col-12">
                             <div class="form-group">
@@ -42,13 +50,6 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-            </div>
-
-            <div *ngIf="displayListing" class="mb-3">
-                <div class="row">
-
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges Type</label>
@@ -68,7 +69,7 @@
         <!-- User Form Ends -->
     </div>
 
-    <div *ngIf="displayListing" class="form-section p-3 m-3">
+    <div class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -160,12 +161,14 @@
                                                     class="form-control">
                                             </div>
                                         </div>
+
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <label for="location">Listing City</label>
-                                                <input #location="ngModel" required [(ngModel)]="listing.location"
-                                                    minlength="3" maxlength="15" name="location" id="location"
-                                                    type="text" class="form-control">
+                                                <label for="experience">Experience</label>
+                                                <input #experience="ngModel" required
+                                                    [(ngModel)]="listing.experience" minlength="3" maxlength="15"
+                                                    name="experience" id="experience" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
 
@@ -177,8 +180,17 @@
 
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
+                                                <label for="location">Listing City</label>
+                                                <input #location="ngModel" required [(ngModel)]="listing.location"
+                                                    minlength="3" maxlength="15" name="location" id="location"
+                                                    type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
                                                 <label for="chargesType">Charges Type</label>
-                                                <input #chargesType="ngModel" required [(ngModel)]="listing.chargesType"
+                                                <input required [(ngModel)]="listing.chargesType"
                                                     minlength="3" maxlength="15" name="chargesType" id="chargesType"
                                                     type="text" class="form-control">
                                             </div>

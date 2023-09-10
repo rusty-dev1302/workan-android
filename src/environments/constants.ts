@@ -24,6 +24,7 @@ export const constants = {
     subCategoryName: "",
     state: "",
     message: "",
+    experience: 0,
     subCategory: {
       id:0,
       subCategoryName: "",
@@ -53,13 +54,7 @@ export const constants = {
     state: "",
     message: ""
   },
-  TIMESLOTS: ["00:00AM", "00:30AM",
-    "1:00AM", "1:30AM",
-    "2:00AM", "2:30AM",
-    "3:00AM", "3:30AM",
-    "4:00AM", "4:30AM",
-    "5:00AM", "5:30AM",
-    "6:00AM", "6:30AM",
+  TIMESLOTS: [
     "7:00AM", "7:30AM",
     "8:00AM", "8:30AM",
     "9:00AM", "9:30AM",
@@ -76,6 +71,6 @@ export const constants = {
     "8:00PM", "8:30PM",
     "9:00PM", "9:30PM",
     "10:00PM", "10:30PM",
-    "11:00PM", "11:30PM",
+    "11:00PM"
   ],
 };

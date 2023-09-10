@@ -1,57 +1,146 @@
-<div class="row g-5">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title" id="slotSelectorModalLabel">Book Slot</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDialog()"></button>
+  </div>
+  <!-- step0 modal body start  -->
+  <div *ngIf="currentStep==0" class="modal-body">
+    <div class="form-section p-3">
+      <div class="row g-5">
 
-    <div class="d-flex justify-content-center align-items-center">
-      <!-- Selector card start -->
-      <div class="p-3">
+        <div class="d-flex justify-content-center align-items-center">
+          <!-- Selector card start -->
+          <div class="p-3">
 
-        <!-- Slots start -->
-        <div class="mt-3 mb-3">
-          <div class="container p-2">
+            <!-- Slots start -->
+            <div class="mt-3 mb-3">
+              <div class="container p-2">
 
-            <div class="row g-2">
-              <div class="col-lg-12">
-                <h5 class="review-count">Day</h5>
-                <div class="input-group mb-3 dropdown">
-                  <input [ngModel]="currentDate" type="text" class="form-control" name="slotDay" readonly style="background-color: white;">
-                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="slotDayButton1"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    Select
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                    <li *ngFor="let e of [].constructor(2); let i = index"><a class="dropdown-item" type="button" (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE dd-MMM'}}</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="form-group">
-                  <h5 class="review-count">Slots</h5>
-                  <div class="row">
-                      <!-- Time slot to be iterated  -->
+                <div class="row g-2">
+                  <div class="col-lg-12">
+                    <h5 class="review-count">Day</h5>
+                    <div class="input-group mb-3 dropdown">
+                      <input [ngModel]="currentDate" type="text" class="form-control" name="slotDay" readonly
+                        style="background-color: white;">
+                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="slotDayButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Select
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
+                        <li *ngFor="let e of [].constructor(2); let i = index"><a class="dropdown-item" type="button"
+                            (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE'}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <h5 class="review-count">Slots</h5>
+                      <div class="row">
+                        <!-- Time slot to be iterated  -->
                         <div *ngFor="let slot of currentSlots" class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
-                            <span class="btn btn-rounded" [ngClass]="'btn-secondary'">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
+                          <span class="btn btn-rounded"
+                            [ngClass]="selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary'"
+                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
                         </div>
-                      <!-- Time slot to be iterated end -->
-                      <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
-                        Please Select A Day.
-                      </div>
-                      <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
-                        No Slots Found.
+                        <!-- Time slot to be iterated end -->
+                        <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
+                          Please Select A Day.
+                        </div>
+                        <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                          No Slots Available.
+                        </div>
                       </div>
                     </div>
+                    <hr class="style1">
+                    <h6>** Time slots can be booked for today or tomorrow</h6>
+                  </div>
                 </div>
-                <hr class="style1">
-                <h6>** Time slots can be booked for today or tomorrow</h6>
-            </div>
-              </div>
 
+              </div>
+            </div>
+            <!-- Slots end -->
+
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger btn-rounded" (click)="nextStep()">Next</button>
+            </div>
+
+            <!-- Selector card end -->
           </div>
         </div>
-        <!-- Slots end -->
-
-        <button type="button" class="btn btn-danger btn-rounded">Book</button>
-
       </div>
-      <!-- Selector card end -->
     </div>
   </div>
+  <!-- step0 modal body ends  -->
+
+  <!-- step1 modal body start  -->
+  <div *ngIf="currentStep==1" class="modal-body">
+    <div class="form-section p-3">
+      <div class="row g-5">
+
+        <div class="d-flex justify-content-center align-items-center">
+          <!-- Selector card start -->
+          <div class="p-3">
+
+            <!-- Slots start -->
+            <div class="mt-3 mb-3">
+              <div class="container p-2">
+
+                <div class="row g-2">
+                  <div class="col-lg-12">
+                    <h5 class="review-count">Day</h5>
+                    <div class="input-group mb-3 dropdown">
+                      <input [ngModel]="currentDate" type="text" class="form-control" name="slotDay" readonly
+                        style="background-color: white;">
+                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="slotDayButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Select
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
+                        <li *ngFor="let e of [].constructor(2); let i = index"><a class="dropdown-item" type="button"
+                            (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE'}}</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <h5 class="review-count">Slots</h5>
+                      <div class="row">
+                        <!-- Time slot to be iterated  -->
+                        <div *ngFor="let slot of currentSlots" class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
+                          <span class="btn btn-rounded"
+                            [ngClass]="selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary'"
+                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
+                        </div>
+                        <!-- Time slot to be iterated end -->
+                        <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
+                          Please Select A Day.
+                        </div>
+                        <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                          No Slots Available.
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="style1">
+                    <h6>** Time slots can be booked for today or tomorrow</h6>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- Slots end -->
+
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger btn-rounded">Book</button>
+            </div>
+
+            <!-- Selector card end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- step1 modal body ends  -->
+
+</div>
