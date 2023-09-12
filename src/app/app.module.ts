@@ -30,6 +30,9 @@ import { PhotoUploaderComponent } from './components/photo-uploader/photo-upload
 import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { DatePipe } from '@angular/common';
+import { DashboardOrderDetailsComponent } from './components/dashboard-order-details/dashboard-order-details.component';
+import { DashboardOrdersTakenComponent } from './components/dashboard-orders-taken/dashboard-orders-taken.component';
+import { DashboardOrdersTakenDetailsComponent } from './components/dashboard-orders-taken-details/dashboard-orders-taken-details.component';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -46,6 +49,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
                       children: [{ path: 'profile', component: DashboardProfileComponent },
                                   { path: 'orders', component: DashboardOrdersComponent },
+                                  {path: 'orderDetail/:id', component: DashboardOrderDetailsComponent},
                                   { path: 'managelisting', component: DashboardListingsComponent },
                                   {path: '', component: DashboardProfileComponent} 
                                   ]},
@@ -71,7 +75,10 @@ const routes: Routes = [
     BrowseListingsFilterComponent,
     SidebarComponent,
     FirstLoginComponent,
-    PhotoUploaderComponent
+    PhotoUploaderComponent,
+    DashboardOrderDetailsComponent,
+    DashboardOrdersTakenComponent,
+    DashboardOrdersTakenDetailsComponent
   ],
   imports: [
     FormsModule,

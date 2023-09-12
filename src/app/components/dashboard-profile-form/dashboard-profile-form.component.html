@@ -234,19 +234,10 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                                     <li><a class="dropdown-item"
-                                                            (click)="addLanguage('Clear All')" type="button">Clear All</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="addLanguage('English')" type="button">English</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="addLanguage('French')" type="button">French</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="addLanguage('Mandarin')" type="button">Mandarin</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="addLanguage('Cantonese')" type="button">Cantonese</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="addLanguage('Punjabi')" type="button">Punjabi</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="addLanguage('Hindi')" type="button">Hindi</a></li>
+                                                        (click)="resetLanguages()" type="button">Clear All</a></li>
+                                                    <li *ngFor="let language of availableLanguages | keyvalue">
+                                                        <a *ngIf="language.key!='dummy'" class="dropdown-item" (click)="addLanguage(language)" type="button" [ngClass]="language.value==1?'disabled':''">
+                                                            {{language.key}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
