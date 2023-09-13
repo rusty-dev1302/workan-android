@@ -49,6 +49,8 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
                       children: [{ path: 'profile', component: DashboardProfileComponent },
                                   { path: 'orders', component: DashboardOrdersComponent },
+                                  { path: 'takenOrders', component: DashboardOrdersTakenComponent },
+                                  { path: 'takenOrderDetail/:id', component: DashboardOrdersTakenDetailsComponent },
                                   {path: 'orderDetail/:id', component: DashboardOrderDetailsComponent},
                                   { path: 'managelisting', component: DashboardListingsComponent },
                                   {path: '', component: DashboardProfileComponent} 
