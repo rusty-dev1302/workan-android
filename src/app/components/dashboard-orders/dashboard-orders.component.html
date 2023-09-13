@@ -28,7 +28,7 @@
       <div class="row">
 
         <!-- to be iterated over orders start  -->
-        <div class="col-12">
+        <div *ngFor="let order of orders" class="col-12">
 
           <div class="form-section p-3 m-3">
 
@@ -42,35 +42,35 @@
                   <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Appointment Date</label>
-                      <h5> 26 September 2023</h5>
+                      <h5> {{order.appointmentDate|date:'dd-MMM-yyyy'}}</h5>
                     </div>
                   </div>
 
                   <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Appointment Time</label>
-                      <h5>12:00PM-12:30PM</h5>
+                      <h5>{{convertTimeToString(order.startTimeHhmm)}}-{{convertTimeToString(order.endTimeHhmm)}}</h5>
                     </div>
                   </div>
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Professional</label>
-                      <h5><a class="link" type="button"> Vaibhav Agochiya </a></h5>
+                      <h5><a class="link" type="button">{{order.professional.firstName}} {{order.professional.lastName}}</a></h5>
                     </div>
                   </div>
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Specialization</label>
-                      <h5> Gadgets</h5>
+                      <h5>{{order.subCategoryName}}</h5>
                     </div>
                   </div>
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Total</label>
-                      <h5><i class="fa-solid fa-dollar-sign"></i> 15.00 CAD</h5>
+                      <h5><i class="fa-solid fa-dollar-sign"></i> {{order.charges}} CAD</h5>
                     </div>
                   </div>
 
@@ -80,6 +80,9 @@
                       routerLink="/dashboard/orderDetail/1">View Order</button>
                   </div>
 
+                </div>
+                <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-md-12" role="alert">
+                  No orders found.
                 </div>
               </div>
             </form>

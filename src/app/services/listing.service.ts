@@ -68,8 +68,8 @@ export class ListingService {
     return this.httpClient.get<SlotTemplate[]>(getUrl)
   }
 
-  getAvailableSlotsItems(listingId: number, dayOfWeek: string): Observable<SlotTemplateItem[]> {
-    const getUrl = `${this.baseUrl}/availableSlotsItems?listingId=${listingId}&&dayOfWeek=${dayOfWeek}`;
+  getAvailableSlotsItems(listingId: number, dayOfWeek: string, date: string): Observable<SlotTemplateItem[]> {
+    const getUrl = `${this.baseUrl}/availableSlotsItems?listingId=${listingId}&&dayOfWeek=${dayOfWeek}&&date=${date}`;
     return this.httpClient.get<SlotTemplateItem[]>(getUrl)
   }
 

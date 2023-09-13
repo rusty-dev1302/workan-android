@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CreateOrderRequest } from '../common/create-order-request';
 import { BaseResponse } from '../common/base-response';
+import { Order } from '../common/order';
 
 
 
@@ -22,4 +23,12 @@ export class OrderService {
     const postUrl = `${this.baseUrl}/create`;
     return this.httpClient.post<BaseResponse>(postUrl, createOrderRequest);
   }
+
+  getOrdersForCustomer(customerId: number): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}`;
+    return this.httpClient.get<Order[]>(getUrl)  }
+
+  getOrdersForProfessional(professionalId: number): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}`;
+    return this.httpClient.get<Order[]>(getUrl)  }
 }

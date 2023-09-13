@@ -62,7 +62,7 @@
             <!-- Slots end -->
 
             <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-danger btn-rounded" (click)="nextStep()">Next</button>
+              <button *ngIf="selectedDate&&selectedSlot" type="button" class="btn btn-danger btn-rounded" (click)="nextStep()">Next</button>
             </div>
 
             <!-- Selector card end -->
@@ -88,42 +88,15 @@
 
                 <div class="row g-2">
                   <div class="col-lg-12">
-                    <h5 class="review-count">Day</h5>
-                    <div class="input-group mb-3 dropdown">
-                      <input [ngModel]="currentDate" type="text" class="form-control" name="slotDay" readonly
-                        style="background-color: white;">
-                      <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="slotDayButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Select
-                      </button>
-                      <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                        <li *ngFor="let e of [].constructor(2); let i = index"><a class="dropdown-item" type="button"
-                            (click)="getSlotsForDay(slotDate(i))">{{slotDate(i)|date:'EEEE'}}</a>
-                        </li>
-                      </ul>
-                    </div>
+                    <label>Day</label>
+                    <h5>{{selectedDate|date:'EEEE'}}</h5>
                   </div>
                   <div class="col-12">
                     <div class="form-group">
-                      <h5 class="review-count">Slots</h5>
-                      <div class="row">
-                        <!-- Time slot to be iterated  -->
-                        <div *ngFor="let slot of currentSlots" class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
-                          <span class="btn btn-rounded"
-                            [ngClass]="selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary'"
-                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
-                        </div>
-                        <!-- Time slot to be iterated end -->
-                        <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
-                          Please Select A Day.
-                        </div>
-                        <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
-                          No Slots Available.
-                        </div>
-                      </div>
+                      <label class="review-count">Time Slot</label>
+                      <h5>{{convertTimeToString(selectedSlot.startTimeHhmm)}}-{{convertTimeToString(selectedSlot.endTimeHhmm)}}</h5>
                     </div>
                     <hr class="style1">
-                    <h6>** Time slots can be booked for today or tomorrow</h6>
                   </div>
                 </div>
 
@@ -132,7 +105,7 @@
             <!-- Slots end -->
 
             <div class="d-flex justify-content-end">
-              <button type="button" class="btn btn-danger btn-rounded" (click)="bookSlot()">Book</button>
+              <button type="button" class="btn btn-danger btn-rounded" (click)="bookSlot()" data-bs-dismiss="modal" aria-label="Close">Book</button>
             </div>
 
             <!-- Selector card end -->
