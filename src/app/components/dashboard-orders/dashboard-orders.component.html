@@ -28,13 +28,15 @@
 
         <!-- to be iterated over orders start  -->
         <div *ngFor="let order of orders" class="col-12">
-
           <div class="form-section p-3 m-3">
 
             <form>
 
               <div class="mb-3">
-              <button class="btn btn-primary btn-small btn-rounded disabled">{{order.status}}</button>
+              <button class="btn btn-small btn-rounded disabled"
+              [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
+                         order.status=='COMPLETED'?'btn-success':'btn-primary']"
+              >{{order.status}}</button>
                 <!-- display profile and name  -->
                 <div class="row">
 
@@ -86,6 +88,7 @@
           </div>
         </div>
         <!-- to be iterated over orders end  -->
+
         <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-md-12" role="alert">
           No orders found.
         </div>
