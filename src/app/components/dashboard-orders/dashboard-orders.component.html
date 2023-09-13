@@ -81,16 +81,15 @@
                   </div>
 
                 </div>
-                <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-md-12" role="alert">
-                  No orders found.
-                </div>
               </div>
             </form>
             <!-- User Form Ends -->
           </div>
         </div>
         <!-- to be iterated over orders end  -->
-
+        <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-md-12" role="alert">
+          No orders found.
+        </div>
       </div>
     </div>
 

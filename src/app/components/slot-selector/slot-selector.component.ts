@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Customer } from 'src/app/common/customer';
 import { ToastrService } from 'ngx-toastr';
 import { constants } from 'src/environments/constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-slot-selector',
@@ -31,7 +32,8 @@ export class SlotSelectorComponent implements OnInit {
     private orderService: OrderService,
     private keycloakService: KeycloakService,
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router,
   ) {
   }
 
@@ -99,6 +101,7 @@ export class SlotSelectorComponent implements OnInit {
           (data)=> {
             if(data.state==constants.SUCCESS_STATE) {
               this.toastr.success(data.state)
+              this.router.navigateByUrl(`/dashboard/orders`);
             } else {
               this.toastr.error(data.message)
             }
