@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DashboardListingsFormComponent implements OnInit{
 
   isEditable: boolean = false;
+  isTimeSlotExpanded: boolean = false;
 
   subscription!: Subscription;
 
@@ -172,6 +173,10 @@ export class DashboardListingsFormComponent implements OnInit{
 
   setChargesType() {
     
+  }
+
+  toggleTimeSlotExpand() {
+    this.isTimeSlotExpanded = !this.isTimeSlotExpanded;
   }
   
   onClickSubmit() {

@@ -78,7 +78,12 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Time Slots </b></h3>
+                            <h3><b>Time Slots </b>
+                                <i *ngIf="!isTimeSlotExpanded" class="fa-solid fa-square-plus" type="button"
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: rgb(100, 100, 100)"></i>
+                                <i *ngIf="isTimeSlotExpanded" class="fa-solid fa-square-minus" type="button"
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: rgb(100, 100, 100)"></i>
+                            </h3>
                             <h6>** Time slots are in the local time of the listing city</h6>
                         </div>
                     </div>
@@ -86,35 +91,40 @@
                 </div>
 
                 <!-- Slots for the day start  -->
-
-                <div *ngFor="let template of slotTemplates" class="row py-1">
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label>Day <label class="custom-control teleport-switch" type="button">
-                                    <input type="checkbox" class="teleport-switch-control-input"
-                                        [checked]="template.enabled" (click)="toggleSlotTemplate(template.id)">
-                                    <span class="teleport-switch-control-indicator"></span>
-                                </label></label>
-                            <h4>{{template.dayName}}</h4>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label class="py-3">Slots</label>
-                            <div class="row">
-
-                                <div *ngFor="let item of template.items" class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary" (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}} <i
-                                            class="fa-regular fa-circle-xmark"></i></span>
-                                </div>
-
-                                <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                    <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#addSlotModal" (click)="addSlotTemplateItemToDialog(template.id)"><i class="fa-solid fa-plus"></i></span>
-                                </div>
+                <div *ngIf="isTimeSlotExpanded">
+                    <div *ngFor="let template of slotTemplates" class="row py-1">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>Day <label class="custom-control teleport-switch" type="button">
+                                        <input type="checkbox" class="teleport-switch-control-input"
+                                            [checked]="template.enabled" (click)="toggleSlotTemplate(template.id)">
+                                        <span class="teleport-switch-control-indicator"></span>
+                                    </label></label>
+                                <h4>{{template.dayName}}</h4>
                             </div>
                         </div>
-                        <hr class="style1">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label class="py-3">Slots</label>
+                                <div class="row">
+
+                                    <div *ngFor="let item of template.items"
+                                        class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                        <span class="btn btn-rounded btn-primary"
+                                            (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}}
+                                            <i class="fa-regular fa-circle-xmark"></i></span>
+                                    </div>
+
+                                    <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                        <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#addSlotModal"
+                                            (click)="addSlotTemplateItemToDialog(template.id)"><i
+                                                class="fa-solid fa-plus"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="style1">
+                        </div>
                     </div>
                 </div>
 
@@ -156,19 +166,18 @@
                                             <div class="form-group">
                                                 <label for="subCategoryName">Speciality</label>
                                                 <input #subCategoryName="ngModel" required
-                                                    [(ngModel)]="listing.subCategory.subCategoryName" minlength="3" maxlength="15"
-                                                    name="subCategoryName" id="subCategoryName" type="text"
-                                                    class="form-control">
+                                                    [(ngModel)]="listing.subCategory.subCategoryName" minlength="3"
+                                                    maxlength="15" name="subCategoryName" id="subCategoryName"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
                                                 <label for="experience">Experience</label>
-                                                <input #experience="ngModel" required
-                                                    [(ngModel)]="listing.experience" minlength="3" maxlength="15"
-                                                    name="experience" id="experience" type="text"
-                                                    class="form-control">
+                                                <input #experience="ngModel" required [(ngModel)]="listing.experience"
+                                                    minlength="3" maxlength="15" name="experience" id="experience"
+                                                    type="text" class="form-control">
                                             </div>
                                         </div>
 
@@ -190,9 +199,9 @@
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
                                                 <label for="chargesType">Charges Type</label>
-                                                <input required [(ngModel)]="listing.chargesType"
-                                                    minlength="3" maxlength="15" name="chargesType" id="chargesType"
-                                                    type="text" class="form-control">
+                                                <input required [(ngModel)]="listing.chargesType" minlength="3"
+                                                    maxlength="15" name="chargesType" id="chargesType" type="text"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-xxl-6 col-lg-6 col-12">
@@ -239,7 +248,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addSlotModalLabel">Add time slot</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="resetSlotDialog()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="resetSlotDialog()"></button>
             </div>
             <div class="modal-body">
                 <section class="container">
@@ -258,7 +268,8 @@
                                                 <label>Start Time</label>
                                             </div>
                                             <div class="input-group mb-3 dropdown">
-                                                <input type="text" class="form-control" name="startTime" [(ngModel)]="dialogSlotTemplateStartTime" readonly
+                                                <input type="text" class="form-control" name="startTime"
+                                                    [(ngModel)]="dialogSlotTemplateStartTime" readonly
                                                     style="background-color: white;">
                                                 <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
                                                     type="button" id="dropdownStartTime" data-bs-toggle="dropdown"
@@ -267,7 +278,8 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownStartTime">
                                                     <li *ngFor="let timeSlot of timeSlots"><a class="dropdown-item"
-                                                            type="button" (click)="setDialogStartTime(timeSlot)">{{timeSlot}}</a></li>
+                                                            type="button"
+                                                            (click)="setDialogStartTime(timeSlot)">{{timeSlot}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -277,7 +289,8 @@
                                                 <label>End Time</label>
                                             </div>
                                             <div class="input-group mb-3 dropdown">
-                                                <input type="text" class="form-control" name="endTime" [(ngModel)]="dialogSlotTemplateEndTime" readonly
+                                                <input type="text" class="form-control" name="endTime"
+                                                    [(ngModel)]="dialogSlotTemplateEndTime" readonly
                                                     style="background-color: white;">
                                                 <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
                                                     type="button" id="dropdownEndTime" data-bs-toggle="dropdown"
@@ -286,7 +299,8 @@
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownEndTime">
                                                     <li *ngFor="let timeSlot of timeSlots"><a class="dropdown-item"
-                                                            type="button" (click)="setDialogEndTime(timeSlot)">{{timeSlot}}</a></li>
+                                                            type="button"
+                                                            (click)="setDialogEndTime(timeSlot)">{{timeSlot}}</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -299,8 +313,7 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-danger btn-rounded"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#addSlotModal">Save</button>
+                                                data-bs-toggle="modal" data-bs-target="#addSlotModal">Save</button>
                                         </div>
                                     </div>
                                 </div>
