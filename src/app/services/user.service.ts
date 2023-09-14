@@ -16,6 +16,7 @@ export class UserService {
 
   private baseUrl = constants.API_SERVER+'/api/v1/customer';
   private isFirstLogin$ = new Subject<boolean>();
+  private currentUser$ = new Subject<Customer>();
 
   constructor(
     private httpClient: HttpClient,
@@ -59,6 +60,10 @@ export class UserService {
     return result;
   }
 
+  getCurrentUser(): Observable<Customer> {
+    return this.currentUser$.asObservable();
+  }
+
   getIsFirstLogin(): Observable<boolean> {
     return this.isFirstLogin$.asObservable();
   }
@@ -75,8 +80,9 @@ export class UserService {
                 // user does not exist 
                 this.isFirstLogin$.next(true);
               } else {
-                // user already exists 
+                // user already exists
                 this.isFirstLogin$.next(false);
+                this.currentUser$.next(user);
               }
             }
           );
