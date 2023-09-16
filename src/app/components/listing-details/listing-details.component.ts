@@ -50,7 +50,7 @@ export class ListingDetailsComponent implements OnInit{
             }
           );
         }
-        
+        subscription.unsubscribe();
       }
     );
   }

@@ -13,7 +13,19 @@ export const constants = {
     state: "",
     message: "",
     enabled: false,
-    professional: false
+    professional: false,
+    contact: {
+      customerId: 0,
+      email: "",
+      mobile: 0,
+      addressLine1: "",
+      addressLine2: "",
+      addressLine3: "",
+      city: "",
+      pincode: 0,
+      state: "",
+      message: ""
+    },
   },
   DEFAULT_LISTING: {
     id: 0,

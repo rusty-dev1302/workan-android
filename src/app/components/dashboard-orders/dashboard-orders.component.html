@@ -57,7 +57,7 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Professional</label>
-                      <h5><a class="link" type="button">{{order.professional.firstName}} {{order.professional.lastName}}</a></h5>
+                      <h5><a class="link" type="button" [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}} {{order.professional.lastName}}</a></h5>
                     </div>
                   </div>
 
@@ -78,7 +78,7 @@
                   <hr class="style1">
                   <div class="col-12">
                     <button class="btn btn-primary btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      routerLink="/dashboard/orderDetail/1">View Order</button>
+                      [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
                   </div>
 
                 </div>

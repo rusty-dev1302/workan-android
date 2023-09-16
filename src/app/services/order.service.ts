@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CreateOrderRequest } from '../common/create-order-request';
 import { BaseResponse } from '../common/base-response';
 import { Order } from '../common/order';
+import { CustomerOrder } from '../common/customer-order';
 
 
 
@@ -13,7 +14,7 @@ import { Order } from '../common/order';
 })
 export class OrderService {
 
-  private baseUrl = constants.API_SERVER+'/api/v1/order';
+  private baseUrl = constants.API_SERVER + '/api/v1/order';
 
   constructor(
     private httpClient: HttpClient,
@@ -26,9 +27,21 @@ export class OrderService {
 
   getOrdersForCustomer(customerId: number): Observable<Order[]> {
     const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}`;
-    return this.httpClient.get<Order[]>(getUrl)  }
+    return this.httpClient.get<Order[]>(getUrl)
+  }
 
   getOrdersForProfessional(professionalId: number): Observable<Order[]> {
     const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}`;
-    return this.httpClient.get<Order[]>(getUrl)  }
+    return this.httpClient.get<Order[]>(getUrl)
+  }
+
+  getOrderDetailForCustomer(orderId: number): Observable<CustomerOrder> {
+    const getUrl = `${this.baseUrl}/customer?orderId=${orderId}`;
+    return this.httpClient.get<CustomerOrder>(getUrl)
+  }
+
+  getOrderDetailForProfessional(orderId: number): Observable<Order> {
+    const getUrl = `${this.baseUrl}/professional?orderId=${orderId}`;
+    return this.httpClient.get<Order>(getUrl)
+  }
 }

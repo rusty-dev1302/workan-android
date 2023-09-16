@@ -1,4 +1,5 @@
 import { BaseResponse } from "./base-response";
+import { ContactDetail } from "./contact-detail";
 
 export class Customer extends BaseResponse{
 
@@ -12,6 +13,7 @@ export class Customer extends BaseResponse{
         public languages: string[],
         public enabled: boolean,
         public professional: boolean,
+        public contact: ContactDetail,
         state: string,
         message: string
     ) {
