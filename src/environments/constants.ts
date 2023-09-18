@@ -85,4 +85,7 @@ export const constants = {
     "10:00PM", "10:30PM",
     "11:00PM"
   ],
+  ORDER_ACTION_START: "START",
+  ORDER_ACTION_COMPLETE: "COMPLETE",
+  ORDER_ACTION_CANCEL: "CANCEL"
 };

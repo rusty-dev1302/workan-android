@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/common/order';
+import { ProcessOrderRequest } from 'src/app/common/process-order-request';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
@@ -17,7 +19,8 @@ export class DashboardOrderDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -53,6 +56,19 @@ export class DashboardOrderDetailsComponent implements OnInit {
     let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
 
     return (hour == 0 ? "00" : hour) + ":" + min + merd;
+  }
+
+  processOrder(action: string) {
+    let processOrderRequest = new ProcessOrderRequest(this.order.id, this.order.customer.id, this.order.professional.id, action, "");
+    this.orderService.processOrder(processOrderRequest).subscribe(
+      (response) => {
+        if(response.state!=constants.ERROR_STATE) {
+          this.toastr.success(response.state);
+        } else {
+          this.toastr.error(response.message);
+        }
+      }
+    );
   }
 
 }

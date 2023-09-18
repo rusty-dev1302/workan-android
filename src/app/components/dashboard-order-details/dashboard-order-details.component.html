@@ -125,11 +125,11 @@
                     <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
                       <div class="col-12">
                         <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#slotSelectorModal">Start Order</button>
+                          data-bs-target="#slotSelectorModal" (click)="processOrder('START')">Start Order</button>
                       </div>
                       <div class="col-12 py-2">
                         <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#slotSelectorModal">Cancel Order</button>
+                          data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
                       </div>
                     </div>
                     <div *ngIf="order.status=='COMPLETED'||order.status=='CANCELLED'" class="col-12">

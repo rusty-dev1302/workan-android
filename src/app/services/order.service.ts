@@ -6,6 +6,7 @@ import { CreateOrderRequest } from '../common/create-order-request';
 import { BaseResponse } from '../common/base-response';
 import { Order } from '../common/order';
 import { CustomerOrder } from '../common/customer-order';
+import { ProcessOrderRequest } from '../common/process-order-request';
 
 
 
@@ -43,5 +44,10 @@ export class OrderService {
   getOrderDetailForProfessional(orderId: number): Observable<Order> {
     const getUrl = `${this.baseUrl}/professional?orderId=${orderId}`;
     return this.httpClient.get<Order>(getUrl)
+  }
+
+  processOrder(processOrderRequest: ProcessOrderRequest): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/process`;
+    return this.httpClient.post<BaseResponse>(postUrl, processOrderRequest);
   }
 }
