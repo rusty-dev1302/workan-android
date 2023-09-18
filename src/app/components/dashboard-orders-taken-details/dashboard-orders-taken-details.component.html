@@ -105,7 +105,9 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label>Professional</label>
-                        <h5><a class="link" type="button" [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}} {{order.professional.lastName}}</a></h5>
+                        <h5><a class="link" type="button"
+                            [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}}
+                            {{order.professional.lastName}}</a></h5>
                       </div>
                       <div class="form-group">
                         <label>Professional Specialization</label>
@@ -116,18 +118,18 @@
 
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
-                    <div class="col-12 py-2">
+                    <div *ngIf="order.status=='STARTING'" class="col-12 py-1">
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#enterOtpModal">Start Order</button>
+                        data-bs-target="#enterOtpModal">Start Order</button>
                     </div>
-                    <div class="col-12 py-2">
+                    <div *ngIf="order.status=='COMPLETING'" class="col-12 py-1">
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" data-bs-toggle="modal"
                         data-bs-target="#enterOtpModal">Complete Order</button>
                     </div>
-                    <div class="col-12 py-2">
+                    <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      (click)="processOrder('CANCEL')">Cancel Order</button>
+                        (click)="processOrder('CANCEL')">Cancel Order</button>
                     </div>
                   </div>
                   <div *ngIf="order.status=='COMPLETED'||order.status=='CANCELLED'" class="col-12">
@@ -151,75 +153,66 @@
 
   <!-- Modal section begins -->
 
-  <div class="modal fade" id="enterOtpModal" data-bs-backdrop="static" data-bs-keyboard="false"
-  tabindex="-1" aria-labelledby="enterOtpModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="enterOtpModalLabel">Enter OTP</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-  
-      <!-- step1 modal body start  -->
-      <div class="modal-body">
-        <div class="form-section">
-          <div class="row g-5">
-    
-            <div class="d-flex justify-content-center align-items-center">
-              <!-- Selector card start -->
-              <div class="row">
-                <div class="col-2">
-                  <div class="form-group">
-                    <input required [(ngModel)]="otpValue[0]" style="padding-left: 15%;padding-right: 15%;"
-                        maxlength="1" name="otpValue" id="otpValue"
-                        type="text" pattern="\d*" class="form-control" autocomplete="off">
-                </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <input required [(ngModel)]="otpValue[1]" style="padding-left: 15%;padding-right: 15%;"
-                        minlength="1" maxlength="1" name="otpValue" id="otpValue"
-                        type="text" pattern="\d*" class="form-control" autocomplete="off">
-                </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <input required [(ngModel)]="otpValue[2]" style="padding-left: 15%;padding-right: 15%;"
-                        minlength="1" maxlength="1" name="otpValue" id="otpValue"
-                        type="text" pattern="\d*" class="form-control" autocomplete="off">
-                </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <input required [(ngModel)]="otpValue[3]" style="padding-left: 15%;padding-right: 15%;"
-                        minlength="1" maxlength="1" name="otpValue" id="otpValue"
-                        type="text" pattern="\d*" class="form-control" autocomplete="off">
-                </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <input required [(ngModel)]="otpValue[4]" style="padding-left: 15%;padding-right: 15%;"
-                        minlength="1" maxlength="1" name="otpValue" id="otpValue"
-                        type="text" pattern="\d*" class="form-control" autocomplete="off">
-                </div>
-                </div>
-                <div class="col-2">
-                  <div class="form-group">
-                    <input required [(ngModel)]="otpValue[5]" style="padding-left: 15%;padding-right: 15%;"
-                        minlength="1" maxlength="1" name="otpValue" id="otpValue"
-                        type="text" pattern="\d*" class="form-control" autocomplete="off">
-                </div>
+  <div class="modal fade" id="enterOtpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="enterOtpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="enterOtpModalLabel">Enter OTP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- step1 modal body start  -->
+        <div class="modal-body">
+          <div class="form-section">
+            <div class="row g-5">
+
+              <div class="d-flex justify-content-center align-items-center">
+                <!-- Selector card start -->
+                <div class="row g-4">
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[0]" style="padding-left: 15%;padding-right: 15%;min-width: 22px;"
+                      maxlength="1" name="otpValue" id="otpValue" type="text" pattern="\d*" class="form-control"
+                      autocomplete="off">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[1]" style="padding-left: 15%;padding-right: 15%;min-width: 22px;"
+                      maxlength="1" name="otpValue" id="otpValue" type="text" pattern="\d*" class="form-control"
+                      autocomplete="off">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[2]" style="padding-left: 15%;padding-right: 15%;min-width: 22px;"
+                      maxlength="1" name="otpValue" id="otpValue" type="text" pattern="\d*" class="form-control"
+                      autocomplete="off">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[3]" style="padding-left: 15%;padding-right: 15%;min-width: 22px;"
+                      maxlength="1" name="otpValue" id="otpValue" type="text" pattern="\d*" class="form-control"
+                      autocomplete="off">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[4]" style="padding-left: 15%;padding-right: 15%;min-width: 22px;"
+                      maxlength="1" name="otpValue" id="otpValue" type="text" pattern="\d*" class="form-control"
+                      autocomplete="off">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[5]" style="padding-left: 15%;padding-right: 15%;min-width: 22px;"
+                      maxlength="1" name="otpValue" id="otpValue" type="text" pattern="\d*" class="form-control"
+                      autocomplete="off">
+                  </div>
                 </div>
               </div>
+              <button *ngIf="order.status=='STARTING'" type="button" class="btn btn-danger btn-rounded"
+                data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('START')">Start</button>
+              <button *ngIf="order.status=='COMPLETING'" type="button" class="btn btn-danger btn-rounded"
+                data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('COMPLETE')">Complete</button>
             </div>
-            <button type="button" class="btn btn-danger btn-rounded" data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('START')">Start</button>
-            <button type="button" class="btn btn-danger btn-rounded" data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('COMPLETE')">Start</button>
           </div>
         </div>
+        <!-- step1 modal body ends  -->
+
       </div>
-      <!-- step1 modal body ends  -->
-    
-    </div>  </div>
-</div>
+    </div>
+  </div>
 
   <!-- Modals section ends -->
