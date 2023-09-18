@@ -28,11 +28,13 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FirstLoginComponent } from './components/first-login/first-login.component';
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
 import { ToastrModule } from 'ngx-toastr';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DatePipe } from '@angular/common';
 import { DashboardOrderDetailsComponent } from './components/dashboard-order-details/dashboard-order-details.component';
 import { DashboardOrdersTakenComponent } from './components/dashboard-orders-taken/dashboard-orders-taken.component';
 import { DashboardOrdersTakenDetailsComponent } from './components/dashboard-orders-taken-details/dashboard-orders-taken-details.component';
+import { CustomerGuard } from './utility/customer.guard';
+import { ProfessionalGuard } from './utility/professional.guard';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -41,20 +43,22 @@ import { DashboardOrdersTakenDetailsComponent } from './components/dashboard-ord
 // }
 
 const routes: Routes = [
-  { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard]},
-  { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard]},
-  { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard]},
-  { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard]},
-  { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard]},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
-                      children: [{ path: 'profile', component: DashboardProfileComponent },
-                                  { path: 'orders', component: DashboardOrdersComponent },
-                                  { path: 'takenOrders', component: DashboardOrdersTakenComponent },
-                                  { path: 'takenOrderDetail/:id', component: DashboardOrdersTakenDetailsComponent },
-                                  {path: 'orderDetail/:id', component: DashboardOrderDetailsComponent},
-                                  { path: 'managelisting', component: DashboardListingsComponent },
-                                  {path: '', component: DashboardProfileComponent} 
-                                  ]},
+  { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard] },
+  { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
+  { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard] },
+  { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
+          children: [{ path: 'profile', component: DashboardProfileComponent },
+          { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
+          { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
+          { path: 'takenOrders', component: DashboardOrdersTakenComponent, canActivate: [ProfessionalGuard] },
+          { path: 'takenOrderDetail/:id', component: DashboardOrdersTakenDetailsComponent, canActivate: [ProfessionalGuard] },
+          { path: 'managelisting', component: DashboardListingsComponent, canActivate: [ProfessionalGuard] },
+          { path: '', component: DashboardProfileComponent }
+          ]
+  },
   { path: '', redirectTo: '/listings', pathMatch: 'full' },
   { path: '**', redirectTo: '/listings', pathMatch: 'full' }
 ];
@@ -89,11 +93,12 @@ const routes: Routes = [
     HttpClientModule,
     OAuthModule.forRoot({
       resourceServer: {
-          sendAccessToken: true
-      }}),
-      KeycloakAngularModule,
-      ToastrModule.forRoot(),
-      BrowserAnimationsModule
+        sendAccessToken: true
+      }
+    }),
+    KeycloakAngularModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     ListingService,
