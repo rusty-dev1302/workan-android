@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/common/order';
 import { ProcessOrderRequest } from 'src/app/common/process-order-request';
-import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
 
@@ -37,13 +36,11 @@ export class DashboardOrderDetailsComponent implements OnInit {
   }
 
   loadOrderDetails() {
-    console.log("Got param map")
 
     const subscription = this.orderService.getOrderDetailForCustomer(this.currentOrderId).subscribe(
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
-          console.log("Order "+order)
         }
         subscription.unsubscribe();
       }

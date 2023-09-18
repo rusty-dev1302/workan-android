@@ -50,7 +50,6 @@ export class DashboardListingsFormComponent implements OnInit{
         if(data.state==constants.SUCCESS_STATE){
           // Populate form from data
           this.listing = data;
-          console.log(this.listing)
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
         }
@@ -116,12 +115,10 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   setDialogStartTime(startTime: string) {
-    console.log("start time called")
     this.dialogSlotTemplateStartTime = startTime;
   }
 
   setDialogEndTime(endTime: string) {
-    console.log("End time called")
 
     this.dialogSlotTemplateEndTime = endTime;
   }

@@ -64,15 +64,15 @@
   
                     <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
-                        <label>OTP</label>
-                        <h5><b>{{order.otp}}</b></h5>
-                      </div>
-                    </div>
-  
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
                         <label>Order Status</label>
                         <h5>{{order.status}}</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>OTP</label>
+                        <h5><b>{{order.otp}}</b></h5>
                       </div>
                     </div>
   
@@ -123,9 +123,13 @@
   
                     <hr class="style1">
                     <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
-                      <div class="col-12">
+                      <div class="col-12 py-2">
                         <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                           data-bs-target="#slotSelectorModal" (click)="processOrder('START')">Start Order</button>
+                      </div>
+                      <div class="col-12 py-2">
+                        <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
+                          data-bs-target="#slotSelectorModal" (click)="processOrder('COMPLETE')">Complete Order</button>
                       </div>
                       <div class="col-12 py-2">
                         <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"

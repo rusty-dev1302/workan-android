@@ -618,3 +618,13 @@ hr.style1 {
 .btn-warning {
     color: rgb(67, 67, 67)!important;
 }
+
+/* Remove arrows from number fields  */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number]{
+    -moz-appearance: textfield;
+}
