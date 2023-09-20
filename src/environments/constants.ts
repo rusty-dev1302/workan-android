@@ -10,6 +10,7 @@ export const constants = {
     lastName: "",
     email: "",
     languages: [],
+    rating:0.0,
     state: "",
     message: "",
     enabled: false,
