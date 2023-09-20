@@ -37,7 +37,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   }
 
   loadOrderDetails() {
-    const subscription = this.orderService.getOrderDetailForCustomer(this.currentOrderId).subscribe(
+    const subscription = this.orderService.getOrderDetailForProfessional(this.currentOrderId).subscribe(
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
