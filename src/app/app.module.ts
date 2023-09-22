@@ -53,7 +53,7 @@ const routes: Routes = [
           children: [{ path: 'profile', component: DashboardProfileComponent },
           { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
           { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
-          { path: 'takenOrders', component: DashboardOrdersTakenComponent, canActivate: [ProfessionalGuard] },
+          { path: 'myOrders', component: DashboardOrdersTakenComponent, canActivate: [ProfessionalGuard] },
           { path: 'takenOrderDetail/:id', component: DashboardOrdersTakenDetailsComponent, canActivate: [ProfessionalGuard] },
           { path: 'managelisting', component: DashboardListingsComponent, canActivate: [ProfessionalGuard] },
           { path: '', component: DashboardProfileComponent }
