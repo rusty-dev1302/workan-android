@@ -5,7 +5,7 @@
       <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" type="button"
           routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
       <li src="assets/profile.png" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
-        data-bs-target="#sidebarMain">{{firstName}} {{lastName}}</li>
+        data-bs-target="#sidebarMain">{{currentUser.firstName}} {{currentUser.lastName}}</li>
       <li src="assets/profile.png" style="font-size: medium;" type="button" routerLink="/dashboard/profile"
         data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">View Profile</li>
       <li>
@@ -35,7 +35,7 @@
       <!-- <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Manage Documents</span></li> -->
       <li><span type="button" routerLink="/dashboard/managelisting" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain">My Listing</span></li>
-      <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain" routerLink="/dashboard/takenOrders">Orders Taken</span></li>
+      <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain" routerLink="/dashboard/takenOrders">My Orders</span></li>
     </ul>
     <!-- professional section ends -->
 
