@@ -10,7 +10,7 @@
 
     <div class="container">
       <!-- <h1>Profile</h1> -->
-      <div class="row g-5">
+      <div *ngIf="professional"  class="row g-5">
         <div class="col-xl-12 col-md-12 ">
           <!-- dashboard-profile-form panel starts -->
           <div class="row g-5">
@@ -49,28 +49,28 @@
 
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="firstName">Speciality</label>
+                          <label >Speciality</label>
                           <h5> {{listing.subCategory.subCategoryName}}</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="firstName">City</label>
+                          <label >City</label>
                           <h5> {{listing.location}}</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="firstName">Experience</label>
+                          <label >Experience</label>
                           <h5> {{listing.experience}} Years</h5>
                         </div>
                       </div>
 
                       <div class="col-12">
                         <div class="form-group">
-                          <label for="firstName">Speaks</label>
+                          <label >Speaks</label>
                           <h5>{{professional.languages.join(', ')}}</h5>
                         </div>
                       </div>

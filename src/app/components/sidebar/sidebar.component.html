@@ -1,7 +1,7 @@
 <div class="offcanvas offcanvas-start custom-side-bar" tabindex="-1" id="sidebarMain"
   aria-labelledby="sidebarMainLabel">
   <div class="offcanvas-header" style="font-size: large;color: white;">
-    <ul class="list-unstyled">
+    <ul *ngIf="currentUser" class="list-unstyled">
       <li><img alt="Profile Image" class="img-fluid" width="40%" src="assets/profile.png" type="button"
           routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
       <li src="assets/profile.png" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"

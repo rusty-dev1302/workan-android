@@ -81,7 +81,6 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   closeDialog() {
-    this.selectedDate = null!;
     this.selectedSlot = null!;
     this.currentStep = 0;
   }
