@@ -19,11 +19,22 @@
             </div>
 
           </div>
+          <div class="container row">
+            <div class="col-12">
+              <div *ngIf=retrievedImage>
+                <img [src]="retrievedImage">
+            </div>
+            </div>
+            <div class="col-12">
+                <input type="button" (click)="getImage()" value="Get Image">
+            </div>
+        </div>
         </section>
-
+        <input id="files" type="file" (change)="onFileChanged($event)" style="visibility:hidden;">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-rounded col-12">Save</button>
+        <label type="button" for="files" class="btn btn-danger btn-rounded col-12">Select</label>
+        <label type="button" class="btn btn-danger btn-rounded col-12" (click)="onUpload()">Upload</label>
       </div>
     </div>
   </div>
