@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
+import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ListingService } from 'src/app/services/listing.service';
+import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
@@ -15,12 +17,15 @@ import { constants } from 'src/environments/constants';
 })
 export class DashboardProfileFormComponent implements OnInit {
 
+  @Output() customerIdEvent = new EventEmitter<number>();
+  @Output() base64ImageEvent = new EventEmitter<any>();
+
   user: Customer = constants.DEFAULT_CUSTOMER;
   displayUser!: Customer;
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
   displayContact!: ContactDetail;
 
-  profilePhoto: any;
+  profilePhoto!: ProfilePhoto;
   genderValue: string = "";
   mobileValue: string = "";
   emailValue: string = "";
@@ -37,6 +42,7 @@ export class DashboardProfileFormComponent implements OnInit {
 
   constructor(private router: Router,
     private keycloakService: KeycloakService,
+    private profilePhotoService: ProfilePhotoService,
     private userService: UserService,
     private listingService: ListingService,
     private toastr: ToastrService
@@ -63,8 +69,10 @@ export class DashboardProfileFormComponent implements OnInit {
             this.user.languages = [];
           }
 
+          this.customerIdEvent.emit(this.user.id);
           this.loadAvailableLanguages();
           this.loadContactDetails();
+          this.loadProfilePhoto();
 
         } else {
           // Set Default Values
@@ -88,6 +96,20 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
         contactSubscription.unsubscribe();
+      }
+    );
+  }
+
+  loadProfilePhoto() {
+    const subscription = this.profilePhotoService.getImageByCustomerId(this.user.id).subscribe(
+      (image) => {
+        if(image.state!=constants.ERROR_STATE) {
+          this.profilePhoto = image;
+          this.base64ImageEvent.emit(image.picByte);
+          this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
+        }
+        
+        subscription.unsubscribe();
       }
     );
   }

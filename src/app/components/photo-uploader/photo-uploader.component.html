@@ -20,21 +20,26 @@
 
           </div>
           <div class="container row">
-            <div class="col-12">
-              <div *ngIf=retrievedImage>
-                <img [src]="retrievedImage">
+            <div class="card-body col-12">
+              <div class="row" style="margin-top: 15px;">
+                <div class="text-center col-12">
+                  <image-cropper [imageChangedEvent]="imgChangeEvt"
+                  [imageBase64]="base64Data"
+                  [roundCropper] = true
+                  [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+                  [resizeToWidth]="512" format="png" 
+                  (imageCropped)="cropImg($event)">
+                </image-cropper>
+                </div>
+              </div>
             </div>
-            </div>
-            <div class="col-12">
-                <input type="button" (click)="getImage()" value="Get Image">
-            </div>
-        </div>
+          </div>
         </section>
         <input id="files" type="file" (change)="onFileChanged($event)" style="visibility:hidden;">
       </div>
       <div class="modal-footer">
         <label type="button" for="files" class="btn btn-danger btn-rounded col-12">Select</label>
-        <label type="button" class="btn btn-danger btn-rounded col-12" (click)="onUpload()">Upload</label>
+        <label type="button" class="btn btn-danger btn-rounded col-12" (click)="uploadPhoto()">Save</label>
       </div>
     </div>
   </div>

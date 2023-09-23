@@ -7,5 +7,14 @@ import { Component } from '@angular/core';
 })
 export class DashboardProfileComponent {
 
+  customerId: number=0;
+  base64Image: any = '';
 
+  updateCustomerId(customerId: number) {
+    this.customerId = customerId;
+  }
+
+  updateProfilePhoto(base64Image: any) {
+    this.base64Image = base64Image;
+  }
 }

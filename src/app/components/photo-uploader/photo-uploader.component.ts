@@ -1,63 +1,66 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { ProfilePhoto } from 'src/app/common/profile-photo';
+import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 
 @Component({
   selector: 'app-photo-uploader',
   templateUrl: './photo-uploader.component.html',
   styleUrls: ['./photo-uploader.component.css']
 })
-export class PhotoUploaderComponent {
+export class PhotoUploaderComponent{
 
-  selectedFile!: File;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message!: string;
-  imageName: string = "demo.png";
-
-  constructor(private httpClient: HttpClient) { }
+  @Input() customerId: number = 0;
+  @Input() base64Data: any = '';
 
 
-  //Gets called when the user selects an image
+  imgChangeEvt: any = '';
+  cropImgPreview: any = '';
+
+  selectedFile!:Blob;
+  profilePhoto!: ProfilePhoto;
+
+  constructor(
+    private profilePhotoService: ProfilePhotoService
+  ) { }
+
   public onFileChanged(event: any) {
-    //Select File
-    this.selectedFile = event.target.files[0];
+    this.imgChangeEvt = event;
   }
 
+  cropImg(e: ImageCroppedEvent) {
+    console.log(e.blob)
+    this.selectedFile = e.blob!;
+  }
+
+  //Gets called when the user clicks on retieve image button to get the image from back end
+  getImage() {
+    const subscription = this.profilePhotoService.getImageByCustomerId(this.customerId).subscribe(
+      (image) => {
+        this.base64Data = image.picByte;
+        this.profilePhoto = image;
+        this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
+
+        subscription.unsubscribe();
+      }
+    );
+  }
 
   //Gets called when the user clicks on submit to upload the image
-  onUpload() {
-    console.log(this.selectedFile);
-    
-    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
-    const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-  
-    //Make a call to the Spring Boot Application to save the image
-    this.httpClient.post('http://localhost:8081/image/upload', uploadImageData, { observe: 'response' })
-      .subscribe((response) => {
-        if (response.status === 200) {
-          this.message = 'Image uploaded successfully';
-        } else {
-          this.message = 'Image not uploaded successfully';
-        }
+  uploadPhoto() {
+
+    let uploadImageData = new FormData();
+    console.log("Selected File: "+this.selectedFile)
+    uploadImageData.append('imageFile', this.selectedFile, ""+this.customerId);
+
+    const subscription = this.profilePhotoService.uploadImage(uploadImageData).subscribe(
+      (response) => {
+        console.log(response.message);
+
+        subscription.unsubscribe();
       }
-      );
+    );
 
-
-  }
-
-    //Gets called when the user clicks on retieve image button to get the image from back end
-    getImage() {
-    //Make a call to Sprinf Boot to get the Image Bytes.
-    this.httpClient.get('http://localhost:8081/image/get/' + this.imageName)
-      .subscribe(
-        res => {
-          this.retrieveResonse = res;
-          this.base64Data = this.retrieveResonse.picByte;
-          this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-        }
-      );
   }
 
 }
