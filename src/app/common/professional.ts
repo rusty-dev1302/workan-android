@@ -1,4 +1,5 @@
 import { BaseResponse } from "./base-response";
+import { ProfilePhoto } from "./profile-photo";
 
 export class Professional extends BaseResponse{
 
@@ -9,6 +10,7 @@ export class Professional extends BaseResponse{
         public languages: string[],
         public enabled: boolean,
         public professional: boolean,
+        public profilePhoto: ProfilePhoto,
         state: string,
         message: string
     ) {

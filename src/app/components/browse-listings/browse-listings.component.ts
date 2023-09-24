@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Listing } from 'src/app/common/listing';
 import { ListingService } from 'src/app/services/listing.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-browse-listings',
@@ -18,7 +20,8 @@ export class BrowseListingsComponent implements OnInit{
 
 
   constructor(private listingService: ListingService,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private sanitizer: DomSanitizer
     ) { }
 
   ngOnInit() {
@@ -48,7 +51,9 @@ export class BrowseListingsComponent implements OnInit{
     this.listingService.getListingsByFilters(this.currentSubcategory, this.currentLocation).subscribe(
       data => {
         if(data) {
-          this.listings = data;
+          if(data[0]&&data[0].state!=constants.ERROR_STATE){
+            this.listings = data;
+          }
         }
       }
     );

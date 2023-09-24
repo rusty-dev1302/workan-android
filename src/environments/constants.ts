@@ -51,6 +51,13 @@ export const constants = {
       languages: [],
       state: "",
       message: "",
+      profilePhoto: {
+        id: 0,
+        customerId: 0,
+        picByte: 0,
+        state: "",
+        message: ""
+      },
       enabled: false,
       professional: false
     },
