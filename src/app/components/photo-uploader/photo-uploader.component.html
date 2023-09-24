@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="profilePhotoModalLabel">Profile Photo</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="reloadCurrentPage()"></button>
       </div>
       <div class="modal-body">
         <section class="container">
@@ -39,7 +39,7 @@
       </div>
       <div class="modal-footer">
         <label type="button" for="files" class="btn btn-danger btn-rounded col-12">Select</label>
-        <label type="button" class="btn btn-danger btn-rounded col-12" (click)="uploadPhoto()">Save</label>
+        <label type="button" class="btn btn-danger btn-rounded col-12" (click)="uploadPhoto()" data-bs-dismiss="modal">Save</label>
       </div>
     </div>
   </div>

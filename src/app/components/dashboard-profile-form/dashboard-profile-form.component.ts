@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
@@ -18,7 +17,6 @@ import { constants } from 'src/environments/constants';
 export class DashboardProfileFormComponent implements OnInit {
 
   @Output() customerIdEvent = new EventEmitter<number>();
-  @Output() base64ImageEvent = new EventEmitter<any>();
 
   user: Customer = constants.DEFAULT_CUSTOMER;
   displayUser!: Customer;
@@ -40,12 +38,12 @@ export class DashboardProfileFormComponent implements OnInit {
     ["Hindi", 0],
   ]);
 
-  constructor(private router: Router,
+  constructor(
     private keycloakService: KeycloakService,
     private profilePhotoService: ProfilePhotoService,
     private userService: UserService,
     private listingService: ListingService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -105,13 +103,16 @@ export class DashboardProfileFormComponent implements OnInit {
       (image) => {
         if(image.state!=constants.ERROR_STATE) {
           this.profilePhoto = image;
-          this.base64ImageEvent.emit(image.picByte);
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
         }
         
         subscription.unsubscribe();
       }
     );
+  }
+
+  loadEditPhotoModal() {
+    this.profilePhotoService.emitLoadPhotoEditor(true);
   }
 
   resetLanguages() {

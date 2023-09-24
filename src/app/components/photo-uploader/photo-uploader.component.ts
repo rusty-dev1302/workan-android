@@ -1,17 +1,18 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-photo-uploader',
   templateUrl: './photo-uploader.component.html',
   styleUrls: ['./photo-uploader.component.css']
 })
-export class PhotoUploaderComponent{
+export class PhotoUploaderComponent implements OnInit{
 
   @Input() customerId: number = 0;
-  @Input() base64Data: any = '';
+  base64Data: any = '';
 
 
   imgChangeEvt: any = '';
@@ -23,6 +24,15 @@ export class PhotoUploaderComponent{
   constructor(
     private profilePhotoService: ProfilePhotoService
   ) { }
+
+  ngOnInit() {
+    this.profilePhotoService.loadPhotoEditor().subscribe(
+      (update) => {
+        console.log("Loading image")
+        this.getImage();
+      }
+    );
+  }
 
   public onFileChanged(event: any) {
     this.imgChangeEvt = event;
@@ -38,6 +48,7 @@ export class PhotoUploaderComponent{
     const subscription = this.profilePhotoService.getImageByCustomerId(this.customerId).subscribe(
       (image) => {
         this.base64Data = image.picByte;
+        console.log("base64 data"+this.base64Data)
         this.profilePhoto = image;
         this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
 
@@ -55,12 +66,17 @@ export class PhotoUploaderComponent{
 
     const subscription = this.profilePhotoService.uploadImage(uploadImageData).subscribe(
       (response) => {
-        console.log(response.message);
-
+        if(response.state!=constants.ERROR_STATE) {
+          this.reloadCurrentPage();
+        }
         subscription.unsubscribe();
       }
     );
 
   }
+
+  reloadCurrentPage() {
+    window.location.reload();
+   }
 
 }

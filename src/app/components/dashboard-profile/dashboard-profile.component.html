@@ -1,5 +1,5 @@
 <!-- Edit Photo Modal -->
-<app-photo-uploader [customerId]="customerId" [base64Data]="base64Image"></app-photo-uploader>
+<app-photo-uploader [customerId]="customerId"></app-photo-uploader>
 <!-- Edit Photo Modal Ends -->
 
 <!--Divider section-->
@@ -29,7 +29,7 @@
   <div class="container">
     <!-- dashboard-profile-form panel starts -->
 
-    <app-dashboard-profile-form (customerIdEvent)="updateCustomerId($event)" (base64ImageEvent)="updateProfilePhoto($event)"></app-dashboard-profile-form>
+    <app-dashboard-profile-form (customerIdEvent)="updateCustomerId($event)"></app-dashboard-profile-form>
 
     <!-- dashboard-profile-form panel ends -->
 
