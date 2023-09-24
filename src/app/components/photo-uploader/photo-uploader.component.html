@@ -9,38 +9,37 @@
       </div>
       <div class="modal-body">
         <section class="container">
-          <div class="row">
-
-            <div
-              class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
-              <h1 class=" text-capitalize fw-bolder text-white">
-                Edit Profile
-              </h1>
-            </div>
-
+          
+          <div class="col-12">
+            <image-cropper [imageChangedEvent]="imgChangeEvt"
+              [imageBase64]="base64Data"
+              [roundCropper] = true
+              [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+              [resizeToWidth]="512" format="png" 
+              (imageCropped)="cropImg($event)">
+            </image-cropper>
           </div>
-          <div class="container row">
-            <div class="card-body col-12">
-              <div class="row" style="margin-top: 15px;">
-                <div class="text-center col-12">
-                  <image-cropper [imageChangedEvent]="imgChangeEvt"
-                  [imageBase64]="base64Data"
-                  [roundCropper] = true
-                  [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
-                  [resizeToWidth]="512" format="png" 
-                  (imageCropped)="cropImg($event)">
-                </image-cropper>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </section>
         <input id="files" type="file" (change)="onFileChanged($event)" style="visibility:hidden;">
       </div>
+
       <div class="modal-footer">
-        <label type="button" for="files" class="btn btn-danger btn-rounded col-12">Select</label>
-        <label type="button" class="btn btn-danger btn-rounded col-12" (click)="uploadPhoto()" data-bs-dismiss="modal">Save</label>
+        <div class="container text-center">
+          <div class="row" style="font-size: large;">
+            <div class="col" >
+              <label type="button" for="files" class="col-12"><i class="fa-solid fa-camera-retro"></i></label>
+            </div>
+            <div class="col">
+              <label type="button" class="col-12"><i class="fa-solid fa-floppy-disk" (click)="uploadPhoto()" data-bs-dismiss="modal"></i></label>
+            </div>
+            <div class="col">
+              <i class="fa-solid fa-trash"></i>
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
