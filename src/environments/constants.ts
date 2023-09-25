@@ -49,6 +49,7 @@ export const constants = {
       firstName: "",
       lastName: "",
       languages: [],
+      rating:0,
       state: "",
       message: "",
       profilePhoto: {

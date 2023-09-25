@@ -11,6 +11,7 @@ export class Professional extends BaseResponse{
         public enabled: boolean,
         public professional: boolean,
         public profilePhoto: ProfilePhoto,
+        public rating: number,
         state: string,
         message: string
     ) {

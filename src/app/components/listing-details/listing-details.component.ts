@@ -4,7 +4,7 @@ import { ListingService } from 'src/app/services/listing.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { constants } from 'src/environments/constants';
-import { Customer } from 'src/app/common/customer';
+import { Professional } from 'src/app/common/professional';
 
 @Component({
   selector: 'app-listing-details',
@@ -14,7 +14,7 @@ import { Customer } from 'src/app/common/customer';
 export class ListingDetailsComponent implements OnInit{
 
   listing!: Listing;
-  professional!: Customer;
+  professional!: Professional;
   currentListingId: number = 0;
   currentSlotDay: string = "";
   currentSlotTime: string = "";

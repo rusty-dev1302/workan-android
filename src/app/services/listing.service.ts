@@ -7,6 +7,7 @@ import { SlotTemplate } from '../common/slot-template';
 import { SlotTemplateItem } from '../common/slot-template-item';
 import { BaseResponse } from '../common/base-response';
 import { Customer } from '../common/customer';
+import { Professional } from '../common/professional';
 
 @Injectable({
   providedIn: 'root'
@@ -42,9 +43,9 @@ export class ListingService {
     return this.httpClient.get<string[]>(getUrl)
   }
 
-  getProfessionalById(professionalId: number): Observable<Customer> {
+  getProfessionalById(professionalId: number): Observable<Professional> {
     const getUrl = `${this.baseUrl}/professional?id=${professionalId}`;
-    return this.httpClient.get<Customer>(getUrl);
+    return this.httpClient.get<Professional>(getUrl);
   }
 
   saveListing(listing: Listing): Observable<Listing> {
