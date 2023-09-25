@@ -36,6 +36,7 @@ import { DashboardOrdersTakenDetailsComponent } from './components/dashboard-ord
 import { CustomerGuard } from './utility/customer.guard';
 import { ProfessionalGuard } from './utility/professional.guard';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ReviewComponent } from './components/review/review.component';
 
 // function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 //   //Use injector to access router
@@ -85,7 +86,8 @@ const routes: Routes = [
     PhotoUploaderComponent,
     DashboardOrderDetailsComponent,
     DashboardOrdersTakenComponent,
-    DashboardOrdersTakenDetailsComponent
+    DashboardOrdersTakenDetailsComponent,
+    ReviewComponent
   ],
   imports: [
     ImageCropperModule,

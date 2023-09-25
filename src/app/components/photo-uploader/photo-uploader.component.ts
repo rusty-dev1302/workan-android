@@ -71,6 +71,16 @@ export class PhotoUploaderComponent implements OnInit{
 
   }
 
+  removePhoto() {
+    const subscription = this.profilePhotoService.removeImage().subscribe(
+      (response) => {
+        if(response.state!=constants.ERROR_STATE) {
+          this.reloadCurrentPage();
+        }
+      }
+    );
+  }
+
   reloadCurrentPage() {
     window.location.reload();
    }

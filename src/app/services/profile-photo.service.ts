@@ -35,4 +35,9 @@ export class ProfilePhotoService {
     const getUrl = `${this.baseUrl}/get?customerId=${customerId}`;
     return this.httpClient.get<ProfilePhoto>(getUrl);
   }
+
+  removeImage(): Observable<BaseResponse> {
+    const getUrl = `${this.baseUrl}/remove`;
+    return this.httpClient.get<BaseResponse>(getUrl);
+  }
 }
