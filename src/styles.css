@@ -623,6 +623,10 @@ hr.style1 {
     border-radius: 100%!important;
 }
 
+.card-cover {
+    background: linear-gradient(0deg, white 75%, #d9d8d8)
+}
+
 /* Remove arrows from number fields  */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
