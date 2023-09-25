@@ -28,7 +28,6 @@ export class PhotoUploaderComponent implements OnInit{
   ngOnInit() {
     this.profilePhotoService.loadPhotoEditor().subscribe(
       (update) => {
-        console.log("Loading image")
         this.getImage();
       }
     );
@@ -39,7 +38,6 @@ export class PhotoUploaderComponent implements OnInit{
   }
 
   cropImg(e: ImageCroppedEvent) {
-    console.log(e.blob)
     this.selectedFile = e.blob!;
   }
 
@@ -48,7 +46,6 @@ export class PhotoUploaderComponent implements OnInit{
     const subscription = this.profilePhotoService.getImageByCustomerId(this.customerId).subscribe(
       (image) => {
         this.base64Data = image.picByte;
-        console.log("base64 data"+this.base64Data)
         this.profilePhoto = image;
         this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
 
@@ -61,7 +58,6 @@ export class PhotoUploaderComponent implements OnInit{
   uploadPhoto() {
 
     let uploadImageData = new FormData();
-    console.log("Selected File: "+this.selectedFile)
     uploadImageData.append('imageFile', this.selectedFile, ""+this.customerId);
 
     const subscription = this.profilePhotoService.uploadImage(uploadImageData).subscribe(
