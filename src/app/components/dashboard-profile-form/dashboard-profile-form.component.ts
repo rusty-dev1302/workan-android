@@ -101,7 +101,7 @@ export class DashboardProfileFormComponent implements OnInit {
   loadProfilePhoto() {
     const subscription = this.profilePhotoService.getImageByCustomerId(this.user.id).subscribe(
       (image) => {
-        if(image.state!=constants.ERROR_STATE) {
+        if(image&&image.state!=constants.ERROR_STATE) {
           this.profilePhoto = image;
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
         }

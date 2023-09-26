@@ -45,9 +45,11 @@ export class PhotoUploaderComponent implements OnInit{
   getImage() {
     const subscription = this.profilePhotoService.getImageByCustomerId(this.customerId).subscribe(
       (image) => {
+        if(image&&image.state!=constants.ERROR_STATE){
         this.base64Data = image.picByte;
         this.profilePhoto = image;
         this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
+      }
 
         subscription.unsubscribe();
       }

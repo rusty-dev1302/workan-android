@@ -10,7 +10,7 @@
       <div class="modal-body">
         <section class="container">
           
-          <div class="col-12">
+          <div *ngIf="base64Data!=''||imgChangeEvt!=''" class="col-12">
             <image-cropper [imageChangedEvent]="imgChangeEvt"
               [imageBase64]="base64Data"
               [roundCropper] = true
@@ -19,7 +19,10 @@
               (imageCropped)="cropImg($event)">
             </image-cropper>
           </div>
-          
+          <div *ngIf="base64Data==''&&imgChangeEvt==''" class="d-flex col-12 justify-content-center">
+            <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="100%" src="assets/profile.png">
+          </div>
+
         </section>
         <input id="files" type="file" (change)="onFileChanged($event)" style="visibility:hidden;">
       </div>
