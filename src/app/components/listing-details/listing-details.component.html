@@ -106,7 +106,7 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center">
-                      <h4 class="review-count">102</h4>
+                      <h4 class="review-count">{{reviews.length}}</h4>
                       <h4 class="review-count">{{professional.rating | number : '1.1-1'}}</h4>
                     </div>
 
@@ -118,7 +118,7 @@
                         <i class="fa fa-star rating-color"></i>
                         <i class="fa fa-star rating-color"></i>
                       </div>
-                      <h5 class="review-stat">25%</h5>
+                      <h5 class="review-stat">0%</h5>
                     </div>
 
                     <div class="mt-1 d-flex justify-content-between align-items-center">
@@ -128,7 +128,7 @@
                         <i class="fa fa-star rating-color"></i>
                         <i class="fa fa-star rating-color"></i>
                       </div>
-                      <h5 class="review-stat">25%</h5>
+                      <h5 class="review-stat">0%</h5>
                     </div>
 
                     <div class="mt-1 d-flex justify-content-between align-items-center">
@@ -137,7 +137,7 @@
                         <i class="fa fa-star rating-color"></i>
                         <i class="fa fa-star rating-color"></i>
                       </div>
-                      <h5 class="review-stat">25%</h5>
+                      <h5 class="review-stat">0%</h5>
                     </div>
 
                     <div class="mt-1 d-flex justify-content-between align-items-center">
@@ -145,14 +145,14 @@
                         <i class="fa fa-star rating-color"></i>
                         <i class="fa fa-star rating-color"></i>
                       </div>
-                      <h5 class="review-stat">25%</h5>
+                      <h5 class="review-stat">0%</h5>
                     </div>
 
                     <div class="mt-1 d-flex justify-content-between align-items-center">
                       <div class="ratings">
                         <i class="fa fa-star rating-color"></i>
                       </div>
-                      <h5 class="review-stat">25%</h5>
+                      <h5 class="review-stat">0%</h5>
                     </div>
 
                   </div>
@@ -161,7 +161,7 @@
                 <!-- Ratings end -->
 
                 <!-- start of card section (to be iterated over reviews)  -->
-                <div class="col-12">
+                <div *ngFor="let review of reviews" class="col-12">
                   <div class="card shadow p-3">
                     <div class="row">
                       <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
@@ -169,21 +169,15 @@
                       </div>
                       <div class="col-12">
                         <div class="form-group">
-                          <h4> Vaibhav Agochiya</h4>
+                          <h4>{{review.customer}}</h4>
                         </div>
                       </div>
                     </div>
                     <div class="row ">
                       <div class="ratings">
-                        <i class="fa fa-star rating-color"></i>
-                        <i class="far fa-star rating-color"></i>
-                        <i class="far fa-star rating-color"></i>
-                        <i class="far fa-star rating-color"></i>
-                        <i class="far fa-star"></i>
+                        <i *ngFor="let e of [].constructor(review.rating);" class="fa fa-star rating-color"></i>
                       </div>
-                      <p>Publish valuable and optimized content on your website's blog. Attract organic traffic,
-                        position your brand as an authority, and encourage visitors to engage and make a
-                        purchase. </p>
+                      <p>{{review.content}}</p>
                     </div>
                   </div>
                 </div>

@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Professional } from 'src/app/common/professional';
+import { Review } from 'src/app/common/review';
+import { OrderService } from 'src/app/services/order.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-review',
@@ -6,5 +10,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./review.component.css']
 })
 export class ReviewComponent {
+  @Input() professional!: Professional;
+
+  isAnonymous: boolean = false;
+  content: string = "";
+  rating: number = 5;
+
+  constructor(
+    private orderService: OrderService,
+  ) {}
+
+  submitReview() {
+    let customerName = this.isAnonymous?"ANONYMOUS":"";
+    const subscription = this.orderService.writeReview(new Review(customerName, this.content, this.rating, this.professional, "", "")).subscribe(
+      (response) => {
+        if(response.state!=constants.ERROR_STATE) {
+          console.log("Review submitted");
+        }
+      }
+    );
+  }
 
 }

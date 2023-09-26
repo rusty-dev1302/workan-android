@@ -7,6 +7,7 @@ import { BaseResponse } from '../common/base-response';
 import { Order } from '../common/order';
 import { CustomerOrder } from '../common/customer-order';
 import { ProcessOrderRequest } from '../common/process-order-request';
+import { Review } from '../common/review';
 
 
 
@@ -49,5 +50,15 @@ export class OrderService {
   processOrder(processOrderRequest: ProcessOrderRequest): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/process`;
     return this.httpClient.post<BaseResponse>(postUrl, processOrderRequest);
+  }
+
+  writeReview(review: Review): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/review`;
+    return this.httpClient.post<BaseResponse>(postUrl, review);
+  }
+
+  getReviewsForProfessional(professionalId: number): Observable<Review[]> {
+    const getUrl = `${this.baseUrl}/review/all?professionalId=${professionalId}`;
+    return this.httpClient.get<Review[]>(getUrl)
   }
 }

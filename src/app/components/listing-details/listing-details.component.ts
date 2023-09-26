@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { constants } from 'src/environments/constants';
 import { Professional } from 'src/app/common/professional';
+import { Review } from 'src/app/common/review';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-listing-details',
@@ -18,9 +20,11 @@ export class ListingDetailsComponent implements OnInit{
   currentListingId: number = 0;
   currentSlotDay: string = "";
   currentSlotTime: string = "";
+  reviews: Review[] = [];
 
   constructor(
     private listingService: ListingService,
+    private orderService: OrderService,
     private route: ActivatedRoute,
     private navigation: NavigationService
     ) { }
@@ -46,9 +50,21 @@ export class ListingDetailsComponent implements OnInit{
           const sub = this.listingService.getProfessionalById(this.listing.professionalId).subscribe(
             (professional) => {
               this.professional = professional;
+              this.getReviewsForProfessional();
               sub.unsubscribe();
             }
           );
+        }
+        subscription.unsubscribe();
+      }
+    );
+  }
+
+  getReviewsForProfessional() {
+    const subscription = this.orderService.getReviewsForProfessional(this.professional.id).subscribe(
+      (reviews) => {
+        if(reviews.length>0 && reviews[0].state!=constants.ERROR_STATE) {
+          this.reviews = reviews;
         }
         subscription.unsubscribe();
       }

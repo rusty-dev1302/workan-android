@@ -158,10 +158,10 @@
   
     <!-- Modal section begins -->
     <!-- Write Review Modal -->
-    <div class="modal fade" id="writeReviewModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    <div *ngIf="order" class="modal fade" id="writeReviewModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="writeReviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-review></app-review>
+      <app-review [professional]="order.professional"></app-review>
     </div>
   </div>
   <!-- Write Review Modal Ends -->
