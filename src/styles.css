@@ -627,6 +627,10 @@ hr.style1 {
     background: linear-gradient(0deg, white 75%, #ececec)
 }
 
+.empty-rating {
+    color: grey;
+}
+
 /* Remove arrows from number fields  */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -9,10 +9,16 @@
       <div *ngIf="professional" class="container">
 
         <div class="col-lg-12">
-          <label>Professional Name</label>
           <h5>{{professional.firstName}} {{professional.lastName}}</h5>
         </div>
-        <div class="col-12">
+        <div class="col-lg-12">
+          <div class="ratings" style="font-size: x-large;">
+            <i *ngFor="let e of [].constructor(5); let i = index" type="button" (click)="setRating(i+1)"
+            class="far fa-star rating" [ngClass]="[i>rating-1?'empty-rating':'']"
+            style="padding-right: 10px;"></i>
+          </div>
+        </div>
+        <div class="col-12" style="padding-top: 20px;">
           <div class="form-group">
             <label>Review</label>
             <textarea required [(ngModel)]="content"

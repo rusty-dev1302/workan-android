@@ -20,6 +20,10 @@ export class ReviewComponent {
     private orderService: OrderService,
   ) {}
 
+  setRating(rating: number) {
+    this.rating = rating;
+  }
+
   submitReview() {
     let customerName = this.isAnonymous?"ANONYMOUS":"";
     const subscription = this.orderService.writeReview(new Review(customerName, this.content, this.rating, this.professional, "", "")).subscribe(
