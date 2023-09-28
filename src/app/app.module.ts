@@ -38,12 +38,7 @@ import { ProfessionalGuard } from './utility/professional.guard';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ReviewComponent } from './components/review/review.component';
 import { SelectMapLocationComponent } from './components/select-map-location/select-map-location.component';
-
-// function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
-//   //Use injector to access router
-//   const router = injector.get(Router);
-//   router.navigate(['/login']);
-// }
+import { GoogleMapsModule } from '@angular/google-maps';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -92,10 +87,11 @@ const routes: Routes = [
     DashboardOrdersTakenComponent,
     DashboardOrdersTakenDetailsComponent,
     ReviewComponent,
-    SelectMapLocationComponent
+    SelectMapLocationComponent,
   ],
   imports: [
     ImageCropperModule,
+    GoogleMapsModule,
     FormsModule,
     RouterModule.forRoot(routes),
     BrowserModule,

@@ -1,1 +1,23 @@
-Helooooo
+<div class="container py-4">
+    <h1 class="text-center">
+        Find Route Between Given Places
+    </h1>
+    <form>
+        <div class="form-group">
+            <label for="originLocation">Nearby location:</label>
+            <input #originLocation type="text"
+                class="form-control" name="" placeholder="Origin location" id="originLocation">
+        </div>
+        <div class="form-group py-4">
+            <button class="btn btn-danger btn-rounded" (click)="search()">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <google-map #displayMap [zoom]="zoom" height="200px" width="200px" [center]="currentLocationLatLng"
+        [options]="myOptions"
+        (mapDrag)="centerChanged()">
+        <map-marker [position]="markerLocation"></map-marker>
+    </google-map>
+</div>
