@@ -112,8 +112,15 @@
             </div>
           </div>
         </div>
+
+        <div class="col-12" style="padding-top: 150px;padding-bottom: 200px;">
+          <div *ngIf="listings?.length == 0" class="alert alert-warning col-12" role="alert">
+            No Listing Found.
+          </div>
+        </div>
         
       </div>
+      
     </div>
   </section>
 
