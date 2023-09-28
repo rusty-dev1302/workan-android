@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 
 
@@ -14,6 +14,8 @@ export class SelectMapLocationComponent implements OnInit {
 
   @ViewChild('displayMap')
   displayMap!: GoogleMap;
+
+  @Input() headline: string = "";
 
 
   myOptions = {

@@ -306,7 +306,7 @@
 
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="address1">Address Line 1</label>
+                                                <label for="address1">Unit / Apartment</label>
                                                 <input required [(ngModel)]="contactDetail.addressLine1"
                                                     #address1="ngModel" minlength="3" maxlength="30" name="address1"
                                                     id="address1" type="text" class="form-control" autocomplete="off">
@@ -314,58 +314,17 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="address2">Address Line 2</label>
+                                                <label for="address2">Street</label>
                                                 <input required [(ngModel)]="contactDetail.addressLine2"
                                                     #address2="ngModel" maxlength="30" name="address2" id="address2"
                                                     type="text" class="form-control" autocomplete="off">
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="address3">Address Line 3</label>
-                                                <input required [(ngModel)]="contactDetail.addressLine3"
-                                                    #address3="ngModel" maxlength="30" name="address3" id="address3"
-                                                    type="text" class="form-control" autocomplete="off">
-                                            </div>
-                                        </div>
 
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
-                                    <div class="row">
-
-                                        <div class="col-4">
-                                            <div class="form-group">
-                                                <label for="pincode">Pincode</label>
-                                                <input required [(ngModel)]="contactDetail.pincode" #pincode="ngModel"
-                                                    minlength="3" maxlength="15" name="pincode" id="pincode" type="text"
-                                                    class="form-control" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-8">
-                                            <div class="form-group">
-                                                <label for="city">City</label>
-                                                <div class="input-group mb-3 dropdown">
-                                                    <input type="text" class="form-control" [ngModel]="contactDetail.city"
-                                                        id="city" name="city" readonly style="background-color: white;">
-                                                    <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
-                                                        type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        Select
-                                                    </button>
-                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                        <li *ngFor="let location of availableLocations"><a class="dropdown-item" type="button" (click)="setContactLocation(location)">{{location}}</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <app-select-map-location></app-select-map-location>
+                                <app-select-map-location headline="City / Provice / Postal"></app-select-map-location>
 
 
                                 <!-- Edit buttons -->
