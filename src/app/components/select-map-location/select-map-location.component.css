@@ -1,5 +1,5 @@
 .google-map {
-    height: 50px!important;
-    width: 50px!important;
+    width: 100px;
+    height: 100px;
     position:relative;
 }

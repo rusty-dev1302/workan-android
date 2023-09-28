@@ -631,6 +631,10 @@ hr.style1 {
     color: grey;
 }
 
+.pac-container {
+    z-index: 9999999999999!important;
+}
+
 /* Remove arrows from number fields  */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
