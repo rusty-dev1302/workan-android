@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 
-
 @Component({
   selector: 'app-select-map-location',
   templateUrl: './select-map-location.component.html',
@@ -42,6 +41,7 @@ export class SelectMapLocationComponent implements OnInit {
     this.autoComplete.addListener('place_changed',
       () => {
         this.currentLocationLatLng = JSON.parse(JSON.stringify(this.autoComplete?.getPlace().geometry?.location!));
+        // console.log('dfhdh', Geohash.encode(39.36, -76.69, 4))
       }
     );
   }
