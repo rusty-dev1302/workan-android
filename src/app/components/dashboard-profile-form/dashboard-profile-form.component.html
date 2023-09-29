@@ -101,13 +101,8 @@
 
                     <div class="col-12">
                         <div class="form-group">
-                            <label>Address</label>
-                            <h5>{{displayContact.addressLine1}}</h5>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group">
-                            <h5>{{displayContact.addressLine2}}</h5>
+                            <label style="padding-bottom: 10px;">Address</label>
+                            <h5>{{displayContact.addressLine1}}, {{displayContact.addressLine2}}</h5>
                         </div>
                     </div>
                     <div class="col-12">
@@ -121,19 +116,6 @@
 
             <div *ngIf="displayContact" class="mb-3">
                 <div class="row">
-
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label>City</label>
-                            <h5>{{displayContact.city}}</h5>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="form-group">
-                            <label>Pincode</label>
-                            <h5>{{displayContact.pincode}}</h5>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -322,7 +304,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <app-select-map-location headline="City / Town / Provice / Postal"></app-select-map-location>
+                                            <app-select-map-location headline="City / Town / Provice / Postal" (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
                                         </div>
 
                                         <div class="col-12">
@@ -336,15 +318,15 @@
 
 
                                 <!-- Edit buttons -->
+                                <div class="row">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#contactDetailsModal">Save</button>
+                                    </div>
+                                </div>
                                 
                             </form>
-                            <div class="row">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#contactDetailsModal">Save</button>
-                                </div>
-                            </div>
                             <!-- Contact Form Ends -->
                             <!-- User Form Ends -->
                         </div>

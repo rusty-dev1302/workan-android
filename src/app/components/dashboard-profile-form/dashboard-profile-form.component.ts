@@ -160,6 +160,7 @@ export class DashboardProfileFormComponent implements OnInit {
 
   submitContactDetail() {
     this.contactDetail.customerId = this.user.id;
+    console.log("contact detail "+JSON.stringify(this.contactDetail))
     const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
       (data) => {
         this.loadUserData();
@@ -179,7 +180,7 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   setContactLocation(location: string) {
-    this.contactDetail.city = location;
+    this.contactDetail.addressLine3 = location;
   }
 
   sendToastrMessage(data: any) {
@@ -190,5 +191,9 @@ export class DashboardProfileFormComponent implements OnInit {
     }
   }
 
+  locationSelectorOutput(data: any) {
+    this.contactDetail.addressLine3 = data.address;
+    this.contactDetail.geoHash = data.geoHash;
+  }
 
 }

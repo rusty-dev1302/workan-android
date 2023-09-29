@@ -8,8 +8,7 @@ export class ContactDetail extends BaseResponse{
         public addressLine1: string,
         public addressLine2: string,
         public addressLine3: string,
-        public city: string,
-        public pincode: number,
+        public geoHash: string,
         state: string,
         message: string,
     ) {

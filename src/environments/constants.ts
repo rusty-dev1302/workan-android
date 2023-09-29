@@ -22,8 +22,7 @@ export const constants = {
       addressLine1: "",
       addressLine2: "",
       addressLine3: "",
-      city: "",
-      pincode: 0,
+      geoHash: "",
       state: "",
       message: ""
     },
@@ -70,8 +69,7 @@ export const constants = {
     addressLine1: "",
     addressLine2: "",
     addressLine3: "",
-    city: "",
-    pincode: 0,
+    geoHash: "",
     state: "",
     message: ""
   },

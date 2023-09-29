@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import Geohash from 'latlon-geohash';
 
@@ -17,6 +17,7 @@ export class SelectMapLocationComponent implements OnInit {
   displayMap!: GoogleMap;
 
   @Input() headline: string = "";
+  @Output() outputEvent = new EventEmitter<{address:string, geoHash:string}>();
 
 
   myOptions = {
@@ -42,12 +43,14 @@ export class SelectMapLocationComponent implements OnInit {
     this.autoComplete = new google.maps.places.Autocomplete(this.originLocation.nativeElement);
     this.autoComplete.addListener('place_changed',
       () => {
-        let lat = this.currentLocationLatLng?.lat();
-        let lng = this.currentLocationLatLng?.lng();
         this.currentLocationLatLng = this.autoComplete?.getPlace().geometry?.location!;
-        console.log('GeoHash', Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8))
-        // send upto 3 digit geohash to backend 
-        console.log('Distance in KM', this.distanceBetweenTwoPlace(lat?lat:this.currentLocationLatLng.lat(), lng?lng:this.currentLocationLatLng.lng(), this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), "K"))
+
+        let output:any={};
+
+        output["address"] = this.autoComplete?.getPlace().formatted_address;
+        output["geoHash"] = Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8)
+
+        this.outputEvent.emit(output);
       }
     );
   }
