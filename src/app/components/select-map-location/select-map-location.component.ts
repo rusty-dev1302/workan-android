@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
+import Geohash from 'latlon-geohash';
+
 
 @Component({
   selector: 'app-select-map-location',
@@ -40,8 +42,8 @@ export class SelectMapLocationComponent implements OnInit {
     this.autoComplete = new google.maps.places.Autocomplete(this.originLocation.nativeElement);
     this.autoComplete.addListener('place_changed',
       () => {
-        this.currentLocationLatLng = JSON.parse(JSON.stringify(this.autoComplete?.getPlace().geometry?.location!));
-        // console.log('dfhdh', Geohash.encode(39.36, -76.69, 4))
+        this.currentLocationLatLng = this.autoComplete?.getPlace().geometry?.location!;
+        console.log('GeoHash', Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 10))
       }
     );
   }
