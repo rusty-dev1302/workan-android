@@ -42,8 +42,12 @@ export class SelectMapLocationComponent implements OnInit {
     this.autoComplete = new google.maps.places.Autocomplete(this.originLocation.nativeElement);
     this.autoComplete.addListener('place_changed',
       () => {
+        let lat = this.currentLocationLatLng?.lat();
+        let lng = this.currentLocationLatLng?.lng();
         this.currentLocationLatLng = this.autoComplete?.getPlace().geometry?.location!;
-        console.log('GeoHash', Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 10))
+        console.log('GeoHash', Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8))
+        // send upto 3 digit geohash to backend 
+        console.log('Distance in KM', this.distanceBetweenTwoPlace(lat?lat:this.currentLocationLatLng.lat(), lng?lng:this.currentLocationLatLng.lng(), this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), "K"))
       }
     );
   }
@@ -55,4 +59,21 @@ export class SelectMapLocationComponent implements OnInit {
   centerChanged() {
     this.markerLocation = this.displayMap.getCenter()!;
   }
+
+  distanceBetweenTwoPlace(firstLat:number, firstLon:number, secondLat:number, secondLon:number, unit:string) {
+    var firstRadlat = Math.PI * firstLat/180
+    var secondRadlat = Math.PI * secondLat/180
+    var theta = firstLon-secondLon;
+    var radtheta = Math.PI * theta/180
+    var distance = Math.sin(firstRadlat) * Math.sin(secondRadlat) + Math.cos(firstRadlat) * Math.cos(secondRadlat) * Math.cos(radtheta);
+    if (distance > 1) {
+        distance = 1;
+    }
+    distance = Math.acos(distance)
+    distance = distance * 180/Math.PI
+    distance = distance * 60 * 1.1515
+    if (unit=="K") { distance = distance * 1.609344 }
+    if (unit=="N") { distance = distance * 0.8684 }
+    return distance
+}
 }
