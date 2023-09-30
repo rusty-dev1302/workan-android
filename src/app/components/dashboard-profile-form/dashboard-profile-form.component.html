@@ -20,9 +20,10 @@
                         <div class="img-wrapper">
                             <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%" src="assets/profile.png">
                             <img *ngIf="profilePhoto" alt="..." class="img-fluid profile-photo" width="50%" [src]="profilePhoto.picByte">
-                            <div class="img-overlay"  type="button" data-bs-toggle="modal"
-                            data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()">
-                                <button class="btn border btn-primary btn-rounded" style="border-width: 5px!important;border-color: white!important;"><i class="fa-solid fa-plus"></i></button>
+                            <div class="img-overlay">
+                                <button class="btn border btn-primary btn-rounded" data-bs-toggle="modal"
+                                data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()" 
+                                style="border-width: 5px!important;border-color: white!important;"><i class="fa-solid fa-plus"></i></button>
                             </div>
                         </div>
                     </div>
@@ -102,7 +103,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label style="padding-bottom: 10px;">Address</label>
-                            <h5>{{displayContact.addressLine1}}, {{displayContact.addressLine2}}</h5>
+                            <h5>{{displayContact.addressLine1}} {{displayContact.addressLine2}}</h5>
                         </div>
                     </div>
                     <div class="col-12">
