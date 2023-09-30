@@ -636,7 +636,7 @@ hr.style1 {
 }
 
 .location-btn {
-    border: 0.5px solid var(--bs-dark-color);
+    border: 0.5px solid rgba(255, 255, 255, 0.323);
 }
 
 .location-btn:hover {
