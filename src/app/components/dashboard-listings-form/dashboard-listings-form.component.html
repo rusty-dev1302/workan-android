@@ -80,9 +80,11 @@
                         <div class="form-group">
                             <h3><b>Time Slots </b>
                                 <i *ngIf="!isTimeSlotExpanded" class="fa-solid fa-square-plus" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: rgb(100, 100, 100)"></i>
+                                    (click)="toggleTimeSlotExpand()"
+                                    style="font-size: x-large;color: rgb(100, 100, 100)"></i>
                                 <i *ngIf="isTimeSlotExpanded" class="fa-solid fa-square-minus" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: rgb(100, 100, 100)"></i>
+                                    (click)="toggleTimeSlotExpand()"
+                                    style="font-size: x-large;color: rgb(100, 100, 100)"></i>
                             </h3>
                             <h6>** Time slots are in the local time of the listing city</h6>
                         </div>
@@ -189,10 +191,9 @@
 
                                         <div class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <label for="location">Listing City</label>
-                                                <input #location="ngModel" required [(ngModel)]="listing.location"
-                                                    minlength="3" maxlength="15" name="location" id="location"
-                                                    type="text" class="form-control">
+                                                <app-select-map-location headline="Listing Location"
+                                                    [initialValue]="listing.location"
+                                                    (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
                                             </div>
                                         </div>
 

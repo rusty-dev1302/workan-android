@@ -55,7 +55,7 @@ export const constants = {
       profilePhoto: {
         id: 0,
         customerId: 0,
-        picByte: 0,
+        picByte: [],
         state: "",
         message: ""
       },

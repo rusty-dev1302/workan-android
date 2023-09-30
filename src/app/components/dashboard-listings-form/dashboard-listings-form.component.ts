@@ -160,20 +160,13 @@ export class DashboardListingsFormComponent implements OnInit{
     }
   }
 
-  setSpeciality() {
-
-  }
-
-  setCity() {
-
-  }
-
-  setChargesType() {
-    
-  }
-
   toggleTimeSlotExpand() {
     this.isTimeSlotExpanded = !this.isTimeSlotExpanded;
+  }
+
+  locationSelectorOutput(data: any) {
+    this.listing.location = data.address;
+    this.listing.geoHash = data.geoHash;
   }
   
   onClickSubmit() {
