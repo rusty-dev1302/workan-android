@@ -23,6 +23,20 @@ export class UserService {
     private keycloakService: KeycloakService,
     ) {}
 
+  // make all get calls depend on an update boolean based on that return make get call or return already existing value 
+  // canActivate(): Observable<boolean>  {
+  //   return this.userService.getUserByEmail(this.keycloakService.getUsername()).pipe(
+  //       map((user) => {
+  //         if(user.state!=constants.ERROR_STATE) {
+  //           if(!user.professional) {
+  //               return true;   
+  //           }
+  //         }
+  //         return false;
+  //       })
+  //     );  
+  //   }
+
   getUserByEmail(email: string): Observable<Customer> {
     const getUrl = `${this.baseUrl}/detail?email=${email}`;
     return this.httpClient.get<Customer>(getUrl);
