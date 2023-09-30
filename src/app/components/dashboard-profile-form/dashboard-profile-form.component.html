@@ -304,7 +304,7 @@
                                         </div>
 
                                         <div class="col-12">
-                                            <app-select-map-location headline="City / Town / Provice / Postal" (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
+                                            <app-select-map-location headline="City / Town / Provice / Postal" [initialValue]="contactDetail.addressLine3" (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
                                         </div>
 
                                         <div class="col-12">

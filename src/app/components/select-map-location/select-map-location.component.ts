@@ -17,6 +17,7 @@ export class SelectMapLocationComponent implements OnInit {
   displayMap!: GoogleMap;
 
   @Input() headline: string = "";
+  @Input() initialValue: string = "";
   @Output() outputEvent = new EventEmitter<{address:string, geoHash:string}>();
 
 

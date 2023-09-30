@@ -43,6 +43,7 @@ export const constants = {
       categoryName: ""
     },
     location: "",
+    geoHash: "",
     professional: {
       id: 0,
       firstName: "",

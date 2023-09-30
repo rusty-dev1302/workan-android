@@ -15,8 +15,10 @@ export class Listing extends BaseResponse{
         public professional: Professional,
         public subCategory: SubCategory,
         public experience: number,
+        public geoHash: string,
         state: string,
         message: string
+    
     ) {
         super(state, message);
     }
