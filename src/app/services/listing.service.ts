@@ -23,8 +23,8 @@ export class ListingService {
     return this.httpClient.get<Listing>(getUrl);
   }
 
-  getListingsByFilters(subcategory: string, location: string): Observable<Listing[]> {
-    const getUrl = `${this.baseUrl}/search?subcategory=${subcategory}&&location=${location}`;
+  getListingsByFilters(subcategory: string, geoHash: string): Observable<Listing[]> {
+    const getUrl = `${this.baseUrl}/search?subcategory=${subcategory}&&geoHash=${geoHash}`;
     return this.httpClient.get<Listing[]>(getUrl)
   }
 

@@ -29,10 +29,7 @@
 
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end navbar-dark" style="background-color: #222;">
-    <a class="nav-link active" style="margin-right: 5px;">Ratings <i class="fa-sharp fa-solid fa-xmark"
-        type="button"></i></a>
-    <a class="nav-link active" style="margin-right: 5px;">Paris <i class="fa-sharp fa-solid fa-xmark"
-        type="button"></i></a>
+    <a class="nav-link active location-btn" style="margin-right: 5px;" type="button"><i class="fa-solid fa-location-pin"></i> Update Address</a>
     <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i
         class="fa-solid fa-filter" style="color: white;"></i></a>
 
@@ -88,7 +85,6 @@
                 
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
-                <h6><b>City:</b><span> {{listing.location}}</span></h6>
                 <h6><b>Exp:</b><span> {{listing.experience}} Years</span></h6>
                 <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
                 <h6><b>Speaks:</b>
