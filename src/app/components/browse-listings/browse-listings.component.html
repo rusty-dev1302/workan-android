@@ -29,7 +29,10 @@
 
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end navbar-dark" style="background-color: #222;">
-    <a class="nav-link active location-btn" style="margin-right: 5px;" type="button"><i class="fa-solid fa-location-pin"></i> Update Address</a>
+    <a *ngIf="!currentUser!||!currentUser.contact||!currentUser.contact.addressLine3" class="nav-link active location-btn" style="margin-right: 5px;" type="button"><i
+        class="fa-solid fa-location-pin"></i> Update Address</a>
+    <a *ngIf="currentUser&&currentUser.contact&&currentUser.contact.addressLine3" class="nav-link active location-btn" style="margin-right: 5px;" type="button"><i
+        class="fa-solid fa-location-pin"></i> {{currentUser.contact.addressLine3}}</a>
     <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i
         class="fa-solid fa-filter" style="color: white;"></i></a>
 
@@ -73,23 +76,27 @@
       <div class="row g-5">
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
-            <div class="card list-card py-3" style="width: 25rem;" [routerLink]="['/listingDetail',listing.id]" type="button">
+            <div class="card list-card py-3" style="width: 25rem;" [routerLink]="['/listingDetail',listing.id]"
+              type="button">
               <img *ngIf="!listing.professional.profilePhoto" alt="..." class="card-img-top" src="assets/profile.png">
-              <img *ngIf="listing.professional.profilePhoto" alt="..." class="card-img-top" [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
+              <img *ngIf="listing.professional.profilePhoto" alt="..." class="card-img-top"
+                [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
               <div class="card-body">
                 <h4 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
 
-                <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD ({{listing.chargesType}})</h6>
-                
+                <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD
+                  ({{listing.chargesType}})</h6>
+
                 <h6><i class="fa fa-star rating-color"></i> 0.0</h6>
-                
+
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
                 <h6><b>Exp:</b><span> {{listing.experience}} Years</span></h6>
                 <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
                 <h6><b>Speaks:</b>
                   <span>
-                    {{listing.professional.languages.join(', ').length>15?(listing.professional.languages.join(', ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
+                    {{listing.professional.languages.join(', ').length>15?(listing.professional.languages.join(',
+                    ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
                   </span>
                 </h6>
                 <hr class="style1">
@@ -99,7 +106,8 @@
                       <h6><b>Availability:</b></h6>
                     </div>
                     <div class="col-12">
-                      <a type="button" class="btn border btn-small btn-secondary disabled btn-rounded"><del>Today</del></a>
+                      <a type="button"
+                        class="btn border btn-small btn-secondary disabled btn-rounded"><del>Today</del></a>
                       <a type="button" class="btn border btn-small btn-warning btn-rounded">Tomorrow</a>
                     </div>
                   </div>
@@ -114,9 +122,9 @@
             No Listing Found.
           </div>
         </div>
-        
+
       </div>
-      
+
     </div>
   </section>
 

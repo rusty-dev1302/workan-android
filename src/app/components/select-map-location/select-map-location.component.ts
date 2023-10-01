@@ -51,8 +51,6 @@ export class SelectMapLocationComponent implements OnInit {
         output["address"] = this.autoComplete?.getPlace().formatted_address;
         output["geoHash"] = Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8)
 
-        console.log(Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8))
-
         this.outputEvent.emit(output);
       }
     );

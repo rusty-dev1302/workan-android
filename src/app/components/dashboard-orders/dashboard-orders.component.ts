@@ -13,6 +13,7 @@ import { constants } from 'src/environments/constants';
 export class DashboardOrdersComponent implements OnInit {
 
   orders!: Order[];
+  subscription: any;
 
   constructor(
     private orderService: OrderService,
@@ -26,7 +27,7 @@ export class DashboardOrdersComponent implements OnInit {
 
   loadOrders() {
 
-    const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
+    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername(), false).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForCustomer(user.id).subscribe(
@@ -36,7 +37,6 @@ export class DashboardOrdersComponent implements OnInit {
               subscription.unsubscribe();
             }
           );
-          sub.unsubscribe();
         }
       }
     );
@@ -48,6 +48,10 @@ export class DashboardOrdersComponent implements OnInit {
     let merd = (Math.floor(time/100)<12?"AM":"PM");
 
     return (hour==0?"00":hour)+":"+min+merd;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

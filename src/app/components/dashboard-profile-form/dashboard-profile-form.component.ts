@@ -57,7 +57,7 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   loadUserData() {
-    const subscription = this.userService.getUserByEmail(this.emailValue).subscribe(
+    const subscription = this.userService.getUserByEmail(this.emailValue, false).subscribe(
       (data) => {
         if (data.state != constants.ERROR_STATE) {
           // Populate form from data
@@ -150,17 +150,13 @@ export class DashboardProfileFormComponent implements OnInit {
   submitUserDetail() {
     const subscription = this.userService.saveUserData(this.user).subscribe(
       (data) => {
-        this.loadUserData();
-
-        this.sendToastrMessage(data);
-
+        this.reloadCurrentPage();
         subscription.unsubscribe();
       });
   }
 
   submitContactDetail() {
     this.contactDetail.customerId = this.user.id;
-    console.log("contact detail "+JSON.stringify(this.contactDetail))
     const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
       (data) => {
         this.loadUserData();
@@ -195,5 +191,9 @@ export class DashboardProfileFormComponent implements OnInit {
     this.contactDetail.addressLine3 = data.address;
     this.contactDetail.geoHash = data.geoHash;
   }
+
+  reloadCurrentPage() {
+    window.location.reload();
+   }
 
 }

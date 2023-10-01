@@ -14,6 +14,7 @@ export class DashboardOrdersTakenComponent {
 
   
   orders!: Order[];
+  subscription: any;
 
   constructor(
     private orderService: OrderService,
@@ -27,7 +28,7 @@ export class DashboardOrdersTakenComponent {
 
   loadOrders() {
 
-    const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
+    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername(), false).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
@@ -37,7 +38,6 @@ export class DashboardOrdersTakenComponent {
               subscription.unsubscribe();
             }
           );
-          sub.unsubscribe();
         }
       }
     );
@@ -49,6 +49,10 @@ export class DashboardOrdersTakenComponent {
     let merd = (Math.floor(time/100)<12?"AM":"PM");
 
     return (hour==0?"00":hour)+":"+min+merd;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

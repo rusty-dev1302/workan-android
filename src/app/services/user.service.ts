@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Customer } from '../common/customer';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { ContactDetail } from '../common/contact-detail';
 import { constants } from 'src/environments/constants';
 import { KeycloakProfile } from 'keycloak-js';
@@ -17,6 +17,7 @@ export class UserService {
   private baseUrl = constants.API_SERVER+'/api/v1/customer';
   private isFirstLogin$ = new Subject<boolean>();
   private currentUser$ = new Subject<Customer>();
+  private userDetail!: Customer;
 
   constructor(
     private httpClient: HttpClient,
@@ -37,9 +38,26 @@ export class UserService {
   //     );  
   //   }
 
-  getUserByEmail(email: string): Observable<Customer> {
-    const getUrl = `${this.baseUrl}/detail?email=${email}`;
-    return this.httpClient.get<Customer>(getUrl);
+  getUserByEmail(email: string, forceUpdate: boolean = true): Observable<Customer> {
+
+    if(this.userDetail==null || forceUpdate) {
+      const getUrl = `${this.baseUrl}/detail?email=${email}`;
+
+      return this.httpClient.get<Customer>(getUrl).pipe(
+        map(
+          (user) => {
+            if(user.state!=constants.ERROR_STATE) {
+              this.userDetail = user;
+            }
+            return user;
+          }
+        )
+      );
+    }
+    
+    return new Observable<Customer>((subject) => {
+      subject.next(this.userDetail);
+    });
   }
 
   getContactDetailByUserId(userId: number): Observable<ContactDetail> {

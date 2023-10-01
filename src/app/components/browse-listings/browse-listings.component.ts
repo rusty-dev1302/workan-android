@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
+import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
 import { ListingService } from 'src/app/services/listing.service';
+import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
@@ -17,14 +20,18 @@ export class BrowseListingsComponent implements OnInit{
   currentSubcategory: string = "";
   currentLocation: string = "";
   searchKeyword: string = "";
+  currentUser!: Customer;
+  subscription: any;
 
 
   constructor(private listingService: ListingService,
+              private userService: UserService,
               private route: ActivatedRoute,
-              private sanitizer: DomSanitizer
+              private keycloakService: KeycloakService
     ) { }
 
   ngOnInit() {
+    this.loadUserDetails();
     this.route.paramMap.subscribe(()=>{
       this.handleProductsRouting();
     });
@@ -47,6 +54,16 @@ export class BrowseListingsComponent implements OnInit{
     this.handleListProducts();
   }
 
+  loadUserDetails() {
+    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername(), false).subscribe(
+      (user) => {
+        if(user.state==constants.SUCCESS_STATE) {
+          this.currentUser = user;
+        }
+      }
+    );
+  }
+
   handleListProducts() {
     this.listingService.getListingsByFilters(this.currentSubcategory, this.currentLocation).subscribe(
       data => {
@@ -57,5 +74,9 @@ export class BrowseListingsComponent implements OnInit{
         }
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
