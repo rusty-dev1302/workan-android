@@ -18,7 +18,7 @@ export class BrowseListingsComponent implements OnInit{
   listings: Listing[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
-  currentLocation: string = "";
+  geoHash: string = "";
   searchKeyword: string = "";
   currentUser!: Customer;
   subscription: any;
@@ -32,9 +32,9 @@ export class BrowseListingsComponent implements OnInit{
 
   ngOnInit() {
     this.loadUserDetails();
-    this.route.paramMap.subscribe(()=>{
-      this.handleProductsRouting();
-    });
+    // this.route.paramMap.subscribe(()=>{
+    //   this.handleProductsRouting();
+    // });
   }
 
   handleProductsRouting() {
@@ -48,7 +48,7 @@ export class BrowseListingsComponent implements OnInit{
     }
 
     if(hasLocation) {
-      this.currentLocation = this.route.snapshot.paramMap.get('location')!;
+      this.geoHash = this.route.snapshot.paramMap.get('location')!;
     }
 
     this.handleListProducts();
@@ -59,13 +59,18 @@ export class BrowseListingsComponent implements OnInit{
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
           this.currentUser = user;
+          if(this.currentUser.contact&&this.currentUser.contact.geoHash) {
+            this.geoHash = this.currentUser.contact.geoHash;
+          }
         }
+        console.log("calling handleListProducts")
+        this.handleListProducts();
       }
     );
   }
 
   handleListProducts() {
-    this.listingService.getListingsByFilters(this.currentSubcategory, this.currentLocation).subscribe(
+    this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash).subscribe(
       data => {
         if(data) {
           if(data[0]&&data[0].state!=constants.ERROR_STATE){
