@@ -14,8 +14,8 @@ export class PayPalService {
     private httpClient: HttpClient,
   ) { }
 
-  makePayment(amount: number):Observable<any> {
-    const postUrl = `${this.baseUrl}/make/payment?sum=${amount}`;
+  makePayment(amount: number, orderId: number):Observable<any> {
+    const postUrl = `${this.baseUrl}/make/payment?sum=${amount}&orderId=${orderId}`;
     console.log(postUrl)
     return this.httpClient.post<any>(postUrl, {});
   }

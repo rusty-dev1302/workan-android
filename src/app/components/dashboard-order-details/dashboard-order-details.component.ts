@@ -71,9 +71,9 @@ export class DashboardOrderDetailsComponent implements OnInit {
   }
 
   makePayment() {
-    this.paypalService.makePayment(10).subscribe(
+    this.paypalService.makePayment(10, this.order.id).subscribe(
       (response) => {
-        if(response.status=="success") {
+        if(response.state==constants.SUCCESS_STATE) {
           window.location.href = response.redirect_url;
         }
       }

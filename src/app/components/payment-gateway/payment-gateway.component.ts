@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { PayPalService } from 'src/app/services/pay-pal.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-payment-gateway',
@@ -9,12 +11,19 @@ import { PayPalService } from 'src/app/services/pay-pal.service';
 })
 export class PaymentGatewayComponent implements OnInit {
 
+  redirectLink:string = "/dashboard/orderDetail/";
+
   constructor(
     private route: ActivatedRoute,
     private paypalService: PayPalService,
+    private toastrService: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(()=>{
+      this.loadOrderId();
+    });
     this.route.queryParamMap.subscribe(()=>{
       this.processPayment();
     });
@@ -25,9 +34,21 @@ export class PaymentGatewayComponent implements OnInit {
     let payerId = this.route.snapshot.queryParamMap.get("PayerID");
     this.paypalService.completePayment(paymentId!, payerId!).subscribe(
       (response) => {
-        console.log("response: "+JSON.stringify(response));
+        console.log(JSON.stringify(response))
+        if(response.state==constants.SUCCESS_STATE) {
+          this.toastrService.success("Payment Complete");
+        }
+        else {
+          this.toastrService.error("Something went wrong!");
+        }
+        console.log(this.redirectLink);
+        this.router.navigateByUrl(`${this.redirectLink}`);
       }
     );
+  }
+
+  loadOrderId() {
+    this.redirectLink = this.redirectLink+this.route.snapshot.paramMap.get("orderId");
   }
 
 }

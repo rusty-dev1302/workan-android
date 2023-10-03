@@ -46,7 +46,7 @@ const routes: Routes = [
   // below to be removed 
   { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard] },
   // above to be removed 
-  { path: 'paymentGateway', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
+  { path: 'paymentGateway/:orderId', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard] },
