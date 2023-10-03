@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/common/order';
 import { ProcessOrderRequest } from 'src/app/common/process-order-request';
 import { OrderService } from 'src/app/services/order.service';
+import { PayPalService } from 'src/app/services/pay-pal.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
@@ -19,7 +20,8 @@ export class DashboardOrderDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private paypalService: PayPalService,
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,16 @@ export class DashboardOrderDetailsComponent implements OnInit {
           this.toastr.success(response.state);
         } else {
           this.toastr.error(response.message);
+        }
+      }
+    );
+  }
+
+  makePayment() {
+    this.paypalService.makePayment(10).subscribe(
+      (response) => {
+        if(response.status=="success") {
+          window.location.href = response.redirect_url;
         }
       }
     );

@@ -129,6 +129,10 @@
                         <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                           data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
                       </div>
+                      <div class="col-12 py-2">
+                        <button class="btn btn-warning btn-rounded col-12" type="button"
+                        (click)="makePayment()">Make Payment</button>
+                      </div>
                     </div>
                     <div *ngIf="order.status=='COMPLETED'||order.status=='CANCELLED'" class="col-12">
                       <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"

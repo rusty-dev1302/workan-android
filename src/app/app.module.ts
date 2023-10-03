@@ -39,13 +39,14 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ReviewComponent } from './components/review/review.component';
 import { SelectMapLocationComponent } from './components/select-map-location/select-map-location.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { PaymentGatewayComponent } from './components/payment-gateway/payment-gateway.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
-  // to be removed 
+  // below to be removed 
   { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard] },
-  { path: 'map', component: SelectMapLocationComponent, canActivate: [AuthGuard] },
   // above to be removed 
+  { path: 'paymentGateway', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard] },
@@ -88,6 +89,7 @@ const routes: Routes = [
     DashboardOrdersTakenDetailsComponent,
     ReviewComponent,
     SelectMapLocationComponent,
+    PaymentGatewayComponent,
   ],
   imports: [
     ImageCropperModule,
