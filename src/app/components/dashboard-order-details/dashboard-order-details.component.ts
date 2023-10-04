@@ -21,7 +21,6 @@ export class DashboardOrderDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private orderService: OrderService,
     private toastr: ToastrService,
-    private paypalService: PayPalService,
   ) { }
 
   ngOnInit() {
@@ -65,16 +64,6 @@ export class DashboardOrderDetailsComponent implements OnInit {
           this.toastr.success(response.state);
         } else {
           this.toastr.error(response.message);
-        }
-      }
-    );
-  }
-
-  makePayment() {
-    this.paypalService.makePayment(10, this.order.id).subscribe(
-      (response) => {
-        if(response.state==constants.SUCCESS_STATE) {
-          window.location.href = response.redirect_url;
         }
       }
     );

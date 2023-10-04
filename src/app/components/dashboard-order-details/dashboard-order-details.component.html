@@ -41,14 +41,14 @@
                   <!-- display profile and name  -->
                   <div class="row">
   
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
                         <label>Appointment Date</label>
                         <h5>{{order.appointmentDate|date:'dd-MMM-yyyy'}}</h5>
                       </div>
                     </div>
   
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
                         <label>Appointment Time</label>
                         <h5>{{convertTimeToString(order.startTimeHhmm)}}-{{convertTimeToString(order.endTimeHhmm)}}</h5>
@@ -73,6 +73,13 @@
                       <div class="form-group">
                         <label>OTP</label>
                         <h5><b>{{order.otp}}</b></h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Payment Status</label>
+                        <h5>{{order.paymentStatus}}</h5>
                       </div>
                     </div>
   
@@ -112,6 +119,10 @@
                           <label>Professional Specialization</label>
                           <h5>{{order.subCategoryName}}</h5>
                         </div>
+                        <div class="form-group">
+                          <label>Payment Status</label>
+                          <h5>{{order.paymentStatus}}</h5>
+                        </div>
                       </div>
                     </div>
   
@@ -131,9 +142,7 @@
                       </div>
                       <div class="col-12 py-2">
                         <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                        data-bs-target="#confirmPaymentModal">Make Payment 
-                        <!-- <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="5%"> -->
-                        <!-- <i class="fas fa-circle-notch fa-spin"></i> -->
+                        data-bs-target="#confirmPaymentModal">Make Payment
                       </button>
                       </div>
                     </div>
@@ -171,7 +180,7 @@
   <div *ngIf="order" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="confirmPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-confirm-payment></app-confirm-payment>
+      <app-confirm-payment [orderId]="order.id"></app-confirm-payment>
     </div>
   </div>
 

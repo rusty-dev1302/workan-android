@@ -12,6 +12,7 @@ import { constants } from 'src/environments/constants';
 export class PaymentGatewayComponent implements OnInit {
 
   redirectLink:string = "/dashboard/orderDetail/";
+  orderId!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,22 +33,32 @@ export class PaymentGatewayComponent implements OnInit {
   processPayment() {
     let paymentId = this.route.snapshot.queryParamMap.get("paymentId");
     let payerId = this.route.snapshot.queryParamMap.get("PayerID");
-    this.paypalService.completePayment(paymentId!, payerId!).subscribe(
+    const sub1 = this.paypalService.completePayment(paymentId!, payerId!).subscribe(
       (response) => {
-        console.log(JSON.stringify(response))
         if(response.state==constants.SUCCESS_STATE) {
-          this.toastrService.success("Payment Complete");
+          const sub2 = this.paypalService.getPaymentDetail(paymentId!, this.orderId).subscribe(
+            (response) => {
+              if(response.state==constants.SUCCESS_STATE) {
+                this.toastrService.success("Payment Complete!");
+              }
+              else {
+                this.toastrService.error("Something went wrong!");
+              }
+              sub2.unsubscribe();
+            }
+          );
         }
         else {
           this.toastrService.error("Something went wrong!");
         }
-        console.log(this.redirectLink);
+        sub1.unsubscribe();
         this.router.navigateByUrl(`${this.redirectLink}`);
       }
     );
   }
 
   loadOrderId() {
+    this.orderId = this.route.snapshot.paramMap.get("orderId")!;
     this.redirectLink = this.redirectLink+this.route.snapshot.paramMap.get("orderId");
   }
 

@@ -63,7 +63,6 @@ export class BrowseListingsComponent implements OnInit{
             this.geoHash = this.currentUser.contact.geoHash;
           }
         }
-        console.log("calling handleListProducts")
         this.handleListProducts();
       }
     );
