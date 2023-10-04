@@ -40,6 +40,7 @@ import { ReviewComponent } from './components/review/review.component';
 import { SelectMapLocationComponent } from './components/select-map-location/select-map-location.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PaymentGatewayComponent } from './components/payment-gateway/payment-gateway.component';
+import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-payment.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -90,6 +91,7 @@ const routes: Routes = [
     ReviewComponent,
     SelectMapLocationComponent,
     PaymentGatewayComponent,
+    ConfirmPaymentComponent,
   ],
   imports: [
     ImageCropperModule,

@@ -130,8 +130,8 @@
                           data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
                       </div>
                       <div class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button"
-                        (click)="makePayment()">Make Payment 
+                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                        data-bs-target="#confirmPaymentModal">Make Payment 
                         <!-- <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="5%"> -->
                         <!-- <i class="fas fa-circle-notch fa-spin"></i> -->
                       </button>
@@ -166,5 +166,16 @@
     </div>
   </div>
   <!-- Write Review Modal Ends -->
+
+  <!-- Confirm payment Modal begins  -->
+  <div *ngIf="order" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="confirmPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-confirm-payment></app-confirm-payment>
+    </div>
+  </div>
+
+  <!-- Review payment Modal ends  -->
+
   
     <!-- Modals section ends -->
