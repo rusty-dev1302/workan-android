@@ -47,6 +47,14 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     );
   }
 
+  moveToNext(i:number) {
+    let nextElementSiblingId = 'otp_'+ i;
+    console.log(nextElementSiblingId)
+        if (i<7) {
+         document.getElementById(nextElementSiblingId)!.focus();
+        }  
+}
+
   convertTimeToString(time: number): string {
     let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
     let min = (time % 100 == 0 ? "00" : time % 100);
