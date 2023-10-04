@@ -20,6 +20,12 @@ export class PayPalService {
     return this.httpClient.post<any>(postUrl, {});
   }
 
+  getPaymentDetail(paymentId: string):Observable<any> {
+    const getUrl = `${this.baseUrl}/payment/detail?paymentId=${paymentId}`;
+    console.log(getUrl)
+    return this.httpClient.post<any>(getUrl, {});
+  }
+
   completePayment(paymentId: string, payerId: string):Observable<any> {
     const postUrl = `${this.baseUrl}/complete/payment?paymentId=${paymentId}&PayerID=${payerId}`;
     console.log(postUrl)
