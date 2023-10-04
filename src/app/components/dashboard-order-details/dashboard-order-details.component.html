@@ -61,13 +61,6 @@
                         <h5><i class="fa-solid fa-dollar-sign"></i> {{order.charges}} CAD</h5>
                       </div>
                     </div>
-  
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Order Status</label>
-                        <h5>{{order.status}}</h5>
-                      </div>
-                    </div>
 
                     <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
@@ -80,6 +73,13 @@
                       <div class="form-group">
                         <label>Payment Status</label>
                         <h5>{{order.paymentStatus}}</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Order Status</label>
+                        <h5>{{order.status}}</h5>
                       </div>
                     </div>
   
@@ -176,7 +176,7 @@
   <div *ngIf="order" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="confirmPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-confirm-payment [orderId]="order.id"></app-confirm-payment>
+      <app-confirm-payment [orderId]="order.id" [amount]="order.charges"></app-confirm-payment>
     </div>
   </div>
 

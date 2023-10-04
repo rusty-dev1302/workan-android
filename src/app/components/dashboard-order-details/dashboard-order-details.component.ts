@@ -62,6 +62,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
       (response) => {
         if(response.state!=constants.ERROR_STATE) {
           this.toastr.success(response.state);
+          window.location.reload();
         } else {
           this.toastr.error(response.message);
         }

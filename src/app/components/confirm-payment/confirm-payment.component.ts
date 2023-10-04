@@ -10,6 +10,8 @@ import { constants } from 'src/environments/constants';
 export class ConfirmPaymentComponent {
 
   @Input() orderId!: number;
+  @Input() amount: number=0;
+
   selectPaypal:boolean = false;
   checkoutClicked:boolean = false;
 
@@ -22,7 +24,7 @@ export class ConfirmPaymentComponent {
   makePayment() {
     if(!this.checkoutClicked) {
       this.checkoutClicked = true;
-      this.paypalService.makePayment(10, this.orderId).subscribe(
+      this.paypalService.makePayment(this.amount, this.orderId).subscribe(
         (response) => {
           if(response.state==constants.SUCCESS_STATE) {
             window.location.href = response.redirect_url;
