@@ -128,18 +128,18 @@
                         <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                           data-bs-target="#slotSelectorModal" (click)="processOrder('START')">Start Order</button>
                       </div>
-                      <div *ngIf="order.status=='STARTED'" class="col-12 py-2">
+                      <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
+                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                        data-bs-target="#confirmPaymentModal">Make Payment
+                      </button>
+                      </div>
+                      <div *ngIf="order.status=='STARTED'&&order.paymentStatus=='COMPLETE'" class="col-12 py-2">
                         <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                           data-bs-target="#slotSelectorModal" (click)="processOrder('COMPLETE')">Complete Order</button>
                       </div>
                       <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-2">
                         <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                           data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
-                      </div>
-                      <div class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                        data-bs-target="#confirmPaymentModal">Make Payment
-                      </button>
                       </div>
                     </div>
                     <div *ngIf="order.status=='COMPLETED'||order.status=='CANCELLED'" class="col-12">

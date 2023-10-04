@@ -45,6 +45,7 @@ export class PaymentGatewayComponent implements OnInit {
                 this.toastrService.error("Something went wrong!");
               }
               sub2.unsubscribe();
+              this.router.navigateByUrl(`${this.redirectLink}`);
             }
           );
         }
@@ -52,7 +53,6 @@ export class PaymentGatewayComponent implements OnInit {
           this.toastrService.error("Something went wrong!");
         }
         sub1.unsubscribe();
-        this.router.navigateByUrl(`${this.redirectLink}`);
       }
     );
   }
