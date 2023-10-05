@@ -33,6 +33,11 @@ export class PaymentGatewayComponent implements OnInit {
   processPayment() {
     let paymentId = this.route.snapshot.queryParamMap.get("paymentId");
     let payerId = this.route.snapshot.queryParamMap.get("PayerID");
+
+    if(payerId==null||payerId==null) {
+      this.router.navigateByUrl(`${this.redirectLink}`);
+    }
+
     const sub1 = this.paypalService.completePayment(paymentId!, payerId!).subscribe(
       (response) => {
         if(response.state==constants.SUCCESS_STATE) {
