@@ -34,7 +34,7 @@
                       <div class="col-12">
                         <div class="form-group">
                           <h4>{{professional.firstName}} {{professional.lastName}}</h4>
-                          <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD
+                          <h6 *ngIf="listing"><b>${{listing.charges}} CAD</b>
                             ({{listing.chargesType}})</h6>
                           <h6><i class="fa fa-star rating-color"></i> {{professional.rating | number : '1.1-1'}}</h6>
                         </div>

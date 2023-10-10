@@ -84,7 +84,7 @@
               <div class="card-body">
                 <h4 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
 
-                <h6 *ngIf="listing"><i class="fa-solid fa-dollar-sign"></i> {{listing.charges}} CAD
+                <h6 *ngIf="listing"><b>${{listing.charges}} CAD</b>
                   ({{listing.chargesType}})</h6>
 
                 <h6><i class="fa fa-star rating-color"></i> 0.0</h6>
