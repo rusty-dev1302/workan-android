@@ -33,6 +33,8 @@ export class DashboardListingsFormComponent implements OnInit{
 
   timeSlots: string[] = constants.TIMESLOTS;
 
+  specialities: string[] = [];
+
   constructor(
     private keycloakService: KeycloakService,
     private listingService: ListingService,
@@ -41,6 +43,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadFormValues();
+    this.loadAllSubcategories();
   }
 
   loadFormValues() {
@@ -75,8 +78,19 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
-  enableDisableSlotTemplate(slotTemplateId: number) {
-  
+  loadAllSubcategories() {
+    const subscription = this.listingService.getAllSubcategories().subscribe(
+      (subcategories) => {
+        if(subcategories.length>0) {
+          this.specialities = subcategories;
+        }
+        subscription.unsubscribe();
+      }
+    );
+  }
+
+  selectSubCategory(subcategory: string) {
+    this.listing.subCategory.subCategoryName = subcategory;
   }
 
   addSlotTemplateItem() {
