@@ -29,9 +29,9 @@
 
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end navbar-dark" style="background-color: #222;">
-    <a *ngIf="!currentUser!||!currentUser.contact||!currentUser.contact.addressLine3" class="nav-link active location-btn" style="margin-right: 5px;" type="button"><i
+    <a *ngIf="!currentUser!||!currentUser.contact||!currentUser.contact.addressLine3" class="nav-link active location-btn" style="margin-right: 5px;" type="button"(click)="updateAddress()"><i
         class="fa-solid fa-location-pin"></i> Update Address</a>
-    <a *ngIf="currentUser&&currentUser.contact&&currentUser.contact.addressLine3" class="nav-link active location-btn" style="margin-right: 5px;" type="button"><i
+    <a *ngIf="currentUser&&currentUser.contact&&currentUser.contact.addressLine3" class="nav-link active location-btn" style="margin-right: 5px;" type="button" (click)="updateAddress()"><i
         class="fa-solid fa-location-pin"></i> {{currentUser.contact.addressLine3.length>15?(currentUser.contact.addressLine3|slice:0:15)+' ...':currentUser.contact.addressLine3}}</a>
     <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i
         class="fa-solid fa-filter" style="color: white;"></i></a>

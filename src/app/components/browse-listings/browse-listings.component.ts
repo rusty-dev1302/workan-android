@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
@@ -27,6 +27,7 @@ export class BrowseListingsComponent implements OnInit{
   constructor(private listingService: ListingService,
               private userService: UserService,
               private route: ActivatedRoute,
+              private router: Router,
               private keycloakService: KeycloakService
     ) { }
 
@@ -78,6 +79,10 @@ export class BrowseListingsComponent implements OnInit{
         }
       }
     );
+  }
+
+  updateAddress() {
+    this.router.navigateByUrl(`/dashboard/profile#address_section`);
   }
 
   ngOnDestroy() {
