@@ -28,7 +28,7 @@ export class DashboardOrdersTakenComponent {
 
   loadOrders() {
 
-    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername(), false).subscribe(
+    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(

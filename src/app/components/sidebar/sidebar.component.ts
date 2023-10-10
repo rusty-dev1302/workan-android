@@ -34,7 +34,6 @@ export class SidebarComponent implements OnInit{
           this.currentUser = user;
           this.loadProfilePhoto();
         }
-        subscription.unsubscribe();
       }
     );
 

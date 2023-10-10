@@ -55,7 +55,7 @@ export class BrowseListingsComponent implements OnInit{
   }
 
   loadUserDetails() {
-    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername(), false).subscribe(
+    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
           this.currentUser = user;

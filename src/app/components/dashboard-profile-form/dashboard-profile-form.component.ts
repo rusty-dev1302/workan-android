@@ -57,7 +57,7 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   loadUserData() {
-    const subscription = this.userService.getUserByEmail(this.emailValue, false).subscribe(
+    const subscription = this.userService.getUserByEmail(this.emailValue).subscribe(
       (data) => {
         if (data.state != constants.ERROR_STATE) {
           // Populate form from data
