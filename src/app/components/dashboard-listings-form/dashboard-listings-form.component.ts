@@ -93,6 +93,10 @@ export class DashboardListingsFormComponent implements OnInit{
     this.listing.subCategory.subCategoryName = subcategory;
   }
 
+  selectChargesType(chargesType: string) {
+    this.listing.chargesType = chargesType;
+  }
+
   addSlotTemplateItem() {
     let id!:number;
 

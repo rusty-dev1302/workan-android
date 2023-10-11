@@ -43,14 +43,6 @@
                     </div>
 
                     <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="col-xxl-6 col-lg-6 col-12">
-                            <div class="form-group">
-                                <label>Location</label>
-                                <h5>{{displayListing.location}}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges Type</label>
                             <h5>{{displayListing.chargesType}}</h5>
@@ -60,6 +52,15 @@
                         <div class="form-group">
                             <label>Charges</label>
                             <h5>${{displayListing.charges}} (CAD)</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="col-xxl-6 col-lg-6 col-12">
+                            <div class="form-group">
+                                <label>Location</label>
+                                <h5>{{displayListing.location}}</h5>
+                            </div>
                         </div>
                     </div>
 
@@ -203,11 +204,21 @@
                                         <div class="col-xxl-6 col-lg-6 col-6">
                                             <div class="form-group">
                                                 <label for="chargesType">Charges Type</label>
-                                                <input #chargesType="ngModel" required [(ngModel)]="listing.chargesType" minlength="3"
-                                                    maxlength="15" name="chargesType" id="chargesType" type="text"
-                                                    class="form-control">
+                                                    <div class="input-group dropdown">
+                                                        <input type="text" class="form-control" [ngModel]="listing.chargesType"
+                                                            name="chargesType" readonly readonly style="background-color: white;">
+                                                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
+                                                            type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                        </button>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                            <li class="px-3" (click)="selectChargesType('Per Visit')" type="button"><a> Per Visit </a></li>
+                                                            <li class="px-3" (click)="selectChargesType('Hourly')" type="button"><a> Hourly </a></li>
+                                                        </ul>
+                                                    </div>
                                             </div>
                                         </div>
+
                                         <div class="col-xxl-6 col-lg-6 col-6">
                                             <div class="form-group">
                                                 <label for="chargesType">CAD</label>
@@ -235,7 +246,7 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="modal-footer">
-                                            <h6>** The area where the services are offered is the listing location.</h6>
+                                            <h6>** Area where the services are offered is the <b>listing location</b>.</h6>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#listingDetailsModal">Save</button>
