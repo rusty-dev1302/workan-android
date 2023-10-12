@@ -49,7 +49,6 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   moveToNext(i:number) {
     let nextElementSiblingId = 'otp_'+ i;
-    console.log(nextElementSiblingId)
         if (i<7) {
          document.getElementById(nextElementSiblingId)!.focus();
         }  

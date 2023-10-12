@@ -41,6 +41,7 @@ import { SelectMapLocationComponent } from './components/select-map-location/sel
 import { GoogleMapsModule } from '@angular/google-maps';
 import { PaymentGatewayComponent } from './components/payment-gateway/payment-gateway.component';
 import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-payment.component';
+import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -92,6 +93,7 @@ const routes: Routes = [
     SelectMapLocationComponent,
     PaymentGatewayComponent,
     ConfirmPaymentComponent,
+    LoadingScreenComponent,
   ],
   imports: [
     ImageCropperModule,

@@ -5,6 +5,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
 import { ListingService } from 'src/app/services/listing.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
@@ -25,6 +26,7 @@ export class BrowseListingsComponent implements OnInit{
 
 
   constructor(private listingService: ListingService,
+              private navigationService: NavigationService,
               private userService: UserService,
               private route: ActivatedRoute,
               private router: Router,
@@ -32,10 +34,8 @@ export class BrowseListingsComponent implements OnInit{
     ) { }
 
   ngOnInit() {
+    this.navigationService.showLoader();
     this.loadUserDetails();
-    // this.route.paramMap.subscribe(()=>{
-    //   this.handleProductsRouting();
-    // });
   }
 
   handleProductsRouting() {
@@ -77,6 +77,7 @@ export class BrowseListingsComponent implements OnInit{
             this.listings = data;
           }
         }
+        this.navigationService.pageLoaded();
       }
     );
   }

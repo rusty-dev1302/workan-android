@@ -1,12 +1,12 @@
+<app-loading-screen [hidden]="isPageLoaded"></app-loading-screen>
+
 <app-header class="workan-header"></app-header>
-<div class="workan-body">
+<div [hidden]="!isPageLoaded" class="workan-body">
   <router-outlet></router-outlet>
 </div>
-
-
 <!-- ENDS PAGE CONTAINER -->
 <!-- Footer -->
-<footer class="main-footer-section">
+<footer [hidden]="!isPageLoaded" class="main-footer-section">
   <div class="container d-flex pt-5 justify-content-center">
     <div class="row">
       <div class="col">
