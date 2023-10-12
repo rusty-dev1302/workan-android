@@ -5,6 +5,7 @@ import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
 import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ListingService } from 'src/app/services/listing.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
@@ -44,6 +45,7 @@ export class DashboardProfileFormComponent implements OnInit {
     private userService: UserService,
     private listingService: ListingService,
     private toastr: ToastrService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
@@ -105,6 +107,8 @@ export class DashboardProfileFormComponent implements OnInit {
           this.profilePhoto = image;
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
         }
+
+        this.navigationService.pageLoaded();
         
         subscription.unsubscribe();
       }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Order } from 'src/app/common/order';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
@@ -19,9 +20,11 @@ export class DashboardOrdersComponent implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     private keycloakService: KeycloakService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit() {
+    this.navigationService.showLoader();
     this.loadOrders();
   }
 
@@ -34,6 +37,7 @@ export class DashboardOrdersComponent implements OnInit {
             (data) => {
               this.orders = data;
 
+              this.navigationService.pageLoaded();
               subscription.unsubscribe();
             }
           );

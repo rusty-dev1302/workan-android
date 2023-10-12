@@ -11,7 +11,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class NavigationService {
   private history: string[] = [];
 
-  private isPageLoaded$ = new BehaviorSubject<boolean>(false);
+  private isPageLoaded$ = new BehaviorSubject<boolean>(true);
  
   constructor(private router: Router, private location: Location) {
     this.router.events.subscribe((event) => {

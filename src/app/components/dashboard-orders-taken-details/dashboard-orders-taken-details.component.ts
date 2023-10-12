@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/common/order';
 import { ProcessOrderRequest } from 'src/app/common/process-order-request';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
 
@@ -20,10 +21,12 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private orderService: OrderService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private navigationService: NavigationService
   ) { }
 
   ngOnInit() {
+    this.navigationService.showLoader();
     this.route.paramMap.subscribe(()=>{
       this.handleOrderRouting();
     });
@@ -42,6 +45,8 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
         }
+
+        this.navigationService.pageLoaded();
         subscription.unsubscribe();
       }
     );
