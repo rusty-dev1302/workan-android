@@ -7,6 +7,7 @@ import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 import { ListingService } from 'src/app/services/listing.service';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -39,9 +40,11 @@ export class DashboardListingsFormComponent implements OnInit{
     private keycloakService: KeycloakService,
     private listingService: ListingService,
     private toastrService: ToastrService,
+    private navigation: NavigationService
     ) { }
 
   ngOnInit(): void {
+    this.navigation.showLoader();
     this.loadFormValues();
     this.loadAllSubcategories();
   }
@@ -56,6 +59,8 @@ export class DashboardListingsFormComponent implements OnInit{
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
         }
+
+        this.navigation.pageLoaded();
         this.subscription.unsubscribe();
       }
     );

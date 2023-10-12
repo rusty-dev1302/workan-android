@@ -30,6 +30,7 @@ export class ListingDetailsComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
+    this.navigation.showLoader();
     this.route.paramMap.subscribe(()=>{
       this.handleListingRouting();
     });
@@ -55,6 +56,7 @@ export class ListingDetailsComponent implements OnInit{
             }
           );
         }
+        this.navigation.pageLoaded();
         subscription.unsubscribe();
       }
     );
