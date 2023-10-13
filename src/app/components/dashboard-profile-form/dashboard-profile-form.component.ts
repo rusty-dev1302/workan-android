@@ -94,7 +94,10 @@ export class DashboardProfileFormComponent implements OnInit {
         } else {
           this.contactDetail = constants.DEFAULT_CONTACT_DETAIL;
         }
-        this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
+        console.log("Display contact " + JSON.stringify(this.contactDetail))
+        if (this.contactDetail.addressLine1 != "" && this.contactDetail.addressLine2 != "" && this.contactDetail.addressLine3 != "") {
+          this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
+        }
         contactSubscription.unsubscribe();
       }
     );
@@ -103,13 +106,13 @@ export class DashboardProfileFormComponent implements OnInit {
   loadProfilePhoto() {
     const subscription = this.profilePhotoService.getImageByCustomerId(this.user.id).subscribe(
       (image) => {
-        if(image&&image.state!=constants.ERROR_STATE) {
+        if (image && image.state != constants.ERROR_STATE) {
           this.profilePhoto = image;
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
         }
 
         this.navigationService.pageLoaded();
-        
+
         subscription.unsubscribe();
       }
     );
@@ -127,17 +130,17 @@ export class DashboardProfileFormComponent implements OnInit {
   loadAvailableLanguages() {
     const lan = this.user.languages;
 
-    this.availableLanguages.set("English",lan&&lan.indexOf("English")>-1?1:0);
-    this.availableLanguages.set("French",lan&&lan.indexOf("French")>-1?1:0);
-    this.availableLanguages.set("Mandarin",lan&&lan.indexOf("Mandarin")>-1?1:0);
-    this.availableLanguages.set("Cantonese",lan&&lan.indexOf("Cantonese")>-1?1:0);    
-    this.availableLanguages.set("Punjabi",lan&&lan.indexOf("Punjabi")>-1?1:0);
-    this.availableLanguages.set("Hindi",lan&&lan.indexOf("Hindi")>-1?1:0);
+    this.availableLanguages.set("English", lan && lan.indexOf("English") > -1 ? 1 : 0);
+    this.availableLanguages.set("French", lan && lan.indexOf("French") > -1 ? 1 : 0);
+    this.availableLanguages.set("Mandarin", lan && lan.indexOf("Mandarin") > -1 ? 1 : 0);
+    this.availableLanguages.set("Cantonese", lan && lan.indexOf("Cantonese") > -1 ? 1 : 0);
+    this.availableLanguages.set("Punjabi", lan && lan.indexOf("Punjabi") > -1 ? 1 : 0);
+    this.availableLanguages.set("Hindi", lan && lan.indexOf("Hindi") > -1 ? 1 : 0);
 
-    if(this.availableLanguages.has("dummy")) {
+    if (this.availableLanguages.has("dummy")) {
       this.availableLanguages.delete("dummy");
     } else {
-      this.availableLanguages.set("dummy",1);
+      this.availableLanguages.set("dummy", 1);
     }
   }
 
@@ -198,6 +201,6 @@ export class DashboardProfileFormComponent implements OnInit {
 
   reloadCurrentPage() {
     window.location.reload();
-   }
+  }
 
 }
