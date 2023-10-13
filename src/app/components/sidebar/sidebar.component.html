@@ -2,10 +2,11 @@
   aria-labelledby="sidebarMainLabel">
   <div class="offcanvas-header" style="font-size: large;color: white;">
     <ul *ngIf="currentUser" class="list-unstyled">
-      <li *ngIf="!profilePhoto" class="py-3"><img alt="..." class="img-fluid" width="40%" src="assets/profile.png" type="button"
-          routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
-      <li *ngIf="profilePhoto" class="py-2"><img alt="..." class="img-fluid profile-photo" width="40%" [src]="profilePhoto.picByte" type="button"
-          routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
+      <li *ngIf="!profilePhoto" class="py-3"><img alt="..." class="img-fluid" width="40%" src="assets/profile.png"
+          type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
+      <li *ngIf="profilePhoto" class="py-2"><img alt="..." class="img-fluid profile-photo" width="40%"
+          [src]="profilePhoto.picByte" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
+          data-bs-target="#sidebarMain"></li>
       <li type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">
         {{currentUser.firstName}} {{currentUser.lastName}}</li>
       <li style="font-size: medium;" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
@@ -32,6 +33,8 @@
       <li><span class="p-2 border rounded">A C C O U N T</span><br><br></li>
       <li><span type="button" routerLink="/dashboard/orders" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain">Orders</span></li>
+      <li><span type="button" routerLink="/dashboard/addressDetails" data-bs-toggle="offcanvas"
+          data-bs-target="#sidebarMain">Address Details</span></li>
     </ul>
 
     <!-- professional section starts -->

@@ -42,6 +42,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { PaymentGatewayComponent } from './components/payment-gateway/payment-gateway.component';
 import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-payment.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { DashboardAddressDetailsComponent } from './components/dashboard-address-details/dashboard-address-details.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -56,6 +57,7 @@ const routes: Routes = [
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
           children: [{ path: 'profile', component: DashboardProfileComponent },
           { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
+          { path: 'addressDetails', component: DashboardAddressDetailsComponent, canActivate: [CustomerGuard] },
           { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
           { path: 'myOrders', component: DashboardOrdersTakenComponent, canActivate: [ProfessionalGuard] },
           { path: 'takenOrderDetail/:id', component: DashboardOrdersTakenDetailsComponent, canActivate: [ProfessionalGuard] },
@@ -94,6 +96,7 @@ const routes: Routes = [
     PaymentGatewayComponent,
     ConfirmPaymentComponent,
     LoadingScreenComponent,
+    DashboardAddressDetailsComponent,
   ],
   imports: [
     ImageCropperModule,

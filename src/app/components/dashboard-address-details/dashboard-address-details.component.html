@@ -1,0 +1,40 @@
+<!-- Edit Photo Modal -->
+<app-photo-uploader [customerId]="customerId"></app-photo-uploader>
+<!-- Edit Photo Modal Ends -->
+
+<!--Divider section-->
+
+<section class="bg-color py-2">
+  <section class="container">
+    <div class="row">
+
+      <div
+        class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
+        <h1 class=" text-capitalize fw-bolder text-white">
+          Address Details
+        </h1>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+<!--Divider section end -->
+
+
+<!-- Edit Section Starts  -->
+
+<section class="common-section business-section" id="online_services">
+
+  <div class="container">
+    <!-- dashboard-profile-form panel starts -->
+
+    <app-dashboard-profile-form [displayPersonalDetails]="false" (customerIdEvent)="updateCustomerId($event)"></app-dashboard-profile-form>
+
+    <!-- dashboard-profile-form panel ends -->
+
+  </div>
+
+</section>
+
+<!-- Edit Section Ends  -->

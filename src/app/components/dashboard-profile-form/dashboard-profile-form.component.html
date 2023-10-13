@@ -10,7 +10,7 @@
 <!-- Edit Section starts -->
 <div class="col-xl-12 col-md-12">
 
-    <div class="form-section p-3 m-3 card-cover">
+    <div *ngIf="displayPersonalDetails" class="form-section p-3 m-3 card-cover">
 
         <form>
             <div class="mb-3">
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label>Name</label>
                             <h5>{{displayUser.firstName}} {{displayUser.lastName}} 
-                                <span style="font-size: medium;"> {{displayUser.gender=='Male'?'(He/Him)':(displayUser.gender=='Female'?'(She/Her)':(displayUser.gender=='Others'?'(They/Them)':''))}}</span>
+                                <span style="font-size: medium;"> {{displayUser.gender=='Male'?'| (He/Him)':(displayUser.gender=='Female'?'| (She/Her)':(displayUser.gender=='Others'?'| (They/Them)':''))}}</span>
                             </h5>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
         <!-- User Form Ends -->
     </div>
 
-    <div class="form-section  p-3 m-3" id="address_section">
+    <div *ngIf="!displayPersonalDetails" class="form-section  p-3 m-3" id="address_section">
 
         <!-- Contact Form Starts -->
         <form>
@@ -97,7 +97,6 @@
 
                     <div class="col-12">
                         <div class="form-group">
-                            <label style="padding-bottom: 10px;">Address</label>
                             <h5>{{displayContact.addressLine1}} {{displayContact.addressLine2}}</h5>
                         </div>
                     </div>

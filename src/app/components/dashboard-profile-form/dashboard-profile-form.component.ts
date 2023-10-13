@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
@@ -16,6 +16,8 @@ import { constants } from 'src/environments/constants';
   styleUrls: ['./dashboard-profile-form.component.css']
 })
 export class DashboardProfileFormComponent implements OnInit {
+
+  @Input() displayPersonalDetails:boolean = true;
 
   @Output() customerIdEvent = new EventEmitter<number>();
 
