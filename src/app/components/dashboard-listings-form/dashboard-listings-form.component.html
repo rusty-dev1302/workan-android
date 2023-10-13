@@ -176,7 +176,7 @@
                                                             aria-expanded="false">
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            <li *ngFor="let speciality of specialities" class="px-3" type="button" (click)="selectSubCategory(speciality)"><a> {{speciality}} </a></li>
+                                                            <li *ngFor="let speciality of specialities" type="button" (click)="selectSubCategory(speciality)"><a class="dropdown-item px-3"> {{speciality}} </a></li>
                                                         </ul>
                                                     </div>
                                             </div>
@@ -212,8 +212,8 @@
                                                             aria-expanded="false">
                                                         </button>
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                                            <li class="px-3" (click)="selectChargesType('Per Visit')" type="button"><a> Per Visit </a></li>
-                                                            <li class="px-3" (click)="selectChargesType('Hourly')" type="button"><a> Hourly </a></li>
+                                                            <li (click)="selectChargesType('Per Visit')" type="button"><a class="dropdown-item px-3"> Per Visit </a></li>
+                                                            <li (click)="selectChargesType('Hourly')" type="button"><a class="dropdown-item px-3"> Hourly </a></li>
                                                         </ul>
                                                     </div>
                                             </div>
