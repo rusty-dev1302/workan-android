@@ -65,6 +65,7 @@ const routes: Routes = [
           { path: '', component: DashboardProfileComponent }
           ]
   },
+  { path: '', redirectTo: '/listings', pathMatch: 'full' },
   { path: '**', redirectTo: '/listings', pathMatch: 'full' }
 ];
 
