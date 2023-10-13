@@ -38,7 +38,9 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Name</label>
-                            <h5>{{displayUser.firstName}} {{displayUser.lastName}}</h5>
+                            <h5>{{displayUser.firstName}} {{displayUser.lastName}} 
+                                <span style="font-size: medium;"> {{displayUser.gender=='Male'?'(He/Him)':(displayUser.gender=='Female'?'(She/Her)':(displayUser.gender=='Others'?'(They/Them)':''))}}</span>
+                            </h5>
                         </div>
                     </div>
                     <div class="col-xxl-6 col-lg-6 col-12">
@@ -53,13 +55,6 @@
 
             <div *ngIf='displayUser.gender!=""' class="mb-3">
                 <div class="row">
-
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <h5>{{displayUser.gender}}</h5>
-                        </div>
-                    </div>
 
                     <div class="col-12">
                         <div class="form-group">
