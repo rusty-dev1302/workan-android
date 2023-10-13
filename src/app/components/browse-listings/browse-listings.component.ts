@@ -83,7 +83,11 @@ export class BrowseListingsComponent implements OnInit{
   }
 
   updateAddress() {
-    this.router.navigateByUrl(`/dashboard/profile#address_section`);
+    if(this.currentUser.professional) {
+      this.router.navigateByUrl(`/dashboard/managelisting`);
+    } else {
+      this.router.navigateByUrl(`/dashboard/addressDetails`);
+    }
   }
 
   ngOnDestroy() {
