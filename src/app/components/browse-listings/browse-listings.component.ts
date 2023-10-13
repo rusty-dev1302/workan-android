@@ -14,24 +14,25 @@ import { constants } from 'src/environments/constants';
   templateUrl: './browse-listings.component.html',
   styleUrls: ['./browse-listings.component.css']
 })
-export class BrowseListingsComponent implements OnInit{
+export class BrowseListingsComponent implements OnInit {
 
   listings: Listing[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
   geoHash: string = "";
+  currentLocation!: string;
   searchKeyword: string = "";
   currentUser!: Customer;
   subscription: any;
 
 
   constructor(private listingService: ListingService,
-              private navigationService: NavigationService,
-              private userService: UserService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private keycloakService: KeycloakService
-    ) { }
+    private navigationService: NavigationService,
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private keycloakService: KeycloakService
+  ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
@@ -41,14 +42,14 @@ export class BrowseListingsComponent implements OnInit{
   handleProductsRouting() {
     const hasSubcategory: boolean = this.route.snapshot.paramMap.has('subcategory');
     const hasLocation: boolean = this.route.snapshot.paramMap.has('location');
-    
+
     this.listings = [];
 
-    if(hasSubcategory) {
+    if (hasSubcategory) {
       this.currentSubcategory = this.route.snapshot.paramMap.get('subcategory')!;
     }
 
-    if(hasLocation) {
+    if (hasLocation) {
       this.geoHash = this.route.snapshot.paramMap.get('location')!;
     }
 
@@ -58,12 +59,27 @@ export class BrowseListingsComponent implements OnInit{
   loadUserDetails() {
     this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
-        if(user.state==constants.SUCCESS_STATE) {
+        if (user.state == constants.SUCCESS_STATE) {
           this.currentUser = user;
-          if(this.currentUser.contact&&this.currentUser.contact.geoHash) {
+
+          if (this.currentUser.professional) {
+            this.listingService.getListingByEmail(this.currentUser.email).subscribe(
+              (listing) => {
+                if (listing.state == constants.SUCCESS_STATE) {
+                  if (listing.geoHash) {
+                    this.currentLocation = listing.location;
+                    this.geoHash = listing.geoHash;
+                  }
+                }
+              }
+            );
+          } else if (this.currentUser.contact && this.currentUser.contact.geoHash) {
+            this.currentLocation = this.currentUser.contact.addressLine3;
             this.geoHash = this.currentUser.contact.geoHash;
           }
+
         }
+
         this.handleListProducts();
       }
     );
@@ -72,8 +88,8 @@ export class BrowseListingsComponent implements OnInit{
   handleListProducts() {
     this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash).subscribe(
       data => {
-        if(data) {
-          if(data[0]&&data[0].state!=constants.ERROR_STATE){
+        if (data) {
+          if (data[0] && data[0].state != constants.ERROR_STATE) {
             this.listings = data;
           }
         }
@@ -83,7 +99,7 @@ export class BrowseListingsComponent implements OnInit{
   }
 
   updateAddress() {
-    if(this.currentUser.professional) {
+    if (this.currentUser.professional) {
       this.router.navigateByUrl(`/dashboard/managelisting`);
     } else {
       this.router.navigateByUrl(`/dashboard/addressDetails`);
