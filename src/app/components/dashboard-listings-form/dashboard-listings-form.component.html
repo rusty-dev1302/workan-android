@@ -276,49 +276,27 @@
                             <!-- User Form Starts -->
                             <form #editListing="ngForm" (ngSubmit)="addSlotTemplateItem()">
 
-                                <div class="mb-3">
-                                    <div class="row">
+                                <div class="mb-4">
+                                    <div class="row g-3">
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Start Time</label>
+                                                <label for="startTime">Start Time</label>
                                             </div>
-                                            <div class="input-group mb-3 dropdown">
-                                                <input type="text" class="form-control" name="startTime"
-                                                    [(ngModel)]="dialogSlotTemplateStartTime" readonly
-                                                    style="background-color: white;">
-                                                <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
-                                                    type="button" id="dropdownStartTime" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    Select
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownStartTime">
-                                                    <li *ngFor="let timeSlot of timeSlots"><a class="dropdown-item"
-                                                            type="button"
-                                                            (click)="setDialogStartTime(timeSlot)">{{timeSlot}}</a></li>
-                                                </ul>
-                                            </div>
+                                            <select #startTime class="form-select" aria-label="gender" [value]="dialogSlotTemplateStartTime" (change)="setDialogStartTime(startTime.value)">
+                                                <option default hidden>Select a time</option>
+                                                <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>End Time</label>
+                                                <label for="endTime">End Time</label>
                                             </div>
-                                            <div class="input-group mb-3 dropdown">
-                                                <input type="text" class="form-control" name="endTime"
-                                                    [(ngModel)]="dialogSlotTemplateEndTime" readonly
-                                                    style="background-color: white;">
-                                                <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
-                                                    type="button" id="dropdownEndTime" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    Select
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownEndTime">
-                                                    <li *ngFor="let timeSlot of timeSlots"><a class="dropdown-item"
-                                                            type="button"
-                                                            (click)="setDialogEndTime(timeSlot)">{{timeSlot}}</a></li>
-                                                </ul>
-                                            </div>
+                                            <select #endTime class="form-select" aria-label="gender" [value]="dialogSlotTemplateEndTime" (change)="setDialogEndTime(endTime.value)">
+                                                <option default hidden>Select a time</option>
+                                                <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
+                                            </select>
                                         </div>
 
                                     </div>
@@ -328,7 +306,7 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="modal-footer">
-                                            <button type="submit" class="btn btn-danger btn-rounded"
+                                            <button type="submit" class="btn btn-danger btn-rounded col-12"
                                                 data-bs-toggle="modal" data-bs-target="#addSlotModal">Save</button>
                                         </div>
                                     </div>
