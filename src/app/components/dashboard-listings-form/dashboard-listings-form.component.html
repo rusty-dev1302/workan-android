@@ -51,7 +51,7 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges</label>
-                            <h5>${{displayListing.charges | number : '1.2-2'}} (CAD)</h5>
+                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges | number : '1.2-2'}} (CAD)</h5>
                         </div>
                     </div>
 
@@ -213,7 +213,7 @@
                                                 <label for="chargesType">CAD</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text">$</span>
+                                                        <span class="input-group-text"><i class="fa-solid fa-dollar-sign" style="color: green;"></i> </span>
                                                     </div>
                                                     <input #charges="ngModel" name="charges" id="charges" required
                                                         [(ngModel)]="listing.charges" minlength="3" type="text"
