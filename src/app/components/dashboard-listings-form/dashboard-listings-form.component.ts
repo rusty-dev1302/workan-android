@@ -102,6 +102,10 @@ export class DashboardListingsFormComponent implements OnInit{
     this.listing.chargesType = chargesType;
   }
 
+  selectExperience(experience: string) {
+    this.listing.experience = +experience;
+  }
+
   addSlotTemplateItem() {
     let id!:number;
 

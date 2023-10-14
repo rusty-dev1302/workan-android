@@ -51,7 +51,7 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges</label>
-                            <h5>${{displayListing.charges}} (CAD)</h5>
+                            <h5>${{displayListing.charges | number : '1.2-2'}} (CAD)</h5>
                         </div>
                     </div>
 
@@ -169,8 +169,10 @@
                                             <div class="form-group">
                                                 <label>Speciality</label>
                                                 <select #subCategory class="form-select" aria-label="gender"
-                                                    [value]="listing.subCategory.subCategoryName" (change)="selectSubCategory(subCategory.value)">
-                                                    <option *ngFor="let speciality of specialities" [value]="speciality">{{speciality}}</option>
+                                                    [value]="listing.subCategory.subCategoryName"
+                                                    (change)="selectSubCategory(subCategory.value)">
+                                                    <option *ngFor="let speciality of specialities"
+                                                        [value]="speciality">{{speciality}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -198,7 +200,8 @@
                                             <div class="form-group">
                                                 <label for="chargesType">Charges Type</label>
                                                 <select #chargesType class="form-select" aria-label="gender"
-                                                    [value]="listing.chargesType" (change)="selectChargesType(chargesType.value)">
+                                                    [value]="listing.chargesType"
+                                                    (change)="selectChargesType(chargesType.value)">
                                                     <option value="Per Visit">Per Visit</option>
                                                     <option value="Hourly">Hourly</option>
                                                 </select>
@@ -223,9 +226,15 @@
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="experience">Exp. (Years)</label>
-                                                <input #experience="ngModel" required [(ngModel)]="listing.experience"
-                                                    minlength="3" maxlength="15" name="experience" id="experience"
-                                                    type="text" class="form-control">
+                                                <select #experience class="form-select" aria-label="experience"
+                                                    [value]="listing.experience"
+                                                    (change)="selectExperience(experience.value)">
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">> 4</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -283,9 +292,12 @@
                                             <div class="form-group">
                                                 <label for="startTime">Start Time</label>
                                             </div>
-                                            <select #startTime class="form-select" aria-label="gender" [value]="dialogSlotTemplateStartTime" (change)="setDialogStartTime(startTime.value)">
+                                            <select #startTime class="form-select" aria-label="gender"
+                                                [value]="dialogSlotTemplateStartTime"
+                                                (change)="setDialogStartTime(startTime.value)">
                                                 <option default hidden>Select a time</option>
-                                                <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
+                                                <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                                                    {{timeSlot}}</option>
                                             </select>
                                         </div>
 
@@ -293,9 +305,12 @@
                                             <div class="form-group">
                                                 <label for="endTime">End Time</label>
                                             </div>
-                                            <select #endTime class="form-select" aria-label="gender" [value]="dialogSlotTemplateEndTime" (change)="setDialogEndTime(endTime.value)">
+                                            <select #endTime class="form-select" aria-label="gender"
+                                                [value]="dialogSlotTemplateEndTime"
+                                                (change)="setDialogEndTime(endTime.value)">
                                                 <option default hidden>Select a time</option>
-                                                <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">{{timeSlot}}</option>
+                                                <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                                                    {{timeSlot}}</option>
                                             </select>
                                         </div>
 
