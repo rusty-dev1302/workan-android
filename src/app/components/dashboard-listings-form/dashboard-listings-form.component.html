@@ -167,18 +167,11 @@
 
                                         <div class="col-xxl-12 col-lg-12 col-12">
                                             <div class="form-group">
-                                                <label for="subCategoryName">Speciality</label>
-                                                    <div class="input-group dropdown">
-                                                        <input type="text" class="form-control" [ngModel]="listing.subCategory.subCategoryName"
-                                                            name="subCategoryName" readonly readonly style="background-color: white;">
-                                                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
-                                                            type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            <li *ngFor="let speciality of specialities" type="button" (click)="selectSubCategory(speciality)"><a class="dropdown-item px-3"> {{speciality}} </a></li>
-                                                        </ul>
-                                                    </div>
+                                                <label>Speciality</label>
+                                                <select #subCategory class="form-select" aria-label="gender"
+                                                    [value]="listing.subCategory.subCategoryName" (change)="selectSubCategory(subCategory.value)">
+                                                    <option *ngFor="let speciality of specialities" [value]="speciality">{{speciality}}</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -204,18 +197,11 @@
                                         <div class="col-xxl-6 col-lg-6 col-6">
                                             <div class="form-group">
                                                 <label for="chargesType">Charges Type</label>
-                                                    <div class="input-group dropdown">
-                                                        <input type="text" class="form-control" [ngModel]="listing.chargesType"
-                                                            name="chargesType" readonly readonly style="background-color: white;">
-                                                        <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
-                                                            type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                        </button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                                            <li (click)="selectChargesType('Per Visit')" type="button"><a class="dropdown-item px-3"> Per Visit </a></li>
-                                                            <li (click)="selectChargesType('Hourly')" type="button"><a class="dropdown-item px-3"> Hourly </a></li>
-                                                        </ul>
-                                                    </div>
+                                                <select #chargesType class="form-select" aria-label="gender"
+                                                    [value]="listing.chargesType" (change)="selectChargesType(chargesType.value)">
+                                                    <option value="Per Visit">Per Visit</option>
+                                                    <option value="Hourly">Hourly</option>
+                                                </select>
                                             </div>
                                         </div>
 
@@ -224,13 +210,16 @@
                                                 <label for="chargesType">CAD</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
-                                                      <span class="input-group-text">$</span>
+                                                        <span class="input-group-text">$</span>
                                                     </div>
-                                                    <input #charges="ngModel" name="charges" id="charges" required [(ngModel)]="listing.charges" minlength="3" type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                                  </div>
+                                                    <input #charges="ngModel" name="charges" id="charges" required
+                                                        [(ngModel)]="listing.charges" minlength="3" type="text"
+                                                        class="form-control"
+                                                        aria-label="Amount (to the nearest dollar)">
+                                                </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="experience">Exp. (Years)</label>
@@ -246,7 +235,8 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="modal-footer">
-                                            <h6>** Area where the services are offered is the <b>listing location</b>.</h6>
+                                            <h6>** Area where the services are offered is the <b>listing location</b>.
+                                            </h6>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#listingDetailsModal">Save</button>

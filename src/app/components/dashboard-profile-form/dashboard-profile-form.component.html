@@ -53,7 +53,7 @@
                 </div>
             </div>
 
-            <div *ngIf='displayUser.gender!=""' class="mb-3">
+            <div *ngIf='displayUser&&displayUser.gender&&displayUser.gender!=""' class="mb-3">
                 <div class="row">
 
                     <div class="col-12">
@@ -172,29 +172,17 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <div class="row">
+                                    <div class="row g-2">
 
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Gender</label>
                                             </div>
-                                            <div class="input-group mb-3 dropdown">
-                                                <input type="text" class="form-control" [ngModel]="user.gender"
-                                                    name="user.gender" readonly style="background-color: white;">
-                                                <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
-                                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    Select
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a class="dropdown-item" (click)="editGender('Male')" type="button">Male</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="editGender('Female')" type="button">Female</a></li>
-                                                    <li><a class="dropdown-item"
-                                                            (click)="editGender('Others')" type="button">Others</a></li>
-                                                </ul>
-                                            </div>
+                                            <select #selectGender class="form-select" aria-label="gender" [value]="user.gender" (change)="editGender(selectGender.value)">
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Others">Others</option>
+                                            </select>
                                         </div>
 
                                         <div class="col-12">
@@ -202,7 +190,7 @@
                                                 <label>Languages</label>
 
                                             </div>
-                                            <div class="input-group mb-3 dropdown">
+                                            <div class="input-group dropdown">
                                                 <input type="text" class="form-control" [ngModel]="user.languages"
                                                     name="user.languages" readonly readonly style="background-color: white;">
                                                 <button class="btn btn-outline-secondary dropdown-toggle btn-sm"
