@@ -43,6 +43,7 @@ import { PaymentGatewayComponent } from './components/payment-gateway/payment-ga
 import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-payment.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { DashboardAddressDetailsComponent } from './components/dashboard-address-details/dashboard-address-details.component';
+import { PhonePipe } from './pipes/phone-pipe';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -71,6 +72,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    PhonePipe,
     AppComponent,
     BrowseListingsComponent,
     SearchComponent,

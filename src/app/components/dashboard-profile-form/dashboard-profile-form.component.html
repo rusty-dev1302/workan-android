@@ -59,7 +59,7 @@
                     <div class="col-12">
                         <div class="form-group">
                             <label>Mobile</label>
-                            <h5>{{displayUser.mobile}}</h5>
+                            <h5>{{displayUser.mobile | phone}}</h5>
                         </div>
                     </div>
 
@@ -211,12 +211,13 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <label for="mobile">Mobile</label>
-                                                <input required #mobile="ngModel" [(ngModel)]="user.mobile"
-                                                    minlength="3" maxlength="15" name="mobile" id="mobile" type="number"
-                                                    class="form-control" autocomplete="off">
-                                                <div class="alert alert-danger" *ngIf="mobile.touched && !mobile.valid">
-                                                    {{mobile.errors}}
-                                                    <!-- <div *ngIf="mobile.errors?.minlength">Min length should be 3.</div> -->
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">+1</span>
+                                                    </div>
+                                                    <input required #mobile="ngModel" [(ngModel)]="user.mobile"
+                                                        minlength="10" maxlength="10" name="mobile" id="mobile" type="text" pattern="\d*"
+                                                        class="form-control" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
