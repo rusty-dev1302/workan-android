@@ -38,7 +38,7 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Experience</label>
-                            <h5>{{displayListing.experience}} Years</h5>
+                            <h5>{{displayListing.experience>5?'> 5':displayListing.experience}} Years</h5>
                         </div>
                     </div>
 
@@ -213,7 +213,7 @@
                                                 <label for="chargesType">CAD</label>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text">$</span>
+                                                        <span class="input-group-text" style="color: green;">$</span>
                                                     </div>
                                                     <input #charges="ngModel" name="charges" id="charges" required
                                                         [(ngModel)]="listing.charges" minlength="3" type="text"
@@ -233,7 +233,8 @@
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
                                                     <option value="4">4</option>
-                                                    <option value="5">> 4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">> 5</option>
                                                 </select>
                                             </div>
                                         </div>
