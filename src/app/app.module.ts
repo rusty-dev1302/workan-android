@@ -59,7 +59,7 @@ const routes: Routes = [
           { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
           { path: 'addressDetails', component: DashboardAddressDetailsComponent, canActivate: [CustomerGuard] },
           { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
-          { path: 'myOrders', component: DashboardOrdersTakenComponent, canActivate: [ProfessionalGuard] },
+          { path: 'myorders', component: DashboardOrdersTakenComponent, canActivate: [ProfessionalGuard] },
           { path: 'takenOrderDetail/:id', component: DashboardOrdersTakenDetailsComponent, canActivate: [ProfessionalGuard] },
           { path: 'managelisting', component: DashboardListingsComponent, canActivate: [ProfessionalGuard] },
           { path: '', component: DashboardProfileComponent }
