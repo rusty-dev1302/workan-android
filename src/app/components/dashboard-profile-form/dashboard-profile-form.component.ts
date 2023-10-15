@@ -96,7 +96,6 @@ export class DashboardProfileFormComponent implements OnInit {
         } else {
           this.contactDetail = constants.DEFAULT_CONTACT_DETAIL;
         }
-        console.log("Display contact " + JSON.stringify(this.contactDetail))
         if (this.contactDetail.addressLine1 != "" && this.contactDetail.addressLine2 != "" && this.contactDetail.addressLine3 != "") {
           this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
         }

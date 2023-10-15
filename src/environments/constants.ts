@@ -53,6 +53,11 @@ export const constants = {
       rating:0,
       state: "",
       message: "",
+      oneRating: 0,
+      twoRating: 0,
+      threeRating: 0,
+      fourRating: 0,
+      fiveRating: 0,
       profilePhoto: {
         id: 0,
         customerId: 0,

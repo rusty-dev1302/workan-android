@@ -21,6 +21,7 @@ export class ListingDetailsComponent implements OnInit{
   currentSlotDay: string = "";
   currentSlotTime: string = "";
   reviews: Review[] = [];
+  totalRatings: number = 1;
 
   constructor(
     private listingService: ListingService,
@@ -51,6 +52,8 @@ export class ListingDetailsComponent implements OnInit{
           const sub = this.listingService.getProfessionalById(this.listing.professionalId).subscribe(
             (professional) => {
               this.professional = professional;
+              let total:number = professional.oneRating+professional.twoRating+professional.threeRating+professional.fourRating+professional.fiveRating;
+              this.totalRatings = total>0?total:1;
               this.getReviewsForProfessional();
               sub.unsubscribe();
             }
