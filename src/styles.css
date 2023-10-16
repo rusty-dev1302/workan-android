@@ -484,11 +484,12 @@ hr.style1 {
 
 .img-overlay {
     position: absolute;
+    width: 50%;
     top: 0;
     bottom: 0;
     left: 0;
-    right: 15%;
-    text-align: center;
+    right: 0%;
+    text-align: right;
 }
 
 .img-overlay:before {

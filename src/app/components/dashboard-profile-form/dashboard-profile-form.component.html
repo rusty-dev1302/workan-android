@@ -20,7 +20,8 @@
                         <div class="img-wrapper">
                             <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%" src="assets/profile.png">
                             <img *ngIf="profilePhoto" alt="..." class="img-fluid profile-photo" width="50%" [src]="profilePhoto.picByte">
-                            <div class="img-overlay">
+                            <div class="img-overlay" type="button" data-bs-toggle="modal"
+                            data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()">
                                 <button class="btn border btn-primary btn-rounded" data-bs-toggle="modal"
                                 data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()" 
                                 style="border-width: 5px!important;border-color: white!important;"><i class="fa-solid fa-plus"></i></button>
