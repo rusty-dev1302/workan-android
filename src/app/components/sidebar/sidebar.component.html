@@ -18,18 +18,7 @@
   </div>
   <div class="offcanvas-body justify-content-center" style="padding-top: 7px;padding-left: 20px;font-size: large;">
 
-
-    <ul class="list-unstyled">
-      <li><span class="p-2 border rounded">L I S T I N G S</span><br><br></li>
-      <li><span type="button" routerLink="/listings" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Browse
-          Listings</span></li>
-      <!-- <li><span type="button"  data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Browse Categories</span></li> -->
-    </ul>
-
     <ul *ngIf="currentUser&&!currentUser.professional" class="list-unstyled">
-      <li>
-        <hr class="style1">
-      </li>
       <li><span class="p-2 border rounded">A C C O U N T</span><br><br></li>
       <li><span type="button" routerLink="/dashboard/orders" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain">Orders</span></li>
@@ -39,9 +28,6 @@
 
     <!-- professional section starts -->
     <ul *ngIf="currentUser&&currentUser.professional" class="list-unstyled">
-      <li>
-        <hr class="style1">
-      </li>
       <li><span class="p-2 border rounded">P R O F E S S I O N A L</span><br><br></li>
       <!-- <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Manage Documents</span></li> -->
       <li><span type="button" routerLink="/dashboard/managelisting" data-bs-toggle="offcanvas"
@@ -50,6 +36,19 @@
           routerLink="/dashboard/myorders">My Orders</span></li>
     </ul>
     <!-- professional section ends -->
+
+    <ul class="list-unstyled">
+      <li style="padding-bottom: 35px;">
+        <hr class="style1">
+      </li>
+      <li><span class="p-2 border rounded">L I S T I N G S</span><br><br></li>
+      <li><span type="button" routerLink="/listings" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Browse
+          Listings</span></li>
+      <!-- <li><span type="button"  data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Browse Categories</span></li> -->
+    </ul>
+
+    <!-- Footer Starts  -->
+
     <ul class="list-unstyled sidebar-footer py-4">
       <!-- next release  -->
       <!-- <li class="py-2"><span>Help Desk</span></li> -->
