@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Professional } from 'src/app/common/professional';
 import { Review } from 'src/app/common/review';
 import { OrderService } from 'src/app/services/order.service';
@@ -11,6 +12,7 @@ import { constants } from 'src/environments/constants';
 })
 export class ReviewComponent {
   @Input() professional!: Professional;
+  @Input() orderId!: number;
 
   isAnonymous: boolean = false;
   content: string = "";
@@ -18,6 +20,7 @@ export class ReviewComponent {
 
   constructor(
     private orderService: OrderService,
+    private toastrService: ToastrService,
   ) {}
 
   setRating(rating: number) {
@@ -26,10 +29,12 @@ export class ReviewComponent {
 
   submitReview() {
     let customerName = this.isAnonymous?"ANONYMOUS":"";
-    const subscription = this.orderService.writeReview(new Review(customerName, this.content, this.rating, this.professional, "", "")).subscribe(
+    const subscription = this.orderService.writeReview(new Review(customerName, this.content, this.rating, this.professional, this.orderId, "", "")).subscribe(
       (response) => {
         if(response.state!=constants.ERROR_STATE) {
-          console.log("Review submitted");
+          this.toastrService.success("Review Submitted Successfully.");
+        } else {
+          this.toastrService.error(response.message);
         }
       }
     );

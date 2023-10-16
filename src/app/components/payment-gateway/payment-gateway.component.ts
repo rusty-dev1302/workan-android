@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { PayPalService } from 'src/app/services/pay-pal.service';
 import { constants } from 'src/environments/constants';
 
@@ -18,10 +19,12 @@ export class PaymentGatewayComponent implements OnInit {
     private route: ActivatedRoute,
     private paypalService: PayPalService,
     private toastrService: ToastrService,
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit(): void {
+    this.navigationService.pageLoaded();
     this.route.paramMap.subscribe(()=>{
       this.loadOrderId();
     });

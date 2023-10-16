@@ -17,6 +17,7 @@ export class Order extends BaseResponse{
         public subCategoryName: string,
         public paymentStatus:string,
         public otp: string,
+        public reviewDone: boolean,
         state: string,
         message: string
     ) {

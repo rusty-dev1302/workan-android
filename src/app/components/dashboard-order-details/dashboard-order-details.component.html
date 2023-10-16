@@ -142,9 +142,13 @@
                           data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
                       </div>
                     </div>
-                    <div *ngIf="order.status=='COMPLETED'||order.status=='CANCELLED'" class="col-12">
+                    <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED'||order.status=='CANCELLED')" class="col-12">
                       <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#writeReviewModal">Write a review</button>
+                    </div>
+                    <div *ngIf="order.reviewDone &&(order.status=='COMPLETED'||order.status=='CANCELLED')" class="col-12">
+                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                        data-bs-target="#writeReviewModal" disabled>Review Submitted</button>
                     </div>
                   </div>
                 </div>
@@ -167,7 +171,7 @@
     <div *ngIf="order" class="modal fade" id="writeReviewModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="writeReviewModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-review [professional]="order.professional"></app-review>
+      <app-review [professional]="order.professional" [orderId]="order.id"></app-review>
     </div>
   </div>
   <!-- Write Review Modal Ends -->

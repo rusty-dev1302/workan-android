@@ -7,6 +7,7 @@ export class Review extends BaseResponse{
         public content: string,
         public rating: number,
         public professional: Professional,
+        public orderId: number,
         state: string,
         message: string
     ) {
