@@ -46,6 +46,7 @@ import { DashboardAddressDetailsComponent } from './components/dashboard-address
 import { PhonePipe } from './pipes/phone-pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import 'hammerjs';
+import { DashboardMyPaymentsComponent } from './components/dashboard-my-payments/dashboard-my-payments.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -59,6 +60,7 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
           children: [{ path: 'profile', component: DashboardProfileComponent },
+          { path: 'managepayments', component: DashboardMyPaymentsComponent },
           { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
           { path: 'addressDetails', component: DashboardAddressDetailsComponent, canActivate: [CustomerGuard] },
           { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
@@ -101,6 +103,7 @@ const routes: Routes = [
     ConfirmPaymentComponent,
     LoadingScreenComponent,
     DashboardAddressDetailsComponent,
+    DashboardMyPaymentsComponent,
   ],
   imports: [
     InfiniteScrollModule,

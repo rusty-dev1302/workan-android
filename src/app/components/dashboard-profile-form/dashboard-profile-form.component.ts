@@ -81,6 +81,9 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         this.user.email = this.emailValue;
         this.displayUser = JSON.parse(JSON.stringify(this.user));
+        if(this.displayUser.gender=="") {
+          this.toastr.info("Please complete your profile.");
+        }
         subscription.unsubscribe();
       }
     );
