@@ -93,7 +93,7 @@
 
                 <h6><i class="fa fa-star rating-color"></i> {{listing.professional.rating | number : '1.1-1'}}</h6>
 
-                <span style="font-size: 14px;">(Availabile today and tomorrow)</span>
+                <span style="font-size: 14px;">(Available today and tomorrow)</span>
                 <hr class="style1">
 
                 <p class="card-text mt-2 mb-3">
@@ -105,7 +105,7 @@
                     ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
                   </span>
                 </h6>
-                <h6><b>Location:</b><span> {{listing.location}}</span></h6>
+                <h6><b>Location:</b><span> {{listing.location.length>20?(listing.location|slice:0:20)+' ...more':listing.location}}</span></h6>
                 <hr class="style1">
                 <div class="d-flex justify-content-end">
                   <div class="col-12">
