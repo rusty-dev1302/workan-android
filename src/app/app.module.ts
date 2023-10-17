@@ -45,6 +45,7 @@ import { LoadingScreenComponent } from './components/loading-screen/loading-scre
 import { DashboardAddressDetailsComponent } from './components/dashboard-address-details/dashboard-address-details.component';
 import { PhonePipe } from './pipes/phone-pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import 'hammerjs';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },

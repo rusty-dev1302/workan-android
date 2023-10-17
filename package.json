@@ -23,6 +23,7 @@
     "angular-oauth2-oidc": "^15.0.1",
     "angular-oauth2-oidc-jwks": "^15.0.1",
     "bootstrap": "5.0",
+    "hammerjs": "^2.0.8",
     "keycloak-angular": "^14.0.0",
     "keycloak-js": "^21.1.2",
     "latlon-geohash": "^2.0.0",

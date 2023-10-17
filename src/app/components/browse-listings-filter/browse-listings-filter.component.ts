@@ -21,18 +21,9 @@ export class BrowseListingsFilterComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getListingLocations();
     this.getListingSubcategories();
   }
 
-
-  getListingLocations() {
-    this.listingService.getListingLocations().subscribe(
-      data => {
-        this.locations = data;
-      }
-    )
-  }
 
   getListingSubcategories() {
     this.listingService.getListingSubcategories().subscribe(

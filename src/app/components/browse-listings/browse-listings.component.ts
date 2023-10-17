@@ -116,7 +116,6 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   onScroll() {
-    console.log(this.pageNumber)
     if(this.pageNumber>-1) {
       this.handleListProducts();
     }

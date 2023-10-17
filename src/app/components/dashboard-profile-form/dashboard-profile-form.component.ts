@@ -31,7 +31,6 @@ export class DashboardProfileFormComponent implements OnInit {
   mobileValue: string = "";
   emailValue: string = "";
   languagesValue: string[] = [];
-  availableLocations: string[] = [];
   availableLanguages: any = new Map([
     ["English", 0],
     ["French", 0],
@@ -57,7 +56,6 @@ export class DashboardProfileFormComponent implements OnInit {
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
     this.loadUserData();
-    this.loadAvailableLocations();
   }
 
   loadUserData() {
@@ -173,14 +171,6 @@ export class DashboardProfileFormComponent implements OnInit {
 
         subscription.unsubscribe();
       });
-  }
-
-  loadAvailableLocations() {
-    this.listingService.getAllLocations().subscribe(
-      (data) => {
-        this.availableLocations = data;
-      }
-    );
   }
 
   setContactLocation(location: string) {

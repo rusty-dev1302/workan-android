@@ -28,11 +28,6 @@ export class ListingService {
     return this.httpClient.get<Listing[]>(getUrl)
   }
 
-  getListingLocations(): Observable<string[]> {
-    const getUrl = `${this.baseUrl}/location`;
-    return this.httpClient.get<string[]>(getUrl)
-  }
-
   getListingById(listingId: number): Observable<Listing> {
     const getUrl = `${this.baseUrl}?id=${listingId}`;
     return this.httpClient.get<Listing>(getUrl);
@@ -51,12 +46,6 @@ export class ListingService {
   saveListing(listing: Listing): Observable<Listing> {
     const postUrl = `${this.baseUrl}/save`;
     return this.httpClient.post<Listing>(postUrl, listing);
-  }
-
-
-  getAllLocations(): Observable<string[]> {
-    const getUrl = `${this.baseUrl}/location/all`;
-    return this.httpClient.get<string[]>(getUrl)
   }
 
   getAllSubcategories(): Observable<string[]> {
