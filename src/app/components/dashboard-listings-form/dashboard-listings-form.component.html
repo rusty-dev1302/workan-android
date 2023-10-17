@@ -171,6 +171,7 @@
                                                 <select #subCategory class="form-select" aria-label="gender"
                                                     [value]="listing.subCategory.subCategoryName"
                                                     (change)="selectSubCategory(subCategory.value)">
+                                                    <option value="" default>Select a speciality</option>
                                                     <option *ngFor="let speciality of specialities"
                                                         [value]="speciality">{{speciality}}</option>
                                                 </select>

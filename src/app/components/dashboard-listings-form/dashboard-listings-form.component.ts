@@ -95,6 +95,7 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   selectSubCategory(subcategory: string) {
+    console.log(this.listing.subCategory.subCategoryName)
     this.listing.subCategory.subCategoryName = subcategory;
   }
 

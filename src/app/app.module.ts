@@ -44,6 +44,7 @@ import { ConfirmPaymentComponent } from './components/confirm-payment/confirm-pa
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
 import { DashboardAddressDetailsComponent } from './components/dashboard-address-details/dashboard-address-details.component';
 import { PhonePipe } from './pipes/phone-pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -101,6 +102,7 @@ const routes: Routes = [
     DashboardAddressDetailsComponent,
   ],
   imports: [
+    InfiniteScrollModule,
     ImageCropperModule,
     GoogleMapsModule,
     FormsModule,

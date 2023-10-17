@@ -27,6 +27,7 @@
     "keycloak-js": "^21.1.2",
     "latlon-geohash": "^2.0.0",
     "ngx-image-cropper": "^7.0.2",
+    "ngx-infinite-scroll": "^16.0.0",
     "ngx-toastr": "^17.0.2",
     "oidc-client": "^1.11.5",
     "rxjs": "~7.8.0",

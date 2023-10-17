@@ -71,7 +71,11 @@
 
   <section class="common-section blog-section">
 
-    <div class="container">
+    <div class="container"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()">
 
       <div class="row g-5">
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">

@@ -86,7 +86,7 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   handleListProducts() {
-    this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash).subscribe(
+    this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, 0).subscribe(
       data => {
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
@@ -108,5 +108,9 @@ export class BrowseListingsComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  onScroll() {
+    console.log("Helooooo")
   }
 }
