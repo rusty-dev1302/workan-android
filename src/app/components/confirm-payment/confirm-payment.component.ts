@@ -12,7 +12,7 @@ export class ConfirmPaymentComponent {
   @Input() orderId!: number;
   @Input() amount: number=0;
 
-  selectPaypal:boolean = false;
+  selectPaypal:boolean = true;
   checkoutClicked:boolean = false;
 
   constructor(
