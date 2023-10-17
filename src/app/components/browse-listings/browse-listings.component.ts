@@ -24,6 +24,7 @@ export class BrowseListingsComponent implements OnInit {
   searchKeyword: string = "";
   currentUser!: Customer;
   subscription: any;
+  pageNumber: number = 0;
 
 
   constructor(private listingService: ListingService,
@@ -86,14 +87,18 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   handleListProducts() {
-    this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, 0).subscribe(
+    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.pageNumber).subscribe(
       data => {
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
-            this.listings = data;
+            this.listings = this.listings.concat(data);
+            this.pageNumber++;
+          } else {
+            this.pageNumber = -1;
           }
         }
         this.navigationService.pageLoaded();
+        sub.unsubscribe();
       }
     );
   }
@@ -111,6 +116,9 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   onScroll() {
-    console.log("Helooooo")
+    console.log(this.pageNumber)
+    if(this.pageNumber>-1) {
+      this.handleListProducts();
+    }
   }
 }
