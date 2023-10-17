@@ -77,7 +77,7 @@
     [infiniteScrollThrottle]="50"
     (scrolled)="onScroll()">
 
-      <div class="row g-5">
+      <div class="row g-3 mt-4">
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
             <div class="card list-card py-3" style="width: 25rem;" [routerLink]="['/listingDetail',listing.id]"
@@ -86,7 +86,7 @@
               <img *ngIf="listing.professional.profilePhoto" alt="..." class="card-img-top"
                 [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
               <div class="card-body">
-                <h4 class="card-title mt-3">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
+                <h4 class="card-title">{{listing.professional.firstName}} {{listing.professional.lastName}}</h4>
 
                 <h6 *ngIf="listing"><b><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{listing.charges | number : '1.2-2'}}</b> CAD
                   ({{listing.chargesType}})</h6>
