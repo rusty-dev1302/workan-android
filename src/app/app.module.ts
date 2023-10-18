@@ -60,7 +60,7 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
           children: [{ path: 'profile', component: DashboardProfileComponent },
-          { path: 'managepayments', component: DashboardProfessionalPaymentsComponent, canActivate: [ProfessionalGuard] },
+          { path: 'professionalpayments', component: DashboardProfessionalPaymentsComponent, canActivate: [ProfessionalGuard] },
           { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
           { path: 'addressDetails', component: DashboardAddressDetailsComponent, canActivate: [CustomerGuard] },
           { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
