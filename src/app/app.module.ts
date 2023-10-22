@@ -51,7 +51,7 @@ import { DashboardProfessionalPaymentsComponent } from './components/dashboard-p
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
   // below to be removed 
-  { path: 'home', component: LandingPageComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: LandingPageComponent},
   // above to be removed 
   { path: 'completePayment/:orderId', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
