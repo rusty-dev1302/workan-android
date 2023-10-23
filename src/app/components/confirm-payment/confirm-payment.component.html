@@ -30,15 +30,21 @@
             </div>
             <hr class="style1">
             <div class="col-lg-12 py-2">
-                <div *ngIf="!selectedPaymentMode||selectedPaymentMode&&selectedPaymentMode=='direct'" class="form-check">
-                    <input class="form-check-input" type="radio" value="" id="payMethodDirect" value="direct" [(ngModel)]="paymentMode">
-                    Pay directly to the Professional
+                <div *ngIf="!selectedPaymentMode||selectedPaymentMode&&selectedPaymentMode=='direct'"
+                    class="form-check">
+                    <input class="form-check-input" type="radio" value="" id="payMethodDirect" value="direct"
+                        [(ngModel)]="paymentMode">
+                    <label class="form-check-label" for="payMethodDirect" type="button">
+                        Pay directly to the Professional
+                    </label>
                 </div>
 
-                <div *ngIf="!selectedPaymentMode||selectedPaymentMode&&selectedPaymentMode=='paypal'" class="form-check">
-                    <input class="form-check-input" type="radio" value="" id="payMethodPaypal" value="paypal" [(ngModel)]="paymentMode">
-                    Pay Using <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="20%">
-                    <label class="form-check-label" for="payMethodPaypal">
+                <div *ngIf="!selectedPaymentMode||selectedPaymentMode&&selectedPaymentMode=='paypal'"
+                    class="form-check">
+                    <input class="form-check-input" type="radio" value="" id="payMethodPaypal" value="paypal"
+                        [(ngModel)]="paymentMode">
+                    <label class="form-check-label" for="payMethodPaypal" type="button">
+                        Pay Using <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="20%">
                     </label>
                 </div>
             </div>
@@ -48,7 +54,7 @@
                     <h4><b>123456</b></h4>
                 </div>
             </div>
-            <label class="form-check-label" for="payMethodDirect"><br>
+            <label *ngIf="paymentOtp" class="form-check-label" for="payMethodDirect"><br>
                 ** Provide this otp to professional after completing direct payment.
             </label>
             <div class="d-flex justify-content-end py-3">
