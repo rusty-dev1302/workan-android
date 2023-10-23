@@ -13,28 +13,45 @@
             </div>
             <div class="col-lg-12 d-flex justify-content-between">
                 <h5>Professional Fees:</h5>
-                <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i>  {{amount}} (CAD)</h5>
+                <h5>${{amount| number : '1.2-2'}}</h5>
             </div>
             <div class="col-lg-12 d-flex justify-content-between">
                 <h5>Discount:</h5>
-                <h5>--</h5>
+                <h5>- ${{amount| number : '1.2-2'}}</h5>
+            </div>
+            <div class="col-lg-12 d-flex justify-content-between">
+                <h5>Account Balance:</h5>
+                <h5>- ${{amount| number : '1.2-2'}}</h5>
             </div>
             <hr class="style1">
             <div class="col-lg-12 d-flex justify-content-between">
-                <h4 style="color: brown;"><b>Order Total:</b></h4>
-                <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{amount}} (CAD)</h5>
+                <h4 style="color: brown;"><b>Total (CAD):</b></h4>
+                <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{amount | number : '1.2-2'}}</h5>
             </div>
             <hr class="style1">
             <div class="col-lg-12 py-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="payMethodCheck" [(ngModel)]="selectPaypal">
-                    Pay Using <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="20%">
+                <div *ngIf="!selectedPaymentMode||selectedPaymentMode&&selectedPaymentMode=='direct'" class="form-check">
+                    <input class="form-check-input" type="radio" value="" id="payMethodDirect" value="direct" [(ngModel)]="paymentMode">
+                    Pay directly to the Professional
+                </div>
 
-                    <label class="form-check-label" for="payMethodCheck">
+                <div *ngIf="!selectedPaymentMode||selectedPaymentMode&&selectedPaymentMode=='paypal'" class="form-check">
+                    <input class="form-check-input" type="radio" value="" id="payMethodPaypal" value="paypal" [(ngModel)]="paymentMode">
+                    Pay Using <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="20%">
+                    <label class="form-check-label" for="payMethodPaypal">
                     </label>
                 </div>
             </div>
-            <div *ngIf="selectPaypal" class="d-flex justify-content-end py-3">
+            <div class="col-lg-12" style="padding-top: 22px;">
+                <div *ngIf="paymentOtp" class="col-lg-12 d-flex justify-content-between">
+                    <h5><b>OTP</b></h5>
+                    <h4><b>123456</b></h4>
+                </div>
+            </div>
+            <label class="form-check-label" for="payMethodDirect"><br>
+                ** Provide this otp to professional after completing direct payment.
+            </label>
+            <div class="d-flex justify-content-end py-3">
                 <button type="button" class="btn btn-warning btn-rounded col-12" (click)="makePayment()">
                     <span *ngIf="!checkoutClicked">Continue to checkout</span>
                     <i *ngIf="checkoutClicked" class="fas fa-circle-notch fa-spin"></i>
