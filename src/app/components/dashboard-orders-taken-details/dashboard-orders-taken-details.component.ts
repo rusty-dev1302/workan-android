@@ -82,4 +82,9 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     );
   }
 
+  confirmDirectPayment() {
+    let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
+    console.log("OTP: "+otp)
+  }
+
 }
