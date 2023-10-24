@@ -215,7 +215,7 @@
                 data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('START')">Start</button>
               <button *ngIf="order.status=='COMPLETING'" type="button" class="btn btn-danger btn-rounded"
                 data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('COMPLETE')">Complete</button>
-              <button type="button" class="btn btn-warning btn-rounded"
+              <button *ngIf="order.status=='STARTED'" type="button" class="btn btn-warning btn-rounded"
                 data-bs-dismiss="modal" aria-label="Close" (click)="confirmDirectPayment()">Confirm payment received</button>
             </div>
           </div>
