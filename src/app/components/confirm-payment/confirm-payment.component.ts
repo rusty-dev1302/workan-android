@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PayPalService } from 'src/app/services/pay-pal.service';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
+import { OrderService } from 'src/app/services/order.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ConfirmPaymentComponent {
 
   constructor(
     private paypalService: PayPalService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private orderService: OrderService
   ) {
 
   }

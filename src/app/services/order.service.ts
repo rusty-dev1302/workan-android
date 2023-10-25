@@ -61,4 +61,15 @@ export class OrderService {
     const getUrl = `${this.baseUrl}/review/all?professionalId=${professionalId}`;
     return this.httpClient.get<Review[]>(getUrl)
   }
+
+  getPaymentOtp(orderId: number): Observable<Review[]> {
+    const getUrl = `${this.baseUrl}/review/all?professionalId=${orderId}`;
+    return this.httpClient.get<Review[]>(getUrl)
+  }
+
+  confirmDirectPayment(orderId: number, otp: string): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/process`;
+    return this.httpClient.post<BaseResponse>(postUrl, orderId);
+  }
+
 }
