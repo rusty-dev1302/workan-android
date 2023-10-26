@@ -43,8 +43,17 @@ export class ConfirmPaymentComponent {
           }
         );
       } else {
-        this.paymentOtp = "12345"
-        this.toastrService.info("Payment OTP generated!")
+        this.orderService.getPaymentOtp(this.orderId).subscribe(
+          (response) => {
+            if(response.state==constants.SUCCESS_STATE) {
+              this.paymentOtp = response.message;
+              this.toastrService.info("Payment OTP generated.")
+            } else {
+              this.toastrService.info("OTP not generated.")
+            }
+          }
+        );
+
       }
     }
   }

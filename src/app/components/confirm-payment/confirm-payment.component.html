@@ -50,15 +50,15 @@
             </div>
             <div class="col-lg-12" style="padding-top: 22px;">
                 <div *ngIf="paymentOtp" class="col-lg-12 d-flex justify-content-between">
-                    <h5><b>OTP</b></h5>
-                    <h4><b>123456</b></h4>
+                    <h5><b>Direct Payment OTP:</b></h5>
+                    <h4><b>{{paymentOtp}}</b></h4>
                 </div>
             </div>
             <label *ngIf="paymentOtp" class="form-check-label" for="payMethodDirect"><br>
                 ** Provide this otp to professional after completing direct payment.
             </label>
             <div class="d-flex justify-content-end py-3">
-                <button type="button" class="btn btn-warning btn-rounded col-12" (click)="makePayment()">
+                <button *ngIf="paymentMode!='direct'||!checkoutClicked" type="button" class="btn btn-warning btn-rounded col-12" (click)="makePayment()">
                     <span *ngIf="!checkoutClicked">Continue to checkout</span>
                     <i *ngIf="checkoutClicked" class="fas fa-circle-notch fa-spin"></i>
                 </button>

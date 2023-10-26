@@ -84,6 +84,15 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   confirmDirectPayment() {
     let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
+    this.orderService.confirmDirectPayment(this.order.id, otp).subscribe(
+      (response) => {
+        if(response.state==constants.SUCCESS_STATE) {
+          window.location.reload();
+        } else {
+          this.toastr.error(response.message);
+        }
+      }
+    );
     console.log("OTP: "+otp)
   }
 
