@@ -57,7 +57,7 @@
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
-                      <label>Total</label>
+                      <label>Total Amount</label>
                       <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
                         '1.2-2'}} </h5>
                     </div>
@@ -135,7 +135,7 @@
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
                       <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      data-bs-target="#enterOtpModal">Confirm payment received
+                      data-bs-target="#enterOtpModal">Payment Received
                     </button>
                     </div>
                   </div>
@@ -216,7 +216,7 @@
               <button *ngIf="order.status=='COMPLETING'" type="button" class="btn btn-danger btn-rounded"
                 data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('COMPLETE')">Complete</button>
               <button *ngIf="order.status=='STARTED'" type="button" class="btn btn-warning btn-rounded"
-                data-bs-dismiss="modal" aria-label="Close" (click)="confirmDirectPayment()">Confirm payment received</button>
+                data-bs-dismiss="modal" aria-label="Close" (click)="confirmDirectPayment()">Confirm</button>
             </div>
           </div>
         </div>

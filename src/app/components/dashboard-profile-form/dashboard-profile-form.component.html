@@ -138,7 +138,7 @@
 
                         <div class="form-section">
 
-                            <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()">
+                            <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()" id="editProfileForm" (keypress)="profileFormChanged()">
 
                                 <div class="mb-3">
 
@@ -147,7 +147,7 @@
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="firstName">First Name *</label>
+                                                <label for="firstName">First Name</label>
                                                 <input #firstName="ngModel" required [(ngModel)]="user.firstName"
                                                     minlength="3" maxlength="15" name="firstName" id="firstName"
                                                     type="text" class="form-control" autocomplete="off">
@@ -231,6 +231,7 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                                [disabled]="!profileFormDirty"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#personalDetailsModal">Save</button>
                                         </div>

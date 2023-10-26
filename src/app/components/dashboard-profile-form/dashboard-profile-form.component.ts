@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
@@ -40,6 +41,8 @@ export class DashboardProfileFormComponent implements OnInit {
     ["Hindi", 0],
   ]);
 
+  profileFormDirty: boolean = false;
+
   constructor(
     private keycloakService: KeycloakService,
     private profilePhotoService: ProfilePhotoService,
@@ -51,6 +54,10 @@ export class DashboardProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadFormValues();
+  }
+
+  profileFormChanged() {
+    this.profileFormDirty = true;
   }
 
   loadFormValues() {
@@ -150,10 +157,12 @@ export class DashboardProfileFormComponent implements OnInit {
     this.user.languages = JSON.parse(JSON.stringify(this.user.languages));
     language.value = 1;
     this.user.languages.push(language.key);
+    this.profileFormChanged();
   }
 
   editGender(gender: string) {
     this.user.gender = gender;
+    this.profileFormChanged();
   }
 
   submitUserDetail() {

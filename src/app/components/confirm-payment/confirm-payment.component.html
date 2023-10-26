@@ -56,6 +56,7 @@
             </div>
             <label *ngIf="paymentOtp" class="form-check-label" for="payMethodDirect"><br>
                 ** Provide this otp to professional after completing direct payment.
+                ** Once the professional confirms direct payment the order will be completed.
             </label>
             <div class="d-flex justify-content-end py-3">
                 <button *ngIf="paymentMode!='direct'||!checkoutClicked" type="button" class="btn btn-warning btn-rounded col-12" (click)="makePayment()">
