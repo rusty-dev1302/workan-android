@@ -18,7 +18,7 @@ export class SelectMapLocationComponent implements OnInit {
 
   @Input() headline: string = "";
   @Input() initialValue: string = "";
-  @Output() outputEvent = new EventEmitter<{address:string, geoHash:string}|any>();
+  @Output() outputEvent = new EventEmitter<{ address: string, geoHash: string } | any>();
 
 
   myOptions = {
@@ -46,7 +46,7 @@ export class SelectMapLocationComponent implements OnInit {
       () => {
         this.currentLocationLatLng = this.autoComplete?.getPlace().geometry?.location!;
 
-        let output:any={};
+        let output: any = {};
 
         output["address"] = this.autoComplete?.getPlace().formatted_address;
         output["geoHash"] = Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8)
@@ -57,8 +57,12 @@ export class SelectMapLocationComponent implements OnInit {
   }
 
   valueChanged() {
-    if(this.initialValue=='')
-      this.outputEvent.emit("");
+    if (this.initialValue == '') {
+      let output: any = {};
+      output["address"] = "";
+      output["geoHash"] = "";
+      this.outputEvent.emit(output);
+    }
   }
 
   search() {
@@ -69,20 +73,20 @@ export class SelectMapLocationComponent implements OnInit {
     this.markerLocation = this.displayMap.getCenter()!;
   }
 
-  distanceBetweenTwoPlace(firstLat:number, firstLon:number, secondLat:number, secondLon:number, unit:string) {
-    var firstRadlat = Math.PI * firstLat/180
-    var secondRadlat = Math.PI * secondLat/180
-    var theta = firstLon-secondLon;
-    var radtheta = Math.PI * theta/180
+  distanceBetweenTwoPlace(firstLat: number, firstLon: number, secondLat: number, secondLon: number, unit: string) {
+    var firstRadlat = Math.PI * firstLat / 180
+    var secondRadlat = Math.PI * secondLat / 180
+    var theta = firstLon - secondLon;
+    var radtheta = Math.PI * theta / 180
     var distance = Math.sin(firstRadlat) * Math.sin(secondRadlat) + Math.cos(firstRadlat) * Math.cos(secondRadlat) * Math.cos(radtheta);
     if (distance > 1) {
-        distance = 1;
+      distance = 1;
     }
     distance = Math.acos(distance)
-    distance = distance * 180/Math.PI
+    distance = distance * 180 / Math.PI
     distance = distance * 60 * 1.1515
-    if (unit=="K") { distance = distance * 1.609344 }
-    if (unit=="N") { distance = distance * 0.8684 }
+    if (unit == "K") { distance = distance * 1.609344 }
+    if (unit == "N") { distance = distance * 0.8684 }
     return distance
-}
+  }
 }

@@ -221,9 +221,8 @@
                                                         <span class="input-group-text" style="color: green;">$</span>
                                                     </div>
                                                     <input #charges="ngModel" name="charges" id="charges" required
-                                                        [(ngModel)]="listing.charges" minlength="3" type="text"
-                                                        class="form-control"
-                                                        aria-label="Amount (to the nearest dollar)">
+                                                        [(ngModel)]="listing.charges" type="number" autocomplete="off"
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                         </div>

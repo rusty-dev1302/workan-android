@@ -214,9 +214,6 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   locationSelectorOutput(data: any) {
-    if(data==""){
-      this.contactDetail.addressLine3=""
-    }
     this.contactDetail.addressLine3 = data.address;
     this.contactDetail.geoHash = data.geoHash;
   }
