@@ -18,7 +18,7 @@ import { constants } from 'src/environments/constants';
 })
 export class DashboardProfileFormComponent implements OnInit {
 
-  @Input() displayPersonalDetails:boolean = true;
+  @Input() displayPersonalDetails: boolean = true;
 
   @Output() customerIdEvent = new EventEmitter<number>();
 
@@ -42,12 +42,12 @@ export class DashboardProfileFormComponent implements OnInit {
   ]);
 
   profileFormDirty: boolean = false;
+  profileFormValid: boolean = false;
 
   constructor(
     private keycloakService: KeycloakService,
     private profilePhotoService: ProfilePhotoService,
     private userService: UserService,
-    private listingService: ListingService,
     private toastr: ToastrService,
     private navigationService: NavigationService
   ) { }
@@ -57,6 +57,7 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   profileFormChanged() {
+    this.validateUserDetail();
     this.profileFormDirty = true;
   }
 
@@ -88,7 +89,7 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         this.user.email = this.emailValue;
         this.displayUser = JSON.parse(JSON.stringify(this.user));
-        if(this.displayUser.gender=="") {
+        if (this.displayUser.gender == "") {
           this.toastr.info("Please complete your profile.");
         }
         subscription.unsubscribe();
@@ -134,6 +135,7 @@ export class DashboardProfileFormComponent implements OnInit {
   resetLanguages() {
     this.user.languages = [];
     this.loadAvailableLanguages();
+    this.profileFormChanged();
   }
 
   loadAvailableLanguages() {
@@ -163,6 +165,20 @@ export class DashboardProfileFormComponent implements OnInit {
   editGender(gender: string) {
     this.user.gender = gender;
     this.profileFormChanged();
+  }
+
+  validateUserDetail() {
+    console.log(this.user.languages);
+    if (this.user.firstName == ""
+      || this.user.lastName == ""
+      || this.user.gender == ""
+      || this.user.languages.length < 1
+    ) {
+      this.profileFormValid = false;
+    }
+    else {
+      this.profileFormValid = true;
+    }
   }
 
   submitUserDetail() {

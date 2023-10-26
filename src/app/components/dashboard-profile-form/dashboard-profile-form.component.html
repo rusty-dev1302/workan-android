@@ -138,7 +138,7 @@
 
                         <div class="form-section">
 
-                            <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()" id="editProfileForm" (keypress)="profileFormChanged()">
+                            <form #editProfile="ngForm" (ngSubmit)="submitUserDetail()" id="editProfileForm" (keyup)="profileFormChanged()">
 
                                 <div class="mb-3">
 
@@ -147,22 +147,15 @@
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="firstName">First Name</label>
+                                                <label for="firstName">First Name*</label>
                                                 <input #firstName="ngModel" required [(ngModel)]="user.firstName"
                                                     minlength="3" maxlength="15" name="firstName" id="firstName"
                                                     type="text" class="form-control" autocomplete="off">
-                                                <div class="alert alert-danger"
-                                                    *ngIf="firstName.touched && !firstName.valid">
-                                                    <div *ngIf="firstName.errors?.required">First Name is required.
-                                                    </div>
-                                                    <div *ngIf="firstName.errors?.minlength">Min length should be 3.
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="lastName">Last Name</label>
+                                                <label for="lastName">Last Name*</label>
                                                 <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15"
                                                     name="lastName" id="lastName" type="text" class="form-control"
                                                     autocomplete="off">
@@ -177,7 +170,7 @@
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Gender</label>
+                                                <label>Gender*</label>
                                             </div>
                                             <select #selectGender class="form-select" aria-label="gender" [value]="user.gender" (change)="editGender(selectGender.value)">
                                                 <option value="Male">Male</option>
@@ -188,7 +181,7 @@
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Languages</label>
+                                                <label>Languages*</label>
 
                                             </div>
                                             <div class="input-group dropdown">
@@ -211,7 +204,7 @@
 
                                         <div class="col">
                                             <div class="form-group">
-                                                <label for="mobile">Mobile</label>
+                                                <label for="mobile">Mobile*</label>
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">+1</span>
@@ -219,6 +212,9 @@
                                                     <input required #mobile="ngModel" [(ngModel)]="user.mobile"
                                                         minlength="10" maxlength="10" name="mobile" id="mobile" type="text" pattern="\d*"
                                                         class="form-control" autocomplete="off">
+                                                </div>
+                                                <div class="alert alert-danger py-0" *ngIf="mobile.touched && !mobile.valid">
+                                                    <div *ngIf="mobile.errors?.pattern||mobile.errors?.minlength">Please enter a valid mobile number.</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,7 +227,7 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                                [disabled]="!profileFormDirty"
+                                                [disabled]="!profileFormDirty||!profileFormValid||mobile.errors?.pattern||mobile.errors?.minlength"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#personalDetailsModal">Save</button>
                                         </div>
