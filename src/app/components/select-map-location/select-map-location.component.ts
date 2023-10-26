@@ -18,7 +18,7 @@ export class SelectMapLocationComponent implements OnInit {
 
   @Input() headline: string = "";
   @Input() initialValue: string = "";
-  @Output() outputEvent = new EventEmitter<{address:string, geoHash:string}>();
+  @Output() outputEvent = new EventEmitter<{address:string, geoHash:string}|any>();
 
 
   myOptions = {
@@ -54,6 +54,11 @@ export class SelectMapLocationComponent implements OnInit {
         this.outputEvent.emit(output);
       }
     );
+  }
+
+  valueChanged() {
+    if(this.initialValue=='')
+      this.outputEvent.emit("");
   }
 
   search() {

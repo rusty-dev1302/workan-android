@@ -253,6 +253,10 @@
                                             <h6>** Area where the services are offered is the <b>listing location</b>.
                                             </h6>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                                [disabled]="listing.subCategory.subCategoryName==''
+                                                            ||listing.experience==0
+                                                            ||listing.charges<1
+                                                            ||listing.location==''"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#listingDetailsModal">Save</button>
                                         </div>

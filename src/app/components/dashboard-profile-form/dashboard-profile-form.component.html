@@ -156,7 +156,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="lastName">Last Name*</label>
-                                                <input required [(ngModel)]="user.lastName" minlength="3" maxlength="15"
+                                                <input #lastName="ngModel" required [(ngModel)]="user.lastName" minlength="3" maxlength="15"
                                                     name="lastName" id="lastName" type="text" class="form-control"
                                                     autocomplete="off">
                                             </div>
@@ -227,7 +227,7 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                                [disabled]="!profileFormDirty||!profileFormValid||mobile.errors?.pattern||mobile.errors?.minlength"
+                                                [disabled]="!profileFormDirty||!profileFormValid||mobile.errors?.pattern||mobile.errors"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#personalDetailsModal">Save</button>
                                         </div>
@@ -270,7 +270,7 @@
 
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="address1">Unit / Apartment</label>
+                                                <label for="address1">Unit / Apartment*</label>
                                                 <input required [(ngModel)]="contactDetail.addressLine1" placeholder="Unit / Apartment"
                                                     #address1="ngModel" minlength="3" maxlength="30" name="address1"
                                                     id="address1" type="text" class="form-control" autocomplete="off">
@@ -278,9 +278,9 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label for="address2">Street</label>
+                                                <label for="address2">Street*</label>
                                                 <input required [(ngModel)]="contactDetail.addressLine2" placeholder="Street"
-                                                    #address2="ngModel" maxlength="30" name="address2" id="address2"
+                                                    #address2="ngModel" minlength="3" maxlength="30" name="address2" id="address2"
                                                     type="text" class="form-control" autocomplete="off">
                                             </div>
                                         </div>
@@ -303,6 +303,9 @@
                                 <div class="row">
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                        [disabled]="!contactDetail.addressLine1||contactDetail.addressLine1==''
+                                                    ||!contactDetail.addressLine2||contactDetail.addressLine2==''
+                                                    ||!contactDetail.addressLine3||contactDetail.addressLine3==''"
                                             data-bs-toggle="modal"
                                             data-bs-target="#contactDetailsModal">Save</button>
                                     </div>
