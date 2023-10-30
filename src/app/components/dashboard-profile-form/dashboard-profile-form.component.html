@@ -200,7 +200,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">+1</span>
                                                     </div>
-                                                    <input required #mobile="ngModel" [(ngModel)]="user.mobile"
+                                                    <input required #mobile="ngModel" [ngClass]="user.mobile<=0?'mobile-input':''" onclick="this.value=''" [(ngModel)]="user.mobile"
                                                         minlength="10" maxlength="10" name="mobile" id="mobile" type="text" pattern="\d*"
                                                         class="form-control" autocomplete="off">
                                                 </div>

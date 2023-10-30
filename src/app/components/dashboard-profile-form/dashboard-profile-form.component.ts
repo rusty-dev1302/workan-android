@@ -89,8 +89,11 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         this.user.email = this.emailValue;
         this.displayUser = JSON.parse(JSON.stringify(this.user));
-        if (this.displayUser.gender == "") {
-          this.toastr.info("Please complete your profile.");
+        console.log(JSON.stringify(this.user))
+        if (this.displayUser.firstName!=""&&this.displayUser.gender == "") {
+          if (this.displayPersonalDetails) {
+            this.toastr.info("Please complete your profile.");
+          }
         }
         subscription.unsubscribe();
       }
@@ -107,6 +110,10 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         if (this.contactDetail.addressLine1 != "" && this.contactDetail.addressLine2 != "" && this.contactDetail.addressLine3 != "") {
           this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
+        } else {
+          if (!this.displayPersonalDetails) {
+            this.toastr.info("Please complete your address.");
+          }
         }
         contactSubscription.unsubscribe();
       }

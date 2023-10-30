@@ -32,7 +32,7 @@ export class BrowseListingsComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
   ) { }
 
   ngOnInit() {
@@ -104,6 +104,7 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   updateAddress() {
+    
     if (this.currentUser.professional) {
       this.router.navigateByUrl(`/dashboard/managelisting`);
     } else {

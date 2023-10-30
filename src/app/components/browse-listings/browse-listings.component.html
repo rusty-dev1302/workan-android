@@ -45,15 +45,7 @@
         <li><a class="dropdown-item" *ngFor="let subcategory of subcategories" type="button"
             [routerLink]="['/listings',subcategory,currentLocation]">{{subcategory}}</a></li>
       </ul>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown02" data-bs-toggle="dropdown"
-        aria-expanded="false">Location: {{currentLocation||"All"}} </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown02">
-        <li><a class="dropdown-item" type="button" *ngFor="let location of locations"
-            [routerLink]="['/listings',currentSubcategory,location]">{{location}}</a></li>
-      </ul>
-    </li>
+    </li> -->
     <li class="nav-item dropdown">
       <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Sort
         By: Ratings </a>
@@ -62,7 +54,7 @@
         <li><a class="dropdown-item" href="#">Charges low to high</a></li>
         <li><a class="dropdown-item" href="#">Charges high to low</a></li>
       </ul>
-    </li> -->
+    </li>
     <!-- to be removed end -->
 
 
