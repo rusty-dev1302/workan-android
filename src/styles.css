@@ -637,10 +637,12 @@ hr.style1 {
 }
 
 .navigation-btn {
+    color: white;
     border: 0.5px solid rgba(255, 255, 255, 0.323);
 }
 
 .navigation-btn:hover {
+    color: white!important;
     border: 0.5px solid rgb(255, 255, 255);
   }
 

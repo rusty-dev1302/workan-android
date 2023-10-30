@@ -58,6 +58,8 @@ export class DashboardListingsFormComponent implements OnInit{
           this.listing = data;
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
+        } else {
+          this.toastrService.info("Please create a listing.")
         }
 
         this.navigation.pageLoaded();
