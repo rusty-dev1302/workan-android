@@ -6,6 +6,7 @@ import { ContactDetail } from '../common/contact-detail';
 import { constants } from 'src/environments/constants';
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
+import { PaymentAccount } from '../common/payment-account';
 
 
 
@@ -26,6 +27,11 @@ export class UserService {
   getUserByEmail(email: string) {
     const getUrl = `${this.baseUrl}/detail?email=${email}`;
     return this.httpClient.get<Customer>(getUrl);
+  }
+
+  getPaymentAccountByEmail(email: string) {
+    const getUrl = `${this.baseUrl}/paymentAccount/detail?email=${email}`;
+    return this.httpClient.get<PaymentAccount>(getUrl);
   }
 
   getContactDetailByUserId(userId: number): Observable<ContactDetail> {

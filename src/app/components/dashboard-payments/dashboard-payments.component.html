@@ -21,7 +21,7 @@
 
 <section class="common-section business-section" id="online_services">
 
-    <div class="container">
+    <div *ngIf="paymentAccount" class="container">
         <div class="row g-5">
             <div class="col-xl-12 col-md-12 ">
                 <!-- Ratings panel starts -->
@@ -46,7 +46,7 @@
                                     <div class="col-xxl-6 col-lg-6 col-12 py-2">
                                         <div class="form-group">
                                             <h4><i class="fa-solid fa-dollar-sign" style="color: green;"></i><span
-                                                    style="color: brown;"> -{{'0' | number : '1.2-2'}}</span> </h4>
+                                                    style="color: brown;"> {{paymentAccount.balance | number : '1.2-2'}}</span> </h4>
                                         </div>
                                     </div>
 
@@ -93,8 +93,10 @@
                                 <hr class="style1">
                                 <div class="row">
                                     <h5>Email:
+                                        <a *ngIf="!paymentAccount.paypalAccount.email" class="link" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                        </a>
                                     </h5>
-                                    <div class="col-xxl-6 col-lg-6 col-12">
+                                    <div *ngIf="paymentAccount.paypalAccount.email" class="col-xxl-6 col-lg-6 col-12">
                                         <div class="form-group">
                                             <h4>vaibhav@gmail.com <span style="font-size: large;"> (Verified <i
                                                         class="fa fa-check-circle" style="color: green;"

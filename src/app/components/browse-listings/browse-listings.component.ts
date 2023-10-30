@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
 import { ListingService } from 'src/app/services/listing.service';
@@ -33,6 +34,7 @@ export class BrowseListingsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private keycloakService: KeycloakService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
@@ -77,6 +79,10 @@ export class BrowseListingsComponent implements OnInit {
           } else if (this.currentUser.contact && this.currentUser.contact.geoHash) {
             this.currentLocation = this.currentUser.contact.addressLine3;
             this.geoHash = this.currentUser.contact.geoHash;
+          }
+
+          if(!this.currentLocation) {
+            this.toastrService.info("Address not updated.")
           }
 
         }
