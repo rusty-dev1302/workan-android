@@ -25,16 +25,12 @@
 
 <div class="content-box">
 
-  <app-browse-listings-filter></app-browse-listings-filter>
-
   <!-- navigation bar starts -->
-  <nav class="nav navbar nav-underline justify-content-end navbar-dark" style="background-color: #222;">
-    <a *ngIf="!currentLocation" class="nav-link active location-btn" style="margin-right: 5px;" type="button"(click)="updateAddress()"><i
+  <nav class="nav navbar nav-underline justify-content-end align-items-start navbar-dark" style="background-color: #222;">
+    <a *ngIf="!currentLocation" class="nav-link active navigation-btn" style="margin-right: 5px;" type="button"(click)="updateAddress()"><i
         class="fa-solid fa-location-pin"></i> Update Address</a>
-    <a *ngIf="currentLocation" class="nav-link active location-btn" style="margin-right: 5px;" type="button" (click)="updateAddress()"><i
+    <a *ngIf="currentLocation" class="nav-link active navigation-btn" style="margin-right: 5px;" type="button" (click)="updateAddress()"><i
         class="fa-solid fa-location-pin"></i> {{currentLocation.length>15?(currentLocation|slice:0:15)+' ...':currentLocation}}</a>
-    <a class="nav-link-custom nav-link" type="button" data-bs-toggle="modal" data-bs-target="#filterModalPopup"><i
-        class="fa-solid fa-filter" style="color: white;"></i></a>
 
     <!-- to be removed start -->
 
@@ -46,7 +42,7 @@
             [routerLink]="['/listings',subcategory,currentLocation]">{{subcategory}}</a></li>
       </ul>
     </li> -->
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown navigation-btn">
       <a class="nav-link-custom nav-link dropdown-toggle" href="#" id="dropdown03" data-bs-toggle="dropdown" aria-expanded="false">Sort
         By: Ratings </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown03">

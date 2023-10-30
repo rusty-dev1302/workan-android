@@ -145,6 +145,10 @@ export class DashboardProfileFormComponent implements OnInit {
     this.profileFormChanged();
   }
 
+  resetMobile() {
+    this.user.mobile=null!;
+  }
+
   loadAvailableLanguages() {
     const lan = this.user.languages;
 

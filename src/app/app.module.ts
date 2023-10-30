@@ -23,7 +23,6 @@ import { FormsModule } from '@angular/forms';
 import { DashboardProfileFormComponent } from './components/dashboard-profile-form/dashboard-profile-form.component';
 import { DashboardListingsFormComponent } from './components/dashboard-listings-form/dashboard-listings-form.component';
 import { UserService } from './services/user.service';
-import { BrowseListingsFilterComponent } from './components/browse-listings-filter/browse-listings-filter.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FirstLoginComponent } from './components/first-login/first-login.component';
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
@@ -90,7 +89,6 @@ const routes: Routes = [
     SlotSelectorComponent,
     DashboardProfileFormComponent,
     DashboardListingsFormComponent,
-    BrowseListingsFilterComponent,
     SidebarComponent,
     FirstLoginComponent,
     PhotoUploaderComponent,
