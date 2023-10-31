@@ -1,4 +1,3 @@
-
 <!-- Edit Section start -->
 
 <div class="col-xl-12 col-md-12">
@@ -12,11 +11,12 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #8c8c8c" type="button"
-                                    data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
-                            <label>** We charge a fixed amount of 2.00 per order, on orders paid directly to the professional.
-                                   <br>** We charge 2.00 + 6% of order charges per order, on orders paid through Paypal.
-                            </label>
+                            <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #8c8c8c"
+                                    type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
+                            <!-- <label>** We charge a fixed amount of 2.00 per order, on orders paid directly to the
+                                professional.
+                                <br>** We charge 2.00 + 6% of order charges per order, on orders paid through Paypal.
+                            </label> -->
 
                         </div>
                     </div>
@@ -47,7 +47,8 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges</label>
-                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges | number : '1.2-2'}} </h5>
+                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges |
+                                number : '1.2-2'}} </h5>
                         </div>
                     </div>
 
@@ -77,11 +78,9 @@
                         <div class="form-group">
                             <h3><b>Time Slots </b>
                                 <i *ngIf="!isTimeSlotExpanded" class="fa-solid fa-square-plus" type="button"
-                                    (click)="toggleTimeSlotExpand()"
-                                    style="font-size: x-large;color: #8c8c8c"></i>
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #8c8c8c"></i>
                                 <i *ngIf="isTimeSlotExpanded" class="fa-solid fa-square-minus" type="button"
-                                    (click)="toggleTimeSlotExpand()"
-                                    style="font-size: x-large;color: #8c8c8c"></i>
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #8c8c8c"></i>
                             </h3>
                             <h6>** Time slots are in the local time of the listing city</h6>
                         </div>
@@ -94,11 +93,13 @@
                     <div *ngFor="let template of slotTemplates" class="row py-1">
                         <div class="col-12">
                             <div class="form-group">
-                                <label>Day <label class="custom-control teleport-switch" type="button">
-                                        <input type="checkbox" class="teleport-switch-control-input"
-                                            [checked]="template.enabled" (click)="toggleSlotTemplate(template.id)">
-                                        <span class="teleport-switch-control-indicator"></span>
-                                    </label></label>
+                                <span *ngIf="template.enabled">On</span>
+                                <span *ngIf="!template.enabled">Off</span>
+                                <label class="custom-control teleport-switch" type="button">
+                                    <input type="checkbox" class="teleport-switch-control-input"
+                                        [checked]="template.enabled" (click)="toggleSlotTemplate(template.id)">
+                                    <span class="teleport-switch-control-indicator"></span>
+                                </label>
                                 <h4>{{template.dayName}}</h4>
                             </div>
                         </div>
@@ -243,12 +244,10 @@
                                         <div class="modal-footer">
                                             <h6>** Area where the services are offered is the <b>listing location</b>.
                                             </h6>
-                                            <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                                [disabled]="listing.subCategory.subCategoryName==''
+                                            <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
                                                             ||listing.charges<1
-                                                            ||listing.location==''"
-                                                data-bs-toggle="modal"
+                                                            ||listing.location==''" data-bs-toggle="modal"
                                                 data-bs-target="#listingDetailsModal">Save</button>
                                         </div>
                                     </div>
