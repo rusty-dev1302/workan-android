@@ -28,7 +28,7 @@
   <!-- navigation bar starts -->
   <nav class="nav navbar nav-underline justify-content-end align-items-start navbar-dark" style="background-color: #222;">
     <a *ngIf="!currentLocation" class="nav-link active navigation-btn" style="margin-right: 5px;" type="button"(click)="updateAddress()"><i
-        class="fa-solid fa-location-pin"></i> Update Address</a>
+        class="fa-solid fa-location-pin"></i> Update Location</a>
     <a *ngIf="currentLocation" class="nav-link active navigation-btn" style="margin-right: 5px;" type="button" (click)="updateAddress()"><i
         class="fa-solid fa-location-pin"></i> {{currentLocation.length>15?(currentLocation|slice:0:15)+' ...':currentLocation}}</a>
 

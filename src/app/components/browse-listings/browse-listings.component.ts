@@ -82,7 +82,7 @@ export class BrowseListingsComponent implements OnInit {
           }
 
           if(!this.currentLocation) {
-            this.toastrService.info("Address not updated.")
+            this.toastrService.info("Location not updated.")
           }
 
         }
