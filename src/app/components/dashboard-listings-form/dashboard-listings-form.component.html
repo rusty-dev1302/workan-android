@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #8c8c8c"
+                            <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #4cb44a"
                                     type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
                             <!-- <label>** We charge a fixed amount of 2.00 per order, on orders paid directly to the
                                 professional.
@@ -76,13 +76,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Time Slots </b>
+                            <h3><b>Available Slots </b>
                                 <i *ngIf="!isTimeSlotExpanded" class="fa-solid fa-square-plus" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #8c8c8c"></i>
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #4cb44a"></i>
                                 <i *ngIf="isTimeSlotExpanded" class="fa-solid fa-square-minus" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #8c8c8c"></i>
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #4cb44a"></i>
                             </h3>
-                            <h6>** Time slots are in the local time of the listing city</h6>
+                            <h6 class="small-text">** Time intervals when you will be offering services.</h6>
+                            <h6 class="small-text">** For example: 8:00AM-8:30AM</h6>
                         </div>
                     </div>
                     <hr class="style1">
@@ -122,8 +123,8 @@
                                                 class="fa-solid fa-plus"></i></span>
                                     </div>
                                 </div>
+                                <hr class="style1">
                             </div>
-                            <hr class="style1">
                         </div>
                     </div>
                 </div>
@@ -242,7 +243,7 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="modal-footer">
-                                            <h6>** Area where the services are offered is the <b>listing location</b>.
+                                            <h6 class="small-text">** Area where the services are offered is the <b>listing location</b>.
                                             </h6>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
