@@ -81,10 +81,6 @@ export class BrowseListingsComponent implements OnInit {
             this.geoHash = this.currentUser.contact.geoHash;
           }
 
-          if(!this.currentLocation) {
-            this.toastrService.info("Location not updated.")
-          }
-
         }
 
         this.handleListProducts();
