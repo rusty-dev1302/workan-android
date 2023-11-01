@@ -77,10 +77,10 @@
                     <div class="col">
                         <div class="form-group">
                             <h3><b>Available Slots </b>
-                                <i *ngIf="!isTimeSlotExpanded" class="fa-solid fa-square-plus" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #0d6efd"></i>
-                                <i *ngIf="isTimeSlotExpanded" class="fa-solid fa-square-minus" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;color: #0d6efd"></i>
+                                <i *ngIf="!isTimeSlotExpanded" class="fa fa-angle-down" type="button"
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;"></i>
+                                <i *ngIf="isTimeSlotExpanded" class="fa fa-angle-up" type="button"
+                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;"></i>
                             </h3>
                             <h6 class="small-text">** Time intervals when you will be offering services.</h6>
                             <h6 class="small-text">** For example: 8:00AM-8:30AM</h6>
