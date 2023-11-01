@@ -67,7 +67,7 @@
         <!-- User Form Ends -->
     </div>
 
-    <div class="form-section p-3 m-3">
+    <div *ngIf="slotTemplates" class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">

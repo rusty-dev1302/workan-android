@@ -17,7 +17,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 export class DashboardListingsFormComponent implements OnInit{
 
   isEditable: boolean = false;
-  isTimeSlotExpanded: boolean = true;
+  isTimeSlotExpanded: boolean = false;
 
   subscription!: Subscription;
 
