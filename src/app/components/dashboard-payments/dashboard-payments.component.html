@@ -50,12 +50,12 @@
                                         </div>
                                     </div>
 
-                                    <!-- <div class="col-12">
+                                    <div *ngIf="paymentAccount.balance>0" class="col-12">
                                         <hr class="style1">
                                         <button class="btn btn-warning btn-rounded col-12" type="button">Credit Balance</button>
-                                    </div> -->
+                                    </div>
 
-                                    <div class="col-12">
+                                    <div *ngIf="paymentAccount.balance<0" class="col-12">
                                         <hr class="style1">
                                         <button class="btn btn-warning btn-rounded col-12" type="button">Pay Outstanding
                                             Amount</button>
