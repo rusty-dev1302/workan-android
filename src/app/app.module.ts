@@ -46,6 +46,7 @@ import { PhonePipe } from './pipes/phone-pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import 'hammerjs';
 import { DashboardPaymentsComponent } from './components/dashboard-payments/dashboard-professional-payments.component';
+import { NotificationSidebarComponent } from './components/notification-sidebar/notification-sidebar.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -102,6 +103,7 @@ const routes: Routes = [
     LoadingScreenComponent,
     DashboardAddressDetailsComponent,
     DashboardPaymentsComponent,
+    NotificationSidebarComponent,
   ],
   imports: [
     InfiniteScrollModule,
