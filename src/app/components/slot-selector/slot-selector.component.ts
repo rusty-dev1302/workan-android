@@ -56,6 +56,20 @@ export class SlotSelectorComponent implements OnInit {
         (data) => {
           if (data) {
             this.currentSlots = data;
+
+            const todayDate = new Date().getDate();
+            const todayTime = this.datePipe.transform(new Date(), 'HHmm');
+            
+            //Filter slots starting after current time
+            if(todayDate==date.getDate()) {
+              this.currentSlots = this.currentSlots.filter(
+                a => a.startTimeHhmm>+todayTime!
+  
+              );
+            }
+            
+            console.log(this.currentSlots)
+
             this.currentSlots.sort(
               (a, b) => {
                 return a.startTimeHhmm - b.startTimeHhmm;
