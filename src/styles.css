@@ -650,6 +650,25 @@ hr.style1 {
     font-size: small;
 }
 
+
+/* Sidebar related styles start */
+
+.custom-side-bar {
+    background-color: black!important;
+    color: white!important;
+
+
+    min-width: 250px!important;
+    max-width: 250px!important;
+}
+
+.offcanvas-body {
+    min-height: 100vh!important;
+    width: 100%!important;
+}
+
+/* Sidebar related styles end */
+
 /* Remove arrows from number fields  */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

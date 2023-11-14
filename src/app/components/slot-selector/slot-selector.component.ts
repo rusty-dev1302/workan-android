@@ -52,22 +52,21 @@ export class SlotSelectorComponent implements OnInit {
     if (date) {
       this.selectedDate = date;
       this.currentDate = this.datePipe.transform(date, 'EEEE')!;
-      this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate, this.datePipe.transform(date, 'yyyy-MM-dd')!+"T00:00:00.000000Z").subscribe(
+      this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
             this.currentSlots = data;
 
             const todayDate = new Date().getDate();
-            const todayTime = this.datePipe.transform(new Date(), 'HHmm');
-            
+
             //Filter slots starting after current time
-            if(todayDate==date.getDate()) {
+            if (todayDate == date.getDate()) {
+              const todayTime = this.datePipe.transform(new Date(), 'HHmm');
               this.currentSlots = this.currentSlots.filter(
-                a => a.startTimeHhmm>+todayTime!
-  
+                a => a.startTimeHhmm > +todayTime!
               );
             }
-            
+
             console.log(this.currentSlots)
 
             this.currentSlots.sort(
@@ -111,8 +110,8 @@ export class SlotSelectorComponent implements OnInit {
         customer = data;
         let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate));
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
-          (data)=> {
-            if(data.state==constants.SUCCESS_STATE) {
+          (data) => {
+            if (data.state == constants.SUCCESS_STATE) {
               this.toastr.success(data.state)
               this.router.navigateByUrl(`/dashboard/orders`);
             } else {
