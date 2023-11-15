@@ -1,6 +1,6 @@
 <app-loading-screen [hidden]="isPageLoaded"></app-loading-screen>
 
-<app-header class="workan-header"></app-header>
+<app-header [isAuthenticated]="isAuthenticated" class="workan-header"></app-header>
 <div [hidden]="!isPageLoaded" class="workan-body">
   <router-outlet></router-outlet>
 </div>

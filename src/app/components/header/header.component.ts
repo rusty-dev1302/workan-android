@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService} from 'keycloak-angular';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +10,11 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit{
 
+  @Input()
+  isAuthenticated: boolean = false;
+
   isFirstLogin: boolean = false;
+
 
   constructor(
     private userService: UserService,
