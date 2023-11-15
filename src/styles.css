@@ -115,8 +115,8 @@ a {
 .hero-section h1:first-letter {
     /*font-size: 10rem;*/
     initial-letter: 2;
-    padding-right: .2rem;
-    color: var(--secondary-color);
+    padding-right: .7rem;
+    color: var(--bs-main-color);
 }
 
 .hero-video--section {
