@@ -149,6 +149,12 @@ a {
     }
 }
 
+@media screen and (max-width: 513px) {
+    .custom-shape-divider-bottom-1691897366 {
+        display: none !important;
+    }
+}
+
 
 
 @media screen and (max-width: 998px) {
@@ -224,7 +230,7 @@ a {
 }
 
 .more-info-section {
-    /* background-image: linear-gradient(rgba(22, 22, 22, 0.9), rgba(22, 22, 22, 0.9)), url("https://images.pexels.com/photos/316093/pexels-photo-316093.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); */
+    background-color: var(--bs-dark-primary);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
