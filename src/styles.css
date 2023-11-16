@@ -71,6 +71,11 @@ a {
     position: relative;
 }
 
+.bg-sec {
+    height: 60vh;
+    position: relative;
+}
+
 .bg-color {
     background-color: var(--bs-dark-primary);
 }
