@@ -235,7 +235,7 @@ a {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    padding: 6rem 0;
+    padding-top: 3rem;
     overflow: hidden;
 }
 
