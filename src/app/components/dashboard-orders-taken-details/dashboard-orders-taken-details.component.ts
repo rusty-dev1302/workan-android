@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription, interval } from 'rxjs';
 import { Order } from 'src/app/common/order';
 import { ProcessOrderRequest } from 'src/app/common/process-order-request';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -17,6 +18,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   private currentOrderId!: number;
   order!: Order;
   otpValue:string[] = ["","","","","",""]
+  private autoRefresh!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +32,12 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     this.route.paramMap.subscribe(()=>{
       this.handleOrderRouting();
     });
+    this.autoRefresh = interval(5000).subscribe(
+      (val) => { 
+        if(this.order&&this.order.status!="CANCELLED"&&this.order.status!="COMPLETED") {
+          this.loadOrderDetails();
+        }
+      });
   }
 
   handleOrderRouting() {
