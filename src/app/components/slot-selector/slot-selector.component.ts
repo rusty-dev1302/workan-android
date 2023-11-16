@@ -67,8 +67,6 @@ export class SlotSelectorComponent implements OnInit {
               );
             }
 
-            console.log(this.currentSlots)
-
             this.currentSlots.sort(
               (a, b) => {
                 return a.startTimeHhmm - b.startTimeHhmm;

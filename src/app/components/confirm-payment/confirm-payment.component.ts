@@ -30,7 +30,6 @@ export class ConfirmPaymentComponent {
   }
 
   makePayment() {
-    console.log(this.paymentMode)
     if(!this.checkoutClicked) {
       this.checkoutClicked = true;
       this.selectedPaymentMode = this.paymentMode;

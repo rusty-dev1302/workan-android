@@ -29,7 +29,6 @@ export class DashboardPaymentsComponent implements OnInit {
   loadPaymentAccount() {
     const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
       (account)=> {
-        console.log(JSON.stringify(account))
         this.paymentAccount = account;
         this.navigationService.pageLoaded();
         sub.unsubscribe();

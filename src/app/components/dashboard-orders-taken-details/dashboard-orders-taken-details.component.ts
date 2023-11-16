@@ -93,7 +93,6 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
         }
       }
     );
-    console.log("OTP: "+otp)
   }
 
 }

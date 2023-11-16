@@ -89,7 +89,6 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         this.user.email = this.emailValue;
         this.displayUser = JSON.parse(JSON.stringify(this.user));
-        console.log(JSON.stringify(this.user))
         if (this.displayUser.firstName!=""&&this.displayUser.gender == "") {
           if (this.displayPersonalDetails) {
             this.toastr.info("Please complete your profile.");
@@ -179,7 +178,6 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   validateUserDetail() {
-    console.log(this.user.languages);
     if (this.user.firstName == ""
       || this.user.lastName == ""
       || this.user.gender == ""
