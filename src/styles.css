@@ -445,7 +445,6 @@ a {
 /*footer styling */
 .main-footer-section {
     padding: 0 0 4rem 0;
-    background-color: #222;
     color: var(--bs-main-color);
 }
 
