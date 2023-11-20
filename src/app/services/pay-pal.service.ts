@@ -19,13 +19,13 @@ export class PayPalService {
     return this.httpClient.post<any>(postUrl, {});
   }
 
-  getPaymentDetail(paymentId: string, orderId: string):Observable<any> {
-    const getUrl = `${this.baseUrl}/payment/detail?paymentId=${paymentId}&orderId=${orderId}`;
+  updateOrder(paymentId: string, orderId: string):Observable<any> {
+    const getUrl = `${this.baseUrl}/order/update?paymentId=${paymentId}&orderId=${orderId}`;
     return this.httpClient.get<any>(getUrl);
   }
 
-  completePayment(paymentId: string, payerId: string):Observable<any> {
-    const postUrl = `${this.baseUrl}/complete/payment?paymentId=${paymentId}&PayerID=${payerId}`;
+  completePayment(paymentId: string, payerId: string, orderId: string):Observable<any> {
+    const postUrl = `${this.baseUrl}/complete/payment?paymentId=${paymentId}&PayerID=${payerId}&orderId=${orderId}`;
     return this.httpClient.post<any>(postUrl, {});
   }
 

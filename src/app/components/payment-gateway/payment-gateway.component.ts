@@ -41,21 +41,10 @@ export class PaymentGatewayComponent implements OnInit {
       this.router.navigateByUrl(`${this.redirectLink}`);
     }
 
-    const sub1 = this.paypalService.completePayment(paymentId!, payerId!).subscribe(
+    const sub1 = this.paypalService.completePayment(paymentId!, payerId!, this.orderId).subscribe(
       (response) => {
         if(response.state==constants.SUCCESS_STATE) {
-          const sub2 = this.paypalService.getPaymentDetail(paymentId!, this.orderId).subscribe(
-            (response) => {
-              if(response.state==constants.SUCCESS_STATE) {
-                this.toastrService.success("Payment Complete!");
-              }
-              else {
-                this.toastrService.error("Something went wrong!");
-              }
-              sub2.unsubscribe();
-              this.router.navigateByUrl(`${this.redirectLink}`);
-            }
-          );
+          this.toastrService.success("Payment Complete!");
         }
         else {
           this.toastrService.error("Something went wrong!");

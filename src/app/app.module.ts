@@ -47,11 +47,13 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import 'hammerjs';
 import { DashboardPaymentsComponent } from './components/dashboard-payments/dashboard-professional-payments.component';
 import { NotificationSidebarComponent } from './components/notification-sidebar/notification-sidebar.component';
+import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
   // below to be removed 
   { path: 'home', component: LandingPageComponent},
+  { path: 'termsOfUse', component: TermsOfUseComponent},
   // above to be removed 
   { path: 'completePayment/:orderId', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
@@ -104,6 +106,7 @@ const routes: Routes = [
     DashboardAddressDetailsComponent,
     DashboardPaymentsComponent,
     NotificationSidebarComponent,
+    TermsOfUseComponent,
   ],
   imports: [
     InfiniteScrollModule,
