@@ -1,0 +1,47 @@
+.terms {
+    background-color: white;
+    color: rgb(10, 10, 10);
+    padding-top: 3rem;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-bottom: 10rem;
+}
+
+.terms h2 {
+    font-size: x-large;
+    font-weight: bold;
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+    letter-spacing: 0.1rem;
+}
+
+.terms h3 {
+    font-size: large;
+    font-weight: bold;
+}
+
+.terms p {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+    font-size: small;
+    letter-spacing: .0009rem;
+    line-height: 1.1rem;
+}
+
+.terms h5 {
+    font-weight: bold;
+    padding-top: 1rem!important;
+}
+
+.terms h6 {
+    font-size: small;
+    font-weight: bold;
+    color: rgb(80, 80, 80);
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+
+.tab {
+    display: inline-block; 
+    margin-left: 40px; 
+}
