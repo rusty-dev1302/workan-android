@@ -7,11 +7,17 @@
     padding-bottom: 10rem;
 }
 
+.terms a {
+    font-size: medium !important;
+    line-height: 1.4rem;
+    text-decoration: none;
+}
+
 .terms h2 {
     font-size: x-large;
     font-weight: bold;
-    padding-top: 1rem!important;
-    padding-bottom: 1rem!important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
     letter-spacing: 0.1rem;
 }
 
@@ -21,8 +27,8 @@
 }
 
 .terms p {
-    padding-top: 1rem!important;
-    padding-bottom: 1rem!important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
     font-size: small;
     letter-spacing: .0009rem;
     line-height: 1.1rem;
@@ -30,18 +36,18 @@
 
 .terms h5 {
     font-weight: bold;
-    padding-top: 1rem!important;
+    padding-top: 1rem !important;
 }
 
 .terms h6 {
     font-size: small;
     font-weight: bold;
     color: rgb(80, 80, 80);
-    padding-top: 1rem!important;
-    padding-bottom: 1rem!important;
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
 }
 
 .tab {
-    display: inline-block; 
-    margin-left: 40px; 
+    display: inline-block;
+    margin-left: 40px;
 }

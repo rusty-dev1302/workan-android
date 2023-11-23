@@ -113,7 +113,9 @@ const routes: Routes = [
     ImageCropperModule,
     GoogleMapsModule,
     FormsModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,{
+      anchorScrolling: 'enabled'
+    }),
     BrowserModule,
     HttpClientModule,
     OAuthModule.forRoot({
