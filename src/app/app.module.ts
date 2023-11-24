@@ -49,11 +49,13 @@ import { DashboardPaymentsComponent } from './components/dashboard-payments/dash
 import { NotificationSidebarComponent } from './components/notification-sidebar/notification-sidebar.component';
 import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.component';
 import { AcceptableUsePolicyComponent } from './components/acceptable-use-policy/acceptable-use-policy.component';
+import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
   // below to be removed 
   { path: 'home', component: LandingPageComponent},
+  { path: 'disclaimer', component: DisclaimerComponent},
   { path: 'termsOfUse', component: TermsOfUseComponent},
   { path: 'acceptableUsePolicy', component: AcceptableUsePolicyComponent},
   // above to be removed 
@@ -110,6 +112,7 @@ const routes: Routes = [
     NotificationSidebarComponent,
     TermsOfUseComponent,
     AcceptableUsePolicyComponent,
+    DisclaimerComponent,
   ],
   imports: [
     InfiniteScrollModule,
