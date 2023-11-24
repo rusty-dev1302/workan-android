@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -11,8 +11,11 @@ export class DashboardProfileComponent implements OnInit{
   customerId: number=0;
   base64Image: any = '';
 
+  showUploader:boolean = true;
+
   constructor(
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -25,5 +28,11 @@ export class DashboardProfileComponent implements OnInit{
 
   updateProfilePhoto(base64Image: any) {
     this.base64Image = base64Image;
+  }
+
+  reloadUploader() {
+    this.showUploader = false;
+    this.changeDetector.detectChanges();
+    this.showUploader = true;
   }
 }

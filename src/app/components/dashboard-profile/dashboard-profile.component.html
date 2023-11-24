@@ -1,5 +1,5 @@
 <!-- Edit Photo Modal -->
-<app-photo-uploader [customerId]="customerId"></app-photo-uploader>
+<app-photo-uploader *ngIf="showUploader" [customerId]="customerId" (reloadEvent)="reloadUploader()"></app-photo-uploader>
 <!-- Edit Photo Modal Ends -->
 
 <!--Divider section-->

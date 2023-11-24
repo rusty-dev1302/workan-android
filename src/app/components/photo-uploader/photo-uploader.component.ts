@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
 import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
@@ -12,6 +12,7 @@ import { constants } from 'src/environments/constants';
 export class PhotoUploaderComponent implements OnInit{
 
   @Input() customerId: number = 0;
+  @Output() reloadEvent = new EventEmitter<boolean>();
   base64Data: any = '';
 
 
@@ -85,6 +86,10 @@ export class PhotoUploaderComponent implements OnInit{
 
   reloadCurrentPage() {
     window.location.reload();
+   }
+
+   reloadComponent() {
+    this.reloadEvent.emit(true);
    }
 
 }
