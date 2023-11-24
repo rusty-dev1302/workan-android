@@ -48,12 +48,14 @@ import 'hammerjs';
 import { DashboardPaymentsComponent } from './components/dashboard-payments/dashboard-professional-payments.component';
 import { NotificationSidebarComponent } from './components/notification-sidebar/notification-sidebar.component';
 import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.component';
+import { AcceptableUsePolicyComponent } from './components/acceptable-use-policy/acceptable-use-policy.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
   // below to be removed 
   { path: 'home', component: LandingPageComponent},
   { path: 'termsOfUse', component: TermsOfUseComponent},
+  { path: 'acceptableUsePolicy', component: AcceptableUsePolicyComponent},
   // above to be removed 
   { path: 'completePayment/:orderId', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
@@ -107,6 +109,7 @@ const routes: Routes = [
     DashboardPaymentsComponent,
     NotificationSidebarComponent,
     TermsOfUseComponent,
+    AcceptableUsePolicyComponent,
   ],
   imports: [
     InfiniteScrollModule,
