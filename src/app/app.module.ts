@@ -50,12 +50,14 @@ import { NotificationSidebarComponent } from './components/notification-sidebar/
 import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.component';
 import { AcceptableUsePolicyComponent } from './components/acceptable-use-policy/acceptable-use-policy.component';
 import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
   // below to be removed 
   { path: 'home', component: LandingPageComponent},
   { path: 'disclaimer', component: DisclaimerComponent},
+  { path: 'privacyPolicy', component: PrivacyPolicyComponent},
   { path: 'termsOfUse', component: TermsOfUseComponent},
   { path: 'acceptableUsePolicy', component: AcceptableUsePolicyComponent},
   // above to be removed 
@@ -113,6 +115,7 @@ const routes: Routes = [
     TermsOfUseComponent,
     AcceptableUsePolicyComponent,
     DisclaimerComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     InfiniteScrollModule,
