@@ -9,9 +9,8 @@ export class Transaction{
         public total: number,
         public type: string,
         public mode: string,
-        public otherParty: Customer,
-        public breakdown: BreakdownItem[],
-        public account: PaymentAccount
+        public description: string,
+        public breakdown: BreakdownItem[]
     ) {
     }
 }
