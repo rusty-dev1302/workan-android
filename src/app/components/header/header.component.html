@@ -8,10 +8,13 @@
     </a></div>
     <a *ngIf="!isFirstLogin" class="navbar-brand"><img style="padding-bottom: 3px;padding-top: 3px;" src="assets/workan.png" type="button" routerLink=""></a>
 
-    <span type="button" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar" class="fa-stack" style="color: white;margin-left: auto;padding-right: 3.2rem!important;">
-      <i class="fa-solid fa-bell fa-stack-1x" style="font-size: x-large;top: -10%;"></i>
-      <i class="fa-solid fa-circle fa-stack-1x" style="color: red;padding-left:20px;top:-30%;font-size: small;"></i>
+    <span class="fa-stack" style="margin-left: auto;" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar" style="margin-left: auto;">
+      <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+      <span type="button" style="top: -20%;" class="fa-stack fa-2x px-3 fa-stack-1x" data-count="0" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
+      </span>
     </span>
+
+
   </div>
   <div *ngIf="!isAuthenticated" class="container-fluid d-flex justify-content-between g-3">
     <a class="navbar-brand"><img style="padding-bottom: 3px;" src="assets/workan.png" type="button" routerLink=""></a>
