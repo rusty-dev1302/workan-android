@@ -6,6 +6,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
+import { PdfService } from 'src/app/services/pdf.service';
 
 @Component({
   selector: 'app-dashboard-payments',
@@ -13,6 +14,8 @@ import "pdfmake/build/vfs_fonts";
   styleUrls: ['./dashboard-payments.component.css']
 })
 export class DashboardPaymentsComponent implements OnInit {
+
+  showWallet: boolean = false;
 
   paymentAccount!: PaymentAccount;
   orderTransactions: Transaction[] = [];
@@ -24,7 +27,8 @@ export class DashboardPaymentsComponent implements OnInit {
   constructor(
     private navigationService: NavigationService,
     private userService: UserService,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private pdfService: PdfService
   ) {
 
   }
@@ -51,23 +55,17 @@ export class DashboardPaymentsComponent implements OnInit {
     );
   }
 
-  generatePdf() {
-    const data = [    ['Name', 'Email', 'Country'],
-      ['John Doe', 'johndoe@example.com', 'USA'],
-      ['Jane Smith', 'janesmith@example.com', 'Canada'],
-      ['Bob Johnson', 'bobjohnson@example.com', 'UK']
-    ];
-  
-    const docDefinition = {
-      content: [
-        { text: 'User Data', style: 'header' },
-        { table: { body: data } }
-      ],
-      styles: {
-        header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] }
-      }
-    };
-  
-    this.pdfMake.createPdf(docDefinition).download('userdata.pdf');
+  generatePdf(fileName: string) {
+    this.pdfService.generatePdf(fileName);
   }
+
+  dateToString(date: Date): string {
+    let stringDate = date.toString();
+    return stringDate.substring(0, stringDate.indexOf("T"));
+  }
+
+  toggleTabs() {
+    this.showWallet = !this.showWallet;
+  }
+
 }

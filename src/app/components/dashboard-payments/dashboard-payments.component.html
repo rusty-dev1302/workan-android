@@ -7,7 +7,7 @@
             <div
                 class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
                 <h1 class=" text-capitalize fw-bolder text-white">
-                    Wallet & Payments
+                    Payments
                 </h1>
             </div>
 
@@ -17,13 +17,23 @@
 
 <!--Divider section end -->
 
+<ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
+    <li class="nav-item">
+        <a type="button" class="nav-link" [ngClass]="!showWallet?'active':''" (click)="toggleTabs()">Order History</a>
+    </li>
+    <li class="nav-item">
+        <a type="button" class="nav-link" [ngClass]="showWallet?'active':''" (click)="toggleTabs()">Wallet</a>
+    </li>
+</ul>
+
+
 <!-- Edit Section Starts  -->
 
 <section class="common-section business-section" id="online_services">
 
     <div *ngIf="paymentAccount" class="container">
 
-        <div class="row g-5">
+        <div *ngIf="!showWallet" class="row g-5">
             <div class="col-xl-12 col-md-12 ">
                 <!-- Ratings panel starts -->
                 <div class="row g-5">
@@ -44,7 +54,8 @@
                                 <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
                                 <div class="table-responsive">
                                     <table class="table table table-bordered th-sm">
-                                        <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                        <thead
+                                            style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
                                             <tr>
                                                 <th scope="col" class="text-center">Date</th>
                                                 <th scope="col" class="text-center">Description</th>
@@ -56,13 +67,16 @@
                                         </thead>
                                         <tbody>
                                             <tr *ngFor="let transaction of orderTransactions">
-                                                <td class="text-center">{{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
+                                                <td class="text-center">
+                                                    {{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
                                                 <td class="text-center">{{transaction.description}}</td>
                                                 <td class="text-center">{{transaction.mode}}</td>
                                                 <td class="text-center">{{transaction.type}}</td>
                                                 <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
-                                                <td class="text-center"><a class="link" type="button" (click)="generatePdf()"><i class="fa fa-download" aria-hidden="true"></i>
-                                                </a></td>
+                                                <td class="text-center"><a class="link" type="button"
+                                                        (click)="generatePdf(dateToString(transaction.transactionDate))"><i
+                                                            class="fa fa-download" aria-hidden="true"></i>
+                                                    </a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -79,154 +93,165 @@
             </div>
         </div>
 
-        <div class="row g-5">
-            <div class="col-xl-12 col-md-12 ">
-                <!-- Ratings panel starts -->
-                <div class="row g-5">
+        <div *ngIf="showWallet">
+            <div class="row g-5">
+                <div class="col-xl-12 col-md-12 ">
+                    <!-- Ratings panel starts -->
+                    <div class="row g-5">
 
-                    <div class="col-xl-12 col-md-12">
+                        <div class="col-xl-12 col-md-12">
 
-                        <div class="form-section p-3 m-3">
+                            <div class="form-section p-3 m-3">
 
-                            <!-- User Form Starts -->
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <h3><b>Wallet </b></h3>
+                                <!-- User Form Starts -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <h3><b>Wallet </b></h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <hr class="style1">
-                                <div class="row">
+                                    <hr class="style1">
+                                    <div class="row">
 
-                                    <div class="col-xxl-6 col-lg-6 col-12 py-2">
-                                        <div class="form-group">
-                                            <h4><i class="fa-solid fa-dollar-sign" style="color: green;"></i><span
-                                                    style="color: brown;"> {{paymentAccount.balance | number : '1.2-2'}}</span> </h4>
+                                        <div class="col-xxl-6 col-lg-6 col-12 py-2">
+                                            <div class="form-group">
+                                                <h4><i class="fa-solid fa-dollar-sign" style="color: green;"></i><span
+                                                        style="color: brown;"> {{paymentAccount.balance | number :
+                                                        '1.2-2'}}</span> </h4>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div *ngIf="paymentAccount.balance>0" class="col-12">
-                                        <hr class="style1">
-                                        <button class="btn btn-warning btn-rounded col-12" type="button">Credit Balance</button>
-                                    </div>
+                                        <div *ngIf="paymentAccount.balance>0" class="col-12">
+                                            <hr class="style1">
+                                            <button class="btn btn-warning btn-rounded col-12" type="button">Credit
+                                                Balance</button>
+                                        </div>
 
-                                    <div *ngIf="paymentAccount.balance<0" class="col-12">
-                                        <hr class="style1">
-                                        <button class="btn btn-warning btn-rounded col-12" type="button">Pay Outstanding
-                                            Amount</button>
-                                    </div>
+                                        <div *ngIf="paymentAccount.balance<0" class="col-12">
+                                            <hr class="style1">
+                                            <button class="btn btn-warning btn-rounded col-12" type="button">Pay
+                                                Outstanding
+                                                Amount</button>
+                                        </div>
 
+                                    </div>
                                 </div>
+                                <!-- User Form Ends -->
                             </div>
-                            <!-- User Form Ends -->
                         </div>
-                    </div>
 
+                    </div>
+                    <!-- Ratings panel ends -->
                 </div>
-                <!-- Ratings panel ends -->
             </div>
-        </div>
 
-        <div class="row g-5">
-            <div class="col-xl-12 col-md-12 ">
-                <!-- Ratings panel starts -->
-                <div class="row g-5">
+            <div class="row g-5">
+                <div class="col-xl-12 col-md-12 ">
+                    <!-- Ratings panel starts -->
+                    <div class="row g-5">
 
-                    <div class="col-xl-12 col-md-12">
+                        <div class="col-xl-12 col-md-12">
 
-                        <div class="form-section p-3 m-3">
+                            <div class="form-section p-3 m-3">
 
-                            <!-- User Form Starts -->
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <h3><img width="10%" src="assets/paypal.png"></h3>
+                                <!-- User Form Starts -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <h3><img width="10%" src="assets/paypal.png"></h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <hr class="style1">
-                                <div class="row">
-                                    <h5>Email:
-                                        <a *ngIf="!paymentAccount.paypalAccount.email" class="link" type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                        </a>
-                                    </h5>
-                                    <div *ngIf="paymentAccount.paypalAccount.email" class="col-xxl-6 col-lg-6 col-12">
-                                        <div class="form-group">
-                                            <h4>vaibhav@gmail.com <span style="font-size: large;"> (Verified <i
-                                                        class="fa fa-check-circle" style="color: green;"
-                                                        aria-hidden="true"></i>)</span>
-                                                <h5><a class="link" type="button">(Verify)</a></h5>
-                                            </h4>
+                                    <hr class="style1">
+                                    <div class="row">
+                                        <h5>Email:
+                                            <a *ngIf="!paymentAccount.paypalAccount.email" class="link" type="button"><i
+                                                    class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            </a>
+                                        </h5>
+                                        <div *ngIf="paymentAccount.paypalAccount.email"
+                                            class="col-xxl-6 col-lg-6 col-12">
+                                            <div class="form-group">
+                                                <h4>vaibhav@gmail.com <span style="font-size: large;"> (Verified <i
+                                                            class="fa fa-check-circle" style="color: green;"
+                                                            aria-hidden="true"></i>)</span>
+                                                    <h5><a class="link" type="button">(Verify)</a></h5>
+                                                </h4>
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
+                                <!-- User Form Ends -->
                             </div>
-                            <!-- User Form Ends -->
                         </div>
-                    </div>
 
+                    </div>
+                    <!-- Ratings panel ends -->
                 </div>
-                <!-- Ratings panel ends -->
             </div>
-        </div>
 
-        <div class="row g-5">
-            <div class="col-xl-12 col-md-12 ">
-                <!-- Ratings panel starts -->
-                <div class="row g-5">
-
-                    <div class="col-xl-12 col-md-12">
-
-                        <div class="form-section p-3 m-3">
-
-                            <!-- User Form Starts -->
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <h3>Wallet Transactions</h3>
+            <div class="row g-5">
+                <div class="col-xl-12 col-md-12 ">
+                    <!-- Ratings panel starts -->
+                    <div class="row g-5">
+    
+                        <div class="col-xl-12 col-md-12">
+    
+                            <div class="form-section p-3 m-3">
+    
+                                <!-- User Form Starts -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <h3>Wallet Transactions</h3>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                    <div class="table-responsive">
+                                        <table class="table table table-bordered th-sm">
+                                            <thead
+                                                style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                                <tr>
+                                                    <th scope="col" class="text-center">Date</th>
+                                                    <th scope="col" class="text-center">Description</th>
+                                                    <th scope="col" class="text-center">Mode</th>
+                                                    <th scope="col" class="text-center">Type</th>
+                                                    <th scope="col" class="text-center">Amount</th>
+                                                    <th scope="col" class="text-center">Invoice</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let transaction of walletTransactions">
+                                                    <td class="text-center">
+                                                        {{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
+                                                    <td class="text-center">{{transaction.description}}</td>
+                                                    <td class="text-center">{{transaction.mode}}</td>
+                                                    <td class="text-center">{{transaction.type}}</td>
+                                                    <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
+                                                    <td class="text-center"><a class="link" type="button"
+                                                            (click)="generatePdf(dateToString(transaction.transactionDate))"><i
+                                                                class="fa fa-download" aria-hidden="true"></i>
+                                                        </a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+    
+                                    <hr class="style1">
                                 </div>
-                                <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
-                                <div class="table-responsive">
-                                    <table class="table table table-bordered th-sm">
-                                        <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
-                                            <tr>
-                                                <th scope="col" class="text-center">Date</th>
-                                                <th scope="col" class="text-center">Description</th>
-                                                <th scope="col" class="text-center">Mode</th>
-                                                <th scope="col" class="text-center">Type</th>
-                                                <th scope="col" class="text-center">Amount</th>
-                                                <th scope="col" class="text-center">Invoice</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let transaction of walletTransactions">
-                                                <td class="text-center">{{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
-                                                <td class="text-center">{{transaction.description}}</td>
-                                                <td class="text-center">{{transaction.mode}}</td>
-                                                <td class="text-center">{{transaction.type}}</td>
-                                                <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
-                                                <td class="text-center"><a class="link" type="button" (click)="generatePdf()"><i class="fa fa-download" aria-hidden="true"></i>
-                                                </a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <hr class="style1">
+                                <!-- User Form Ends -->
                             </div>
-                            <!-- User Form Ends -->
                         </div>
+    
                     </div>
-
+                    <!-- Ratings panel ends -->
                 </div>
-                <!-- Ratings panel ends -->
             </div>
         </div>
     </div>
