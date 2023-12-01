@@ -4,6 +4,8 @@ import { PaymentAccount } from 'src/app/common/payment-account';
 import { Transaction } from 'src/app/common/transaction';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
+import "pdfmake/build/pdfmake";
+import "pdfmake/build/vfs_fonts";
 
 @Component({
   selector: 'app-dashboard-payments',
@@ -16,6 +18,9 @@ export class DashboardPaymentsComponent implements OnInit {
   orderTransactions: Transaction[] = [];
   walletTransactions: Transaction[] = [];
 
+  pdfMake = require('pdfmake/build/pdfmake');
+  pdfFonts = require('pdfmake/build/vfs_fonts');
+
   constructor(
     private navigationService: NavigationService,
     private userService: UserService,
@@ -25,6 +30,7 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
     this.navigationService.showLoader();
     this.loadPaymentAccount();
   }
@@ -45,4 +51,23 @@ export class DashboardPaymentsComponent implements OnInit {
     );
   }
 
+  generatePdf() {
+    const data = [    ['Name', 'Email', 'Country'],
+      ['John Doe', 'johndoe@example.com', 'USA'],
+      ['Jane Smith', 'janesmith@example.com', 'Canada'],
+      ['Bob Johnson', 'bobjohnson@example.com', 'UK']
+    ];
+  
+    const docDefinition = {
+      content: [
+        { text: 'User Data', style: 'header' },
+        { table: { body: data } }
+      ],
+      styles: {
+        header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] }
+      }
+    };
+  
+    this.pdfMake.createPdf(docDefinition).download('userdata.pdf');
+  }
 }

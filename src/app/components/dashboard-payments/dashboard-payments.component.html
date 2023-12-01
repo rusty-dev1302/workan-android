@@ -22,6 +22,63 @@
 <section class="common-section business-section" id="online_services">
 
     <div *ngIf="paymentAccount" class="container">
+
+        <div class="row g-5">
+            <div class="col-xl-12 col-md-12 ">
+                <!-- Ratings panel starts -->
+                <div class="row g-5">
+
+                    <div class="col-xl-12 col-md-12">
+
+                        <div class="form-section p-3 m-3">
+
+                            <!-- User Form Starts -->
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <h3>Order Transactions</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                <div class="table-responsive">
+                                    <table class="table table table-bordered th-sm">
+                                        <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                            <tr>
+                                                <th scope="col" class="text-center">Date</th>
+                                                <th scope="col" class="text-center">Description</th>
+                                                <th scope="col" class="text-center">Mode</th>
+                                                <th scope="col" class="text-center">Type</th>
+                                                <th scope="col" class="text-center">Amount</th>
+                                                <th scope="col" class="text-center">Invoice</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let transaction of orderTransactions">
+                                                <td class="text-center">{{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
+                                                <td class="text-center">{{transaction.description}}</td>
+                                                <td class="text-center">{{transaction.mode}}</td>
+                                                <td class="text-center">{{transaction.type}}</td>
+                                                <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
+                                                <td class="text-center"><a class="link" type="button" (click)="generatePdf()"><i class="fa fa-download" aria-hidden="true"></i>
+                                                </a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <hr class="style1">
+                            </div>
+                            <!-- User Form Ends -->
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Ratings panel ends -->
+            </div>
+        </div>
+
         <div class="row g-5">
             <div class="col-xl-12 col-md-12 ">
                 <!-- Ratings panel starts -->
@@ -131,61 +188,6 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <h3>Order Transactions</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
-                                <div class="table-responsive">
-                                    <table class="table table table-bordered th-sm">
-                                        <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
-                                            <tr>
-                                                <th scope="col" class="text-center">Date</th>
-                                                <th scope="col" class="text-center">Description</th>
-                                                <th scope="col" class="text-center">Mode</th>
-                                                <th scope="col" class="text-center">Type</th>
-                                                <th scope="col" class="text-center">Amount</th>
-                                                <th scope="col" class="text-center">Invoice</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr *ngFor="let transaction of orderTransactions">
-                                                <td class="text-center">{{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
-                                                <td class="text-center">{{transaction.description}}</td>
-                                                <td class="text-center">{{transaction.mode}}</td>
-                                                <td class="text-center">{{transaction.type}}</td>
-                                                <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
-                                                <td class="text-center"><a class="link" type="button">View</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <hr class="style1">
-                            </div>
-                            <!-- User Form Ends -->
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Ratings panel ends -->
-            </div>
-        </div>
-
-        <div class="row g-5">
-            <div class="col-xl-12 col-md-12 ">
-                <!-- Ratings panel starts -->
-                <div class="row g-5">
-
-                    <div class="col-xl-12 col-md-12">
-
-                        <div class="form-section p-3 m-3">
-
-                            <!-- User Form Starts -->
-                            <div class="mb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
                                             <h3>Wallet Transactions</h3>
                                         </div>
                                     </div>
@@ -210,7 +212,8 @@
                                                 <td class="text-center">{{transaction.mode}}</td>
                                                 <td class="text-center">{{transaction.type}}</td>
                                                 <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
-                                                <td class="text-center"><a class="link" type="button">View</a></td>
+                                                <td class="text-center"><a class="link" type="button" (click)="generatePdf()"><i class="fa fa-download" aria-hidden="true"></i>
+                                                </a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -229,8 +232,5 @@
     </div>
 
 </section>
-
-
-
 
 <!-- Edit Section Ends  -->

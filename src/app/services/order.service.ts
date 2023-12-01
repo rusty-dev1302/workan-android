@@ -9,8 +9,6 @@ import { CustomerOrder } from '../common/customer-order';
 import { ProcessOrderRequest } from '../common/process-order-request';
 import { Review } from '../common/review';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
