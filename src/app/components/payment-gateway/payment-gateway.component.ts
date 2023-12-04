@@ -49,6 +49,7 @@ export class PaymentGatewayComponent implements OnInit {
         else {
           this.toastrService.error("Something went wrong!");
         }
+        this.router.navigateByUrl(`${this.redirectLink}`);
         sub1.unsubscribe();
       }
     );

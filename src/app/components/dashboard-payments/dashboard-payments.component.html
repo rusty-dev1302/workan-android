@@ -74,7 +74,7 @@
                                                 <td class="text-center">{{transaction.type}}</td>
                                                 <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
                                                 <td class="text-center"><a class="link" type="button"
-                                                        (click)="generatePdf(dateToString(transaction.transactionDate))"><i
+                                                        (click)="generatePdf(dateToString(transaction.transactionDate), transaction.invoice)"><i
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
                                             </tr>
@@ -125,8 +125,7 @@
 
                                         <div *ngIf="paymentAccount.balance>0" class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-sucess btn-rounded col-12" type="button">Credit
-                                                Balance</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button">Credit To Paypal</button>
                                         </div>
 
                                         <div *ngIf="paymentAccount.balance<0" class="col-12">
@@ -233,7 +232,7 @@
                                                     <td class="text-center">{{transaction.type}}</td>
                                                     <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
                                                     <td class="text-center"><a class="link" type="button"
-                                                            (click)="generatePdf(dateToString(transaction.transactionDate))"><i
+                                                            (click)="generatePdf(dateToString(transaction.transactionDate), transaction.invoice)"><i
                                                                 class="fa fa-download" aria-hidden="true"></i>
                                                         </a></td>
                                                 </tr>

@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
 import { PdfService } from 'src/app/services/pdf.service';
+import { Invoice } from 'src/app/common/invoice';
 
 @Component({
   selector: 'app-dashboard-payments',
@@ -42,21 +43,24 @@ export class DashboardPaymentsComponent implements OnInit {
   loadPaymentAccount() {
     const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
       (account)=> {
+        console.log(JSON.stringify(account))
         this.paymentAccount = account;
         this.orderTransactions = this.paymentAccount.transactions.filter(
           t => !t.mode.includes("wallet")
-        );
+        ).sort((t1, t2)=> new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+
         this.walletTransactions = this.paymentAccount.transactions.filter(
           t => t.mode.includes("wallet")
-        );
+        ).sort((t1, t2)=> new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+
         this.navigationService.pageLoaded();
         sub.unsubscribe();
       }
     );
   }
 
-  generatePdf(fileName: string) {
-    this.pdfService.generatePdf(fileName);
+  generatePdf(fileName: string, invoice: Invoice) {
+    this.pdfService.generatePdf(fileName, invoice);
   }
 
   dateToString(date: Date): string {

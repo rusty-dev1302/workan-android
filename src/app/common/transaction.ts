@@ -1,5 +1,6 @@
 import { BreakdownItem } from "./breakdown-item";
 import { Customer } from "./customer";
+import { Invoice } from "./invoice";
 import { PaymentAccount } from "./payment-account";
 
 export class Transaction{
@@ -10,7 +11,7 @@ export class Transaction{
         public type: string,
         public mode: string,
         public description: string,
-        public breakdown: BreakdownItem[]
+        public invoice: Invoice
     ) {
     }
 }

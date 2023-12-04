@@ -10,7 +10,7 @@
 
     <span class="fa-stack" style="margin-left: auto;" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar" style="margin-left: auto;">
       <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-      <span type="button" style="top: -20%;" class="fa-stack fa-2x px-3 fa-stack-1x" data-count="0" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
+      <span id="notificationCount" type="button" style="top: -20%;" class="fa-stack fa-2x px-3 fa-stack-1x" [attr.data-count]="notificationCount" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
       </span>
     </span>
 

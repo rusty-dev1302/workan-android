@@ -36,7 +36,7 @@ export class DashboardOrdersTakenComponent {
         if(user.state==constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
             (data) => {
-              this.orders = data;
+              this.orders = data.sort((a, b)=>b.id-a.id);
 
               this.navigationService.pageLoaded();
               subscription.unsubscribe();

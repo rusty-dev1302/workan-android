@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit{
 
   isFirstLogin: boolean = false;
 
+  notificationCount:string = "0";
+
 
   constructor(
     private userService: UserService,

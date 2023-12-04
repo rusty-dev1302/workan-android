@@ -35,7 +35,7 @@ export class DashboardOrdersComponent implements OnInit {
         if(user.state==constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForCustomer(user.id).subscribe(
             (data) => {
-              this.orders = data;
+              this.orders = data.sort((a, b)=>b.id-a.id);
 
               this.navigationService.pageLoaded();
               subscription.unsubscribe();

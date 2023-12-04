@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { constants } from 'src/environments/constants';
+import { Invoice } from '../common/invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +14,13 @@ export class PdfService {
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
   }
 
-  generatePdf(fileName: string) {
-    const data = [['Name', 'Email', 'Country'],
-    ['John Doe', 'johndoe@example.com', 'USA'],
-    ['Jane Smith', 'janesmith@example.com', 'Canada'],
-    ['Bob Johnson', 'bobjohnson@example.com', 'UK']
-    ];
+  generatePdf(fileName: string, invoice: Invoice) {
 
-    const docDefinition = {
-      content: [
-        { text: 'User Data', style: 'header' },
-        { table: { body: data } }
-      ],
-      styles: {
-        header: { fontSize: 18, bold: true, margin: [0, 0, 0, 10] }
-      }
-    };
-
-    this.pdfMake.createPdf(this.prepareInvoice(constants.INVOICE_COMPANY_NAME, constants.INVOICE_COMPANY_ADDRESS)).download('invoice_' + fileName + '.pdf');
+    this.pdfMake.createPdf(this.prepareInvoice(invoice)).download('invoice_' + fileName + '.pdf');
 
   }
 
-  prepareInvoice(fromName:string, fromAddress:string): any {
+  prepareInvoice(invoice: Invoice): any {
     let invoiceDefinition = {
       content: [
         {
@@ -144,13 +130,13 @@ export class PdfService {
         {
           columns: [
             {
-              text: fromName,
+              text: invoice.fromName,
               bold: true,
               color: '#333333',
               alignment: 'left',
             },
             {
-              text: 'Client Name \n Client Company',
+              text: invoice.toName,
               bold: true,
               color: '#333333',
               alignment: 'left',
@@ -176,11 +162,11 @@ export class PdfService {
         {
           columns: [
             {
-              text: fromAddress,
+              text: invoice.fromAddress==null?'N/A':invoice.fromAddress,
               style: 'invoiceBillingAddress',
             },
             {
-              text: '1111 Other street 25 \n New-York City NY 00000 \n   USA',
+              text: invoice.toAddress==null?'N/A':invoice.toAddress,
               style: 'invoiceBillingAddress',
             },
           ],
@@ -240,14 +226,14 @@ export class PdfService {
             body: [
               [
                 {
-                  text: 'ITEM DESCRIPTION',
+                  text: 'DESCRIPTION',
                   fillColor: '#eaf2f5',
                   border: [false, true, false, true],
                   margin: [0, 5, 0, 5],
                   textTransform: 'uppercase',
                 },
                 {
-                  text: 'ITEM TOTAL',
+                  text: 'AMOUNT',
                   border: [false, true, false, true],
                   alignment: 'right',
                   fillColor: '#eaf2f5',
@@ -257,7 +243,7 @@ export class PdfService {
               ],
               [
                 {
-                  text: 'Item 1',
+                  text: invoice.breakdown[0].detail,
                   border: [false, false, false, true],
                   margin: [0, 5, 0, 5],
                   alignment: 'left',
@@ -346,34 +332,34 @@ export class PdfService {
                   margin: [0, 5, 0, 5],
                 },
               ],
-              [
-                {
-                  text: 'Payment Processing Fee',
-                  border: [false, false, false, true],
-                  alignment: 'right',
-                  margin: [0, 5, 0, 5],
-                },
-                {
-                  text: '$999.99',
-                  border: [false, false, false, true],
-                  fillColor: '#f5f5f5',
-                  alignment: 'right',
-                  margin: [0, 5, 0, 5],
-                },
-              ],
+              // [
+              //   {
+              //     text: 'Payment Processing Fee',
+              //     border: [false, false, false, true],
+              //     alignment: 'right',
+              //     margin: [0, 5, 0, 5],
+              //   },
+              //   {
+              //     text: '$999.99',
+              //     border: [false, false, false, true],
+              //     fillColor: '#f5f5f5',
+              //     alignment: 'right',
+              //     margin: [0, 5, 0, 5],
+              //   },
+              // ],
               [
                 {
                   text: 'Total Amount',
                   bold: true,
-                  fontSize: 20,
+                  fontSize: 15,
                   alignment: 'right',
                   border: [false, false, false, true],
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: 'CAD $999.99',
+                  text: 'CAD $'+invoice.totalAmount.toFixed(2),
                   bold: true,
-                  fontSize: 20,
+                  fontSize: 15,
                   alignment: 'right',
                   border: [false, false, false, true],
                   fillColor: '#f5f5f5',
@@ -385,11 +371,11 @@ export class PdfService {
         },
         '\n\n',
         {
-          text: 'NOTES',
+          text: 'TERMS AND CONDITIONS',
           style: 'notesTitle',
         },
         {
-          text: 'Some notes goes here \n Notes second line',
+          text: '1. For more information please read our Terms Of Use (www.workan.ca/termsOfUse).',
           style: 'notesText',
         },
       ],
