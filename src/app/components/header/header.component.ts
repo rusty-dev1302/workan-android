@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService} from 'keycloak-angular';
+import { PushNotification } from 'src/app/common/push-notification';
+import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -15,12 +17,15 @@ export class HeaderComponent implements OnInit{
 
   isFirstLogin: boolean = false;
 
-  notificationCount:string = "0";
+  notificationCount: string = "0";
+
+  notifications: PushNotification[] = [];
 
 
   constructor(
     private userService: UserService,
     private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +38,14 @@ export class HeaderComponent implements OnInit{
       }
     );
     this.userService.updateFirstLogin();
+  }
+
+  getNotificationsForUser() {
+    this.notificationService.getNotificationsForUser().subscribe(
+      (data) => {
+        this.notifications = data;
+      }
+    );
   }
 
 }

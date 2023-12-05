@@ -10,13 +10,15 @@
     <div class="offcanvas-body justify-content-center align-items-center" style="padding-left: 20px;font-size: large;overflow-y: scroll;">
         <ul class="list-unstyled">
 
-            <li type="button" class="p-1" style="font-size: medium;margin-bottom: 5px">
-                <span>You received an order from Neera Agochiya.</span>
-                <br>
-                <span style="font-size: smaller;color: rgb(242, 242, 242);">5/12/20 10:10AM</span>
-                <i class="fa fa-circle" aria-hidden="true" style="padding-left: 1rem;font-size: smaller;color: rgb(255, 0, 0);"></i>
-            </li>
-            <hr class="style1">
+            <div *ngFor="let notification of notifications">
+                <li type="button" [routerLink]="notification.routeLink" class="p-1" style="font-size: medium;margin-bottom: 5px">
+                    <span>{{notification.message}}</span>
+                    <br>
+                    <span style="font-size: smaller;color: rgb(242, 242, 242);">5/12/20 10:10AM</span>
+                    <i *ngIf="!notification.messageRead" class="fa fa-circle" aria-hidden="true" style="padding-left: 1rem;font-size: smaller;color: rgb(255, 0, 0);"></i>
+                </li>
+                <hr class="style1">
+            </div>
             
             <li style="padding-top: 5rem;">
                 <hr hidden>
