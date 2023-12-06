@@ -19,4 +19,6 @@ export class NotificationService {
     const getUrl = `${this.baseUrl}/all`;
     return this.httpClient.get<PushNotification[]>(getUrl)
   }
+
+  
 }
