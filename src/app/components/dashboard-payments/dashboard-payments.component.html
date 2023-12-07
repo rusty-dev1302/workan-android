@@ -31,7 +31,7 @@
 
 <section class="common-section business-section" id="online_services">
 
-    <div *ngIf="paymentAccount" class="container">
+    <div *ngIf="paymentAccount" class="container" style="min-height: 26rem;">
 
         <div *ngIf="!showWallet" class="row g-5">
             <div class="col-xl-12 col-md-12 ">
@@ -51,8 +51,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
-                                <div class="table-responsive">
+                                <hr *ngIf="orderTransactions&&orderTransactions.length>0" class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                <div *ngIf="orderTransactions&&orderTransactions.length>0" class="table-responsive">
                                     <table class="table table table-bordered th-sm">
                                         <thead
                                             style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
@@ -209,8 +209,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
-                                    <div class="table-responsive">
+                                    <hr *ngIf="walletTransactions&&walletTransactions.length>0" class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                    <div *ngIf="walletTransactions&&walletTransactions.length>0" class="table-responsive">
                                         <table class="table table table-bordered th-sm">
                                             <thead
                                                 style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
