@@ -16,12 +16,14 @@ export class NotificationSidebarComponent {
   }
 
   markRead(notification: PushNotification) {
-    notification.messageRead = true;
-    this.notificationService.markRead(notification.id).subscribe(
-      (response) => {
-        console.log(response)
-      }
-    );
+    if(!notification.messageRead) {
+      notification.messageRead = true;
+      const sub = this.notificationService.markRead(notification.id).subscribe(
+        () => {
+          sub.unsubscribe();
+        }
+      );
+    }
   }
 
 }
