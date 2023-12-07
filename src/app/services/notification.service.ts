@@ -15,6 +15,11 @@ export class NotificationService {
     private httpClient: HttpClient,
   ) { }
 
+  checkForNewNotification(): Observable<any> {
+    const getUrl = `${this.baseUrl}/check`;
+    return this.httpClient.get<any>(getUrl)
+  }
+
   getNotificationsForUser(): Observable<PushNotification[]> {
     const getUrl = `${this.baseUrl}/all`;
     return this.httpClient.get<PushNotification[]>(getUrl)

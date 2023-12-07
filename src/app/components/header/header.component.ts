@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService} from 'keycloak-angular';
+import { interval } from 'rxjs';
 import { PushNotification } from 'src/app/common/push-notification';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,6 +17,8 @@ export class HeaderComponent implements OnInit{
   isAuthenticated: boolean = false;
 
   isFirstLogin: boolean = false;
+
+  newNotification: boolean = false;
 
   notificationCount: string = "0";
 
@@ -34,6 +37,9 @@ export class HeaderComponent implements OnInit{
         this.isFirstLogin = isFirstLogin;
         if(this.isFirstLogin) {
           this.router.navigateByUrl(`/firstLogin`);
+        } else {
+          // already registered user 
+          this.longPollNewNotification();
         }
       }
     );
@@ -41,9 +47,30 @@ export class HeaderComponent implements OnInit{
   }
 
   getNotificationsForUser() {
+    this.newNotification = false;
     this.notificationService.getNotificationsForUser().subscribe(
       (data) => {
         this.notifications = data;
+      }
+    );
+  }
+
+  longPollNewNotification() {
+    this.checkForNewNotification();
+    const subscribe = interval(20000).subscribe(
+      () => { 
+        this.checkForNewNotification();
+      });
+  }
+
+  checkForNewNotification() {
+    const sub = this.notificationService.checkForNewNotification().subscribe(
+      (response) => {
+        this.newNotification = response["true"]!=undefined?true:false;
+        this.notificationCount = response["true"]!=undefined?response["true"]:response["false"];
+        
+        console.log(this.newNotification)
+        sub.unsubscribe();
       }
     );
   }
