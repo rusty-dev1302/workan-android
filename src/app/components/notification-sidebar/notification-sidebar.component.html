@@ -1,23 +1,22 @@
 <div class="offcanvas offcanvas-end custom-side-bar" tabindex="-1" id="notificationSidebar"
     aria-labelledby="sidebarMainLabel">
-    <div class="offcanvas-header" style="font-size: x-large;color: white;padding-bottom: 0;">
+    <div class="offcanvas-header border-bottom" style="font-size: x-large;color: white;padding-bottom: 0;border-color: rgb(84, 84, 84)!important;">
         <ul class="list-unstyled">
             <li data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
                 Notifications</li>
-            <hr class="style1" style="margin-bottom: 0;width: 15rem!important;">
         </ul>
     </div>
-    <div class="offcanvas-body justify-content-center align-items-center" style="padding-left: 20px;font-size: large;overflow-y: scroll;">
+    <div class="offcanvas-body justify-content-center align-items-center px-0 py-0" style="overflow-y: scroll;">
         <ul class="list-unstyled">
 
-            <div *ngFor="let notification of notifications">
-                <li type="button" [routerLink]="notification.routeLink" class="p-1" style="font-size: medium;margin-bottom: 5px">
+            <div *ngFor="let notification of notifications" [ngClass]="[!notification.messageRead?'message-read':'']" style="padding-left: 20px;padding-top: 15px;">
+                <li type="button" [routerLink]="notification.routeLink" class="p-1" style="font-size: .9rem;margin-bottom: 5px;">
                     <span>{{notification.message}}</span>
                     <br>
                     <span style="font-size: smaller;color: rgb(242, 242, 242);">5/12/20 10:10AM</span>
-                    <i *ngIf="!notification.messageRead" class="fa fa-circle" aria-hidden="true" style="padding-left: 1rem;font-size: smaller;color: rgb(116, 135, 255);"></i>
+                    <i *ngIf="!notification.messageRead" class="fa fa-circle" aria-hidden="true" style="padding-left: 1rem;font-size: smaller;color: rgb(75, 99, 255);"></i>
                 </li>
-                <hr class="style1">
+                <hr class="style1" style="margin-bottom: 0;">
             </div>
             
             <li style="padding-top: 5rem;">
