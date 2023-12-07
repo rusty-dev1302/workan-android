@@ -10,10 +10,10 @@
         <ul class="list-unstyled">
 
             <div *ngFor="let notification of notifications" [ngClass]="[!notification.messageRead?'message-read':'']" style="padding-left: 20px;padding-top: 15px;">
-                <li type="button" [routerLink]="notification.routeLink" class="p-1" style="font-size: .9rem;margin-bottom: 5px;">
+                <li type="button" (click)="markRead(notification)" [routerLink]="notification.routeLink" class="p-1" style="font-size: .95rem;margin-bottom: 5px;" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
                     <span>{{notification.message}}</span>
                     <br>
-                    <span style="font-size: smaller;color: rgb(242, 242, 242);">5/12/20 10:10AM</span>
+                    <span style="font-size: smaller;color: rgb(242, 242, 242);">{{notification.timeCreated|date:'dd-MMM-yyyy h:mm a'}}</span>
                     <i *ngIf="!notification.messageRead" class="fa fa-circle" aria-hidden="true" style="padding-left: 1rem;font-size: smaller;color: rgb(75, 99, 255);"></i>
                 </li>
                 <hr class="style1" style="margin-bottom: 0;">

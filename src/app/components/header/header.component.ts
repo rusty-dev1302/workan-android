@@ -57,7 +57,7 @@ export class HeaderComponent implements OnInit{
 
   longPollNewNotification() {
     this.checkForNewNotification();
-    const subscribe = interval(20000).subscribe(
+    const subscribe = interval(15000).subscribe(
       () => { 
         this.checkForNewNotification();
       });

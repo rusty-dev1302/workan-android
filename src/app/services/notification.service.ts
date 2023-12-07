@@ -20,6 +20,12 @@ export class NotificationService {
     return this.httpClient.get<any>(getUrl)
   }
 
+  markRead(notificationId: number): Observable<boolean> {
+    const getUrl = `${this.baseUrl}/markRead?notificationId=${notificationId}`;
+    console.log(getUrl)
+    return this.httpClient.get<boolean>(getUrl)
+  }
+
   getNotificationsForUser(): Observable<PushNotification[]> {
     const getUrl = `${this.baseUrl}/all`;
     return this.httpClient.get<PushNotification[]>(getUrl)
