@@ -1,31 +1,57 @@
 <!--first login section-->
 
 <section class="services-section">
-    <div class="container text-center common-title fw-bold">
-        <h2 class="my-3 fw-normal ">Select Account Type</h2>
-        <hr class="w-25 mx-auto ">
-    </div>
 
-    <div class="container mt-5">
-        <div class="row g-5 ">
-            <div class="col-xxl-6 col-lg-6 col-12 ">
-                <div class="card-box -2 p-5 text-center" type="button" (click)="setAccountType('GENERAL')" [ngClass]="isProfessional==false ? 'box-shadow' : ''">
-                    <h2 class="common-heading">Customer Account</h2>
+    <div class="container">
+        <div class="col" style="min-height: 35rem!important;">
+            <div class="form-section m-3">
+
+                <!-- User Form Starts -->
+                <div class="mb-3 text-center">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="form-group">
+                                <h2>Select Account Type
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slots for the day start  -->
+                    <div style="text-align: start;">
+                        <div class="row d-flex justify-content-center" style="word-wrap: break-word!important;">
+                            <div class="col-6 mb-3 border p-3 m-3" style="padding-right: 2rem!important;width: 20rem;">
+                                <label type="button" (click)="setAccountType('GENERAL')" class="form-check" for="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault1" checked>
+                                        <h5><b>Customer Account</b></h5>
+                                        dslkdanslkdnasldna;ldnas;ldknasl;kdnsaldnsalkdnla;nsdlsand;landla;snd;ln;
+                                </label>
+                            </div>
+                            <div class="col-12 mb-3 border py-2 m-3" style="padding-right: 2rem!important;width: 20rem;">
+                                <label type="button" (click)="setAccountType('PROFESSIONAL')" class="form-check" for="flexRadioDefault2">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                        id="flexRadioDefault2">
+                                        <h5><b>Professional Account</b></h5>
+                                        dslkdanslkdnasldna;ldnas;ldknasl;kdnsaldnsalkdnla;nsdlsand;landla;snd;ln;
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="container p-5">
+                        <button type="button" class="btn btn-success btn-rounded col-7" (click)="submitAccountType()">Create!</button>
+                    </div>
+
                 </div>
+                <!-- User Form Ends -->
             </div>
-
-            <div class="col-xxl-6 col-lg-6 col-12  ">
-                <div class=" card-box -2 p-5 text-center" type="button" (click)="setAccountType('PROFESSIONAL')" [ngClass]="isProfessional==true ? 'box-shadow' : ''">
-                    <h2 class="common-heading">Professional Account</h2>
-                </div>
-            </div>
-        </div>        
+        </div>
     </div>
-
-    <div class="container text-center p-5">
-        <button type="button" class="btn btn-success" (click)="submitAccountType()">Create!</button>
-    </div>
-
 </section>
 
 <!--first login section-->
+
+
+
+<!-- Edit Section start -->

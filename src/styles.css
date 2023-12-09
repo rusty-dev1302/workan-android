@@ -756,6 +756,11 @@ input[type=number] {
     margin-left: 40px;
 }
 
+.tab-small {
+    display: inline-block;
+    margin-left: 2px;
+}
+
 /* toaster styles  */
 .toast-container {
     top: 5% !important;
