@@ -17,6 +17,9 @@ export const constants = {
     state: "",
     message: "",
     enabled: false,
+    admin: false,
+    verified: false,
+    certifications: [],
     professional: false,
     contact: {
       customerId: 0,

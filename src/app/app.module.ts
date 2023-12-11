@@ -51,20 +51,31 @@ import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.comp
 import { AcceptableUsePolicyComponent } from './components/acceptable-use-policy/acceptable-use-policy.component';
 import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { ManageVerificationsComponent } from './components/manage-verifications/manage-verifications.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminGuard } from './utility/admin.guard';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
-  // below to be removed 
+  // common pages
   { path: 'home', component: LandingPageComponent},
   { path: 'disclaimer', component: DisclaimerComponent},
   { path: 'privacyPolicy', component: PrivacyPolicyComponent},
   { path: 'termsOfUse', component: TermsOfUseComponent},
   { path: 'acceptableUsePolicy', component: AcceptableUsePolicyComponent},
-  // above to be removed 
+  // end of common pages 
   { path: 'completePayment/:orderId', component: PaymentGatewayComponent, canActivate: [AuthGuard] },
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard] },
+  { 
+    path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard],
+          children: [
+          { path: 'manageUsers', component: ManageUsersComponent },
+          { path: 'manageVerifications', component: ManageVerificationsComponent },
+          ]
+  },
   {
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
           children: [{ path: 'profile', component: DashboardProfileComponent },
@@ -116,6 +127,9 @@ const routes: Routes = [
     AcceptableUsePolicyComponent,
     DisclaimerComponent,
     PrivacyPolicyComponent,
+    ManageUsersComponent,
+    ManageVerificationsComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     InfiniteScrollModule,
