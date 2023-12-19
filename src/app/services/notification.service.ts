@@ -15,8 +15,8 @@ export class NotificationService {
     private httpClient: HttpClient,
   ) { }
 
-  checkForNewNotification(): Observable<any> {
-    const getUrl = `${this.baseUrl}/check`;
+  checkForNewNotification(forceRefresh:boolean = false): Observable<any> {
+    const getUrl = `${this.baseUrl}/check?forceRefresh=${forceRefresh}`;
     return this.httpClient.get<any>(getUrl)
   }
 

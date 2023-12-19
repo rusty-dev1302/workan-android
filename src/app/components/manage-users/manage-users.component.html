@@ -1,1 +1,157 @@
-<p>manage-users works!</p>
+<!--Divider section-->
+
+<section class="bg-color py-2">
+  <section class="container">
+    <div class="row">
+
+      <div
+        class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
+        <h1 class=" text-capitalize fw-bolder text-white">
+          Manage Users
+        </h1>
+      </div>
+
+    </div>
+  </section>
+</section>
+
+<!--Divider section end -->
+
+
+<!-- Edit Section Starts  -->
+
+<section class="common-section business-section" id="online_services">
+
+  <div class="container">
+    <!-- dashboard-profile-form panel starts -->
+
+    <!-- Edit Section starts -->
+<div class="col-xl-12 col-md-12">
+
+    <div class="form-section p-3 m-3 card-cover">
+
+        <form>
+            <div class="mb-3">
+                <!-- display profile and name  -->
+                <div class="row py-3 px-2">
+                    <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
+                        <div class="img-wrapper">
+                            <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
+                                src="assets/profile.png">
+                            <img *ngIf="profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
+                                [src]="profilePhoto.picByte">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3><b>Personal Details </b><i class="fa-solid fa-square-pen" style="color: #0d6efd" type="button"
+                            data-bs-toggle="modal" data-bs-target="#personalDetailsModal"></i></h3>
+                </div>
+                <hr class="style1">
+                <div *ngIf="displayUser" class="row">
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <h5>{{displayUser.firstName}} {{displayUser.lastName}}
+                                <span style="font-size: medium;"> {{displayUser.gender=='Male'?'|
+                                    (He/Him)':(displayUser.gender=='Female'?'|
+                                    (She/Her)':(displayUser.gender=='Others'?'| (They/Them)':''))}}</span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <h5>{{displayUser.email}}</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div *ngIf='displayUser&&displayUser.gender&&displayUser.gender!=""' class="mb-3">
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Mobile</label>
+                            <h5>{{displayUser.mobile | phone}}</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Languages</label>
+                            <h5>{{displayUser.languages.join(', ')}}</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+        <!-- User Form Ends -->
+    </div>
+
+    <div class="form-section  p-3 m-3" id="address_section">
+
+        <!-- Contact Form Starts -->
+        <form>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="form-group">
+                            <h3><b>Address </b></h3>
+                        </div>
+
+                    </div>
+                    <hr class="style1">
+
+                </div>
+                <div *ngIf="displayContact" class="row">
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <h5>{{displayContact.addressLine1}} {{displayContact.addressLine2}}</h5>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <h5>{{displayContact.addressLine3}}</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div *ngIf="displayContact" class="mb-3">
+                <div class="row">
+
+                </div>
+            </div>
+
+        </form>
+        <!-- Contact Form Ends -->
+    </div>
+</div>
+<!-- Edit Section ends -->
+
+<script>
+    $('#customfileinput').on('change', function () {
+        files = $(this)[0].files;
+        name = '';
+        for (var i = 0; i < files.length; i++) {
+            name += '\"' + files[i].name + '\"' + (i != files.length - 1 ? ", " : "");
+        }
+        $(".custom-file-label").html(name);
+    })
+</script>
+
+    <!-- dashboard-profile-form panel ends -->
+
+  </div>
+
+</section>
+
+<!-- Edit Section Ends  -->

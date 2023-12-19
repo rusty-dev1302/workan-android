@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PushNotification } from 'src/app/common/push-notification';
 import { NotificationService } from 'src/app/services/notification.service';
 
@@ -10,6 +10,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class NotificationSidebarComponent {
 
   @Input() notifications: PushNotification[] = [];
+  @Output() readMessageEvent = new EventEmitter<boolean>();
 
   constructor(private notificationService: NotificationService) {
 
@@ -18,9 +19,11 @@ export class NotificationSidebarComponent {
   markRead(notification: PushNotification) {
     if(!notification.messageRead) {
       notification.messageRead = true;
+      this.readMessageEvent.emit(true);
       const sub = this.notificationService.markRead(notification.id).subscribe(
         () => {
           sub.unsubscribe();
+
         }
       );
     }

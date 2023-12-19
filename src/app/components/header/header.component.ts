@@ -18,8 +18,6 @@ export class HeaderComponent implements OnInit{
 
   isFirstLogin: boolean = false;
 
-  newNotification: boolean = false;
-
   notificationCount: string = "0";
 
   notifications: PushNotification[] = [];
@@ -47,7 +45,6 @@ export class HeaderComponent implements OnInit{
   }
 
   getNotificationsForUser() {
-    this.newNotification = false;
     this.notificationService.getNotificationsForUser().subscribe(
       (data) => {
         this.notifications = data;
@@ -64,15 +61,23 @@ export class HeaderComponent implements OnInit{
   }
 
   checkForNewNotification() {
-    const sub = this.notificationService.checkForNewNotification().subscribe(
+    const sub = this.notificationService.checkForNewNotification(true).subscribe(
       (response) => {
-        this.newNotification = response["true"]!=undefined?true:false;
         this.notificationCount = response["true"]!=undefined?response["true"]:response["false"];
         
-        console.log(this.newNotification)
+        console.log(response)
         sub.unsubscribe();
       }
     );
+  }
+
+  messageRead() {
+    this.notificationCount = (+this.notificationCount - 1)+"";
+  }
+
+  parseInt(input: string): number {
+    const result:number = +input;
+    return result;
   }
 
 }

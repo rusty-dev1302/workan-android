@@ -11,7 +11,7 @@
     <div *ngIf="!isFirstLogin" style="margin-left: auto;padding-top: 2px;padding-bottom: 2px;border-radius: 60px;background-color: rgb(43, 43, 43);">
       <span type="button" (click)="getNotificationsForUser()" class="fa-stack" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar" style="margin-left: auto;">
         <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-        <span id="notificationCount" style="top: -20%;" class="fa-stack fa-2x px-3 fa-stack-1x" [attr.data-count]="notificationCount" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
+        <span *ngIf="notificationCount&&parseInt(notificationCount)>0" id="notificationCount" style="top: -20%;" class="fa-stack fa-2x px-3 fa-stack-1x" [attr.data-count]="notificationCount" data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
         </span>
       </span>
     </div>
@@ -27,4 +27,4 @@
 </nav>
 
 <app-sidebar *ngIf="isAuthenticated"></app-sidebar>
-<app-notification-sidebar *ngIf="isAuthenticated" [notifications]="notifications"></app-notification-sidebar>
+<app-notification-sidebar *ngIf="isAuthenticated" [notifications]="notifications" (readMessageEvent)="messageRead()"></app-notification-sidebar>
