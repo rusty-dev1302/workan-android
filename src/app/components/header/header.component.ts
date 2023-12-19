@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit{
   }
 
   getNotificationsForUser() {
+    this.checkForNewNotification(true);
     this.notificationService.getNotificationsForUser().subscribe(
       (data) => {
         this.notifications = data;
@@ -53,15 +54,15 @@ export class HeaderComponent implements OnInit{
   }
 
   longPollNewNotification() {
-    this.checkForNewNotification();
+    this.checkForNewNotification(true);
     const subscribe = interval(15000).subscribe(
       () => { 
         this.checkForNewNotification();
       });
   }
 
-  checkForNewNotification() {
-    const sub = this.notificationService.checkForNewNotification(true).subscribe(
+  checkForNewNotification(forceRefresh:boolean = false) {
+    const sub = this.notificationService.checkForNewNotification(forceRefresh).subscribe(
       (response) => {
         this.notificationCount = response["true"]!=undefined?response["true"]:response["false"];
         
