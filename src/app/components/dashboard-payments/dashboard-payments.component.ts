@@ -6,7 +6,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
-import { PdfService } from 'src/app/services/pdf.service';
+import { FileService } from 'src/app/services/file.service';
 import { Invoice } from 'src/app/common/invoice';
 
 @Component({
@@ -29,7 +29,7 @@ export class DashboardPaymentsComponent implements OnInit {
     private navigationService: NavigationService,
     private userService: UserService,
     private keycloakService: KeycloakService,
-    private pdfService: PdfService
+    private pdfService: FileService
   ) {
 
   }

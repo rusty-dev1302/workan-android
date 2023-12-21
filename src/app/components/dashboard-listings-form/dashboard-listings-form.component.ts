@@ -8,6 +8,7 @@ import { ListingService } from 'src/app/services/listing.service';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -40,7 +41,8 @@ export class DashboardListingsFormComponent implements OnInit{
     private keycloakService: KeycloakService,
     private listingService: ListingService,
     private toastrService: ToastrService,
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private dialogService: ConfirmationDialogService
     ) { }
 
   ngOnInit(): void {
@@ -94,6 +96,10 @@ export class DashboardListingsFormComponent implements OnInit{
         subscription.unsubscribe();
       }
     );
+  }
+
+  confirm() {
+    this.dialogService.openDialog();
   }
 
   selectSubCategory(subcategory: string) {

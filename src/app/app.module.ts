@@ -45,7 +45,7 @@ import { DashboardAddressDetailsComponent } from './components/dashboard-address
 import { PhonePipe } from './pipes/phone-pipe';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import 'hammerjs';
-import { DashboardPaymentsComponent } from './components/dashboard-payments/dashboard-professional-payments.component';
+import { DashboardPaymentsComponent } from './components/dashboard-payments/dashboard-payments.component';
 import { NotificationSidebarComponent } from './components/notification-sidebar/notification-sidebar.component';
 import { TermsOfUseComponent } from './components/terms-of-use/terms-of-use.component';
 import { AcceptableUsePolicyComponent } from './components/acceptable-use-policy/acceptable-use-policy.component';
@@ -55,6 +55,8 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
 import { ManageVerificationsComponent } from './components/manage-verifications/manage-verifications.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminGuard } from './utility/admin.guard';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -79,7 +81,8 @@ const routes: Routes = [
   {
     path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
           children: [{ path: 'profile', component: DashboardProfileComponent },
-          { path: 'payments', component: DashboardPaymentsComponent },
+          { path: 'payments', component: DashboardPaymentsComponent, canActivate: [CustomerGuard] },
+          { path: 'professionalPayments', component: DashboardPaymentsComponent, canActivate: [ProfessionalGuard] },
           { path: 'orders', component: DashboardOrdersComponent, canActivate: [CustomerGuard] },
           { path: 'addressDetails', component: DashboardAddressDetailsComponent, canActivate: [CustomerGuard] },
           { path: 'orderDetail/:id', component: DashboardOrderDetailsComponent, canActivate: [CustomerGuard] },
@@ -130,8 +133,10 @@ const routes: Routes = [
     ManageUsersComponent,
     ManageVerificationsComponent,
     AdminDashboardComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
+    MatDialogModule,
     InfiniteScrollModule,
     ImageCropperModule,
     GoogleMapsModule,

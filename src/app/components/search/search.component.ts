@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit{
 
+  @Output() searchByEmailEvent = new EventEmitter<string>();
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -15,7 +17,8 @@ export class SearchComponent implements OnInit{
   }
 
   doSearch(value: string) {
-    this.router.navigateByUrl(`/search/${value}`);
+    // this.router.navigateByUrl(`/search/${value}`);
+    this.searchByEmailEvent.emit(value);
   }
 
 }

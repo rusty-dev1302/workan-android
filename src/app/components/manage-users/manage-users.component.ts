@@ -42,31 +42,20 @@ export class ManageUsersComponent implements OnInit{
 
   profileFormDirty: boolean = false;
   profileFormValid: boolean = false;
+  showActions: boolean = false;
 
   constructor(
-    private keycloakService: KeycloakService,
     private profilePhotoService: ProfilePhotoService,
     private userService: UserService,
-    private toastr: ToastrService,
     private navigationService: NavigationService
   ) { }
 
   ngOnInit(): void {
-    this.loadFormValues();
+    this.navigationService.pageLoaded();
   }
 
-  profileFormChanged() {
-    this.validateUserDetail();
-    this.profileFormDirty = true;
-  }
-
-  loadFormValues() {
-    this.emailValue = this.keycloakService.getUsername();
-    this.loadUserData();
-  }
-
-  loadUserData() {
-    const subscription = this.userService.getUserByEmail(this.emailValue).subscribe(
+  loadUserData(email: string) {
+    const subscription = this.userService.getUserByEmail(email).subscribe(
       (data) => {
         if (data.state != constants.ERROR_STATE) {
           // Populate form from data
@@ -77,7 +66,6 @@ export class ManageUsersComponent implements OnInit{
           }
 
           this.customerIdEvent.emit(this.user.id);
-          this.loadAvailableLanguages();
           this.loadContactDetails();
           this.loadProfilePhoto();
 
@@ -88,11 +76,6 @@ export class ManageUsersComponent implements OnInit{
         }
         this.user.email = this.emailValue;
         this.displayUser = JSON.parse(JSON.stringify(this.user));
-        if (this.displayUser.firstName!=""&&this.displayUser.gender == "") {
-          if (this.displayPersonalDetails) {
-            this.toastr.info("Please complete your profile.");
-          }
-        }
         subscription.unsubscribe();
       }
     );
@@ -108,10 +91,6 @@ export class ManageUsersComponent implements OnInit{
         }
         if (this.contactDetail.addressLine1 != "" && this.contactDetail.addressLine2 != "" && this.contactDetail.addressLine3 != "") {
           this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
-        } else {
-          if (!this.displayPersonalDetails) {
-            this.toastr.info("Please complete your address.");
-          }
         }
         contactSubscription.unsubscribe();
       }
@@ -126,95 +105,13 @@ export class ManageUsersComponent implements OnInit{
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
         }
 
-        this.navigationService.pageLoaded();
-
         subscription.unsubscribe();
       }
     );
   }
 
-  resetLanguages() {
-    this.user.languages = [];
-    this.loadAvailableLanguages();
-    this.profileFormChanged();
-  }
-
-  resetMobile() {
-    this.user.mobile=null!;
-  }
-
-  loadAvailableLanguages() {
-    const lan = this.user.languages;
-
-    this.availableLanguages.set("English", lan && lan.indexOf("English") > -1 ? 1 : 0);
-    this.availableLanguages.set("French", lan && lan.indexOf("French") > -1 ? 1 : 0);
-    this.availableLanguages.set("Mandarin", lan && lan.indexOf("Mandarin") > -1 ? 1 : 0);
-    this.availableLanguages.set("Cantonese", lan && lan.indexOf("Cantonese") > -1 ? 1 : 0);
-    this.availableLanguages.set("Punjabi", lan && lan.indexOf("Punjabi") > -1 ? 1 : 0);
-    this.availableLanguages.set("Hindi", lan && lan.indexOf("Hindi") > -1 ? 1 : 0);
-
-    if (this.availableLanguages.has("dummy")) {
-      this.availableLanguages.delete("dummy");
-    } else {
-      this.availableLanguages.set("dummy", 1);
-    }
-  }
-
-  addLanguage(language: any) {
-    this.user.languages = JSON.parse(JSON.stringify(this.user.languages));
-    language.value = 1;
-    this.user.languages.push(language.key);
-    this.profileFormChanged();
-  }
-
-  editGender(gender: string) {
-    this.user.gender = gender;
-    this.profileFormChanged();
-  }
-
-  validateUserDetail() {
-    if (this.user.firstName == ""
-      || this.user.lastName == ""
-      || this.user.gender == ""
-      || this.user.languages.length < 1
-    ) {
-      this.profileFormValid = false;
-    }
-    else {
-      this.profileFormValid = true;
-    }
-  }
-
-  submitUserDetail() {
-    const subscription = this.userService.saveUserData(this.user).subscribe(
-      (data) => {
-        this.reloadCurrentPage();
-        subscription.unsubscribe();
-      });
-  }
-
-  submitContactDetail() {
-    this.contactDetail.customerId = this.user.id;
-    const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
-      (data) => {
-        this.loadUserData();
-
-        this.sendToastrMessage(data);
-
-        subscription.unsubscribe();
-      });
-  }
-
   setContactLocation(location: string) {
     this.contactDetail.addressLine3 = location;
-  }
-
-  sendToastrMessage(data: any) {
-    if (data.state == constants.SUCCESS_STATE) {
-      this.toastr.success(constants.SUCCESS_STATE);
-    } else {
-      this.toastr.error(data.message);
-    }
   }
 
   locationSelectorOutput(data: any) {
@@ -224,6 +121,10 @@ export class ManageUsersComponent implements OnInit{
 
   reloadCurrentPage() {
     window.location.reload();
+  }
+
+  toggleTabs() {
+    this.showActions = !this.showActions;
   }
 
 }

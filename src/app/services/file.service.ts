@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { constants } from 'src/environments/constants';
 import { Invoice } from '../common/invoice';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PdfService {
+export class FileService {
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -395,6 +396,19 @@ export class PdfService {
       },
     };
     return invoiceDefinition;
+  }
+
+  private async downloadAttachment(photo: any) {
+    // Convert photo to base64 format, required by Filesystem API to save
+    const base64Data = photo;
+  
+    // Write the file to the data directory
+    const fileName = Date.now() + '.jpeg';
+    const savedFile = await Filesystem.writeFile({
+      path: fileName,
+      data: base64Data,
+      directory: Directory.Data
+    });
   }
 
 }

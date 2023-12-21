@@ -24,7 +24,7 @@ export class CustomerGuard {
     return this.userService.getUserByEmail(this.keycloakService.getUsername()).pipe(
         map((user) => {
           if(user.state!=constants.ERROR_STATE) {
-            if(!user.professional) {
+            if(!user.professional&&!user.admin) {
                 return true;   
             }
           }

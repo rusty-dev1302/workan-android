@@ -13,11 +13,6 @@
                         <div class="form-group">
                             <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #0d6efd"
                                     type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
-                            <!-- <label>** We charge a fixed amount of 2.00 per order, on orders paid directly to the
-                                professional.
-                                <br>** We charge 2.00 + 6% of order charges per order, on orders paid through Paypal.
-                            </label> -->
-
                         </div>
                     </div>
                 </div>
@@ -67,69 +62,64 @@
         <!-- User Form Ends -->
     </div>
 
-    <div *ngIf="slotTemplates" class="form-section p-3 m-3">
+    <div *ngIf="slotTemplates" class="row g-5">
+        <div class="col-xl-12 col-md-12 ">
+            <!-- Ratings panel starts -->
+            <div class="row g-5">
 
-        <!-- User Form Starts -->
-        <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+                <div class="col-xl-12 col-md-12">
 
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <h3><b>Certifications </b><i class="fa-solid fa-square-plus" style="color: #0d6efd"
-                                    type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
-                            <!-- <label>** We charge a fixed amount of 2.00 per order, on orders paid directly to the
-                                professional.
-                                <br>** We charge 2.00 + 6% of order charges per order, on orders paid through Paypal.
-                            </label> -->
+                    <div class="form-section p-3 m-3">
 
-                        </div>
-                    </div>
-                </div>
-                <hr class="style1">
-                <div *ngIf="displayListing" class="row">
-
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
-                            <label>Speciality</label>
-                            <h5>{{displayListing.subCategory.subCategoryName}}</h5>
-                        </div>
-                    </div>
-
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
-                            <label>Experience</label>
-                            <h5>{{displayListing.experience>5?'> 5':displayListing.experience}} Years</h5>
-                        </div>
-                    </div>
-
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
-                            <label>Charges Type</label>
-                            <h5>{{displayListing.chargesType}}</h5>
-                        </div>
-                    </div>
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
-                            <label>Charges</label>
-                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges |
-                                number : '1.2-2'}} </h5>
-                        </div>
-                    </div>
-
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="col-xxl-6 col-lg-6 col-12">
-                            <div class="form-group">
-                                <label>Location</label>
-                                <h5>{{displayListing.location}}</h5>
+                        <!-- User Form Starts -->
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <h3>Certifications</h3>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                            <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                            <div class="table-responsive">
+                                <table class="table table table-bordered th-sm">
+                                    <thead
+                                        style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                        <tr>
+                                            <th scope="col" class="text-center">Certification</th>
+                                            <th scope="col" class="text-center">Attachments</th>
+                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">dsadas</td>
+                                            <td class="text-center">
+                                                <a class="link px-1" type="button" (click)="confirm()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                <a class=" px-1" type="button"><i class="fa fa-download" aria-hidden="true"></i></a>
+                                                <a class="link px-1" type="button"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                <i class="fa fa-download px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
+                                                <i class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
+                                            </td>
+                                            <td class="text-center">Verified</td>
+                                            <td class="text-center">
+                                                <a class="link" type="button">Remove</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
+                            <hr class="style1">
+                        </div>
+                        <!-- User Form Ends -->
+                    </div>
                 </div>
+
             </div>
-        </form>
-        <!-- User Form Ends -->
+            <!-- Ratings panel ends -->
+        </div>
     </div>
 
     <div *ngIf="slotTemplates" class="form-section p-3 m-3">
@@ -405,6 +395,8 @@
     </div>
 </div>
 <!-- Add Slot Modal Ends -->
+
+<app-confirmation-dialog></app-confirmation-dialog>
 
 <script>
     $('#customfileinput').on('change', function () {

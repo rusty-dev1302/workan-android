@@ -766,3 +766,5 @@ input[type=number] {
     top: 5% !important;
     right: 5% !important;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
