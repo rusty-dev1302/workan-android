@@ -11,28 +11,33 @@ export class ConfirmationDialogService {
 
   constructor(private dialogRef: MatDialog) { }
 
-  openDialog(){
+  openDialog(): Observable<boolean> {
     const modalDiv = document.getElementById("confirmationDialogModal");
-    if(modalDiv!=null) {
+    if (modalDiv != null) {
       console.log(modalDiv)
       modalDiv.style.backdropFilter = 'brightness(60%)';
       modalDiv.classList.add("show");
       modalDiv.style.display = 'block';
     }
+    return this.dialogOutput$.asObservable();
   }
 
   confirmDialog() {
+    this.closeWindow();
     this.dialogOutput$.next(true);
   }
 
   cancelDialog() {
+    this.closeWindow();
+    this.dialogOutput$.next(false);
+  }
+
+  private closeWindow() {
     const modalDiv = document.getElementById("confirmationDialogModal");
-    if(modalDiv!=null) {
-      console.log(modalDiv)
+    if (modalDiv != null) {
       modalDiv.style.backdropFilter = 'none';
       modalDiv.classList.remove("show");
       modalDiv.style.display = 'none';
     }
-    this.dialogOutput$.next(false);
   }
 }
