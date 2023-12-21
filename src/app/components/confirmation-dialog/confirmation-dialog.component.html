@@ -1,18 +1,26 @@
-<div class="modal fade" id="confirmationDialogModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
+<div class="modal fade" id="confirmationDialogModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="slotSelectorModalLabel">Book Slot</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="cancelDialog()"></button>
+                <h5 class="modal-title" id="slotSelectorModalLabel">Confirm Action</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="cancelDialog()"></button>
             </div>
             <!-- step1 modal body start  -->
             <div class="modal-body">
                 <div class="form-section p-3">
                     <div class="row g-5">
-
-
+                        <div class="col">
+                            <span>{{dialogMessage}}?</span>
+                        </div>
                     </div>
+                </div>
+
+                <div class="d-flex justify-content-end py-3">
+                    <hr>
+                    <button type="button" class="btn btn-danger btn-rounded col-12" (click)="confirmDialog()"
+                        data-bs-dismiss="modal" aria-label="Close">Confirm</button>
                 </div>
             </div>
             <!-- step1 modal body ends  -->

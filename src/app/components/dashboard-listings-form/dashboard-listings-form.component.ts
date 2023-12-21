@@ -98,10 +98,6 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
-  confirm() {
-    this.dialogService.openDialog();
-  }
-
   selectSubCategory(subcategory: string) {
     this.listing.subCategory.subCategoryName = subcategory;
   }
@@ -215,6 +211,30 @@ export class DashboardListingsFormComponent implements OnInit{
         }
         this.loadFormValues();
         this.isEditable = false;
+      }
+    );
+  }
+
+  clearAllAttachments() {
+    const sub = this.dialogService.openDialog(" remove all attachments").subscribe(
+      (response) => {
+        if(response) {
+          console.log("Delete attachment")
+        }
+
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  removeCertification() {
+    const sub = this.dialogService.openDialog(" delete the certification").subscribe(
+      (response) => {
+        if(response) {
+          console.log("Delete cert")
+        }
+
+        sub.unsubscribe();
       }
     );
   }

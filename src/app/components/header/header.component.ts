@@ -66,7 +66,6 @@ export class HeaderComponent implements OnInit{
       (response) => {
         this.notificationCount = response["true"]!=undefined?response["true"]:response["false"];
         
-        console.log(response)
         sub.unsubscribe();
       }
     );

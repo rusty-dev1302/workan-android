@@ -22,7 +22,6 @@ export class NotificationService {
 
   markRead(notificationId: number): Observable<boolean> {
     const getUrl = `${this.baseUrl}/markRead?notificationId=${notificationId}`;
-    console.log(getUrl)
     return this.httpClient.get<boolean>(getUrl)
   }
 

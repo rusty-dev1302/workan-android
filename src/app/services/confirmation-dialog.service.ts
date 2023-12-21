@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
+import { constants } from 'src/environments/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,16 @@ import { Observable, Subject } from 'rxjs';
 export class ConfirmationDialogService {
 
   private dialogOutput$ = new Subject<boolean>();
+  private dialogMessage$ = new Subject<string>();
 
   constructor(private dialogRef: MatDialog) { }
 
-  openDialog(): Observable<boolean> {
+  openDialog(message: string): Observable<boolean> {
+
+    this.dialogMessage$.next(constants.CONFIRMATION_DIALOG_MESSAGE+message);
+
     const modalDiv = document.getElementById("confirmationDialogModal");
     if (modalDiv != null) {
-      console.log(modalDiv)
       modalDiv.style.backdropFilter = 'brightness(60%)';
       modalDiv.classList.add("show");
       modalDiv.style.display = 'block';
@@ -39,5 +43,9 @@ export class ConfirmationDialogService {
       modalDiv.classList.remove("show");
       modalDiv.style.display = 'none';
     }
+  }
+
+  getDialogMessage(): Observable<string> {
+    return this.dialogMessage$.asObservable();
   }
 }
