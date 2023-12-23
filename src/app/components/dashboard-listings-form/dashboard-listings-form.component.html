@@ -95,8 +95,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">dsadasdsadasdsadasdsadas</td>
+                                        <tr *ngFor="let certification of certifications">
+                                            <td class="text-center">{{certification.name}}</td>
                                             <td class="text-center">
                                                 <div class="col">
                                                     abcd.png
@@ -113,7 +113,7 @@
                                                     <i class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i> -->
                                                 </div>
                                             </td>
-                                            <td class="text-center">Verified</td>
+                                            <td class="text-center">{{certification.status}}</td>
                                             <td class="text-center">
                                                 <a class="link p-1" type="button"
                                                     (click)="removeCertification()">Verify</a>
@@ -145,7 +145,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Available Slots </b>
+                            <h3><b>Availability Slots </b>
                             </h3>
                             <h6 class="small-text">** Time intervals when you will be offering services.</h6>
                             <h6 class="small-text">** For example: 8:00AM-8:30AM</h6>

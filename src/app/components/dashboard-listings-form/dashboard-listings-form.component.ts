@@ -37,6 +37,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
   addCertName:string = "";
 
+  certifications: Certification[] = [];
 
   timeSlots: string[] = constants.TIMESLOTS;
 
@@ -55,6 +56,7 @@ export class DashboardListingsFormComponent implements OnInit{
     this.navigation.showLoader();
     this.loadFormValues();
     this.loadAllSubcategories();
+    this.getCertificationsByEmail();
   }
 
   selectSlot(day: string) {
@@ -146,7 +148,7 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   addCertificate() {
-    let certification = new Certification(null!, this.addCertName, false);
+    let certification = new Certification(null!, this.addCertName, false, null!);
     this.userService.saveUserCertification(certification).subscribe(
       (response) => {
         console.log(response);
@@ -218,6 +220,15 @@ export class DashboardListingsFormComponent implements OnInit{
   locationSelectorOutput(data: any) {
     this.listing.location = data.address;
     this.listing.geoHash = data.geoHash;
+  }
+
+  getCertificationsByEmail() {
+    const sub = this.userService.getCertificationsByEmail(this.keycloakService.getUsername()).subscribe(
+      (certifications) => {
+        this.certifications = certifications;
+        sub.unsubscribe();
+      }
+    );
   }
   
   onClickSubmit() {

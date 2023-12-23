@@ -31,6 +31,11 @@ export class UserService {
     return this.httpClient.get<Customer>(getUrl);
   }
 
+  getCertificationsByEmail(email: string): Observable<Certification[]> {
+    const getUrl = `${this.baseUrl}/certification/all?email=${email}`;
+    return this.httpClient.get<Certification[]>(getUrl);
+  }
+
   getPaymentAccountByEmail(email: string) {
     const getUrl = `${this.baseUrl}/paymentAccount/detail?email=${email}`;
     return this.httpClient.get<PaymentAccount>(getUrl);
