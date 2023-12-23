@@ -7,6 +7,8 @@ import { constants } from 'src/environments/constants';
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
 import { PaymentAccount } from '../common/payment-account';
+import { Certification } from '../common/certification';
+import { BaseResponse } from '../common/base-response';
 
 
 
@@ -42,6 +44,11 @@ export class UserService {
   saveUserData(user: Customer): Observable<Customer> {
     const postUrl = `${this.baseUrl}/save`;
     return this.httpClient.post<Customer>(postUrl, user);
+  }
+
+  saveUserCertification(certification: Certification): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/certification/save`;
+    return this.httpClient.post<BaseResponse>(postUrl, certification);
   }
 
   saveUserContact(contactDetail: ContactDetail): Observable<ContactDetail> {

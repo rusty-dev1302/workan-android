@@ -76,7 +76,9 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <h3>Certifications</h3>
+                                        <h3><b>Certifications </b><i type="button" data-bs-toggle="modal"
+                                                data-bs-target="#addCertificationModal" class="fa fa-plus-square"
+                                                style="color: #0d6efd" aria-hidden="true"></i></h3>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +88,7 @@
                                     <thead
                                         style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
                                         <tr>
-                                            <th scope="col" class="text-center">Certification</th>
+                                            <th scope="col" class="text-center">Name</th>
                                             <th scope="col" class="text-center">Attachments</th>
                                             <th scope="col" class="text-center">Status</th>
                                             <th scope="col" class="text-center">Actions</th>
@@ -94,16 +96,28 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="text-center">dsadas</td>
+                                            <td class="text-center">dsadasdsadasdsadasdsadas</td>
                                             <td class="text-center">
-                                                <a class="link px-1" type="button"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
-                                                <a class=" px-1" type="button"><i class="fa fa-download" aria-hidden="true"></i></a>
-                                                <a class="link px-1" type="button" (click)="clearAllAttachments()"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                                <i class="fa fa-download px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
-                                                <i class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
+                                                <div class="col">
+                                                    abcd.png
+                                                </div>
+                                                <div class="col">
+                                                    <a class="link px-1" type="button"><i class="fa fa-plus-square"
+                                                            aria-hidden="true"></i></a>
+                                                    <a class=" px-1" type="button"><i class="fa fa-download"
+                                                            aria-hidden="true"></i></a>
+                                                    <a class="link px-1" type="button"
+                                                        (click)="clearAllAttachments()"><i class="fa fa-trash"
+                                                            aria-hidden="true"></i></a>
+                                                    <!-- <i class="fa fa-download px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
+                                                    <i class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i> -->
+                                                </div>
                                             </td>
                                             <td class="text-center">Verified</td>
                                             <td class="text-center">
+                                                <a class="link p-1" type="button"
+                                                    (click)="removeCertification()">Verify</a>
+                                                <a>/ </a>
                                                 <a class="link" type="button" (click)="removeCertification()">Remove</a>
                                             </td>
                                         </tr>
@@ -132,10 +146,6 @@
                     <div class="col">
                         <div class="form-group">
                             <h3><b>Available Slots </b>
-                                <i *ngIf="!isTimeSlotExpanded" class="fa fa-angle-down" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;"></i>
-                                <i *ngIf="isTimeSlotExpanded" class="fa fa-angle-up" type="button"
-                                    (click)="toggleTimeSlotExpand()" style="font-size: x-large;"></i>
                             </h3>
                             <h6 class="small-text">** Time intervals when you will be offering services.</h6>
                             <h6 class="small-text">** For example: 8:00AM-8:30AM</h6>
@@ -143,42 +153,73 @@
                     </div>
                     <hr class="style1">
                 </div>
+                <div class="row table-responsive">
+                    <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
+                        <input (click)="selectSlot('Monday')" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="btnradio1">MON</label>
+                      
+                        <input (click)="selectSlot('Tuesday')" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2">TUE</label>
+                      
+                        <input (click)="selectSlot('Wednesday')" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio3">WED</label>
+
+                        <input (click)="selectSlot('Thursday')" type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio4">THU</label>
+                    </div>
+                    <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
+
+                        <input (click)="selectSlot('Friday')" type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio5">FRI</label>
+
+                        <input (click)="selectSlot('Saturday')" type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio6">SAT</label>
+
+                        <input (click)="selectSlot('Sunday')" type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio7">SUN</label>
+                    </div>
+                </div>
+                <hr class="style1">
 
                 <!-- Slots for the day start  -->
-                <div *ngIf="isTimeSlotExpanded">
-                    <div *ngFor="let template of slotTemplates" class="row py-1">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <span *ngIf="template.enabled">On</span>
-                                <span *ngIf="!template.enabled">Off</span>
-                                <label class="custom-control teleport-switch" type="button">
-                                    <input type="checkbox" class="teleport-switch-control-input"
-                                        [checked]="template.enabled" (click)="toggleSlotTemplate(template.id)">
-                                    <span class="teleport-switch-control-indicator"></span>
-                                </label>
-                                <h4>{{template.dayName}}</h4>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label class="py-3">Slots</label>
-                                <div class="row">
-
-                                    <div *ngFor="let item of template.items"
-                                        class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                        <span class="btn btn-rounded btn-primary"
-                                            (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}}
-                                            <i class="fa-regular fa-circle-xmark"></i></span>
-                                    </div>
-
-                                    <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                        <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#addSlotModal"
-                                            (click)="addSlotTemplateItemToDialog(template.id)"><i
-                                                class="fa-solid fa-plus"></i></span>
+                <div>
+                    <div *ngFor="let template of slotTemplates" class="row">
+                        <div *ngIf="selectedDay==template.dayName">
+                            <div class="col-12 py-1">
+                                <div class="form-group">
+                                    <h4>{{template.dayName}}</h4>
+                                    <div class="form-check form-switch">
+                                        <label type="button" *ngIf="template.enabled" class="form-check-label"
+                                            for="slotSwitch">On</label>
+                                        <label type="button" *ngIf="!template.enabled" class="form-check-label"
+                                            for="slotSwitch">Off</label>
+                                        <input id="slotSwitch" (click)="toggleSlotTemplate(template)"
+                                            class="form-check-input" type="checkbox" [checked]="template.enabled"
+                                            role="switch">
                                     </div>
                                 </div>
-                                <hr class="style1">
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="py-2">Slots:</label>
+                                    <div class="row">
+    
+                                        <div *ngFor="let item of template.items"
+                                            class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                            <span class="btn btn-rounded btn-primary"
+                                                (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}}
+                                                <i class="fa-regular fa-circle-xmark"></i></span>
+                                        </div>
+    
+                                        <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                            <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#addSlotModal"
+                                                (click)="addSlotTemplateItemToDialog(template.id)"><i
+                                                    class="fa-solid fa-plus"></i></span>
+                                        </div>
+                                    </div>
+                                    <hr class="style1">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -298,7 +339,8 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="modal-footer">
-                                            <h6 class="small-text">** Area where the services are offered is the <b>listing location</b>.
+                                            <h6 class="small-text">** Area where the services are offered is the
+                                                <b>listing location</b>.
                                             </h6>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
@@ -321,6 +363,62 @@
     </div>
 </div>
 <!-- Listing Details Modal Ends -->
+
+<!-- Add Certification Modal -->
+<div class="modal fade" id="addCertificationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addSlotModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSlotModalLabel">Add Certification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="resetCertificationDialog()"></button>
+            </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
+
+                        <div class="form-section">
+
+                            <!-- User Form Starts -->
+                            <form #editListing="ngForm" (ngSubmit)="addCertificate()">
+
+                                <div class="mb-3">
+                                    <div class="row g-3">
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="certName">Certification Name</label>
+                                                <input #certName="ngModel" required [(ngModel)]="addCertName"
+                                                    minlength="3" maxlength="50" name="certName" id="certName"
+                                                    type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="row">
+                                    <div class="modal-footer" style="border-top: 0!important;">
+                                        <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                            [disabled]="addCertName==''&&addCertName.length<4" data-bs-toggle="modal"
+                                            data-bs-target="#addCertificationModal">Add Certificate</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Certification Modal Ends -->
 
 <!-- Add Slot Modal -->
 <div class="modal fade" id="addSlotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

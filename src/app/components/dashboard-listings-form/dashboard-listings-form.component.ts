@@ -9,6 +9,8 @@ import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { Certification } from 'src/app/common/certification';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -18,7 +20,6 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
 export class DashboardListingsFormComponent implements OnInit{
 
   isEditable: boolean = false;
-  isTimeSlotExpanded: boolean = true;
 
   subscription!: Subscription;
 
@@ -32,6 +33,10 @@ export class DashboardListingsFormComponent implements OnInit{
   dialogSlotTemplateStartTime: string="";
   dialogSlotTemplateEndTime: string="";
 
+  selectedDay:string = "Monday";
+
+  addCertName:string = "";
+
 
   timeSlots: string[] = constants.TIMESLOTS;
 
@@ -42,13 +47,18 @@ export class DashboardListingsFormComponent implements OnInit{
     private listingService: ListingService,
     private toastrService: ToastrService,
     private navigation: NavigationService,
-    private dialogService: ConfirmationDialogService
+    private dialogService: ConfirmationDialogService,
+    private userService: UserService
     ) { }
 
   ngOnInit(): void {
     this.navigation.showLoader();
     this.loadFormValues();
     this.loadAllSubcategories();
+  }
+
+  selectSlot(day: string) {
+    this.selectedDay = day;
   }
 
   loadFormValues() {
@@ -131,8 +141,22 @@ export class DashboardListingsFormComponent implements OnInit{
   } else {
     this.toastrService.error("StartTime Should be Less Than EndTime");
   }
-
   this.resetSlotDialog();
+
+  }
+
+  addCertificate() {
+    let certification = new Certification(null!, this.addCertName, false);
+    this.userService.saveUserCertification(certification).subscribe(
+      (response) => {
+        console.log(response);
+      }
+    );
+    this.addCertName = '';
+  }
+
+  resetCertificationDialog() {
+    this.addCertName = '';
   }
 
   resetSlotDialog() {
@@ -169,8 +193,8 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
-  toggleSlotTemplate(slotTemplateId: number) {
-    const subscription = this.listingService.toggleSlotTemplate(slotTemplateId).subscribe(
+  toggleSlotTemplate(slotTemplate: SlotTemplate) {
+    const subscription = this.listingService.toggleSlotTemplate(slotTemplate.id).subscribe(
       (response) => {
         if(response.state==constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);
@@ -189,10 +213,6 @@ export class DashboardListingsFormComponent implements OnInit{
       this.loadFormValues();
       this.isEditable=false;
     }
-  }
-
-  toggleTimeSlotExpand() {
-    this.isTimeSlotExpanded = !this.isTimeSlotExpanded;
   }
 
   locationSelectorOutput(data: any) {
