@@ -11,6 +11,7 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { Certification } from 'src/app/common/certification';
 import { UserService } from 'src/app/services/user.service';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -46,13 +47,16 @@ export class DashboardListingsFormComponent implements OnInit {
 
   specialities: string[] = [];
 
+  attachmentChangeEvt: any = '';
+
   constructor(
     private keycloakService: KeycloakService,
     private listingService: ListingService,
     private toastrService: ToastrService,
     private navigation: NavigationService,
     private dialogService: ConfirmationDialogService,
-    private userService: UserService
+    private userService: UserService,
+    private fileService: FileService
   ) { }
 
   ngOnInit(): void {
@@ -189,6 +193,39 @@ export class DashboardListingsFormComponent implements OnInit {
 
   resetCertificationDialog() {
     this.addCertName = '';
+  }
+
+  uploadFile(certId: number) {
+
+    const file:File = this.attachmentChangeEvt.target.files[0];
+
+    if(file.type.includes("image")||file.type.includes("pdf")) {
+
+      let uploadData = new FormData();
+
+      uploadData.append('attachment', file);
+      console.log(file)
+
+      const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
+        () => {
+
+          this.attachmentChangeEvt = null;
+          sub.unsubscribe();
+        }
+      );
+
+
+    } else {
+      const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachments.", true).subscribe(
+        () => {
+          sub.unsubscribe();
+        }
+      );
+    }
+  }
+
+  sendAttachmentEvent(event: any) {
+    this.attachmentChangeEvt = event;
   }
 
   resetSlotDialog() {

@@ -1,18 +1,31 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { constants } from 'src/environments/constants';
 import { Invoice } from '../common/invoice';
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Observable } from 'rxjs';
+import { BaseResponse } from '../common/base-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileService {
 
+  private baseUrl = constants.API_SERVER+'/api/v1/files';
+
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
 
-  constructor() {
+  constructor(
+    private httpClient: HttpClient,
+  ) {
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
+  }
+
+  uploadAttachment(uploadData: any, certId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/attachment/save?certId=${certId}`;
+    console.log(uploadData)
+    return this.httpClient.post<BaseResponse>(postUrl, uploadData);
   }
 
   generatePdf(fileName: string, invoice: Invoice) {

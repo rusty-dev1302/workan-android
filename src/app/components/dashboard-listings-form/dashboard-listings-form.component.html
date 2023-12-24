@@ -88,8 +88,7 @@
                                         <h3><b>Certifications </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addCertificationModal" class="fa fa-plus-square"
                                                 style="color: #0d6efd" aria-hidden="true"></i></h3>
-                                        <h6 class="small-text">** All the certifications need to be <b>verified</b> to post the listing.
-                                        </h6>
+                                        <h6 style="color: red;"><b>Verification Mandatory </b></h6>
                                     </div>
                                 </div>
                             </div>
@@ -117,8 +116,14 @@
                                                     abcd.png
                                                 </div>
                                                 <div class="col">
-                                                    <a class="link px-1" type="button"><i class="fa fa-plus-square"
-                                                            aria-hidden="true"></i></a>
+                                                    <a class="link px-1" type="button">
+                                                        <label type="button" for="files" class="col-12"><i
+                                                                class="fa fa-plus-square"></i></label>
+                                                    </a>
+                                                    <a *ngIf="attachmentChangeEvt" class="px-1" type="button" (click)="uploadFile(certification.id)">
+                                                        <i class="fa fa-save" aria-hidden="true"></i>
+                                                    </a>
+                                                    <i *ngIf="!attachmentChangeEvt" style="color: rgb(162, 162, 162);font-size: 1.1rem!important;" class="px-1 fa fa-save" aria-hidden="true"></i>
                                                     <a class=" px-1" type="button"><i class="fa fa-download"
                                                             aria-hidden="true"></i></a>
                                                     <a class="link px-1" type="button"
@@ -140,8 +145,14 @@
                                     </tbody>
                                 </table>
                             </div>
-
                             <hr class="style1">
+                            <h6 class="small-text">** <b>Verification</b> of all certifications is mandatory to post
+                                listing.
+                            </h6>
+                            <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments.
+                            </h6>
+                            <h6 class="small-text">** Max size per attachment is <b>3Mb</b>.
+                            </h6>
                         </div>
                         <!-- User Form Ends -->
                     </div>
@@ -163,13 +174,10 @@
                         <div class="form-group">
                             <h3><b>Availability Slots </b>
                             </h3>
-                            <h6 class="small-text">** Time intervals when you will be offering services.</h6>
-                            <h6 class="small-text">** For example: 8:00AM-8:30AM</h6>
                         </div>
                     </div>
-                    <hr class="style1">
                 </div>
-                <div class="row table-responsive">
+                <div class="row table-responsive border py-3 px-1">
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
                         <input (click)="selectSlot('Monday')" type="radio" class="btn-check" name="btnradio"
                             id="btnradio1" autocomplete="off" checked>
@@ -206,7 +214,6 @@
                             for="btnradio7">SUN</label>
                     </div>
                 </div>
-                <hr class="style1">
 
                 <!-- Slots for the day start  -->
                 <div>
@@ -238,7 +245,7 @@
                                             role="switch">
                                     </div>
                                     <div *ngIf="toggleLoader">
-                                        <i class="fas fa-spinner fa-pulse"></i>              
+                                        <i class="fas fa-spinner fa-pulse"></i>
                                     </div>
                                 </div>
                             </div>
@@ -270,7 +277,8 @@
 
                 <!-- Slots for the day end  -->
 
-
+                <h6 class="small-text">** Multiple time intervals when you will be offering services.</h6>
+                <h6 class="small-text">** For example: 8:00AM-9:00AM</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -536,6 +544,11 @@
     </div>
 </div>
 <!-- Add Slot Modal Ends -->
+
+<!-- hidden file input starts -->
+<input id="files" type="file"
+(change)="sendAttachmentEvent($event)" style="visibility:hidden;">
+<!-- hidden file input ends -->
 
 <script>
     $('#customfileinput').on('change', function () {

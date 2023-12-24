@@ -13,9 +13,9 @@ export class ConfirmationDialogService {
 
   constructor(private dialogRef: MatDialog) { }
 
-  openDialog(message: string): Observable<boolean> {
+  openDialog(message: string, overrideDefaultMessage:boolean=false): Observable<boolean> {
 
-    this.dialogMessage$.next(constants.CONFIRMATION_DIALOG_MESSAGE+message);
+    this.dialogMessage$.next(overrideDefaultMessage?message:constants.CONFIRMATION_DIALOG_MESSAGE+message+"?");
 
     const modalDiv = document.getElementById("confirmationDialogModal");
     if (modalDiv != null) {
