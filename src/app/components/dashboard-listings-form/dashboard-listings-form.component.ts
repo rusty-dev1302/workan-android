@@ -196,25 +196,27 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   uploadFile(certId: number) {
-
     const file:File = this.attachmentChangeEvt.target.files[0];
 
+    let uploadData = new FormData();
+
+    uploadData.append('attachment', file);
+    console.log(file)
+
+    const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
+      () => {
+
+        this.attachmentChangeEvt = null;
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  sendAttachmentEvent(event: any) {
+    const file:File = event.target.files[0];
+    
     if(file.type.includes("image")||file.type.includes("pdf")) {
-
-      let uploadData = new FormData();
-
-      uploadData.append('attachment', file);
-      console.log(file)
-
-      const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
-        () => {
-
-          this.attachmentChangeEvt = null;
-          sub.unsubscribe();
-        }
-      );
-
-
+      this.attachmentChangeEvt = event;
     } else {
       const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachments.", true).subscribe(
         () => {
@@ -222,10 +224,6 @@ export class DashboardListingsFormComponent implements OnInit {
         }
       );
     }
-  }
-
-  sendAttachmentEvent(event: any) {
-    this.attachmentChangeEvt = event;
   }
 
   resetSlotDialog() {
