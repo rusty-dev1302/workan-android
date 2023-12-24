@@ -20,6 +20,15 @@
                 <div *ngIf="displayListing" class="row">
 
                     <div class="col-xxl-6 col-lg-6 col-12">
+                        <div class="col-xxl-6 col-lg-6 col-12">
+                            <div class="form-group">
+                                <label>Status</label>
+                                <h5><b>Inactive</b></h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Speciality</label>
                             <h5>{{displayListing.subCategory.subCategoryName}}</h5>
@@ -79,6 +88,8 @@
                                         <h3><b>Certifications </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addCertificationModal" class="fa fa-plus-square"
                                                 style="color: #0d6efd" aria-hidden="true"></i></h3>
+                                        <h6 class="small-text">** All the certifications need to be <b>verified</b> to post the listing.
+                                        </h6>
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +107,11 @@
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let certification of certifications">
-                                            <td class="text-center">{{certification.name}}</td>
+                                            <td class="text-center">
+                                                <i class="fa fa-check-circle" aria-hidden="true"
+                                                    style="color: green;"></i>
+                                                {{certification.name}}
+                                            </td>
                                             <td class="text-center">
                                                 <div class="col">
                                                     abcd.png
@@ -115,10 +130,11 @@
                                             </td>
                                             <td class="text-center">{{certification.status}}</td>
                                             <td class="text-center">
-                                                <a class="link p-1" type="button"
-                                                            >Verify</a>
-                                                <a>/ </a>
-                                                <a class="link" type="button" (click)="removeCertification(certification.id)">Remove</a>
+                                                <a class="link px-1" type="button"
+                                                    style="font-size: 1rem!important;">Verify</a>
+                                                <a style="font-size: 1rem!important;">/</a>
+                                                <a class="link px-1" type="button" style="font-size: 1rem!important;"
+                                                    (click)="removeCertification(certification.id)">Remove</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -155,28 +171,39 @@
                 </div>
                 <div class="row table-responsive">
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
-                        <input (click)="selectSlot('Monday')" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn slot-btn btn-rounded shadow-none btn-outline-primary" for="btnradio1">MON</label>
-                      
-                        <input (click)="selectSlot('Tuesday')" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <input (click)="selectSlot('Monday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio1" autocomplete="off" checked>
+                        <label class="btn slot-btn btn-rounded shadow-none btn-outline-primary"
+                            for="btnradio1">MON</label>
+
+                        <input (click)="selectSlot('Tuesday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio2" autocomplete="off">
                         <label class="btn slot-btn shadow-none btn-outline-primary" for="btnradio2">TUE</label>
-                      
-                        <input (click)="selectSlot('Wednesday')" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+
+                        <input (click)="selectSlot('Wednesday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio3" autocomplete="off">
                         <label class="btn slot-btn shadow-none btn-outline-primary" for="btnradio3">WED</label>
 
-                        <input (click)="selectSlot('Thursday')" type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio4">THU</label>
+                        <input (click)="selectSlot('Thursday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio4" autocomplete="off">
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
+                            for="btnradio4">THU</label>
                     </div>
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
 
-                        <input (click)="selectSlot('Friday')" type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio5">FRI</label>
+                        <input (click)="selectSlot('Friday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio5" autocomplete="off">
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
+                            for="btnradio5">FRI</label>
 
-                        <input (click)="selectSlot('Saturday')" type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+                        <input (click)="selectSlot('Saturday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio6" autocomplete="off">
                         <label class="btn slot-btn shadow-none btn-outline-primary" for="btnradio6">SAT</label>
 
-                        <input (click)="selectSlot('Sunday')" type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
-                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio7">SUN</label>
+                        <input (click)="selectSlot('Sunday')" type="radio" class="btn-check" name="btnradio"
+                            id="btnradio7" autocomplete="off">
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
+                            for="btnradio7">SUN</label>
                     </div>
                 </div>
                 <hr class="style1">
@@ -187,14 +214,21 @@
                         <div *ngIf="selectedDay==template.dayName">
                             <div class="col-12 py-1">
                                 <div class="form-group">
-                                    <h4>{{template.dayName}} 
-                                        <a *ngIf="template.items.length>0" type="button" class="link" style="font-size: 0.8rem!important;" (click)="copySlotItems(template.items)">Copy</a>
-                                        <a *ngIf="template.items.length<=0" class="link link-disabled" style="font-size: 0.8rem!important;">Copy</a>
-                                        <i class="fa fa-ellipsis-v px-1" style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
-                                        <a *ngIf="pasteItems.length>0" type="button" (click)="pasteSlotItems(template.id)" class="link" style="font-size: 0.8rem!important;">Paste</a>
-                                        <a *ngIf="pasteItems.length<=0" class="link link-disabled" style="font-size: 0.8rem!important;">Paste</a>
+                                    <h4>{{template.dayName}}
+                                        <a *ngIf="template.items.length>0" type="button" class="link"
+                                            style="font-size: 0.8rem!important;"
+                                            (click)="copySlotItems(template.dayName, template.items)">Copy</a>
+                                        <a *ngIf="template.items.length<=0" class="link link-disabled"
+                                            style="font-size: 0.8rem!important;">Copy</a>
+                                        <i class="fa fa-ellipsis-v px-1"
+                                            style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
+                                        <a *ngIf="pasteItems.length>0" type="button"
+                                            (click)="pasteSlotItems(template.dayName,template.id)" class="link"
+                                            style="font-size: 0.8rem!important;">Paste</a>
+                                        <a *ngIf="pasteItems.length<=0" class="link link-disabled"
+                                            style="font-size: 0.8rem!important;">Paste</a>
                                     </h4>
-                                    <div class="form-check form-switch">
+                                    <div *ngIf="!toggleLoader" class="form-check form-switch">
                                         <label type="button" *ngIf="template.enabled" class="form-check-label"
                                             for="slotSwitch">On</label>
                                         <label type="button" *ngIf="!template.enabled" class="form-check-label"
@@ -203,20 +237,23 @@
                                             class="form-check-input" type="checkbox" [checked]="template.enabled"
                                             role="switch">
                                     </div>
+                                    <div *ngIf="toggleLoader">
+                                        <i class="fas fa-spinner fa-pulse"></i>              
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="py-2">Slots:</label>
                                     <div class="row">
-    
+
                                         <div *ngFor="let item of template.items"
                                             class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
                                             <span class="btn btn-rounded btn-primary"
                                                 (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}}
                                                 <i class="fa-regular fa-circle-xmark"></i></span>
                                         </div>
-    
+
                                         <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
                                             <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#addSlotModal"

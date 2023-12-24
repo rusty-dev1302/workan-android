@@ -17,27 +17,28 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './dashboard-listings-form.component.html',
   styleUrls: ['./dashboard-listings-form.component.css']
 })
-export class DashboardListingsFormComponent implements OnInit{
+export class DashboardListingsFormComponent implements OnInit {
 
   isEditable: boolean = false;
 
   subscription!: Subscription;
 
-  listing: Listing=constants.DEFAULT_LISTING;
+  listing: Listing = constants.DEFAULT_LISTING;
   displayListing!: Listing;
   slotTemplates!: SlotTemplate[];
-  emailValue!:string;
+  emailValue!: string;
 
   pasteItems: SlotTemplateItem[] = [];
 
   // Add time slot dialog values
-  dialogSlotTemplateId: number=0;
-  dialogSlotTemplateStartTime: string="";
-  dialogSlotTemplateEndTime: string="";
+  dialogSlotTemplateId: number = 0;
+  dialogSlotTemplateStartTime: string = "";
+  dialogSlotTemplateEndTime: string = "";
+  toggleLoader: boolean = false;
 
-  selectedDay:string = "Monday";
+  selectedDay: string = "Monday";
 
-  addCertName:string = "";
+  addCertName: string = "";
 
   certifications: Certification[] = [];
 
@@ -52,7 +53,7 @@ export class DashboardListingsFormComponent implements OnInit{
     private navigation: NavigationService,
     private dialogService: ConfirmationDialogService,
     private userService: UserService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.navigation.showLoader();
@@ -68,8 +69,8 @@ export class DashboardListingsFormComponent implements OnInit{
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
     this.subscription = this.listingService.getListingByEmail(this.emailValue).subscribe(
-      (data)=>{
-        if(data.state==constants.SUCCESS_STATE){
+      (data) => {
+        if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.listing = data;
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
@@ -88,12 +89,12 @@ export class DashboardListingsFormComponent implements OnInit{
     const subscription = this.listingService.getSlotTemplates(listingId).subscribe(
       (data) => {
         this.slotTemplates = data;
-        for(let i=0; i<this.slotTemplates.length; i++) {
+        for (let i = 0; i < this.slotTemplates.length; i++) {
           this.slotTemplates[i].items.sort(
-            (a,b) => {
+            (a, b) => {
               return a.startTimeHhmm - b.startTimeHhmm;
             }
-            );
+          );
         }
         this.slotTemplates[0].items.sort();
         subscription.unsubscribe();
@@ -101,15 +102,29 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
-  copySlotItems(items: SlotTemplateItem[]) {
-    this.pasteItems = JSON.parse(JSON.stringify(items));
+  copySlotItems(dayName: string, items: SlotTemplateItem[]) {
+    const sub = this.dialogService.openDialog(" copy time slots from " + dayName).subscribe(
+      (result) => {
+        if (result) {
+          this.pasteItems = JSON.parse(JSON.stringify(items));
+        }
+        sub.unsubscribe();
+      }
+    );
   }
 
-  pasteSlotItems(templateId: number) {
-    const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
-      () => {
-        this.loadSlotTemplates(this.listing.id);
-        sub.unsubscribe();
+  pasteSlotItems(dayName: string, templateId: number) {
+    const subs = this.dialogService.openDialog(" paste time slots to " + dayName + ", this will overwrite current data").subscribe(
+      (result) => {
+        if (result) {
+          const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
+            () => {
+              this.loadSlotTemplates(this.listing.id);
+              sub.unsubscribe();
+            }
+          );
+        }
+        subs.unsubscribe();
       }
     );
   }
@@ -117,7 +132,7 @@ export class DashboardListingsFormComponent implements OnInit{
   loadAllSubcategories() {
     const subscription = this.listingService.getAllSubcategories().subscribe(
       (subcategories) => {
-        if(subcategories.length>0) {
+        if (subcategories.length > 0) {
           this.specialities = subcategories;
         }
         subscription.unsubscribe();
@@ -138,7 +153,7 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   addSlotTemplateItem() {
-    let id!:number;
+    let id!: number;
 
     let startTime: number = this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
     let endTime: number = this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
@@ -146,19 +161,19 @@ export class DashboardListingsFormComponent implements OnInit{
     let slot: SlotTemplateItem = new SlotTemplateItem(id, this.dialogSlotTemplateId, startTime, endTime, "", "");
 
 
-    if(startTime<endTime) {
+    if (startTime < endTime) {
       const subscription = this.listingService.saveSlotTemplateItem(slot).subscribe(
-      (data) => {
-        if(data.state==constants.SUCCESS_STATE) {
-          this.loadSlotTemplates(this.listing.id);
+        (data) => {
+          if (data.state == constants.SUCCESS_STATE) {
+            this.loadSlotTemplates(this.listing.id);
+          }
+          subscription.unsubscribe();
         }
-        subscription.unsubscribe();
-      }
-    );
-  } else {
-    this.toastrService.error("StartTime Should be Less Than EndTime");
-  }
-  this.resetSlotDialog();
+      );
+    } else {
+      this.toastrService.error("StartTime Should be Less Than EndTime");
+    }
+    this.resetSlotDialog();
 
   }
 
@@ -177,8 +192,8 @@ export class DashboardListingsFormComponent implements OnInit{
   }
 
   resetSlotDialog() {
-    this.dialogSlotTemplateEndTime="";
-    this.dialogSlotTemplateStartTime="";
+    this.dialogSlotTemplateEndTime = "";
+    this.dialogSlotTemplateStartTime = "";
   }
 
   // methods to add values to slot dialog start 
@@ -197,28 +212,37 @@ export class DashboardListingsFormComponent implements OnInit{
   // methods to add values to slot dialog end 
 
   removeSlotTemplateItem(slotTemplateItemId: number) {
-    const subscription = this.listingService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
-      (data) => {
-        if(data.state==constants.SUCCESS_STATE){
-          this.toastrService.success(constants.SUCCESS_STATE);
-        } else {
-          this.toastrService.error(data.message);
+    const sub = this.dialogService.openDialog(" remove this time slot").subscribe(
+      (response) => {
+        if (response) {
+          const subscription = this.listingService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
+            (data) => {
+              if (data.state == constants.SUCCESS_STATE) {
+                this.toastrService.success(constants.SUCCESS_STATE);
+              } else {
+                this.toastrService.error(data.message);
+              }
+              this.loadSlotTemplates(this.listing.id);
+              subscription.unsubscribe();
+            }
+          );
         }
-        this.loadSlotTemplates(this.listing.id);
-        subscription.unsubscribe();
+        sub.unsubscribe();
       }
     );
   }
 
   toggleSlotTemplate(slotTemplate: SlotTemplate) {
+    this.toggleLoader = true;
     const subscription = this.listingService.toggleSlotTemplate(slotTemplate.id).subscribe(
       (response) => {
-        if(response.state==constants.SUCCESS_STATE) {
+        if (response.state == constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);
         } else {
           this.toastrService.error(response.message);
         }
         this.loadSlotTemplates(this.listing.id);
+        this.toggleLoader = false;
         subscription.unsubscribe();
       }
     );
@@ -226,9 +250,9 @@ export class DashboardListingsFormComponent implements OnInit{
 
   toggleEdit() {
     this.isEditable = !this.isEditable;
-    if(!this.isEditable) {
+    if (!this.isEditable) {
       this.loadFormValues();
-      this.isEditable=false;
+      this.isEditable = false;
     }
   }
 
@@ -245,12 +269,12 @@ export class DashboardListingsFormComponent implements OnInit{
       }
     );
   }
-  
+
   onClickSubmit() {
     this.listing.professionalEmail = this.emailValue;
     this.listingService.saveListing(this.listing).subscribe(
-      (data)=>{
-        if(data.state==constants.SUCCESS_STATE) {
+      (data) => {
+        if (data.state == constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);
         } else {
           this.toastrService.error(data.message);
@@ -264,7 +288,7 @@ export class DashboardListingsFormComponent implements OnInit{
   clearAllAttachments() {
     const sub = this.dialogService.openDialog(" remove all attachments").subscribe(
       (response) => {
-        if(response) {
+        if (response) {
           console.log("Delete attachment")
         }
 
@@ -276,7 +300,7 @@ export class DashboardListingsFormComponent implements OnInit{
   removeCertification(certId: number) {
     const subs = this.dialogService.openDialog(" delete the certification").subscribe(
       (response) => {
-        if(response) {
+        if (response) {
           console.log(certId)
           const sub = this.userService.removeUserCertification(certId).subscribe(
             () => {
@@ -291,27 +315,27 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
-  convertTimeToString(time: number): string{
-    let hour = Math.floor(time/100)<=12?Math.floor(time/100):Math.floor(time/100)%12;
-    let min = (time%100==0?"00":time%100);
-    let merd = (Math.floor(time/100)<12?"AM":"PM");
+  convertTimeToString(time: number): string {
+    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
+    let min = (time % 100 == 0 ? "00" : time % 100);
+    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
 
-    return (hour==0?"00":hour)+":"+min+merd;
+    return (hour == 0 ? "00" : hour) + ":" + min + merd;
   }
 
-  convertTimeToNumber(time: string): number{
+  convertTimeToNumber(time: string): number {
     let hour: number = 0;
     let min: number = 0;
     hour = +time.split(":")[0];
 
-    if(time.includes("AM")) {
+    if (time.includes("AM")) {
       min = +time.split(":")[1].split("AM")[0];
-    } else if(time.includes("PM")) {
+    } else if (time.includes("PM")) {
       min = +time.split(":")[1].split("PM")[0];
-      hour = hour==12?12:(hour+12)%24;
+      hour = hour == 12 ? 12 : (hour + 12) % 24;
     }
 
-    return hour*100 + min;
+    return hour * 100 + min;
   }
 
 }
