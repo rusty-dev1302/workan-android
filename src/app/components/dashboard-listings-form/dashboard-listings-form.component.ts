@@ -28,6 +28,8 @@ export class DashboardListingsFormComponent implements OnInit{
   slotTemplates!: SlotTemplate[];
   emailValue!:string;
 
+  pasteItems: SlotTemplateItem[] = [];
+
   // Add time slot dialog values
   dialogSlotTemplateId: number=0;
   dialogSlotTemplateStartTime: string="";
@@ -99,6 +101,19 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
+  copySlotItems(items: SlotTemplateItem[]) {
+    this.pasteItems = JSON.parse(JSON.stringify(items));
+  }
+
+  pasteSlotItems(templateId: number) {
+    const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
+      () => {
+        this.loadSlotTemplates(this.listing.id);
+        sub.unsubscribe();
+      }
+    );
+  }
+
   loadAllSubcategories() {
     const subscription = this.listingService.getAllSubcategories().subscribe(
       (subcategories) => {
@@ -132,7 +147,7 @@ export class DashboardListingsFormComponent implements OnInit{
 
 
     if(startTime<endTime) {
-      const subscription = this.listingService.saveSlotTemplateItem(this.dialogSlotTemplateId, slot).subscribe(
+      const subscription = this.listingService.saveSlotTemplateItem(slot).subscribe(
       (data) => {
         if(data.state==constants.SUCCESS_STATE) {
           this.loadSlotTemplates(this.listing.id);
@@ -151,7 +166,7 @@ export class DashboardListingsFormComponent implements OnInit{
     let certification = new Certification(null!, this.addCertName, false, null!);
     this.userService.saveUserCertification(certification).subscribe(
       (response) => {
-        console.log(response);
+        this.getCertificationsByEmail();
       }
     );
     this.addCertName = '';
@@ -258,14 +273,20 @@ export class DashboardListingsFormComponent implements OnInit{
     );
   }
 
-  removeCertification() {
-    const sub = this.dialogService.openDialog(" delete the certification").subscribe(
+  removeCertification(certId: number) {
+    const subs = this.dialogService.openDialog(" delete the certification").subscribe(
       (response) => {
         if(response) {
-          console.log("Delete cert")
+          console.log(certId)
+          const sub = this.userService.removeUserCertification(certId).subscribe(
+            () => {
+              this.getCertificationsByEmail();
+              sub.unsubscribe();
+            }
+          );
         }
 
-        sub.unsubscribe();
+        subs.unsubscribe();
       }
     );
   }

@@ -63,9 +63,14 @@ export class ListingService {
     return this.httpClient.get<SlotTemplateItem[]>(getUrl)
   }
 
-  saveSlotTemplateItem(slotTemplateId: number, slotTemplateItem: SlotTemplateItem): Observable<SlotTemplateItem> {
-    const postUrl = `${this.baseUrl}/slotTemplateItem/save?slotTemplateId=${slotTemplateId}`;
-    return this.httpClient.post<SlotTemplateItem>(postUrl, slotTemplateItem);
+  saveSlotTemplateItem(slotTemplateItem: SlotTemplateItem): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/slotTemplateItem/save`;
+    return this.httpClient.post<BaseResponse>(postUrl, slotTemplateItem);
+  }
+
+  saveSlotTemplateItems(slotTemplateId: number, slotTemplateItems: SlotTemplateItem[]): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/slotTemplateItems/save?slotTemplateId=${slotTemplateId}`;
+    return this.httpClient.post<BaseResponse>(postUrl, slotTemplateItems);
   }
 
   removeSlotTemplateItem(slotTemplateItemId: number): Observable<BaseResponse> {

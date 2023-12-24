@@ -1,0 +1,7 @@
+.slot-btn:hover {
+    background-color: #0752c3;
+}
+
+.link-disabled {
+    color: grey;
+}

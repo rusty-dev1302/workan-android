@@ -116,9 +116,9 @@
                                             <td class="text-center">{{certification.status}}</td>
                                             <td class="text-center">
                                                 <a class="link p-1" type="button"
-                                                    (click)="removeCertification()">Verify</a>
+                                                            >Verify</a>
                                                 <a>/ </a>
-                                                <a class="link" type="button" (click)="removeCertification()">Remove</a>
+                                                <a class="link" type="button" (click)="removeCertification(certification.id)">Remove</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -156,27 +156,27 @@
                 <div class="row table-responsive">
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
                         <input (click)="selectSlot('Monday')" type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">MON</label>
+                        <label class="btn slot-btn btn-rounded shadow-none btn-outline-primary" for="btnradio1">MON</label>
                       
                         <input (click)="selectSlot('Tuesday')" type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio2">TUE</label>
+                        <label class="btn slot-btn shadow-none btn-outline-primary" for="btnradio2">TUE</label>
                       
                         <input (click)="selectSlot('Wednesday')" type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio3">WED</label>
+                        <label class="btn slot-btn shadow-none btn-outline-primary" for="btnradio3">WED</label>
 
                         <input (click)="selectSlot('Thursday')" type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio4">THU</label>
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio4">THU</label>
                     </div>
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
 
                         <input (click)="selectSlot('Friday')" type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio5">FRI</label>
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio5">FRI</label>
 
                         <input (click)="selectSlot('Saturday')" type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio6">SAT</label>
+                        <label class="btn slot-btn shadow-none btn-outline-primary" for="btnradio6">SAT</label>
 
                         <input (click)="selectSlot('Sunday')" type="radio" class="btn-check" name="btnradio" id="btnradio7" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio7">SUN</label>
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio7">SUN</label>
                     </div>
                 </div>
                 <hr class="style1">
@@ -187,7 +187,13 @@
                         <div *ngIf="selectedDay==template.dayName">
                             <div class="col-12 py-1">
                                 <div class="form-group">
-                                    <h4>{{template.dayName}}</h4>
+                                    <h4>{{template.dayName}} 
+                                        <a *ngIf="template.items.length>0" type="button" class="link" style="font-size: 0.8rem!important;" (click)="copySlotItems(template.items)">Copy</a>
+                                        <a *ngIf="template.items.length<=0" class="link link-disabled" style="font-size: 0.8rem!important;">Copy</a>
+                                        <i class="fa fa-ellipsis-v px-1" style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
+                                        <a *ngIf="pasteItems.length>0" type="button" (click)="pasteSlotItems(template.id)" class="link" style="font-size: 0.8rem!important;">Paste</a>
+                                        <a *ngIf="pasteItems.length<=0" class="link link-disabled" style="font-size: 0.8rem!important;">Paste</a>
+                                    </h4>
                                     <div class="form-check form-switch">
                                         <label type="button" *ngIf="template.enabled" class="form-check-label"
                                             for="slotSwitch">On</label>
@@ -366,11 +372,11 @@
 
 <!-- Add Certification Modal -->
 <div class="modal fade" id="addCertificationModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="addSlotModalLabel" aria-hidden="true">
+    aria-labelledby="addCertificationModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSlotModalLabel">Add Certification</h5>
+                <h5 class="modal-title" id="addCertificationModalLabel">Add Certification</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="resetCertificationDialog()"></button>
             </div>
