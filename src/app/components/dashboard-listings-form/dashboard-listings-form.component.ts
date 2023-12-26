@@ -198,7 +198,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   uploadFile(certId: number) {
-    const file:File = this.attachmentChangeEvt.target.files[0];
+    const file: File = this.attachmentChangeEvt.target.files[0];
 
     let uploadData = new FormData();
 
@@ -219,15 +219,15 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   handleAttachment(event: any) {
-    const file:File = event.target.files[0];
-    
-    if(file.type.includes("image")||file.type.includes("pdf")) {
+    const file: File = event.target.files[0];
+
+    if (file.type.includes("image") || file.type.includes("pdf")) {
       this.attachmentChangeEvt = event;
       console.log(file);
 
-      const sub = this.dialogService.openDialog(" upload "+file.name.replaceAll(" ","_")).subscribe(
+      const sub = this.dialogService.openDialog(" upload " + file.name.replaceAll(" ", "_")).subscribe(
         (response) => {
-          if(response) {
+          if (response) {
             this.uploadFile(this.clickedCertId);
           } else {
             this.attachmentChangeEvt = null;
@@ -357,6 +357,24 @@ export class DashboardListingsFormComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  verifyCertification(certId: number) {
+    const subs = this.dialogService
+      .openDialog("You are sending the certification for verification, you will not be able to add/change its attachments.", true).subscribe(
+        (response) => {
+          if (response) {
+            const sub = this.userService.sendCertForVerification(certId).subscribe(
+              () => {
+                this.getCertificationsByEmail();
+                sub.unsubscribe();
+              }
+            );
+          }
+
+          subs.unsubscribe();
+        }
+      );
   }
 
   removeCertification(certId: number) {

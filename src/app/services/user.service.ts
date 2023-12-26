@@ -61,6 +61,11 @@ export class UserService {
     return this.httpClient.delete<BaseResponse>(putUrl);
   }
 
+  sendCertForVerification(certId: number): Observable<BaseResponse> {
+    const getUrl = `${this.baseUrl}/certification/verify?certId=${certId}`;
+    return this.httpClient.get<BaseResponse>(getUrl);
+  }
+
   removeAllCertAttachments(certId: number): Observable<BaseResponse> {
     const putUrl = `${this.baseUrl}/certification/attachments/removeAll?certId=${certId}`;
     return this.httpClient.delete<BaseResponse>(putUrl);

@@ -67,9 +67,10 @@
 
                 </div>
                 <hr>
-                <h6 class="small-text">** This specialization <b>requires</b> professional certifications to post listing.</h6>
+                <h6 class="small-text">** This specialization <b>requires</b> professional certifications to post
+                    listing.</h6>
                 <h6 class="small-text">** Kindly upload all the <b>relevant certifications</b>.</h6>
-                <h6 class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>              
+                <h6 class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -93,7 +94,7 @@
                                                 data-bs-target="#addCertificationModal" class="fa fa-plus-square"
                                                 style="color: #0d6efd" aria-hidden="true"></i></h3>
                                         <a class="link" type="button" style="font-size: .9rem!important;">Recommended
-                                                Certifications</a>
+                                            Certifications</a>
                                     </div>
                                 </div>
                             </div>
@@ -116,33 +117,42 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="col">
-                                                    <a *ngFor="let attachment of certification.attachments; let first=first" style="font-size: .9rem!important;"><a *ngIf="!first">, </a>{{attachment.name}}</a>
+                                                    <a *ngFor="let attachment of certification.attachments; let first=first"
+                                                        style="font-size: .9rem!important;"><a *ngIf="!first">,
+                                                        </a>{{attachment.name}}</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a class="link px-1" type="button" (click)="setClickCertId(certification.id)">
+                                                    <a class="link px-1" type="button" *ngIf="certification.status=='Unverified'"
+                                                        (click)="setClickCertId(certification.id)">
                                                         <label type="button" for="files" class="col-12"><i
                                                                 class="fa fa-plus-circle"></i></label>
                                                     </a>
-                                                    <a *ngIf="certification.attachments.length>0" class="link px-1" type="button"
-                                                        (click)="clearAllAttachments(certification.id)"><i class="fa fa-trash"
-                                                            aria-hidden="true"></i></a>
-                                                    <a *ngIf="certification.attachments.length>0" class=" px-1" type="button" (click)="downloadAttachments(certification.attachments)"><i class="fa fa-download"
-                                                            aria-hidden="true"></i></a>
-                                                    <i *ngIf="certification.attachments.length<=0" class="fa fa-download px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
-                                                    <i *ngIf="certification.attachments.length<=0" class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
+                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'" class="link px-1"
+                                                        type="button" (click)="clearAllAttachments(certification.id)"><i
+                                                            class="fa fa-trash" aria-hidden="true"></i></a>
+                                                    <a *ngIf="certification.attachments.length>0" class=" px-1"
+                                                        type="button"
+                                                        (click)="downloadAttachments(certification.attachments)"><i
+                                                            class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-download px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
                                                 </div>
                                             </td>
                                             <td class="text-center">
                                                 {{certification.status}}
-                                                <i *ngIf="certification.status=='Unverified'" class="fa fa-check-circle" aria-hidden="true"
-                                                style="color: rgb(162, 162, 162);"></i>
-                                                <i *ngIf="certification.status=='Verified'" class="fa fa-check-circle" aria-hidden="true"
-                                                    style="color: green;"></i>
+                                                <i *ngIf="certification.status=='Rejected'"
+                                                    class="fa fa-times-circle" aria-hidden="true" style="color: rgb(255, 71, 71);"></i>
+                                                <i *ngIf="certification.status=='Verified'" class="fa fa-check-circle"
+                                                    aria-hidden="true" style="color: green;"></i>
                                             </td>
                                             <td class="text-center">
-                                                <a class="link px-1" type="button"
-                                                    style="font-size: 1rem!important;">Verify</a>
-                                                <a style="font-size: 1rem!important;">/</a>
+                                                <a *ngIf="certification.status=='Unverified'" class="link px-1" type="button" style="font-size: 1rem!important;"
+                                                    (click)="verifyCertification(certification.id)">Verify</a>
+                                                <a *ngIf="certification.status=='Unverified'" style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</a>
                                             </td>
@@ -151,7 +161,8 @@
                                 </table>
                             </div>
                             <hr class="style1">
-                            <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments. Max size per attachment is <b>2Mb</b>.
+                            <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments. Max size
+                                per attachment is <b>2Mb</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
