@@ -48,6 +48,7 @@ export class DashboardListingsFormComponent implements OnInit {
   specialities: string[] = [];
 
   attachmentChangeEvt: any = '';
+  clickedCertId!: number;
 
   constructor(
     private keycloakService: KeycloakService,
@@ -101,6 +102,7 @@ export class DashboardListingsFormComponent implements OnInit {
           );
         }
         this.slotTemplates[0].items.sort();
+        this.toggleLoader = false;
         subscription.unsubscribe();
       }
     );
@@ -182,7 +184,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addCertificate() {
-    let certification = new Certification(null!, this.addCertName, false, null!);
+    let certification = new Certification(null!, this.addCertName, false, null!, null!);
     this.userService.saveUserCertification(certification).subscribe(
       (response) => {
         this.getCertificationsByEmail();
@@ -205,18 +207,35 @@ export class DashboardListingsFormComponent implements OnInit {
 
     const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
       () => {
-
+        this.getCertificationsByEmail();
         this.attachmentChangeEvt = null;
         sub.unsubscribe();
       }
     );
   }
 
-  sendAttachmentEvent(event: any) {
+  setClickCertId(certId: number) {
+    this.clickedCertId = certId;
+  }
+
+  handleAttachment(event: any) {
     const file:File = event.target.files[0];
     
     if(file.type.includes("image")||file.type.includes("pdf")) {
       this.attachmentChangeEvt = event;
+      console.log(file);
+
+      const sub = this.dialogService.openDialog(" upload "+file.name.replaceAll(" ","_")).subscribe(
+        (response) => {
+          if(response) {
+            this.uploadFile(this.clickedCertId);
+          } else {
+            this.attachmentChangeEvt = null;
+            this.clickedCertId = null!;
+          }
+          sub.unsubscribe();
+        }
+      );
     } else {
       const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachments.", true).subscribe(
         () => {
@@ -224,6 +243,15 @@ export class DashboardListingsFormComponent implements OnInit {
         }
       );
     }
+  }
+
+  downloadAttachments(attachments: any[]) {
+    attachments.map(
+      (a) => {
+        console.log(a)
+        this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
+      }
+    );
   }
 
   resetSlotDialog() {
@@ -277,7 +305,6 @@ export class DashboardListingsFormComponent implements OnInit {
           this.toastrService.error(response.message);
         }
         this.loadSlotTemplates(this.listing.id);
-        this.toggleLoader = false;
         subscription.unsubscribe();
       }
     );
@@ -320,11 +347,11 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  clearAllAttachments() {
+  clearAllAttachments(certId: number) {
     const sub = this.dialogService.openDialog(" remove all attachments").subscribe(
       (response) => {
         if (response) {
-          console.log("Delete attachment")
+          this.removeAllCertAttachments(certId);
         }
 
         sub.unsubscribe();
@@ -346,6 +373,15 @@ export class DashboardListingsFormComponent implements OnInit {
         }
 
         subs.unsubscribe();
+      }
+    );
+  }
+
+  removeAllCertAttachments(certId: number) {
+    const sub = this.userService.removeAllCertAttachments(certId).subscribe(
+      () => {
+        this.getCertificationsByEmail();
+        sub.unsubscribe();
       }
     );
   }

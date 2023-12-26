@@ -66,6 +66,10 @@
                     </div>
 
                 </div>
+                <hr>
+                <h6 class="small-text">** This specialization <b>requires</b> professional certifications to post listing.</h6>
+                <h6 class="small-text">** Kindly upload all the <b>relevant certifications</b>.</h6>
+                <h6 class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>              
             </div>
         </form>
         <!-- User Form Ends -->
@@ -88,7 +92,8 @@
                                         <h3><b>Certifications </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addCertificationModal" class="fa fa-plus-square"
                                                 style="color: #0d6efd" aria-hidden="true"></i></h3>
-                                        <h6 style="color: red;"><b>Verification Mandatory </b></h6>
+                                        <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                                Certifications</a>
                                     </div>
                                 </div>
                             </div>
@@ -111,32 +116,27 @@
                                             </td>
                                             <td class="text-center">
                                                 <div class="col">
-                                                    abcd.png
+                                                    <a *ngFor="let attachment of certification.attachments; let first=first" style="font-size: .9rem!important;"><a *ngIf="!first">, </a>{{attachment.name}}</a>
                                                 </div>
                                                 <div class="col">
-                                                    <a class="link px-1" type="button">
+                                                    <a class="link px-1" type="button" (click)="setClickCertId(certification.id)">
                                                         <label type="button" for="files" class="col-12"><i
-                                                                class="fa fa-plus-square"></i></label>
+                                                                class="fa fa-plus-circle"></i></label>
                                                     </a>
-                                                    <a *ngIf="attachmentChangeEvt" class="px-1" type="button"
-                                                        (click)="uploadFile(certification.id)">
-                                                        <i class="fa fa-save" aria-hidden="true"></i>
-                                                    </a>
-                                                    <i *ngIf="!attachmentChangeEvt"
-                                                        style="color: rgb(162, 162, 162);font-size: 1.15rem!important;"
-                                                        class="px-1 fa fa-save" aria-hidden="true"></i>
-                                                    <a class="link px-1" type="button"
-                                                        (click)="clearAllAttachments()"><i class="fa fa-trash"
+                                                    <a *ngIf="certification.attachments.length>0" class="link px-1" type="button"
+                                                        (click)="clearAllAttachments(certification.id)"><i class="fa fa-trash"
                                                             aria-hidden="true"></i></a>
-                                                    <a class=" px-1" type="button"><i class="fa fa-download"
+                                                    <a *ngIf="certification.attachments.length>0" class=" px-1" type="button" (click)="downloadAttachments(certification.attachments)"><i class="fa fa-download"
                                                             aria-hidden="true"></i></a>
-                                                    <!-- <i class="fa fa-download px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
-                                                    <i class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i> -->
+                                                    <i *ngIf="certification.attachments.length<=0" class="fa fa-download px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
+                                                    <i *ngIf="certification.attachments.length<=0" class="fa fa-trash px-1" style="color: rgb(162, 162, 162);" aria-hidden="true"></i>
                                                 </div>
                                             </td>
                                             <td class="text-center">
                                                 {{certification.status}}
-                                                <i class="fa fa-check-circle" aria-hidden="true"
+                                                <i *ngIf="certification.status=='Unverified'" class="fa fa-check-circle" aria-hidden="true"
+                                                style="color: rgb(162, 162, 162);"></i>
+                                                <i *ngIf="certification.status=='Verified'" class="fa fa-check-circle" aria-hidden="true"
                                                     style="color: green;"></i>
                                             </td>
                                             <td class="text-center">
@@ -151,12 +151,7 @@
                                 </table>
                             </div>
                             <hr class="style1">
-                            <h6 class="small-text">** <b>Verification</b> of all certifications is mandatory to post
-                                listing.
-                            </h6>
-                            <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments.
-                            </h6>
-                            <h6 class="small-text">** Max size per attachment is <b>2Mb</b>.
+                            <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments. Max size per attachment is <b>2Mb</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -241,9 +236,9 @@
                                             style="font-size: 0.8rem!important;">Paste</a>
                                     </h4>
                                     <div *ngIf="!toggleLoader" class="form-check form-switch">
-                                        <label type="button" *ngIf="template.enabled" class="form-check-label"
+                                        <label type="button" [hidden]="!template.enabled" class="form-check-label"
                                             for="slotSwitch">On</label>
-                                        <label type="button" *ngIf="!template.enabled" class="form-check-label"
+                                        <label type="button" [hidden]="template.enabled" class="form-check-label"
                                             for="slotSwitch">Off</label>
                                         <input id="slotSwitch" (click)="toggleSlotTemplate(template)"
                                             class="form-check-input" type="checkbox" [checked]="template.enabled"
@@ -257,16 +252,16 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label class="py-2">Slots:</label>
-                                    <div class="row">
 
+                                    <div class="row">
                                         <div *ngFor="let item of template.items"
-                                            class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                            class="col-xxl-1 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
                                             <span class="btn btn-rounded btn-primary"
                                                 (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}}
                                                 <i class="fa-regular fa-circle-xmark"></i></span>
                                         </div>
 
-                                        <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                        <div class="col-xxl-1 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
                                             <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#addSlotModal"
                                                 (click)="addSlotTemplateItemToDialog(template.id)"><i
@@ -551,7 +546,7 @@
 <!-- Add Slot Modal Ends -->
 
 <!-- hidden file input starts -->
-<input id="files" type="file" (change)="sendAttachmentEvent($event)" style="visibility:hidden;">
+<input id="files" type="file" (change)="handleAttachment($event)" style="visibility:hidden;">
 <!-- hidden file input ends -->
 
 <script>

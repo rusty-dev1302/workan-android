@@ -3,7 +3,8 @@ export class Certification{
         public id: number,
         public name: string,
         public verified: boolean,
-        public status: string
+        public status: string,
+        public attachments: any[]
     ) {
     }
 }

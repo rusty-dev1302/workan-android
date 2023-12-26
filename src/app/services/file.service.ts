@@ -411,17 +411,24 @@ export class FileService {
     return invoiceDefinition;
   }
 
-  private async downloadAttachment(photo: any) {
-    // Convert photo to base64 format, required by Filesystem API to save
-    const base64Data = photo;
-  
-    // Write the file to the data directory
-    const fileName = Date.now() + '.jpeg';
-    const savedFile = await Filesystem.writeFile({
-      path: fileName,
-      data: base64Data,
-      directory: Directory.Data
-    });
+  downloadAttachment(attachmentByte: any, fileName: string, type: string) {
+    const byteArray = new Uint8Array(
+      atob(attachmentByte)
+      .split('')
+      .map((char)=>char.charCodeAt(0))
+    );
+
+    const file = new Blob([byteArray], {type: type});
+    const fileUrl = URL.createObjectURL(file);
+    let link  = document.createElement('a');
+    link.download = fileName;
+    link.target = '_blank';
+    link.href = fileUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
+
+  
 
 }

@@ -61,6 +61,11 @@ export class UserService {
     return this.httpClient.delete<BaseResponse>(putUrl);
   }
 
+  removeAllCertAttachments(certId: number): Observable<BaseResponse> {
+    const putUrl = `${this.baseUrl}/certification/attachments/removeAll?certId=${certId}`;
+    return this.httpClient.delete<BaseResponse>(putUrl);
+  }
+
   saveUserContact(contactDetail: ContactDetail): Observable<ContactDetail> {
     const postUrl = `${this.baseUrl}/contact/save`;
     return this.httpClient.post<ContactDetail>(postUrl, contactDetail);
