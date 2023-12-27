@@ -154,6 +154,79 @@
                 </form>
                 <!-- Contact Form Ends -->
             </div>
+
+            <div class="form-section p-3 m-3">
+
+                <!-- User Form Starts -->
+                <form #editListing="ngForm">
+
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <h3><b>Listing Details </b></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="style1">
+                        <div *ngIf="displayListing" class="row">
+
+                            <div class="col-xxl-6 col-lg-6 col-12">
+                                <div class="col-xxl-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <h5><b>Inactive</b></h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-6 col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label>Speciality</label>
+                                    <h5>{{displayListing.subCategory.subCategoryName}}</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-6 col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label>Experience</label>
+                                    <h5>{{displayListing.experience>5?'> 5':displayListing.experience}} Years</h5>
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-6 col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label>Charges Type</label>
+                                    <h5>{{displayListing.chargesType}}</h5>
+                                </div>
+                            </div>
+                            <div class="col-xxl-6 col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label>Charges</label>
+                                    <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i>
+                                        {{displayListing.charges |
+                                        number : '1.2-2'}} </h5>
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-6 col-lg-6 col-12">
+                                <div class="col-xxl-6 col-lg-6 col-12">
+                                    <div class="form-group">
+                                        <label>Location</label>
+                                        <h5>{{displayListing.location}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                        <h6 class="small-text">** This specialization <b>requires</b> professional certifications to
+                            post
+                            listing.</h6>
+                    </div>
+                </form>
+                <!-- User Form Ends -->
+            </div>
         </div>
         <!-- Edit Section ends -->
 

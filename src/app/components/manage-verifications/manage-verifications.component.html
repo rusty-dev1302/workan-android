@@ -55,15 +55,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
+                                            <tr *ngFor="let verificationRequest of verificationRequests">
                                                 <td class="text-center">
-                                                    dsadas</td>
-                                                <td class="text-center">dsadasdsa</td>
-                                                <td class="text-center">asdasd</td>
-                                                <td class="text-center"><a class="link" type="button"><i
+                                                    {{verificationRequest.professional.firstName}} {{verificationRequest.professional.lastName}}</td>
+                                                <td class="text-center">{{verificationRequest.professional.email}}</td>
+                                                <td class="text-center">{{verificationRequest.name}}</td>
+                                                <td (click)="downloadAttachments(verificationRequest.attachments)" class="text-center"><a class="link" type="button"><i
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
-                                                <td class="text-center">Verified</td>
+                                                <td class="text-center">{{verificationRequest.status}}</td>
                                             </tr>
                                         </tbody>
                                     </table>
