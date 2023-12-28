@@ -9,6 +9,7 @@ export class Listing extends BaseResponse{
         public id: number,
         public charges: number,
         public chargesType: string,
+        public enabled: boolean,
         public professionalEmail: string,
         public location: string,
         public professionalId: number,

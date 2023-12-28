@@ -51,7 +51,8 @@
                                                 <th scope="col" class="text-center">Email</th>
                                                 <th scope="col" class="text-center">Certification</th>
                                                 <th scope="col" class="text-center">Attachments</th>
-                                                <th scope="col" class="text-center">Status</th>
+                                                <th scope="col" class="text-center">Verification Status</th>
+                                                <th scope="col" class="text-center">Listing Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,6 +64,7 @@
                                                 <td (click)="downloadAttachments(verificationRequest.attachments)" class="text-center"><a class="link" type="button"><i
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
+                                                <td class="text-center">{{verificationRequest.status}}</td>
                                                 <td class="text-center">{{verificationRequest.status}}</td>
                                             </tr>
                                         </tbody>

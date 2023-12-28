@@ -40,6 +40,7 @@ export const constants = {
     professionalEmail: "",
     professionalId: 0,
     subCategoryName: "",
+    enabled: false,
     state: "",
     message: "",
     experience: 0,
