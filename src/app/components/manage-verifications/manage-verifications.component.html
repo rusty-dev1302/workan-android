@@ -65,7 +65,10 @@
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
                                                 <td class="text-center">{{verificationRequest.status}}</td>
-                                                <td class="text-center">{{verificationRequest.professional.listing.enabled?'Active':'Inactive'}}</td>
+                                                <td class="text-center">{{verificationRequest.professional.listing.enabled?'Active':'Inactive'}} /
+                                                <a type="button" (click)="activateDeactivateListing(verificationRequest.professional.listing.id)" class="link" style="font-size: 1rem!important;" *ngIf="!verificationRequest.professional.listing.enabled">Activate</a>
+                                                <a type="button" (click)="activateDeactivateListing(verificationRequest.professional.listing.id)" class="link" style="font-size: 1rem!important;" *ngIf="verificationRequest.professional.listing.enabled">Deactivate</a>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

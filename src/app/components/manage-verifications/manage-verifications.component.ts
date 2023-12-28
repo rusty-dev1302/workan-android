@@ -41,4 +41,13 @@ export class ManageVerificationsComponent implements OnInit {
     );
   }
 
+  activateDeactivateListing(listingId: number) {
+    console.log(listingId)
+    this.adminService.activateInactivateListing(listingId).subscribe(
+      () => {
+        this.getAllCertificationsToVerify();
+      }
+    );
+  }
+
 }

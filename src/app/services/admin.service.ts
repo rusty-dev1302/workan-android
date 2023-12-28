@@ -17,6 +17,12 @@ export class AdminService {
     return this.httpClient.get<any>(getUrl);
   }
 
+  activateInactivateListing(listingId: number): Observable<any> {
+    const getUrl = `${this.baseUrl}/listing/toggle?listingId=${listingId}`;
+    return this.httpClient.get<any>(getUrl);
+  }
+
+
   getUserByEmail(email: string) {
     const getUrl = `${this.baseUrl}/customer?email=${email}`;
     return this.httpClient.get<Customer>(getUrl);
