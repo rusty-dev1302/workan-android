@@ -5,6 +5,8 @@ export class SubCategory{
         public subCategoryName: string,
 
         public categoryName: string,
+
+        public verificationMandatory: boolean
     ) {
     }
 }

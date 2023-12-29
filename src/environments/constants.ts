@@ -47,7 +47,8 @@ export const constants = {
     subCategory: {
       id:0,
       subCategoryName: "",
-      categoryName: ""
+      categoryName: "",
+      verificationMandatory: false
     },
     location: "",
     geoHash: "",
