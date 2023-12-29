@@ -71,6 +71,7 @@ export class ManageUsersComponent implements OnInit {
 
           this.customerIdEvent.emit(this.user.id);
           this.loadContactDetails();
+          this.loadListingDetails();
           this.loadProfilePhoto();
 
         } else {
@@ -113,11 +114,12 @@ export class ManageUsersComponent implements OnInit {
   }
 
   loadListingDetails() {
-    const subscription = this.adminService.getListingForUser(this.user.id).subscribe(
+    const subscription = this.adminService.getListingForUser(this.user.email).subscribe(
       (data) => {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.displayListing = data;
+          console.log(data)
         }
 
         subscription.unsubscribe();

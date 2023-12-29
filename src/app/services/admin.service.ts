@@ -33,8 +33,8 @@ export class AdminService {
     return this.httpClient.get<ContactDetail>(getUrl);
   }
 
-  getListingForUser(userId: number): Observable<Listing> {
-    const getUrl = `${this.baseUrl}/listing?customerId=${userId}`;
+  getListingForUser(email: string): Observable<Listing> {
+    const getUrl = `${this.baseUrl}/listing?email=${email}`;
     return this.httpClient.get<Listing>(getUrl);
   }
 
