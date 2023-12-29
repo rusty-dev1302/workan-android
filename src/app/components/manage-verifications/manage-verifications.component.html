@@ -64,7 +64,10 @@
                                                 <td (click)="downloadAttachments(verificationRequest.attachments)" class="text-center"><a class="link" type="button"><i
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
-                                                <td class="text-center">{{verificationRequest.status}}</td>
+                                                <td class="text-center">{{verificationRequest.status}} |
+                                                    <a type="button" (click)="verifyCertificationById(verificationRequest.id)" class="link" style="font-size: 1rem!important;" >Verify</a> /
+                                                    <a type="button" (click)="rejectCertificationById(verificationRequest.id)" class="link" style="font-size: 1rem!important;" >Reject</a>
+                                                </td>
                                                 <td class="text-center">{{verificationRequest.professional.listing.enabled?'Active':'Inactive'}} /
                                                 <a type="button" (click)="activateDeactivateListing(verificationRequest.professional.listing.id)" class="link" style="font-size: 1rem!important;" *ngIf="!verificationRequest.professional.listing.enabled">Activate</a>
                                                 <a type="button" (click)="activateDeactivateListing(verificationRequest.professional.listing.id)" class="link" style="font-size: 1rem!important;" *ngIf="verificationRequest.professional.listing.enabled">Deactivate</a>

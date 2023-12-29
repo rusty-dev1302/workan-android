@@ -50,4 +50,21 @@ export class ManageVerificationsComponent implements OnInit {
     );
   }
 
+  verifyCertificationById(certificationId: number) {
+    this.adminService.verifyCertificationById(certificationId).subscribe(
+      () => {
+        console.log(certificationId)
+        this.getAllCertificationsToVerify();
+      }
+    );
+  }
+
+  rejectCertificationById(certificationId: number) {
+    this.adminService.rejectCertificationById(certificationId).subscribe(
+      () => {
+        this.getAllCertificationsToVerify();
+      }
+    );
+  }
+
 }

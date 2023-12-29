@@ -113,7 +113,7 @@
                 <!-- User Form Ends -->
             </div>
 
-            <div *ngIf="displayUser&&!displayUser.professional" class="form-section  p-3 m-3" id="address_section">
+            <div *ngIf="displayUser&&!displayUser.professional&&!displayUser.admin" class="form-section  p-3 m-3" id="address_section">
 
                 <!-- Contact Form Starts -->
                 <form>
@@ -155,7 +155,7 @@
                 <!-- Contact Form Ends -->
             </div>
 
-            <div *ngIf="displayUser&&displayUser.professional" class="form-section p-3 m-3">
+            <div *ngIf="displayUser&&displayUser.professional&&!displayUser.admin" class="form-section p-3 m-3">
 
                 <!-- User Form Starts -->
                 <form #editListing="ngForm">

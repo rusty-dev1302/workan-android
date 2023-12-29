@@ -5,6 +5,7 @@ import { constants } from 'src/environments/constants';
 import { Customer } from '../common/customer';
 import { ContactDetail } from '../common/contact-detail';
 import { Listing } from '../common/listing';
+import { BaseResponse } from '../common/base-response';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,16 @@ export class AdminService {
 
   activateInactivateListing(listingId: number): Observable<any> {
     const getUrl = `${this.baseUrl}/listing/toggle?listingId=${listingId}`;
+    return this.httpClient.get<any>(getUrl);
+  }
+
+  verifyCertificationById(certificationId: number): Observable<BaseResponse> {
+    const getUrl = `${this.baseUrl}/certification/verify?certificationId=${certificationId}`;
+    return this.httpClient.get<any>(getUrl);
+  }
+
+  rejectCertificationById(certificationId: number): Observable<BaseResponse> {
+    const getUrl = `${this.baseUrl}/certification/reject?certificationId=${certificationId}`;
     return this.httpClient.get<any>(getUrl);
   }
 
