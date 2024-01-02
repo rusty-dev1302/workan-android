@@ -13,7 +13,8 @@
                         <div class="form-group">
                             <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #0d6efd"
                                     type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
-                            <h6 *ngIf="displayListing.subCategory.verificationMandatory" style="color: red;"><b>Verification Mandatory **</b></h6>
+                            <h6 *ngIf="displayListing.subCategory.verificationMandatory" style="color: red;">
+                                <b>Verification Mandatory **</b></h6>
                         </div>
                     </div>
                 </div>
@@ -24,7 +25,7 @@
                         <div class="col-xxl-6 col-lg-6 col-12">
                             <div class="form-group">
                                 <label>Status</label>
-                                <h5 ><b>{{displayListing.enabled?'Active':'Inactive'}}</b></h5>
+                                <h5><b>{{displayListing.enabled?'Active':'Inactive'}}</b></h5>
                             </div>
                         </div>
                     </div>
@@ -100,7 +101,8 @@
                                 </div>
                             </div>
                             <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
-                            <h6 *ngIf="displayListing.subCategory.verificationMandatory&&!displayListing.enabled" style="color: red;"><b>Please add all relevant certifications.</b></h6>
+                            <h6 *ngIf="displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                                style="color: red;"><b>Please add all relevant certifications.</b></h6>
                             <div class="table-responsive">
                                 <table class="table table table-bordered th-sm">
                                     <thead
@@ -122,15 +124,21 @@
                                                     <a *ngFor="let attachment of certification.attachments; let first=first"
                                                         style="font-size: .9rem!important;"><a *ngIf="!first">,
                                                         </a>{{attachment.name}}</a>
+                                                    <a *ngIf="certification.attachments.length<=0"
+                                                        style="font-size: .9rem!important;color: grey;">
+                                                        No Attachments
+                                                    </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a class="link px-1" type="button" *ngIf="certification.status=='Unverified'"
+                                                    <a class="link px-1" type="button"
+                                                        *ngIf="certification.status=='Unverified'"
                                                         (click)="setClickCertId(certification.id)">
                                                         <label type="button" for="files" class="col-12"><i
                                                                 class="fa fa-plus-circle"></i></label>
                                                     </a>
-                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'" class="link px-1"
-                                                        type="button" (click)="clearAllAttachments(certification.id)"><i
+                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
+                                                        class="link px-1" type="button"
+                                                        (click)="clearAllAttachments(certification.id)"><i
                                                             class="fa fa-trash" aria-hidden="true"></i></a>
                                                     <a *ngIf="certification.attachments.length>0" class=" px-1"
                                                         type="button"
@@ -146,15 +154,17 @@
                                             </td>
                                             <td class="text-center">
                                                 {{certification.status}}
-                                                <i *ngIf="certification.status=='Rejected'"
-                                                    class="fa fa-times-circle" aria-hidden="true" style="color: rgb(255, 71, 71);"></i>
+                                                <i *ngIf="certification.status=='Rejected'" class="fa fa-times-circle"
+                                                    aria-hidden="true" style="color: rgb(255, 71, 71);"></i>
                                                 <i *ngIf="certification.status=='Verified'" class="fa fa-check-circle"
                                                     aria-hidden="true" style="color: green;"></i>
                                             </td>
                                             <td class="text-center">
-                                                <a *ngIf="certification.status=='Unverified'" class="link px-1" type="button" style="font-size: 1rem!important;"
+                                                <a *ngIf="certification.status=='Unverified'" class="link px-1"
+                                                    type="button" style="font-size: 1rem!important;"
                                                     (click)="verifyCertification(certification.id)">Verify</a>
-                                                <a *ngIf="certification.status=='Unverified'" style="font-size: 1rem!important;">/</a>
+                                                <a *ngIf="certification.status=='Unverified'"
+                                                    style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</a>
                                             </td>
@@ -290,7 +300,7 @@
 
                 <!-- Slots for the day end  -->
 
-                <h6 class="small-text">** Multiple time intervals when you will be offering services.</h6>
+                <h6 class="small-text">** Multiple time intervals when you will be available to offer services.</h6>
                 <h6 class="small-text">** For example: 8:00AM-9:00AM</h6>
             </div>
         </form>

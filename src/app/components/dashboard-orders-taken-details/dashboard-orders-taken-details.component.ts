@@ -6,6 +6,7 @@ import { Order } from 'src/app/common/order';
 import { ProcessOrderRequest } from 'src/app/common/process-order-request';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
@@ -24,7 +25,8 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private orderService: OrderService,
     private toastr: ToastrService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private paymentService: PaymentService
   ) { }
 
   ngOnInit() {
@@ -92,7 +94,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   confirmDirectPayment() {
     let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
-    this.orderService.confirmDirectPayment(this.order.id, otp).subscribe(
+    this.paymentService.confirmDirectPayment(this.order.id, otp).subscribe(
       (response) => {
         if(response.state==constants.SUCCESS_STATE) {
           window.location.reload();

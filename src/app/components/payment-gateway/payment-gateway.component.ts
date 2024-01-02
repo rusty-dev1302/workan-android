@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { PayPalService } from 'src/app/services/pay-pal.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
@@ -17,7 +17,7 @@ export class PaymentGatewayComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private paypalService: PayPalService,
+    private paymentService: PaymentService,
     private toastrService: ToastrService,
     private router: Router,
     private navigationService: NavigationService
@@ -41,7 +41,7 @@ export class PaymentGatewayComponent implements OnInit {
       this.router.navigateByUrl(`${this.redirectLink}`);
     }
 
-    const sub1 = this.paypalService.completePayment(paymentId!, payerId!, this.orderId).subscribe(
+    const sub1 = this.paymentService.completePayment(paymentId!, payerId!, this.orderId).subscribe(
       (response) => {
         if(response.state==constants.SUCCESS_STATE) {
           this.toastrService.success("Payment Complete!");

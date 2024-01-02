@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PayPalService } from 'src/app/services/pay-pal.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/services/order.service';
@@ -22,7 +22,7 @@ export class ConfirmPaymentComponent {
   paymentOtp!:string;
 
   constructor(
-    private paypalService: PayPalService,
+    private paymentService: PaymentService,
     private toastrService: ToastrService,
     private orderService: OrderService
   ) {
@@ -34,7 +34,7 @@ export class ConfirmPaymentComponent {
       this.checkoutClicked = true;
       this.selectedPaymentMode = this.paymentMode;
       if(this.paymentMode=="paypal") {
-        this.paypalService.makePayment(this.amount, this.orderId).subscribe(
+        this.paymentService.makePayment(this.amount, this.orderId).subscribe(
           (response) => {
             if(response.state==constants.SUCCESS_STATE) {
               window.location.href = response.redirect_url;
