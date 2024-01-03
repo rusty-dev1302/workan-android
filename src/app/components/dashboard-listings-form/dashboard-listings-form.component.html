@@ -337,7 +337,7 @@
                                             <div class="form-group">
                                                 <label>Speciality</label>
                                                 <select #subCategory class="form-select" aria-label="gender"
-                                                    [value]="listing.subCategory?.subCategoryName"
+                                                    [value]="listing.subCategory.subCategoryName"
                                                     (change)="selectSubCategory(subCategory.value)">
                                                     <option value="" default hidden>Select a speciality</option>
                                                     <option *ngFor="let speciality of specialities"
