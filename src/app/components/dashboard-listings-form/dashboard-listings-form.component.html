@@ -253,7 +253,7 @@
                                         <i class="fa fa-ellipsis-v px-1"
                                             style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
                                         <a *ngIf="pasteItems.length>0" type="button"
-                                            (click)="pasteSlotItems(template.dayName,template.id)" class="link"
+                                            (click)="pasteSlotItems(template.dayName,template.id, template.enabled)" class="link"
                                             style="font-size: 0.8rem!important;">Paste</a>
                                         <a *ngIf="pasteItems.length<=0" class="link link-disabled"
                                             style="font-size: 0.8rem!important;">Paste</a>
@@ -263,7 +263,7 @@
                                             for="slotSwitch">On</label>
                                         <label type="button" [hidden]="template.enabled" class="form-check-label"
                                             for="slotSwitch">Off</label>
-                                        <input id="slotSwitch" (click)="toggleSlotTemplate(template)"
+                                        <input id="slotSwitch" (click)="toggleSlotTemplate(template.id)"
                                             class="form-check-input" type="checkbox" [checked]="template.enabled"
                                             role="switch">
                                     </div>

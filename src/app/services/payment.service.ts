@@ -26,8 +26,8 @@ export class PaymentService {
   }
 
   confirmDirectPayment(orderId: number, otp: string): Observable<BaseResponse> {
-    const getUrl = `${this.baseUrl}/payment/paypal/confirm?orderId=${orderId}&&paymentOtp=${otp}`;
-    return this.httpClient.get<BaseResponse>(getUrl);
+    const getUrl = `${this.baseUrl}/direct/complete/payment?orderId=${orderId}&&paymentOtp=${otp}`;
+    return this.httpClient.post<BaseResponse>(getUrl, {});
   }
 
 }

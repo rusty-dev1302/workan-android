@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Listing } from 'src/app/common/listing';
@@ -119,10 +119,13 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  pasteSlotItems(dayName: string, templateId: number) {
-    const subs = this.dialogService.openDialog(" paste time slots to " + dayName + ", this will overwrite current data").subscribe(
+  pasteSlotItems(dayName: string, templateId: number, templateEnabled: boolean) {
+    const subs = this.dialogService.openDialog("Are you sure you want to paste time slots to " + dayName + "? All of the current day slots will be switched OFF momentarily.", true).subscribe(
       (result) => {
         if (result) {
+          if (templateEnabled) {
+            this.toggleSlotTemplate(templateId);
+          }
           const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
             () => {
               this.loadSlotTemplates(this.listing.id);
@@ -295,9 +298,9 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  toggleSlotTemplate(slotTemplate: SlotTemplate) {
+  toggleSlotTemplate(slotTemplateId: number) {
     this.toggleLoader = true;
-    const subscription = this.listingService.toggleSlotTemplate(slotTemplate.id).subscribe(
+    const subscription = this.listingService.toggleSlotTemplate(slotTemplateId).subscribe(
       (response) => {
         if (response.state == constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);
