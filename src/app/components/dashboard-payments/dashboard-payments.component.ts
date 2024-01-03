@@ -16,7 +16,7 @@ import { Invoice } from 'src/app/common/invoice';
 })
 export class DashboardPaymentsComponent implements OnInit {
 
-  showWallet: boolean = false;
+  showWallet: boolean = true;
 
   paymentAccount!: PaymentAccount;
   orderTransactions: Transaction[] = [];
