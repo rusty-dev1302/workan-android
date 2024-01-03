@@ -78,6 +78,7 @@ export class DashboardListingsFormComponent implements OnInit {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.listing = data;
+          console.log("Listing: "+JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
         } else {
@@ -337,6 +338,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   onClickSubmit() {
     this.listing.professionalEmail = this.emailValue;
+    this.listing.timezoneOffset = new Date().getTimezoneOffset();
     this.listingService.saveListing(this.listing).subscribe(
       (data) => {
         if (data.state == constants.SUCCESS_STATE) {

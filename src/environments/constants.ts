@@ -46,6 +46,7 @@ export const constants = {
     state: "",
     message: "",
     experience: 0,
+    timezoneOffset: 0,
     subCategory: {
       id:0,
       subCategoryName: "",
