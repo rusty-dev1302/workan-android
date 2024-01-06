@@ -9,6 +9,9 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
 export class ConfirmationDialogComponent implements OnInit {
 
   dialogMessage: string = "";
+  link:any;
+  linkText:any;
+  postMessage:any;
 
   constructor(
     private dialogService: ConfirmationDialogService
@@ -16,8 +19,11 @@ export class ConfirmationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.dialogService.getDialogMessage().subscribe(
-      (message)=>{
-        this.dialogMessage = message;
+      (response)=>{
+        this.dialogMessage = response.message;
+        this.link = response.link;
+        this.linkText = response.linkText;
+        this.postMessage = response.postMessage;
       }
     );
   }

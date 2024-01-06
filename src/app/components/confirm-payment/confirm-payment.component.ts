@@ -37,7 +37,7 @@ export class ConfirmPaymentComponent {
         this.paymentService.makePayment(this.amount, this.orderId).subscribe(
           (response) => {
             if(response.state==constants.SUCCESS_STATE) {
-              window.location.href = response.redirect_url;
+              window.location.href = response.message;
             }
           }
         );

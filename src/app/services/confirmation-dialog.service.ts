@@ -9,13 +9,19 @@ import { constants } from 'src/environments/constants';
 export class ConfirmationDialogService {
 
   private dialogOutput$ = new Subject<boolean>();
-  private dialogMessage$ = new Subject<string>();
+  private dialogMessage$ = new Subject<any>();
 
   constructor(private dialogRef: MatDialog) { }
 
-  openDialog(message: string, overrideDefaultMessage:boolean=false): Observable<boolean> {
+  openDialog(message: string, overrideDefaultMessage: boolean=false, link: any=null, linkText: any=null, postMessage: any=null): Observable<boolean> {
 
-    this.dialogMessage$.next(overrideDefaultMessage?message:constants.CONFIRMATION_DIALOG_MESSAGE+message+"?");
+    let response: any = {};
+    response.message = overrideDefaultMessage?message:constants.CONFIRMATION_DIALOG_MESSAGE+message+"?";
+    response.link = link;
+    response.linkText = linkText;
+    response.postMessage = postMessage;
+
+    this.dialogMessage$.next(response);
 
     const modalDiv = document.getElementById("confirmationDialogModal");
     if (modalDiv != null) {
@@ -45,7 +51,7 @@ export class ConfirmationDialogService {
     }
   }
 
-  getDialogMessage(): Observable<string> {
+  getDialogMessage(): Observable<any> {
     return this.dialogMessage$.asObservable();
   }
 }
