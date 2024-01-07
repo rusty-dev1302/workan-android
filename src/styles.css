@@ -761,6 +761,10 @@ input[type=number] {
     margin-left: 2px;
 }
 
+.noHover{
+    pointer-events: none;
+}
+
 /* toaster styles  */
 .toast-container {
     top: 5% !important;

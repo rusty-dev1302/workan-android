@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
+import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 import { ListingService } from 'src/app/services/listing.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
@@ -27,8 +29,11 @@ export class BrowseListingsComponent implements OnInit {
   subscription: any;
   pageNumber: number = 0;
 
+  timezoneOffset = new Date().getTimezoneOffset();
+
 
   constructor(private listingService: ListingService,
+    private datePipe: DatePipe,
     private navigationService: NavigationService,
     private userService: UserService,
     private route: ActivatedRoute,
@@ -91,8 +96,31 @@ export class BrowseListingsComponent implements OnInit {
   handleListProducts() {
     const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.pageNumber).subscribe(
       data => {
+        console.log(data)
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
+            data.forEach(
+              (listing) => {
+                let total: number = 
+                    listing.professional.oneRating
+                  + listing.professional.twoRating
+                  + listing.professional.threeRating
+                  + listing.professional.fourRating
+                  + listing.professional.fiveRating;
+                let weightedSum = 
+                    1*listing.professional.oneRating
+                  + 2*listing.professional.twoRating
+                  + 3*listing.professional.threeRating
+                  + 4*listing.professional.fourRating
+                  + 5*listing.professional.fiveRating;
+
+                listing.professional.rating = total > 0 ? weightedSum/total : 0;
+              
+                if(listing.timezoneOffset==this.timezoneOffset) {
+                  this.getAvailabilityForListing(listing);
+                }
+              }
+            );
             this.listings = this.listings.concat(data);
             this.pageNumber++;
           } else {
@@ -106,7 +134,7 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   updateAddress() {
-    
+
     if (this.currentUser.professional) {
       this.router.navigateByUrl(`/dashboard/managelisting`);
     } else {
@@ -119,8 +147,59 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   onScroll() {
-    if(this.pageNumber>-1) {
+    if (this.pageNumber > -1) {
       this.handleListProducts();
+    }
+  }
+
+  getAvailabilityForListing(listing: Listing) {
+    let today: Date = new Date();  
+    this.getSlotsForDay(today, listing);
+    let tomorrow: Date = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    this.getSlotsForDay(tomorrow, listing, true);
+  }
+
+  getSlotsForDay(date: Date, listing: Listing, stopLoad:boolean=false) {
+    if (date) {
+      const sub = this.listingService.getAvailableSlotsItems(listing.id, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
+        (data) => {
+          if (data) {
+
+            let currentSlots:SlotTemplateItem[] = data;
+
+            const todayDate = new Date().getDate();
+
+            if (todayDate == date.getDate()) {
+              const todayTime = this.datePipe.transform(new Date(), 'HHmm');
+              currentSlots = currentSlots.filter(
+                a => a.startTimeHhmm > +todayTime!
+              );
+
+              if(currentSlots.length>0) {
+                listing.availableToday = true;
+              } else {
+                listing.availableToday = false;
+              }
+
+            } else {
+              if(currentSlots.length>0) {
+                console.log(currentSlots)
+                listing.availableTomorrow = true;
+              } else {
+                listing.availableTomorrow = false;
+              }
+
+            }
+
+            if(stopLoad) {
+              listing.availabilityLoaded = true;
+            }
+
+            sub.unsubscribe();
+          }
+        }
+      );
     }
   }
 }

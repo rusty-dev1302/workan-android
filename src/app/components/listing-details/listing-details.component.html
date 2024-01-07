@@ -37,6 +37,7 @@
                           <h6 *ngIf="listing"><b><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{listing.charges | number : '1.2-2'}}</b>
                             ({{listing.chargesType}})</h6>
                           <h6><i class="fa fa-star rating-color"></i> {{professional.rating | number : '1.1-1'}}</h6>
+                          <span style="font-size: .8rem;color: rgb(255, 0, 0);font-weight: bold;">{{timezoneOffset==listing.timezoneOffset?'':'The listing is in different timezone'}}</span><br>
                         </div>
                       </div>
                     </div>
@@ -78,8 +79,10 @@
                       <hr class="style1">
 
                       <div class="col-12">
-                        <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
+                        <button *ngIf="timezoneOffset==listing.timezoneOffset" class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                           data-bs-target="#slotSelectorModal">Book A Slot</button>
+                        <button *ngIf="timezoneOffset!=listing.timezoneOffset" class="btn btn-danger btn-rounded col-12" type="button"
+                        (click)="changeTimezone()">Book A Slot</button>
                       </div>
                     </div>
                   </div>

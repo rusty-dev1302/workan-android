@@ -7,6 +7,7 @@ import { constants } from 'src/environments/constants';
 import { Professional } from 'src/app/common/professional';
 import { Review } from 'src/app/common/review';
 import { OrderService } from 'src/app/services/order.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 @Component({
   selector: 'app-listing-details',
@@ -23,11 +24,14 @@ export class ListingDetailsComponent implements OnInit{
   reviews: Review[] = [];
   totalRatings: number = 1;
 
+  timezoneOffset = new Date().getTimezoneOffset();
+
   constructor(
     private listingService: ListingService,
     private orderService: OrderService,
     private route: ActivatedRoute,
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private dialogService: ConfirmationDialogService
     ) { }
 
   ngOnInit(): void {
@@ -86,5 +90,9 @@ export class ListingDetailsComponent implements OnInit{
 
   navigateBack(): void {
     this.navigation.back()
+  }
+
+  changeTimezone() {
+    const sub = this.dialogService.openDialog("Please change system timezone to listing's timezone.", true);
   }
 }

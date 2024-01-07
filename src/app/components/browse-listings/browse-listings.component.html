@@ -82,22 +82,33 @@
                   ({{listing.chargesType}})</h6>
 
                 <h6><i class="fa fa-star rating-color"></i> {{listing.professional.rating | number : '1.1-1'}}</h6>
-
-                <span style="font-size: 14px;">(Available today and tomorrow)</span>
                 <hr class="style1">
-
                 <p class="card-text mt-2 mb-3">
-                <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
-                <h6><b>Exp:</b><span> {{listing.experience>5?'> 5':listing.experience}} Years</span></h6>
-                <h6><b>Speaks:</b>
-                  <span>
-                    {{listing.professional.languages.join(', ').length>15?(listing.professional.languages.join(',
-                    ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
-                  </span>
-                </h6>
-                <h6><b>Location:</b><span> {{listing.location.length>20?(listing.location|slice:0:20)+'
-                    ...more':listing.location}}</span></h6>
+                  <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
+                  <h6><b>Exp:</b><span> {{listing.experience>5?'> 5':listing.experience}} Years</span></h6>
+                  <h6><b>Speaks:</b>
+                    <span>
+                      {{listing.professional.languages.join(', ').length>15?(listing.professional.languages.join(',
+                      ')|slice:0:15)+' ...more':listing.professional.languages.join(', ')}}
+                    </span>
+                  </h6>
+                  <h6><b>Location:</b><span> {{listing.location.length>20?(listing.location|slice:0:20)+'
+                      ...more':listing.location}}</span></h6>
+                  <hr class="style1">
+
+                <span *ngIf="timezoneOffset==listing.timezoneOffset" style="font-size: .5rem!important;">
+                  <a *ngIf="!listing.availabilityLoaded"><i class="fas fa-spinner fa-pulse"></i></a>
+                  <a *ngIf="listing.availabilityLoaded">
+                    <h6>Availability:</h6>
+                    <button *ngIf="listing.availableToday" class="btn btn-warning btn-small btn-rounded noHover col-6">Today</button>
+                    <button *ngIf="listing.availableTomorrow" class="btn btn-warning btn-small btn-rounded noHover col-6">Tomorrow</button>                  </a>
+                  <a *ngIf="listing.availabilityLoaded">
+                    <a *ngIf="!listing.availableToday&&!listing.availableTomorrow"><button class="btn btn-secondary btn-small btn-rounded noHover">All timeslots booked</button></a>
+                  </a>
+                </span>
+                <span style="font-size: .8rem;color: rgb(255, 0, 0);font-weight: bold;">{{timezoneOffset==listing.timezoneOffset?'':'The listing is in different timezone'}}</span><br>
                 <hr class="style1">
+
                 <div class="d-flex justify-content-end">
                   <div class="col-12">
                     <a class="btn border btn-small btn-danger btn-rounded col-12">

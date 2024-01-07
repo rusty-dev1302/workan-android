@@ -18,6 +18,9 @@ export class Listing extends BaseResponse{
         public experience: number,
         public timezoneOffset: number,
         public geoHash: string,
+        public availableToday: boolean,
+        public availableTomorrow: boolean,
+        public availabilityLoaded: boolean,
         state: string,
         message: string
     
