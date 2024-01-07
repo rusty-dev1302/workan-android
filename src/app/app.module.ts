@@ -72,10 +72,10 @@ const routes: Routes = [
   { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard] },
   { 
-    path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard, AdminGuard],
+    path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
           children: [
-          { path: 'manageUsers', component: ManageUsersComponent },
-          { path: 'manageVerifications', component: ManageVerificationsComponent },
+          { path: 'manageUsers', component: ManageUsersComponent, canActivate: [AdminGuard] },
+          { path: 'manageVerifications', component: ManageVerificationsComponent, canActivate: [AdminGuard] },
           ]
   },
   {

@@ -22,6 +22,8 @@ export class HeaderComponent implements OnInit{
 
   notifications: PushNotification[] = [];
 
+  showLoader: boolean = false;
+
 
   constructor(
     private userService: UserService,
@@ -45,9 +47,11 @@ export class HeaderComponent implements OnInit{
   }
 
   getNotificationsForUser() {
+    this.showLoader = true;
     this.checkForNewNotification(true);
     this.notificationService.getNotificationsForUser().subscribe(
       (data) => {
+        this.showLoader = false;
         this.notifications = data;
       }
     );
@@ -65,7 +69,6 @@ export class HeaderComponent implements OnInit{
     const sub = this.notificationService.checkForNewNotification(forceRefresh).subscribe(
       (response) => {
         this.notificationCount = response["true"]!=undefined?response["true"]:response["false"];
-        
         sub.unsubscribe();
       }
     );

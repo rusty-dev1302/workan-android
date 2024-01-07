@@ -164,7 +164,10 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <h3><b>Listing Details </b></h3>
+                                    <h3><b>Listing Details</b><br>
+                                        <a type="button" *ngIf="!displayListing.enabled" class="link" (click)="activateDeactivateListing()">Activate</a>
+                                        <a type="button" *ngIf="displayListing.enabled" class="link" (click)="activateDeactivateListing()">Deactivate</a>
+                                        </h3>
                                 </div>
                             </div>
                         </div>
@@ -175,7 +178,7 @@
                                 <div class="col-xxl-6 col-lg-6 col-12">
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <h5><b>Inactive</b></h5>
+                                        <h5><b>{{displayListing.enabled?'Active':'Inactive'}}</b></h5>
                                     </div>
                                 </div>
                             </div>

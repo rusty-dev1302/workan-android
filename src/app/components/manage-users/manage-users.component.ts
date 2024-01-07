@@ -144,4 +144,14 @@ export class ManageUsersComponent implements OnInit {
     this.showActions = !this.showActions;
   }
 
+  activateDeactivateListing() {
+    if(this.displayListing) {
+      this.adminService.activateInactivateListing(this.displayListing.id).subscribe(
+        () => {
+          this.loadListingDetails();
+        }
+      );
+    }
+  }
+
 }

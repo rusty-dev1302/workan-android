@@ -3,7 +3,8 @@
     <div class="offcanvas-header border-bottom" style="font-size: x-large;color: white;padding-bottom: 0;border-color: rgb(84, 84, 84)!important;">
         <ul class="list-unstyled">
             <li data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
-                Notifications</li>
+                Notifications<i *ngIf="showLoader" class="fas fa-spinner fa-pulse px-3" style="font-size: 1.3rem!important;"></i>
+            </li>
         </ul>
     </div>
     <div class="offcanvas-body justify-content-center align-items-center px-0 py-0" style="overflow-y: scroll;">

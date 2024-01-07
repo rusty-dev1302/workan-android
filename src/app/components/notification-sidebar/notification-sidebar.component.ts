@@ -12,6 +12,8 @@ export class NotificationSidebarComponent {
   @Input() notifications: PushNotification[] = [];
   @Output() readMessageEvent = new EventEmitter<boolean>();
 
+  @Input() showLoader: boolean = false;
+
   constructor(private notificationService: NotificationService) {
 
   }

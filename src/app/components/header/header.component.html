@@ -27,4 +27,4 @@
 </nav>
 
 <app-sidebar *ngIf="isAuthenticated"></app-sidebar>
-<app-notification-sidebar *ngIf="isAuthenticated" [notifications]="notifications" (readMessageEvent)="messageRead()"></app-notification-sidebar>
+<app-notification-sidebar *ngIf="isAuthenticated" [notifications]="notifications" (readMessageEvent)="messageRead()" [showLoader]="showLoader"></app-notification-sidebar>
