@@ -97,11 +97,12 @@
                   <hr class="style1">
 
                 <span *ngIf="timezoneOffset==listing.timezoneOffset" style="font-size: .5rem!important;">
-                  <a *ngIf="!listing.availabilityLoaded"><i class="fas fa-spinner fa-pulse"></i></a>
-                  <a *ngIf="listing.availabilityLoaded">
+                  <span *ngIf="!listing.availabilityLoaded"><i class="fas fa-spinner fa-pulse"></i></span>
+                  <span *ngIf="listing.availabilityLoaded">
                     <h6>Availability:</h6>
                     <button *ngIf="listing.availableToday" class="btn btn-warning btn-small btn-rounded noHover col-6">Today</button>
-                    <button *ngIf="listing.availableTomorrow" class="btn btn-warning btn-small btn-rounded noHover col-6">Tomorrow</button>                  </a>
+                    <button *ngIf="listing.availableTomorrow" class="btn btn-warning btn-small btn-rounded noHover col-6">Tomorrow</button>                  
+                  </span>
                   <a *ngIf="listing.availabilityLoaded">
                     <a *ngIf="!listing.availableToday&&!listing.availableTomorrow"><button class="btn btn-secondary btn-small btn-rounded noHover">All timeslots booked</button></a>
                   </a>
