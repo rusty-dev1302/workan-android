@@ -200,6 +200,8 @@ export class DashboardProfileFormComponent implements OnInit {
 
   submitContactDetail() {
     this.contactDetail.customerId = this.user.id;
+    this.contactDetail.addressLine1 = this.contactDetail.addressLine1.trim();
+    this.contactDetail.addressLine2 = this.contactDetail.addressLine2.trim();
     const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
       (data) => {
         this.loadUserData();

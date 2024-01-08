@@ -66,7 +66,7 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>OTP</label>
-                      <h5><b>{{order.otp}}</b></h5>
+                      <h5><b>{{order.otp!=""?order.otp:"--"}}</b></h5>
                     </div>
                   </div>
 
@@ -151,12 +151,12 @@
                         data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
                     </div>
                   </div>
-                  <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED'||order.status=='CANCELLED')"
+                  <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED')"
                     class="col-12">
                     <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
                       data-bs-target="#writeReviewModal">Write a review</button>
                   </div>
-                  <div *ngIf="order.reviewDone &&(order.status=='COMPLETED'||order.status=='CANCELLED')" class="col-12">
+                  <div *ngIf="order.reviewDone &&(order.status=='COMPLETED')" class="col-12">
                     <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
                       data-bs-target="#writeReviewModal" disabled>Review Submitted</button>
                   </div>
