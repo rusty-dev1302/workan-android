@@ -409,6 +409,15 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
+  removeListing(listingId: number) {
+    const sub = this.listingService.removeListing(listingId).subscribe(
+      ()=> {
+        window.location.reload();
+        sub.unsubscribe();
+      }
+    );
+  }
+
   convertTimeToString(time: number): string {
     let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
     let min = (time % 100 == 0 ? "00" : time % 100);

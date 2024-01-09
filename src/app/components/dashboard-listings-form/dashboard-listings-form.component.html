@@ -11,8 +11,10 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Listing Details </b><i class="fa-solid fa-square-pen" style="color: #0d6efd"
-                                    type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i></h3>
+                            <h3><b>Listing Details </b>
+                                <i *ngIf="!displayListing" class="fa-regular fa-circle-plus" style="color: #0d6efd;border-radius: 100%!important;" type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i>
+                                <i *ngIf="displayListing" class="fa-regular fa-pen-circle" style="color: #0d6efd;border-radius: 100%!important;" type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i>
+                                <i *ngIf="displayListing" class="fa-regular fa-circle-trash" style="color: #e67878;margin-left: 5px;" type="button" (click)="removeListing(displayListing.id)"></i></h3>
                             <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" style="color: red;">
                                 <b>Verification Mandatory **</b></h6>
                         </div>
@@ -68,11 +70,11 @@
                     </div>
 
                 </div>
-                <hr>
-                <h6 class="small-text">** This specialization <b>requires verified</b> certifications to post
+                <hr *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory">
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" class="small-text">** This specialization <b>requires verified</b> certifications to post
                     listing.</h6>
-                <h6 class="small-text">** Please upload all the <b>relevant certifications</b>.</h6>
-                <h6 class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" class="small-text">** Please upload all the <b>relevant certifications</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
