@@ -28,13 +28,12 @@ export class SidebarComponent implements OnInit{
 
   public async ngOnInit() {
     this.isAuthenticated = await this.keycloakService.isLoggedIn();
-    const subscription = this.userService.getCurrentUser().subscribe(
+    this.userService.getCurrentUser().subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
           this.currentUser = user;
           this.loadProfilePhoto();
         }
-        subscription.unsubscribe();
       }
     );
 

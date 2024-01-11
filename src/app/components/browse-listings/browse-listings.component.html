@@ -16,15 +16,19 @@
               <!-- User Form Starts -->
               <form #editListing="ngForm">
 
+
+
                 <div class="mb-1">
                   <div class="row g-3">
+                    
                     <div class="col-12">
                       <div class="form-group">
                         <label for="subcategory">Subcategory</label>
                       </div>
-                      <select #subcategory class="form-select" aria-label="gender" [value]="currentSubcategory"
+                      <select #subcategory class="form-select" aria-label="subcategory" [value]="currentSubcategory"
                         (change)="selectSubcategory(subcategory.value)">
                         <option default hidden>--</option>
+                        <option value="" hidden>--</option>
                         <option *ngFor="let subCategory of subCategories" [value]="subCategory">
                           {{subCategory}}</option>
                       </select>
@@ -34,16 +38,25 @@
                       <div class="form-group">
                         <label for="sortBy">Sort by</label>
                       </div>
-                      <select #sortBy class="form-select" aria-label="gender" [value]="sortBy"
+                      <select #sortBy class="form-select" aria-label="sortBy" [value]="sortByValue"
                         (change)="selectSortBy(sortBy.value)">
                         <option default hidden>--</option>
+                        <option value="" hidden>--</option>
                         <option *ngFor="let sortElement of sortByArray" [value]="sortElement">
                           {{sortElement}}</option>
                       </select>
                     </div>
 
+                    <div class="col-12">
+                      <div class="form-group">
+                        <app-select-map-location headline="Nearby Location" [initialValue]="currentLocation"
+                          (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
+                      </div>
+                    </div>
+
                     <div class="col-12 text-end">
-                      <h5 style="font-size: 1rem!important;"><a class="link" data-bs-dismiss="modal" type="button" (click)="clearAllFilters()">Clear all</a></h5>
+                      <h5 style="font-size: 1rem!important;"><a class="link" data-bs-dismiss="modal" type="button"
+                          (click)="clearAllFilters()">Clear all</a></h5>
                     </div>
 
                   </div>
@@ -54,7 +67,8 @@
                   <div class="row">
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-danger btn-rounded col-12" data-bs-toggle="modal"
-                        data-bs-target="#addSlotModal" data-bs-dismiss="modal" (click)="handleListProducts(true)">Save</button>
+                        data-bs-target="#addFilterModal" data-bs-dismiss="modal"
+                        (click)="handleListProducts(true)">Save</button>
                     </div>
                   </div>
                 </div>
@@ -98,8 +112,8 @@
     style="background-color: #222;">
 
     <li class="nav-item">
-      <a type="button" (click)="getListingSubcategories()" data-bs-toggle="modal" data-bs-target="#addFilterModal"><i class="fa fa-filter px-3"
-          style="color: white;" aria-hidden="true"></i></a>
+      <a type="button" (click)="getListingSubcategories()" data-bs-toggle="modal" data-bs-target="#addFilterModal"><i
+          class="fa fa-filter px-3" style="color: white;" aria-hidden="true"></i></a>
     </li>
 
   </nav>
@@ -186,7 +200,8 @@
       </div>
     </div>
   </div>
-  <div *ngIf="listingsLoading" class="container" style="padding-top: 4rem;padding-bottom: 4rem;min-height:20rem!important">
+  <div *ngIf="listingsLoading" class="container"
+    style="padding-top: 4rem;padding-bottom: 4rem;min-height:20rem!important">
     <div class="col-xl-12 col-md-12">
       <div class="form-section">
         <i class="fas fa-spinner fa-pulse" style="font-size: xxx-large;"></i>

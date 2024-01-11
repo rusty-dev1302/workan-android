@@ -22,7 +22,7 @@ export class BrowseListingsComponent implements OnInit {
   listings: Listing[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
-  sortBy: string = "";
+  sortByValue: string = "";
   geoHash: string = "";
   currentLocation!: string;
   searchKeyword: string = "";
@@ -105,13 +105,20 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   selectSortBy(sortBy: string) {
-    this.sortBy = sortBy;
+    this.sortByValue = sortBy;
+  }
+
+  locationSelectorOutput(data: any) {
+    this.currentLocation = data.address;
+    this.geoHash = data.geoHash;
   }
 
   clearAllFilters() {
     this.currentSubcategory = "";
-    this.sortBy = "";
+    this.currentLocation = ""
+    this.sortByValue = "";
     this.geoHash = "";
+    console.log(this.currentSubcategory)
 
     this.handleListProducts();
   }
@@ -131,7 +138,7 @@ export class BrowseListingsComponent implements OnInit {
       this.pageNumber = 0;
       this.listings = [];
     }
-    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortBy, this.pageNumber).subscribe(
+    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortByValue, this.pageNumber).subscribe(
       data => {
         console.log(data)
         if (data) {
