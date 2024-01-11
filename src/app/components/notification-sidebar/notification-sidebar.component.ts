@@ -25,7 +25,6 @@ export class NotificationSidebarComponent {
       const sub = this.notificationService.markRead(notification.id).subscribe(
         () => {
           sub.unsubscribe();
-
         }
       );
     }

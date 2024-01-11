@@ -43,6 +43,7 @@ export class DashboardOrdersTakenComponent {
             }
           );
         }
+        this.subscription.unsubscribe();
       }
     );
   }

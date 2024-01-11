@@ -146,9 +146,10 @@ export class ManageUsersComponent implements OnInit {
 
   activateDeactivateListing() {
     if(this.displayListing) {
-      this.adminService.activateInactivateListing(this.displayListing.id).subscribe(
+      const sub = this.adminService.activateInactivateListing(this.displayListing.id).subscribe(
         () => {
           this.loadListingDetails();
+          sub.unsubscribe();
         }
       );
     }

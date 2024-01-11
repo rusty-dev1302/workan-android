@@ -52,7 +52,7 @@ export class SlotSelectorComponent implements OnInit {
     if (date) {
       this.selectedDate = date;
       this.currentDate = this.datePipe.transform(date, 'EEEE')!;
-      this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
+      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
             this.currentSlots = data;
@@ -74,6 +74,7 @@ export class SlotSelectorComponent implements OnInit {
             );
 
           }
+          sub.unsubscribe();
         }
       );
     }

@@ -36,6 +36,7 @@ export class ReviewComponent {
         } else {
           this.toastrService.error(response.message);
         }
+        subscription.unsubscribe();
       }
     );
   }

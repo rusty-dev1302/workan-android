@@ -22,12 +22,17 @@ export class BrowseListingsComponent implements OnInit {
   listings: Listing[] = [];
   searchMode: boolean = false;
   currentSubcategory: string = "";
+  sortBy: string = "";
   geoHash: string = "";
   currentLocation!: string;
   searchKeyword: string = "";
   currentUser!: Customer;
   subscription: any;
   pageNumber: number = 0;
+  listingsLoading: boolean = false;
+
+  subCategories: string[] = [];
+  sortByArray: string[] = ["Rating", "Charges low to high", "Charges high to low"];
 
   timezoneOffset = new Date().getTimezoneOffset();
 
@@ -71,7 +76,7 @@ export class BrowseListingsComponent implements OnInit {
           this.currentUser = user;
 
           if (this.currentUser.professional) {
-            this.listingService.getListingByEmail(this.currentUser.email).subscribe(
+            const sub = this.listingService.getListingByEmail(this.currentUser.email).subscribe(
               (listing) => {
                 if (listing.state == constants.SUCCESS_STATE) {
                   if (listing.geoHash) {
@@ -79,6 +84,7 @@ export class BrowseListingsComponent implements OnInit {
                     this.geoHash = listing.geoHash;
                   }
                 }
+                sub.unsubscribe();
               }
             );
           } else if (this.currentUser.contact && this.currentUser.contact.geoHash) {
@@ -89,33 +95,49 @@ export class BrowseListingsComponent implements OnInit {
         }
 
         this.handleListProducts();
+        this.subscription.unsubscribe();
       }
     );
   }
 
-  handleListProducts() {
-    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.pageNumber).subscribe(
+  selectSubcategory(subCategory: string) {
+    this.currentSubcategory = subCategory;
+  }
+
+  selectSortBy(sortBy: string) {
+    this.sortBy = sortBy;
+  }
+
+  clearAllFilters() {
+    this.currentSubcategory = "";
+    this.sortBy = "";
+    this.geoHash = "";
+
+    this.handleListProducts();
+  }
+
+  getListingSubcategories() {
+    const sub = this.listingService.getListingSubcategories().subscribe(
+      (data) => {
+        this.subCategories = data;
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  handleListProducts(resetPage=false) {
+    this.listingsLoading = true;
+    if(resetPage) {
+      this.pageNumber = 0;
+      this.listings = [];
+    }
+    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortBy, this.pageNumber).subscribe(
       data => {
         console.log(data)
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
             data.forEach(
               (listing) => {
-                let total: number = 
-                    listing.professional.oneRating
-                  + listing.professional.twoRating
-                  + listing.professional.threeRating
-                  + listing.professional.fourRating
-                  + listing.professional.fiveRating;
-                let weightedSum = 
-                    1*listing.professional.oneRating
-                  + 2*listing.professional.twoRating
-                  + 3*listing.professional.threeRating
-                  + 4*listing.professional.fourRating
-                  + 5*listing.professional.fiveRating;
-
-                listing.professional.rating = total > 0 ? weightedSum/total : 0;
-              
                 if(listing.timezoneOffset==this.timezoneOffset) {
                   this.getAvailabilityForListing(listing);
                 }
@@ -126,6 +148,7 @@ export class BrowseListingsComponent implements OnInit {
           } else {
             this.pageNumber = -1;
           }
+          this.listingsLoading = false;
         }
         this.navigationService.pageLoaded();
         sub.unsubscribe();

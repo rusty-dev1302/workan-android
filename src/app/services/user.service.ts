@@ -102,11 +102,11 @@ export class UserService {
   }
   
   updateFirstLogin() {
-    this.getCurrentUserProfile().subscribe(
+    const sub1 = this.getCurrentUserProfile().subscribe(
       (userProfile) => {
         if(userProfile) {
 
-          this.getUserByEmail(userProfile.email!).subscribe(
+          const sub2 = this.getUserByEmail(userProfile.email!).subscribe(
             (user) => {
 
               if(user.state==constants.ERROR_STATE && user.message=='Customer does not exist') {
@@ -117,9 +117,11 @@ export class UserService {
                 this.isFirstLogin$.next(false);
                 this.currentUser$.next(user);
               }
+              sub2.unsubscribe();
             }
           );
         }
+        sub1.unsubscribe();
       }
     );
    }

@@ -27,9 +27,10 @@ export class PhotoUploaderComponent implements OnInit{
   ) { }
 
   ngOnInit() {
-    this.profilePhotoService.loadPhotoEditor().subscribe(
+    const sub = this.profilePhotoService.loadPhotoEditor().subscribe(
       (update) => {
         this.getImage();
+        sub.unsubscribe();
       }
     );
   }
@@ -80,6 +81,7 @@ export class PhotoUploaderComponent implements OnInit{
         if(response.state!=constants.ERROR_STATE) {
           this.reloadCurrentPage();
         }
+        subscription.unsubscribe();
       }
     );
   }

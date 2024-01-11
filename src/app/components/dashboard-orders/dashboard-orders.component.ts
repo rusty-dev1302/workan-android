@@ -42,6 +42,7 @@ export class DashboardOrdersComponent implements OnInit {
             }
           );
         }
+        this.subscription.unsubscribe();
       }
     );
   }

@@ -25,11 +25,13 @@ export class PaymentGatewayComponent implements OnInit {
 
   ngOnInit(): void {
     this.navigationService.pageLoaded();
-    this.route.paramMap.subscribe(()=>{
+    const sub = this.route.paramMap.subscribe(()=>{
       this.loadOrderId();
+      sub.unsubscribe();
     });
-    this.route.queryParamMap.subscribe(()=>{
+    const subs = this.route.queryParamMap.subscribe(()=>{
       this.processPayment();
+      subs.unsubscribe();
     });
   }
 

@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <h3><b>Personal Details </b><i class="fa-solid fa-square-pen" style="color: #0d6efd" type="button"
+                    <h3><b>Personal Details </b><i class="fa-solid fa-pen-circle primary-blue" type="button"
                             data-bs-toggle="modal" data-bs-target="#personalDetailsModal"></i></h3>
                 </div>
                 <hr class="style1">
@@ -50,20 +50,20 @@
                 </div>
             </div>
 
-            <div *ngIf='displayUser&&displayUser.gender&&displayUser.gender!=""' class="mb-3">
+            <div *ngIf='displayUser' class="mb-3">
                 <div class="row">
 
                     <div class="col-12">
                         <div class="form-group">
                             <label>Mobile</label>
-                            <h5>{{displayUser.mobile | phone}}</h5>
+                            <h5>{{(displayUser.mobile==0?'--':(displayUser.mobile|phone))}}</h5>
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="form-group">
                             <label>Languages</label>
-                            <h5>{{displayUser.languages.join(', ')}}</h5>
+                            <h5>{{displayUser.languages.length==0?'--':displayUser.languages.join(', ')}}</h5>
                         </div>
                     </div>
 
@@ -82,7 +82,7 @@
                     <div class="col">
 
                         <div class="form-group">
-                            <h3><b>Address </b><i class="fa-solid fa-square-pen" style="color: #0d6efd" type="button"
+                            <h3><b>Address </b><i class="fa-solid fa-square-pen primary-blue" type="button"
                                     data-bs-toggle="modal" data-bs-target="#contactDetailsModal"></i></h3>
                         </div>
 

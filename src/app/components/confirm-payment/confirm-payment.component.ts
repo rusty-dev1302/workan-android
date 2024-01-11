@@ -34,15 +34,16 @@ export class ConfirmPaymentComponent {
       this.checkoutClicked = true;
       this.selectedPaymentMode = this.paymentMode;
       if(this.paymentMode=="paypal") {
-        this.paymentService.makePayment(this.amount, this.orderId).subscribe(
+        const sub = this.paymentService.makePayment(this.amount, this.orderId).subscribe(
           (response) => {
             if(response.state==constants.SUCCESS_STATE) {
               window.location.href = response.message;
             }
+            sub.unsubscribe();
           }
         );
       } else {
-        this.orderService.getPaymentOtp(this.orderId).subscribe(
+        const sub = this.orderService.getPaymentOtp(this.orderId).subscribe(
           (response) => {
             if(response.state==constants.SUCCESS_STATE) {
               this.paymentOtp = response.message;
@@ -50,6 +51,7 @@ export class ConfirmPaymentComponent {
             } else {
               this.toastrService.info("OTP not generated.")
             }
+            sub.unsubscribe();
           }
         );
 

@@ -29,8 +29,9 @@ export class DashboardOrderDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.navigationService.showLoader();
-    this.route.paramMap.subscribe(()=>{
+    const sub = this.route.paramMap.subscribe(()=>{
       this.handleOrderRouting();
+      sub.unsubscribe();
     });
     this.autoRefresh = interval(5000).subscribe(
       (val) => { 
@@ -71,7 +72,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
 
   processOrder(action: string) {
     let processOrderRequest = new ProcessOrderRequest(this.order.id, this.order.customer.id, this.order.professional.id, action, "");
-    this.orderService.processOrder(processOrderRequest).subscribe(
+    const sub = this.orderService.processOrder(processOrderRequest).subscribe(
       (response) => {
         if(response.state!=constants.ERROR_STATE) {
           this.toastr.success(response.state);
@@ -79,6 +80,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
         } else {
           this.toastr.error(response.message);
         }
+        sub.unsubscribe();
       }
     );
   }

@@ -189,9 +189,10 @@ export class DashboardListingsFormComponent implements OnInit {
 
   addCertificate() {
     let certification = new Certification(null!, this.addCertName, false, null!, null!);
-    this.userService.saveUserCertification(certification).subscribe(
+    const sub = this.userService.saveUserCertification(certification).subscribe(
       (response) => {
         this.getCertificationsByEmail();
+        sub.unsubscribe();
       }
     );
     this.addCertName = '';
@@ -339,7 +340,7 @@ export class DashboardListingsFormComponent implements OnInit {
   onClickSubmit() {
     this.listing.professionalEmail = this.emailValue;
     this.listing.timezoneOffset = new Date().getTimezoneOffset();
-    this.listingService.saveListing(this.listing).subscribe(
+    const sub = this.listingService.saveListing(this.listing).subscribe(
       (data) => {
         if (data.state == constants.SUCCESS_STATE) {
           this.toastrService.success(constants.SUCCESS_STATE);
@@ -348,6 +349,7 @@ export class DashboardListingsFormComponent implements OnInit {
         }
         this.loadFormValues();
         this.isEditable = false;
+        sub.unsubscribe();
       }
     );
   }

@@ -29,6 +29,7 @@ export class ManageVerificationsComponent implements OnInit {
     const sub = this.adminService.getAllCertificationsToVerify().subscribe(
       (response) => {
         this.verificationRequests = response;
+        sub.unsubscribe();
       }
     );
   }
@@ -43,26 +44,29 @@ export class ManageVerificationsComponent implements OnInit {
 
   activateDeactivateListing(listingId: number) {
     console.log(listingId)
-    this.adminService.activateInactivateListing(listingId).subscribe(
+    const sub = this.adminService.activateInactivateListing(listingId).subscribe(
       () => {
         this.getAllCertificationsToVerify();
+        sub.unsubscribe();
       }
     );
   }
 
   verifyCertificationById(certificationId: number) {
-    this.adminService.verifyCertificationById(certificationId).subscribe(
+    const sub = this.adminService.verifyCertificationById(certificationId).subscribe(
       () => {
         console.log(certificationId)
         this.getAllCertificationsToVerify();
+        sub.unsubscribe();
       }
     );
   }
 
   rejectCertificationById(certificationId: number) {
-    this.adminService.rejectCertificationById(certificationId).subscribe(
+    const sub = this.adminService.rejectCertificationById(certificationId).subscribe(
       () => {
         this.getAllCertificationsToVerify();
+        sub.unsubscribe();
       }
     );
   }

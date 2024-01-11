@@ -12,11 +12,20 @@
                     <div class="col">
                         <div class="form-group">
                             <h3><b>Listing Details </b>
-                                <i *ngIf="!displayListing" class="fa-regular fa-circle-plus" style="color: #0d6efd;border-radius: 100%!important;" type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i>
-                                <i *ngIf="displayListing" class="fa-regular fa-pen-circle" style="color: #0d6efd;border-radius: 100%!important;" type="button" data-bs-toggle="modal" data-bs-target="#listingDetailsModal"></i>
-                                <i *ngIf="displayListing" class="fa-regular fa-circle-trash" style="color: #e67878;margin-left: 5px;" type="button" (click)="removeListing(displayListing.id)"></i></h3>
-                            <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" style="color: red;">
-                                <b>Verification Mandatory **</b></h6>
+                                <i *ngIf="!displayListing" class="fa-regular fa-circle-plus primary-blue"
+                                    style="border-radius: 100%!important;" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#listingDetailsModal"></i>
+                                <i *ngIf="displayListing" class="fa-regular fa-pen-circle primary-blue"
+                                    style="border-radius: 100%!important;" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#listingDetailsModal"></i>
+                                <i *ngIf="displayListing" class="fa-regular fa-circle-trash primary-cancel"
+                                    style="margin-left: 5px;" type="button"
+                                    (click)="removeListing(displayListing.id)"></i>
+                            </h3>
+                            <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
+                                style="color: red;">
+                                <b>Verification Mandatory **</b>
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -70,11 +79,15 @@
                     </div>
 
                 </div>
-                <hr *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory">
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" class="small-text">** This specialization <b>requires verified</b> certifications to post
+                <hr
+                    *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory">
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
+                    class="small-text">** This specialization <b>requires verified</b> certifications to post
                     listing.</h6>
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" class="small-text">** Please upload all the <b>relevant certifications</b>.</h6>
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory" class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
+                    class="small-text">** Please upload all the <b>relevant certifications</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
+                    class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -95,8 +108,8 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <h3><b>Certifications </b><i type="button" data-bs-toggle="modal"
-                                                data-bs-target="#addCertificationModal" class="fa fa-plus-square"
-                                                style="color: #0d6efd" aria-hidden="true"></i></h3>
+                                                data-bs-target="#addCertificationModal"
+                                                class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
                                         <a class="link" type="button" style="font-size: .9rem!important;">Recommended
                                             Certifications</a>
                                     </div>
@@ -138,19 +151,20 @@
                                                         <label type="button" for="files" class="col-12"><i
                                                                 class="fa fa-plus-circle"></i></label>
                                                     </a>
-                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
-                                                        class="link px-1" type="button"
-                                                        (click)="clearAllAttachments(certification.id)"><i
-                                                            class="fa fa-trash" aria-hidden="true"></i></a>
                                                     <a *ngIf="certification.attachments.length>0" class=" px-1"
                                                         type="button"
                                                         (click)="downloadAttachments(certification.attachments)"><i
                                                             class="fa fa-download" aria-hidden="true"></i></a>
-                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
-                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
-                                                        aria-hidden="true"></i>
+                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
+                                                        class="link px-1" type="button"
+                                                        (click)="clearAllAttachments(certification.id)"><i
+                                                            class="fa fa-trash primary-cancel"
+                                                            aria-hidden="true"></i></a>
                                                     <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
                                                         class="fa fa-download px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
                                                         aria-hidden="true"></i>
                                                 </div>
                                             </td>
@@ -255,8 +269,8 @@
                                         <i class="fa fa-ellipsis-v px-1"
                                             style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
                                         <a *ngIf="pasteItems.length>0" type="button"
-                                            (click)="pasteSlotItems(template.dayName,template.id, template.enabled)" class="link"
-                                            style="font-size: 0.8rem!important;">Paste</a>
+                                            (click)="pasteSlotItems(template.dayName,template.id, template.enabled)"
+                                            class="link" style="font-size: 0.8rem!important;">Paste</a>
                                         <a *ngIf="pasteItems.length<=0" class="link link-disabled"
                                             style="font-size: 0.8rem!important;">Paste</a>
                                     </h4>
@@ -510,7 +524,7 @@
                 <section class="container">
                     <div class="row">
 
-                        <div class="form-section">
+                        <div class="form-section" style="padding: 0!important;">
 
                             <!-- User Form Starts -->
                             <form #editListing="ngForm" (ngSubmit)="addSlotTemplateItem()">

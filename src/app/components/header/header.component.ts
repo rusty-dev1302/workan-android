@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.userService.getIsFirstLogin().subscribe(
+    const sub = this.userService.getIsFirstLogin().subscribe(
       (isFirstLogin) => {
         this.isFirstLogin = isFirstLogin;
         if(this.isFirstLogin) {
@@ -41,6 +41,7 @@ export class HeaderComponent implements OnInit{
           // already registered user 
           this.longPollNewNotification();
         }
+        sub.unsubscribe();
       }
     );
     this.userService.updateFirstLogin();
@@ -49,10 +50,11 @@ export class HeaderComponent implements OnInit{
   getNotificationsForUser() {
     this.showLoader = true;
     this.checkForNewNotification(true);
-    this.notificationService.getNotificationsForUser().subscribe(
+    const sub = this.notificationService.getNotificationsForUser().subscribe(
       (data) => {
         this.showLoader = false;
         this.notifications = data;
+        sub.unsubscribe();
       }
     );
   }

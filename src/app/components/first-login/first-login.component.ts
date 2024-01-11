@@ -36,6 +36,7 @@ export class FirstLoginComponent implements OnInit {
           this.router.navigateByUrl(`/dashboard/profile`);
         }
         this.navigationService.pageLoaded();
+        this.subscription.unsubscribe();
       }
     );
     this.userService.updateFirstLogin();
@@ -73,6 +74,7 @@ export class FirstLoginComponent implements OnInit {
                 this.router.navigateByUrl(`/dashboard/profile`);
               }
               subscription.unsubscribe();
+              window.location.reload();
             });
 
         }

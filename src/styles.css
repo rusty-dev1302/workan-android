@@ -25,6 +25,16 @@ i {
     --bs-primary-color: #ff0000;
     --secondary-color: #fd2929;
     --bs-supporting-color: #fd2929;
+    --primary-blue-button-color: #0d6efd;
+    --primary-cancel-button-color: #f03333;
+}
+
+.primary-blue {
+    color: var(--primary-blue-button-color);
+}
+
+.primary-cancel {
+    color: var(--primary-cancel-button-color);
 }
 
 .content-box {
