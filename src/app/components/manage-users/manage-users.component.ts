@@ -44,7 +44,6 @@ export class ManageUsersComponent implements OnInit {
 
   profileFormDirty: boolean = false;
   profileFormValid: boolean = false;
-  showActions: boolean = false;
 
   constructor(
     private profilePhotoService: ProfilePhotoService,
@@ -138,10 +137,6 @@ export class ManageUsersComponent implements OnInit {
 
   reloadCurrentPage() {
     window.location.reload();
-  }
-
-  toggleTabs() {
-    this.showActions = !this.showActions;
   }
 
   activateDeactivateListing() {

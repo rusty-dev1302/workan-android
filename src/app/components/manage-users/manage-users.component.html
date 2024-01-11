@@ -18,24 +18,9 @@
 <!--Divider section end -->
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-between">
-    <li *ngIf="!showActions" class="nav-item">
+    <li class="nav-item">
         <app-search (searchByEmailEvent)="loadUserData($event)"></app-search>
     </li>
-
-    <ul *ngIf="showActions" class="nav nav-pills px-3 py-2 bg-color justify-content-end">
-        <li class="nav-item">
-            <a type="button" class="nav-link border">Block/Unblock User</a>
-        </li>
-    </ul>
-
-    <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
-        <li class="nav-item">
-            <a type="button" class="nav-link" [ngClass]="!showActions?'active':''" (click)="toggleTabs()">Search</a>
-        </li>
-        <li class="nav-item">
-            <a type="button" class="nav-link" [ngClass]="showActions?'active':''" (click)="toggleTabs()">Actions</a>
-        </li>
-    </ul>
 </ul>
 
 
