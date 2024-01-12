@@ -18,6 +18,27 @@ import { constants } from 'src/environments/constants';
   styleUrls: ['./browse-listings.component.css']
 })
 export class BrowseListingsComponent implements OnInit {
+  options=[
+    {name:'Bangalore',id:1},
+    {name:'Chennai',id:2},
+    {name:'Erode',id:3},
+    {name:'Bangkok',id:4},
+    {name:'Jammu',id:5},
+    {name:'Madurai',id:6},
+    {name:'Goa',id:7},
+    {name:'Mumbai',id:8},
+    {name:'Kolkata',id:9},
+    {name:'Shillong',id:10},
+    {name:'Cochin',id:11},
+    {name:'Mysore',id:12},
+  ];
+  currentSelection = {
+    name:'Chennai'
+  };
+
+
+
+  // seperator
 
   listings: Listing[] = [];
   searchMode: boolean = false;
@@ -118,9 +139,8 @@ export class BrowseListingsComponent implements OnInit {
     this.currentLocation = ""
     this.sortByValue = "";
     this.geoHash = "";
-    console.log(this.currentSubcategory)
 
-    this.handleListProducts();
+    this.handleListProducts(true);
   }
 
   getListingSubcategories() {
