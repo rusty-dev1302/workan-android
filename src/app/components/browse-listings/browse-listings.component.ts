@@ -64,13 +64,12 @@ export class BrowseListingsComponent implements OnInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private keycloakService: KeycloakService,
-    private toastrService: ToastrService
+    private keycloakService: KeycloakService
   ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
-    this.loadUserDetails();
+    this.handleProductsRouting();
   }
 
   handleProductsRouting() {
@@ -88,37 +87,6 @@ export class BrowseListingsComponent implements OnInit {
     }
 
     this.handleListProducts();
-  }
-
-  loadUserDetails() {
-    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
-      (user) => {
-        if (user.state == constants.SUCCESS_STATE) {
-          this.currentUser = user;
-
-          if (this.currentUser.professional) {
-            const sub = this.listingService.getListingByEmail(this.currentUser.email).subscribe(
-              (listing) => {
-                if (listing.state == constants.SUCCESS_STATE) {
-                  if (listing.geoHash) {
-                    this.currentLocation = listing.location;
-                    this.geoHash = listing.geoHash;
-                  }
-                }
-                sub.unsubscribe();
-              }
-            );
-          } else if (this.currentUser.contact && this.currentUser.contact.geoHash) {
-            this.currentLocation = this.currentUser.contact.addressLine3;
-            this.geoHash = this.currentUser.contact.geoHash;
-          }
-
-        }
-
-        this.handleListProducts();
-        this.subscription.unsubscribe();
-      }
-    );
   }
 
   selectSubcategory(subCategory: string) {
