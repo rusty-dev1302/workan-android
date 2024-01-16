@@ -60,8 +60,8 @@ export class OrderService {
     return this.httpClient.get<Review[]>(getUrl)
   }
 
-  getPaymentOtp(orderId: number): Observable<BaseResponse> {
-    const getUrl = `${this.baseUrl}/otp?orderId=${orderId}`;
+  initiateDirectPayment(orderId: number): Observable<BaseResponse> {
+    const getUrl = `${this.baseUrl}/direct/initiate?orderId=${orderId}`;
     return this.httpClient.get<BaseResponse>(getUrl)
   }
 

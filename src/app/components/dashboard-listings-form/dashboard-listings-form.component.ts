@@ -50,6 +50,8 @@ export class DashboardListingsFormComponent implements OnInit {
   attachmentChangeEvt: any = '';
   clickedCertId!: number;
 
+  allowListing: boolean = false;
+
   constructor(
     private keycloakService: KeycloakService,
     private listingService: ListingService,
@@ -73,6 +75,18 @@ export class DashboardListingsFormComponent implements OnInit {
 
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
+    const sub = this.userService.getUserByEmail(this.emailValue).subscribe(
+      (data) => {
+        if(!(data.state==constants.ERROR_STATE)) {
+          console.log(data)
+          if(data.mobile!=0){
+          this.allowListing = true;
+        } else {
+          this.toastrService.info("Please complete your profile first.")
+        }
+        }
+      }
+    );
     this.subscription = this.listingService.getListingByEmail(this.emailValue).subscribe(
       (data) => {
         if (data.state == constants.SUCCESS_STATE) {
@@ -81,8 +95,6 @@ export class DashboardListingsFormComponent implements OnInit {
           console.log("Listing: "+JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
-        } else {
-          this.toastrService.info("Please create a listing.")
         }
 
         this.navigation.pageLoaded();

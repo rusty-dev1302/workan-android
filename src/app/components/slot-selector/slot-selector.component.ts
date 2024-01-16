@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class SlotSelectorComponent implements OnInit {
   currentDate!: string;
-  currentSlots!: SlotTemplateItem[];
+  currentSlots!: any[];
   currentStep: number = 0;
 
   selectedDate!: Date;

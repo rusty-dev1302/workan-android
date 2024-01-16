@@ -26,7 +26,7 @@ export class UserService {
     private keycloakService: KeycloakService,
     ) {}
 
-  getUserByEmail(email: string) {
+  getUserByEmail(email: string): Observable<Customer> {
     const getUrl = `${this.baseUrl}/detail?email=${email}`;
     return this.httpClient.get<Customer>(getUrl);
   }

@@ -140,8 +140,7 @@
                         (click)="processOrder('CANCEL')">Cancel Order</button>
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      data-bs-target="#enterOtpModal">Accept Direct Payment
+                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()">Accept Direct Payment
                     </button>
                     </div>
                   </div>
@@ -221,8 +220,6 @@
                 data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('START')">Start</button>
               <button *ngIf="order.status=='COMPLETING'" type="button" class="btn btn-danger btn-rounded"
                 data-bs-dismiss="modal" aria-label="Close" (click)="processOrder('COMPLETE')">Complete</button>
-              <button *ngIf="order.status=='STARTED'" type="button" class="btn btn-warning btn-rounded"
-                data-bs-dismiss="modal" aria-label="Close" (click)="confirmDirectPayment()">Confirm</button>
             </div>
           </div>
         </div>
