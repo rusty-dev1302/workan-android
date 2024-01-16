@@ -77,12 +77,10 @@ a {
 }
 
 .bg-main {
-    height: 80vh;
     position: relative;
 }
 
 .bg-sec {
-    height: 60vh;
     position: relative;
 }
 
