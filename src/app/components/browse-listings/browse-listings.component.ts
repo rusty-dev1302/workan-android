@@ -160,10 +160,6 @@ export class BrowseListingsComponent implements OnInit {
     }
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   onScroll() {
     if (this.pageNumber > -1) {
       this.handleListProducts();

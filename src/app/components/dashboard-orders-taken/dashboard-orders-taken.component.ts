@@ -56,9 +56,4 @@ export class DashboardOrdersTakenComponent {
     return (hour==0?"00":hour)+":"+min+merd;
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-
 }

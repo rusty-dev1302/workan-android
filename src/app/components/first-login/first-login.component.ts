@@ -82,8 +82,4 @@ export class FirstLoginComponent implements OnInit {
       }
     );
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }

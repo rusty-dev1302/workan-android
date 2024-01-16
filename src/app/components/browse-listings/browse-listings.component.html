@@ -136,7 +136,7 @@
       <div class="row g-3 mt-4">
         <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
-            <div class="card list-card py-3" style="width: 25rem;">
+            <div class="card list-card py-3" style="width: 25rem;padding-bottom: 0!important;">
               <img *ngIf="!listing.professional.profilePhoto" alt="..." class="card-img-top" src="assets/profile.png">
               <img *ngIf="listing.professional.profilePhoto" alt="..." class="card-img-top"
                 [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
@@ -148,6 +148,11 @@
                   ({{listing.chargesType}})</h6>
 
                 <h6><i class="fa fa-star rating-color"></i> {{listing.professional.rating | number : '1.1-1'}}</h6>
+                <div class="col-12">
+                  <a class="btn border btn-small btn-danger btn-rounded col-12"
+                    [routerLink]="['/listingDetail',listing.id]" type="button">
+                    View</a>
+                </div>
                 <hr class="style1">
                 <p class="card-text mt-2 mb-3">
                 <h6><b>Spec:</b><span> {{listing.subCategory.subCategoryName}}</span></h6>
@@ -160,34 +165,22 @@
                 </h6>
                 <h6><b>Location:</b><span> {{listing.location.length>20?(listing.location|slice:0:20)+'
                     ...more':listing.location}}</span></h6>
-                <hr class="style1">
+                <hr class="style1" style="margin: 0;">
 
-                <span *ngIf="timezoneOffset==listing.timezoneOffset" style="font-size: .5rem!important;">
+                <span *ngIf="timezoneOffset==listing.timezoneOffset" style="font-weight:bold;letter-spacing:1px;color:rgb(69, 69, 69)">
                   <span *ngIf="!listing.availabilityLoaded"><i class="fas fa-spinner fa-pulse"></i></span>
-                  <span *ngIf="listing.availabilityLoaded">
-                    <h6>Availability:</h6>
-                    <button *ngIf="listing.availableToday"
-                      class="btn btn-outline-dark btn-small noHover col-6">Today</button>
-                    <button *ngIf="listing.availableTomorrow"
-                      class="btn btn-outline-dark btn-small noHover col-6">Tomorrow</button>
+                  <span *ngIf="listing.availabilityLoaded&&(listing.availableToday||listing.availableTomorrow)" style="font-size: 1rem!important;">
+                    <span style="font-size: .8rem!important;">Slots available for </span>
+                    <span *ngIf="listing.availableToday"
+                      style="border-radius: 5px;font-size: .8rem!important;">Today</span>
+                    <span *ngIf="listing.availableToday&&listing.availableTomorrow" style="font-size: .8rem!important;"> and </span>
+                    <span *ngIf="listing.availableTomorrow"
+                      style="border-radius: 5px;" style="font-size: .8rem!important;">Tomorow</span>
                   </span>
-                  <a *ngIf="listing.availabilityLoaded">
-                    <a *ngIf="!listing.availableToday&&!listing.availableTomorrow"><button
-                        class="btn btn-outline-dark btn-small noHover">All timeslots booked</button></a>
-                  </a>
                 </span>
                 <span
-                  style="font-size: .8rem;color: rgb(255, 0, 0);font-weight: bold;">{{timezoneOffset==listing.timezoneOffset?'':'The
-                  listing is in different timezone'}}</span><br>
-                <hr class="style1">
-
-                <div class="d-flex justify-content-end">
-                  <div class="col-12">
-                    <a class="btn border btn-small btn-danger btn-rounded col-12"
-                      [routerLink]="['/listingDetail',listing.id]" type="button">
-                      View</a>
-                  </div>
-                </div>
+                  style="font-size: .8rem;color: rgb(255, 66, 66);font-weight: bold;letter-spacing:.7px">{{timezoneOffset==listing.timezoneOffset?'':'The
+                  listing is in different timezone'}}</span>
               </div>
             </div>
           </div>

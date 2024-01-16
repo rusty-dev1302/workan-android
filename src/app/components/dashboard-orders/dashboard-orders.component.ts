@@ -55,8 +55,4 @@ export class DashboardOrdersComponent implements OnInit {
     return (hour==0?"00":hour)+":"+min+merd;
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
 }
