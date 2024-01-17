@@ -61,7 +61,7 @@
                 ** Once the professional confirms direct payment the order will be completed.
             </label>
             <div class="d-flex justify-content-end py-3">
-                <button *ngIf="paymentMode!='direct'&&!checkoutClicked" type="button" class="btn btn-warning btn-rounded col-12" (click)="makePayment()">
+                <button *ngIf="paymentMode=='paypal'" type="button" class="btn btn-warning btn-rounded col-12" (click)="makePayment()">
                     <span *ngIf="!checkoutClicked">Continue To Checkout</span>
                     <i *ngIf="checkoutClicked" class="fas fa-circle-notch fa-spin"></i>
                 </button>
