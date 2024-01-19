@@ -188,11 +188,17 @@
                                             class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
                                                 <h4>{{paymentAccount.paypalAccount.email}}
-                                                    <span *ngIf="paymentAccount.paypalAccount.verified" style="font-size: large;"> (Verified <i
+                                                    <span *ngIf="paymentAccount.paypalAccount.verified"
+                                                        style="font-size: large;">(Verified <i
                                                             class="fa fa-check-circle" style="color: green;"
                                                             aria-hidden="true"></i>)
                                                     </span>
-                                                    <span><a class="link" type="button">(Verify)</a></span>
+                                                    <div>
+                                                        <span><a class="link" type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#enterOtpModal">( Verify</a></span>
+                                                        <span><a class="link"> / </a></span>
+                                                        <span><a class="link" type="button" (click)="removePaypalEmail()">Remove email )</a></span>
+                                                    </div>
                                                 </h4>
                                             </div>
                                         </div>
@@ -276,3 +282,72 @@
 </section>
 
 <!-- Edit Section Ends  -->
+
+  <!-- Modal section begins -->
+
+  <div class="modal fade" id="enterOtpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="enterOtpModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="enterOtpModalLabel">Enter OTP</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- modal body start  -->
+        <div class="modal-body">
+          <div class="form-section">
+            <div class="row g-5">
+
+              <div class="d-flex justify-content-center align-items-center">
+                <!-- Selector card start -->
+                <div class="row g-4">
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[0]"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
+                      id="otp_1" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      (keyup)="moveToNext(2)">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[1]"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
+                      id="otp_2" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      (keyup)="moveToNext(3)">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[2]"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
+                      id="otp_3" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      (keyup)="moveToNext(4)">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[3]"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
+                      id="otp_4" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      (keyup)="moveToNext(5)">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[4]"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
+                      id="otp_5" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      (keyup)="moveToNext(6)">
+                  </div>
+                  <div class="form-group col-2">
+                    <input required [(ngModel)]="otpValue[5]"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
+                      id="otp_6" type="text" pattern="\d*" class="form-control" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-danger btn-rounded"
+                data-bs-dismiss="modal" aria-label="Close" (click)="verifyOtp()">Confirm</button>
+            </div>
+          </div>
+        </div>
+        <!-- modal body ends  -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals section ends -->

@@ -25,6 +25,8 @@ export class DashboardPaymentsComponent implements OnInit {
   inputEmail!: string;
   editEmail: boolean = false;
 
+  otpValue:string[] = ["","","","","",""]
+
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
 
@@ -54,9 +56,24 @@ export class DashboardPaymentsComponent implements OnInit {
           window.location.reload();
         }
         sub.unsubscribe();
-        this.editEmail = !this.editEmail;
       }
     );
+  }
+
+  removePaypalEmail() {
+    const sub = this.userService.removePaypalAccount().subscribe(
+      (response) => {
+        if(!(response.state==constants.ERROR_STATE)) {
+          window.location.reload();
+        }
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  verifyOtp() {
+    let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
+    console.log(otp)
   }
 
   loadPaymentAccount() {
@@ -89,5 +106,12 @@ export class DashboardPaymentsComponent implements OnInit {
   toggleTabs() {
     this.showWallet = !this.showWallet;
   }
+
+  moveToNext(i:number) {
+    let nextElementSiblingId = 'otp_'+ i;
+        if (i<7) {
+         document.getElementById(nextElementSiblingId)!.focus();
+        }  
+}
 
 }
