@@ -51,7 +51,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr *ngIf="orderTransactions&&orderTransactions.length>0" class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                <hr *ngIf="orderTransactions&&orderTransactions.length>0" class="style1"
+                                    style="margin-top: 0.5rem;margin-bottom: 2rem;">
                                 <div *ngIf="orderTransactions&&orderTransactions.length>0" class="table-responsive">
                                     <table class="table table table-bordered th-sm">
                                         <thead
@@ -125,12 +126,14 @@
 
                                         <div *ngIf="paymentAccount.balance>0" class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button">Credit To Paypal</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button">Credit To
+                                                Paypal</button>
                                         </div>
 
                                         <div *ngIf="paymentAccount.balance<0" class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button">Clear Dues</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button">Clear
+                                                Dues</button>
                                         </div>
 
                                     </div>
@@ -165,17 +168,31 @@
                                     <hr class="style1">
                                     <div class="row">
                                         <h5>Email:
-                                            <a *ngIf="!paymentAccount.paypalAccount.email" class="link" type="button"><i
-                                                    class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            <input *ngIf="!paymentAccount.paypalAccount.email&&editEmail" required
+                                                [(ngModel)]="inputEmail" class="col-3"
+                                                style="text-align: center;margin-right: 5px;">
+                                            <a *ngIf="!paymentAccount.paypalAccount.email&&!editEmail" class="link"
+                                                type="button" (click)="toggleEditEmail()"><i class="fa fa-plus-circle"
+                                                    aria-hidden="true"></i>
                                             </a>
+                                            <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail"
+                                                class="primary-success px-1" type="button" (click)="addPaypalEmail()"><i
+                                                    class="fa fa-check-circle" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail"
+                                                class="primary-cancel" type="button" (click)="toggleEditEmail()"><i
+                                                    class="fa fa-times-circle" aria-hidden="true"></i>
+                                            </span>
                                         </h5>
                                         <div *ngIf="paymentAccount.paypalAccount.email"
                                             class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <h4>vaibhav@gmail.com <span style="font-size: large;"> (Verified <i
+                                                <h4>{{paymentAccount.paypalAccount.email}}
+                                                    <span *ngIf="paymentAccount.paypalAccount.verified" style="font-size: large;"> (Verified <i
                                                             class="fa fa-check-circle" style="color: green;"
-                                                            aria-hidden="true"></i>)</span>
-                                                    <h5><a class="link" type="button">(Verify)</a></h5>
+                                                            aria-hidden="true"></i>)
+                                                    </span>
+                                                    <span><a class="link" type="button">(Verify)</a></span>
                                                 </h4>
                                             </div>
                                         </div>
@@ -195,11 +212,11 @@
                 <div class="col-xl-12 col-md-12 ">
                     <!-- Ratings panel starts -->
                     <div class="row g-5">
-    
+
                         <div class="col-xl-12 col-md-12">
-    
+
                             <div class="form-section p-3 m-3">
-    
+
                                 <!-- User Form Starts -->
                                 <div class="mb-3">
                                     <div class="row">
@@ -209,8 +226,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <hr *ngIf="walletTransactions&&walletTransactions.length>0" class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
-                                    <div *ngIf="walletTransactions&&walletTransactions.length>0" class="table-responsive">
+                                    <hr *ngIf="walletTransactions&&walletTransactions.length>0" class="style1"
+                                        style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                    <div *ngIf="walletTransactions&&walletTransactions.length>0"
+                                        class="table-responsive">
                                         <table class="table table table-bordered th-sm">
                                             <thead
                                                 style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
@@ -230,7 +249,8 @@
                                                     <td class="text-center">{{transaction.description}}</td>
                                                     <td class="text-center">{{transaction.mode}}</td>
                                                     <td class="text-center">{{transaction.type}}</td>
-                                                    <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
+                                                    <td class="text-center">${{transaction.total| number : '1.2-2'}}
+                                                    </td>
                                                     <td class="text-center"><a class="link" type="button"
                                                             (click)="generatePdf(dateToString(transaction.transactionDate), transaction.invoice)"><i
                                                                 class="fa fa-download" aria-hidden="true"></i>
@@ -239,13 +259,13 @@
                                             </tbody>
                                         </table>
                                     </div>
-    
+
                                     <hr class="style1">
                                 </div>
                                 <!-- User Form Ends -->
                             </div>
                         </div>
-    
+
                     </div>
                     <!-- Ratings panel ends -->
                 </div>

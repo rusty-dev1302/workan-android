@@ -36,9 +36,8 @@ export class ListingDetailsComponent implements OnInit{
 
   ngOnInit(): void {
     this.navigation.showLoader();
-    const sub = this.route.paramMap.subscribe(()=>{
+    this.route.paramMap.subscribe(()=>{
       this.handleListingRouting();
-      sub.unsubscribe();
     });
   }
 

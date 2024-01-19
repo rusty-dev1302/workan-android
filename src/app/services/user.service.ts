@@ -51,6 +51,11 @@ export class UserService {
     return this.httpClient.post<Customer>(postUrl, user);
   }
 
+  addPaypalAccount(email: string): Observable<Customer> {
+    const postUrl = `${this.baseUrl}/paypalAccount/add?email=${email}`;
+    return this.httpClient.post<Customer>(postUrl, {});
+  }
+
   saveUserCertification(certification: Certification): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/certification/save`;
     return this.httpClient.post<BaseResponse>(postUrl, certification);

@@ -25,9 +25,8 @@ export class PaymentGatewayComponent implements OnInit {
 
   ngOnInit(): void {
     this.navigationService.pageLoaded();
-    const sub = this.route.paramMap.subscribe(()=>{
+    this.route.paramMap.subscribe(()=>{
       this.loadOrderId();
-      sub.unsubscribe();
     });
     const subs = this.route.queryParamMap.subscribe(()=>{
       this.processPayment();
@@ -45,10 +44,7 @@ export class PaymentGatewayComponent implements OnInit {
 
     const sub1 = this.paymentService.completePayment(paymentId!, payerId!, this.orderId).subscribe(
       (response) => {
-        if(response.state==constants.SUCCESS_STATE) {
-          this.toastrService.success("Payment Complete!");
-        }
-        else {
+        if(response.state!=constants.SUCCESS_STATE){
           this.toastrService.error("Something went wrong!");
         }
         this.router.navigateByUrl(`${this.redirectLink}`);

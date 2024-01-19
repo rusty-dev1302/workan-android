@@ -10,6 +10,7 @@ import { Customer } from 'src/app/common/customer';
 import { ToastrService } from 'ngx-toastr';
 import { constants } from 'src/environments/constants';
 import { Router } from '@angular/router';
+import { ContactDetail } from 'src/app/common/contact-detail';
 
 @Component({
   selector: 'app-slot-selector',
@@ -25,6 +26,7 @@ export class SlotSelectorComponent implements OnInit {
   selectedSlot!: SlotTemplateItem;
 
   @Input() listingId: number = 0;
+  customerAddress!: ContactDetail;
 
   constructor(
     private datePipe: DatePipe,
@@ -39,6 +41,7 @@ export class SlotSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSlotsForDay(new Date());
+    this.loadCustomer();
   }
 
   slotDate(index: number): Date {
@@ -46,6 +49,17 @@ export class SlotSelectorComponent implements OnInit {
     date.setDate(date.getDate() + index);
 
     return date;
+  }
+
+  loadCustomer() {
+    const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
+      (data) => {
+        console.log(data.contact)
+        this.customerAddress = data.contact;
+        sub.unsubscribe();
+      }
+    );
+
   }
 
   getSlotsForDay(date: Date) {
@@ -107,6 +121,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
+        console.log(data)
         let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate));
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {

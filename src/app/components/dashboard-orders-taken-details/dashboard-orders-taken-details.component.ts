@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, interval } from 'rxjs';
 import { Order } from 'src/app/common/order';
@@ -26,14 +26,14 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     private orderService: OrderService,
     private toastr: ToastrService,
     private navigationService: NavigationService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
-    const sub = this.route.paramMap.subscribe(()=>{
+    this.route.paramMap.subscribe(()=>{
       this.handleOrderRouting();
-      sub.unsubscribe();
     });
     this.autoRefresh = interval(5000).subscribe(
       (val) => { 
@@ -55,6 +55,8 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
+        } else {
+          this.router.navigateByUrl(`/dashboard/orders`);
         }
 
         this.navigationService.pageLoaded();

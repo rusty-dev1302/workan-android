@@ -8,6 +8,7 @@ import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
 import { FileService } from 'src/app/services/file.service';
 import { Invoice } from 'src/app/common/invoice';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-dashboard-payments',
@@ -21,6 +22,8 @@ export class DashboardPaymentsComponent implements OnInit {
   paymentAccount!: PaymentAccount;
   orderTransactions: Transaction[] = [];
   walletTransactions: Transaction[] = [];
+  inputEmail!: string;
+  editEmail: boolean = false;
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -40,17 +43,33 @@ export class DashboardPaymentsComponent implements OnInit {
     this.loadPaymentAccount();
   }
 
+  toggleEditEmail() {
+    this.editEmail = !this.editEmail;
+  }
+
+  addPaypalEmail() {
+    const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
+      (response) => {
+        if(!(response.state==constants.ERROR_STATE)) {
+          window.location.reload();
+        }
+        sub.unsubscribe();
+        this.editEmail = !this.editEmail;
+      }
+    );
+  }
+
   loadPaymentAccount() {
     const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
-      (account)=> {
+      (account) => {
         this.paymentAccount = account;
         this.orderTransactions = this.paymentAccount.transactions.filter(
           t => !t.mode.includes("wallet")
-        ).sort((t1, t2)=> new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+        ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
         this.walletTransactions = this.paymentAccount.transactions.filter(
           t => t.mode.includes("wallet")
-        ).sort((t1, t2)=> new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+        ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
         this.navigationService.pageLoaded();
         sub.unsubscribe();
