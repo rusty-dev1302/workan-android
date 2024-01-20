@@ -56,6 +56,11 @@ export class UserService {
     return this.httpClient.post<Customer>(postUrl, {});
   }
 
+  verifyPaypalOtp(otp: string): Observable<Customer> {
+    const postUrl = `${this.baseUrl}/paypalAccount/verifyOtp?otp=${otp}`;
+    return this.httpClient.post<Customer>(postUrl, {});
+  }
+
   removePaypalAccount(): Observable<Customer> {
     const postUrl = `${this.baseUrl}/paypalAccount/remove`;
     return this.httpClient.post<Customer>(postUrl, {});

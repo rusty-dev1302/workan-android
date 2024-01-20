@@ -9,6 +9,7 @@ import "pdfmake/build/vfs_fonts";
 import { FileService } from 'src/app/services/file.service';
 import { Invoice } from 'src/app/common/invoice';
 import { constants } from 'src/environments/constants';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard-payments',
@@ -24,8 +25,11 @@ export class DashboardPaymentsComponent implements OnInit {
   walletTransactions: Transaction[] = [];
   inputEmail!: string;
   editEmail: boolean = false;
+  emailSpinner: boolean = false;
 
-  otpValue:string[] = ["","","","","",""]
+  isProfessional: boolean = false;
+
+  otpValue: string[] = ["", "", "", "", "", ""];
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -34,7 +38,8 @@ export class DashboardPaymentsComponent implements OnInit {
     private navigationService: NavigationService,
     private userService: UserService,
     private keycloakService: KeycloakService,
-    private pdfService: FileService
+    private pdfService: FileService,
+    private toastrService: ToastrService,
   ) {
 
   }
@@ -50,20 +55,26 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   addPaypalEmail() {
+    this.emailSpinner = true;
     const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
       (response) => {
-        if(!(response.state==constants.ERROR_STATE)) {
+        if (!(response.state == constants.ERROR_STATE)) {
           window.location.reload();
         }
+        this.emailSpinner = false;
         sub.unsubscribe();
       }
     );
   }
 
+  closeOtpModal() {
+    this.otpValue = ["", "", "", "", "", ""];
+  }
+
   removePaypalEmail() {
     const sub = this.userService.removePaypalAccount().subscribe(
       (response) => {
-        if(!(response.state==constants.ERROR_STATE)) {
+        if (!(response.state == constants.ERROR_STATE)) {
           window.location.reload();
         }
         sub.unsubscribe();
@@ -72,24 +83,43 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   verifyOtp() {
-    let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
-    console.log(otp)
+    let otp = this.otpValue[0] + this.otpValue[1] + this.otpValue[2] + this.otpValue[3] + this.otpValue[4] + this.otpValue[5];
+    console.log(otp);
+    const sub = this.userService.verifyPaypalOtp(otp).subscribe(
+      (response) => {
+        if (!(response.state == constants.ERROR_STATE)) {
+          window.location.reload();
+        } else {
+          this.toastrService.error(response.message);
+        }
+        sub.unsubscribe();
+      }
+    );
+
   }
 
   loadPaymentAccount() {
-    const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
-      (account) => {
-        this.paymentAccount = account;
-        this.orderTransactions = this.paymentAccount.transactions.filter(
-          t => !t.mode.includes("wallet")
-        ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+    const subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
+      (user) => {
+        if (user.state!=constants.ERROR_STATE) {
+          this.isProfessional = user.professional;
+          const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
+            (account) => {
+              this.paymentAccount = account;
+              this.orderTransactions = this.paymentAccount.transactions.filter(
+                t => !t.mode.includes("wallet")
+              ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
-        this.walletTransactions = this.paymentAccount.transactions.filter(
-          t => t.mode.includes("wallet")
-        ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+              this.walletTransactions = this.paymentAccount.transactions.filter(
+                t => t.mode.includes("wallet")
+              ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
-        this.navigationService.pageLoaded();
-        sub.unsubscribe();
+              this.navigationService.pageLoaded();
+              sub.unsubscribe();
+            }
+          );
+        }
+        subscription.unsubscribe();
       }
     );
   }
@@ -107,11 +137,11 @@ export class DashboardPaymentsComponent implements OnInit {
     this.showWallet = !this.showWallet;
   }
 
-  moveToNext(i:number) {
-    let nextElementSiblingId = 'otp_'+ i;
-        if (i<7) {
-         document.getElementById(nextElementSiblingId)!.focus();
-        }  
-}
+  moveToNext(i: number) {
+    let nextElementSiblingId = 'otp_' + i;
+    if (i < 7) {
+      document.getElementById(nextElementSiblingId)!.focus();
+    }
+  }
 
 }

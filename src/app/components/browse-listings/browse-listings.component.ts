@@ -61,10 +61,8 @@ export class BrowseListingsComponent implements OnInit {
   constructor(private listingService: ListingService,
     private datePipe: DatePipe,
     private navigationService: NavigationService,
-    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private keycloakService: KeycloakService
   ) { }
 
   ngOnInit() {
