@@ -57,6 +57,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { AdminGuard } from './utility/admin.guard';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { VerifiedCertificatePipe } from './pipes/verified-cert-pipe';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -98,6 +99,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
+    VerifiedCertificatePipe,
     PhonePipe,
     AppComponent,
     BrowseListingsComponent,

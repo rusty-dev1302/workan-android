@@ -8,6 +8,9 @@ import { Professional } from 'src/app/common/professional';
 import { Review } from 'src/app/common/review';
 import { OrderService } from 'src/app/services/order.service';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { UserService } from 'src/app/services/user.service';
+import { KeycloakService } from 'keycloak-angular';
+import Geohash from 'latlon-geohash';
 
 @Component({
   selector: 'app-listing-details',
@@ -23,6 +26,8 @@ export class ListingDetailsComponent implements OnInit{
   currentSlotTime: string = "";
   reviews: Review[] = [];
   totalRatings: number = 1;
+  listingDistance: number = 0;
+  DISTANT_LOCATION = constants.DISTANT_LOCATION;
 
   timezoneOffset = new Date().getTimezoneOffset();
 
@@ -31,7 +36,9 @@ export class ListingDetailsComponent implements OnInit{
     private orderService: OrderService,
     private route: ActivatedRoute,
     private navigation: NavigationService,
-    private dialogService: ConfirmationDialogService
+    private dialogService: ConfirmationDialogService,
+    private userService: UserService,
+    private keycloakService: KeycloakService
     ) { }
 
   ngOnInit(): void {
@@ -60,6 +67,20 @@ export class ListingDetailsComponent implements OnInit{
               this.totalRatings = total>0?total:1;
               this.getReviewsForProfessional();
               sub.unsubscribe();
+            }
+          );
+
+          const sub2 =  this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
+            (contact) => {
+              if(contact.state!=constants.ERROR_STATE) {
+                let userLoc = Geohash.decode(contact.geoHash);
+                let listingLoc = Geohash.decode(this.listing.geoHash);
+
+                let distance = this.distanceBetweenTwoPlace(userLoc.lat, userLoc.lon, listingLoc.lat, listingLoc.lon, "K");
+                this.listingDistance = distance;
+                
+              }
+              sub2.unsubscribe();
             }
           );
         }
@@ -92,7 +113,29 @@ export class ListingDetailsComponent implements OnInit{
     this.navigation.back()
   }
 
-  changeTimezone() {
-    const sub = this.dialogService.openDialog("Please change system timezone to listing's timezone.", true);
+  bookError() {
+    if(this.timezoneOffset!=this.listing.timezoneOffset) {
+      this.dialogService.openDialog("Please change system timezone to listing's timezone.", true);
+    } else if(this.listingDistance>constants.DISTANT_LOCATION) {
+      this.dialogService.openDialog("Please change your address to a nearby location or select a different professional.", true);
+    }
   }
+
+  distanceBetweenTwoPlace(firstLat: number, firstLon: number, secondLat: number, secondLon: number, unit: string) {
+    var firstRadlat = Math.PI * firstLat / 180
+    var secondRadlat = Math.PI * secondLat / 180
+    var theta = firstLon - secondLon;
+    var radtheta = Math.PI * theta / 180
+    var distance = Math.sin(firstRadlat) * Math.sin(secondRadlat) + Math.cos(firstRadlat) * Math.cos(secondRadlat) * Math.cos(radtheta);
+    if (distance > 1) {
+      distance = 1;
+    }
+    distance = Math.acos(distance)
+    distance = distance * 180 / Math.PI
+    distance = distance * 60 * 1.1515
+    if (unit == "K") { distance = distance * 1.609344 }
+    if (unit == "N") { distance = distance * 0.8684 }
+    return distance
+  }
+
 }

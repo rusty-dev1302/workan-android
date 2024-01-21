@@ -11,7 +11,7 @@ export class Customer extends BaseResponse{
         public mobile: number,
         public email: string,
         public languages: string[],
-        public certifications: string[],
+        public certifications: any[],
         public enabled: boolean,
         public admin: boolean,
         public verified: boolean,

@@ -17,6 +17,7 @@ export class Professional extends BaseResponse{
         public twoRating: number,
         public oneRating: number,
         public rating: number,
+        public certifications: any[],
         state: string,
         message: string
     ) {

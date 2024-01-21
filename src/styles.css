@@ -28,10 +28,15 @@ i {
     --primary-blue-button-color: #0d6efd;
     --primary-success-button-color: #00c700;
     --primary-cancel-button-color: #f03333;
+    --primary-yellow-color: #f0c133;
 }
 
 .primary-blue {
     color: var(--primary-blue-button-color);
+}
+
+.primary-yellow {
+    color: var(--primary-yellow-color);
 }
 
 .primary-cancel {
@@ -681,6 +686,11 @@ hr.style1 {
 
 .small-text {
     font-size: small;
+}
+
+.svg-container svg {
+    width: 1.4rem!important;
+    height: 1.4rem!important;
 }
 
 

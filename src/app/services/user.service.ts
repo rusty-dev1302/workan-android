@@ -46,6 +46,11 @@ export class UserService {
     return this.httpClient.get<ContactDetail>(getUrl);
   }
 
+  getContactDetailByEmail(email: string): Observable<ContactDetail> {
+    const getUrl = `${this.baseUrl}/contact/byEmail?email=${email}`;
+    return this.httpClient.get<ContactDetail>(getUrl);
+  }
+
   saveUserData(user: Customer): Observable<Customer> {
     const postUrl = `${this.baseUrl}/save`;
     return this.httpClient.post<Customer>(postUrl, user);
