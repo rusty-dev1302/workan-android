@@ -131,8 +131,8 @@
     <div class="container" infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50"
       (scrolled)="onScroll()">
 
-      <div class="row g-3 mt-4">
-        <div class="col-xl-3 col-md-6 col-12" *ngFor="let listing of listings">
+      <div class="row g-3 mt-4" style="margin-left: 0!important;margin-right: 0!important;">
+        <div class="col-xl-4 col-md-6 col-12" *ngFor="let listing of listings">
           <div class="d-flex justify-content-center align-items-center">
             <div class="card list-card py-3" style="width: 25rem;padding-bottom: 0!important;">
               <img *ngIf="!listing.professional.profilePhoto" alt="..." class="card-img-top" src="assets/profile.png">
@@ -191,7 +191,7 @@
                       </svg>
                       <span *ngIf="(listing.professional.certifications|certificate).length<=0"
                         style="font-size: .9rem;color: rgb(113, 113, 113);"> N/A</span>
-                      <span *ngFor="let cert of listing.professional.certifications|certificate; let i=index" style="font-size: .89rem;"><a *ngIf="i!=0" style="margin-right: 1px;color: rgb(191, 191, 191);">|</a>{{cert.name}}</span>
+                      <span *ngFor="let cert of listing.professional.certifications|certificate; let i=index" style="font-size: .89rem;font-weight: bold;"><a *ngIf="i!=0" style="margin-right: 1px;color: rgb(191, 191, 191);">|</a>{{cert.name}}</span>
                     </div>
                   </h6>
                 </span>
@@ -218,18 +218,18 @@
                     <span *ngIf="!listing.availabilityLoaded"><i class="fas fa-spinner fa-pulse"></i></span>
                     <span *ngIf="listing.availabilityLoaded&&(listing.availableToday||listing.availableTomorrow)"
                       style="font-size: 1rem!important;">
-                      <span style="font-size: .76rem!important;">Slots available for </span>
+                      <span style="font-size: .8rem!important;">Slots available for </span>
                       <span *ngIf="listing.availableToday"
-                        style="border-radius: 5px;font-size: .76rem!important;">Today</span>
+                        style="border-radius: 5px;font-size: .8rem!important;">Today</span>
                       <span *ngIf="listing.availableToday&&listing.availableTomorrow"
-                        style="font-size: .76rem!important;">
+                        style="font-size: .8rem!important;">
                         and </span>
                       <span *ngIf="listing.availableTomorrow" style="border-radius: 5px;"
-                        style="font-size: .76rem!important;">Tomorow</span>
+                        style="font-size: .8rem!important;">Tomorow</span>
                     </span>
                   </span>
                   <span class="primary-cancel"
-                    style="font-size: .76rem;font-weight: bold;letter-spacing:.7px">{{timezoneOffset==listing.timezoneOffset?'':'The
+                    style="font-size: .8rem;font-weight: bold;letter-spacing:.7px">{{timezoneOffset==listing.timezoneOffset?'':'The
                     listing is in different timezone'}}</span>
                 </div>
               </div>

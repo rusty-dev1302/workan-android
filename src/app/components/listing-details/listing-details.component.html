@@ -82,7 +82,7 @@
                               <span *ngIf="(listing.professional.certifications|certificate).length<=0"
                                 style="font-size: .9rem;color: rgb(113, 113, 113);"> N/A</span>
                               <span *ngFor="let cert of listing.professional.certifications|certificate; let i=index"
-                                style="font-size: .89rem;"><a *ngIf="i!=0"
+                                style="font-size: .89rem;font-weight: bold;"><a *ngIf="i!=0"
                                   style="margin-right: 1px;color: rgb(191, 191, 191);">|</a>{{cert.name}}</span>
                             </div>
                           </h6>
