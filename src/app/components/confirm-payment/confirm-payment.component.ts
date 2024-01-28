@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/services/order.service';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { InvoiceService } from 'src/app/services/invoice.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
   templateUrl: './confirm-payment.component.html',
   styleUrls: ['./confirm-payment.component.css']
 })
-export class ConfirmPaymentComponent {
+export class ConfirmPaymentComponent implements OnInit{
 
   @Input() orderId!: number;
   @Input() amount: number = 0;
@@ -25,9 +26,23 @@ export class ConfirmPaymentComponent {
   constructor(
     private paymentService: PaymentService,
     private dialogService: ConfirmationDialogService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private invoiceService: InvoiceService
   ) {
 
+  }
+
+  ngOnInit(): void {
+    this.getInvoice("direct");
+  }
+
+  getInvoice(mode: string) {
+    const sub = this.invoiceService.createInvoice(this.orderId, mode).subscribe(
+      (response) => {
+        console.log(response);
+        sub.unsubscribe();
+      }
+    );
   }
 
   makePayment() {

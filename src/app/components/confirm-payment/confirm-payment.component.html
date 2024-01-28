@@ -34,7 +34,7 @@
                     class="form-check py-2">
                     <input class="form-check-input" type="radio" value="" id="payMethodDirect" value="direct"
                         [(ngModel)]="paymentMode">
-                    <label class="form-check-label" for="payMethodDirect" type="button">
+                    <label class="form-check-label" for="payMethodDirect" type="button" (click)="getInvoice('direct')">
                         Pay directly to the Professional
                         <br><a style="font-size: .9rem!important;">(Get discount on first order)</a>
                     </label>
@@ -44,7 +44,7 @@
                     class="form-check py-2">
                     <input class="form-check-input" type="radio" value="" id="payMethodPaypal" value="paypal"
                         [(ngModel)]="paymentMode">
-                    <label class="form-check-label" for="payMethodPaypal" type="button">
+                    <label class="form-check-label" for="payMethodPaypal" type="button" (click)="getInvoice('paypal')">
                         Pay Using <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="20%">
                         <br><a style="font-size: .9rem!important;">(Additional charge of 5% + 1CAD on paypal transactions)</a>
                     </label>
