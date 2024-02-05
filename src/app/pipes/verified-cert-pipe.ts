@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from "@angular/core";
     transform(items: any[]) {
         return items.filter(
             (cert) => {
-                if(cert.status=='Verified') {
+                if(cert.status=='Verified'&&cert.profileVisibility==true) {
                     return cert;
                 }
             }

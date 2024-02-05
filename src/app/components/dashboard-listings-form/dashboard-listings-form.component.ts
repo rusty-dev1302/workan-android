@@ -200,7 +200,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addCertificate() {
-    let certification = new Certification(null!, this.addCertName, false, null!, null!);
+    let certification = new Certification(null!, this.addCertName, false, null!, null!, null!);
     const sub = this.userService.saveUserCertification(certification).subscribe(
       (response) => {
         this.getCertificationsByEmail();

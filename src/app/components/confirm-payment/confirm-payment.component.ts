@@ -20,6 +20,7 @@ export class ConfirmPaymentComponent implements OnInit{
   paymentMode: string = "direct";
   checkoutClicked: boolean = false;
   selectedPaymentMode!: string;
+  invoice!: any;
 
   paymentOtp!: string;
 
@@ -39,7 +40,7 @@ export class ConfirmPaymentComponent implements OnInit{
   getInvoice(mode: string) {
     const sub = this.invoiceService.createInvoice(this.orderId, mode).subscribe(
       (response) => {
-        console.log(response);
+        this.invoice = response;
         sub.unsubscribe();
       }
     );
@@ -50,7 +51,7 @@ export class ConfirmPaymentComponent implements OnInit{
       this.checkoutClicked = true;
       this.selectedPaymentMode = this.paymentMode;
       if (this.paymentMode == "paypal") {
-        const sub = this.paymentService.makePayment(this.amount, this.orderId).subscribe(
+        const sub = this.paymentService.makePayment(this.invoice.totalAmount, this.orderId).subscribe(
           (response) => {
             if (response.state == constants.SUCCESS_STATE) {
               window.location.href = response.message;

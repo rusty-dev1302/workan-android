@@ -4,7 +4,8 @@ export class Certification{
         public name: string,
         public verified: boolean,
         public status: string,
-        public attachments: any[]
+        public attachments: any[],
+        public profileVisibility: boolean,
     ) {
     }
 }
