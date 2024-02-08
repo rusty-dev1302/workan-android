@@ -77,13 +77,13 @@ export class DashboardListingsFormComponent implements OnInit {
     this.emailValue = this.keycloakService.getUsername();
     const sub = this.userService.getUserByEmail(this.emailValue).subscribe(
       (data) => {
-        if(!(data.state==constants.ERROR_STATE)) {
+        if (!(data.state == constants.ERROR_STATE)) {
           console.log(data)
-          if(data.mobile!=0){
-          this.allowListing = true;
-        } else {
-          this.toastrService.info("Please complete your profile first.")
-        }
+          if (data.mobile != 0) {
+            this.allowListing = true;
+          } else {
+            this.toastrService.info("Please complete your profile first.")
+          }
         }
       }
     );
@@ -92,7 +92,7 @@ export class DashboardListingsFormComponent implements OnInit {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.listing = data;
-          console.log("Listing: "+JSON.stringify(this.listing))
+          console.log("Listing: " + JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
         }
@@ -396,6 +396,26 @@ export class DashboardListingsFormComponent implements OnInit {
       );
   }
 
+  certificationVisibility(certId: number) {
+    const subs = this.dialogService.openDialog(" change profile visibility").subscribe(
+      (response) => {
+        if (response) {
+          console.log(certId)
+          const sub = this.userService.certificationVisibility(certId).subscribe(
+            (response) => {
+              if(response.state!=constants.ERROR_STATE) {
+                this.getCertificationsByEmail();
+                sub.unsubscribe();
+              }
+            }
+          );
+        }
+
+        subs.unsubscribe();
+      }
+    );
+  }
+
   removeCertification(certId: number) {
     const subs = this.dialogService.openDialog(" delete the certification").subscribe(
       (response) => {
@@ -425,7 +445,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   removeListing(listingId: number) {
     const sub = this.listingService.removeListing(listingId).subscribe(
-      ()=> {
+      () => {
         window.location.reload();
         sub.unsubscribe();
       }

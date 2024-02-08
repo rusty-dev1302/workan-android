@@ -130,6 +130,7 @@
                                             <th scope="col" class="text-center">Name</th>
                                             <th scope="col" class="text-center">Attachments</th>
                                             <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Profile Visibility</th>
                                             <th scope="col" class="text-center">Actions</th>
                                         </tr>
                                     </thead>
@@ -180,10 +181,16 @@
                                                     aria-hidden="true" style="color: green;"></i>
                                             </td>
                                             <td class="text-center">
+                                                {{certification.profileVisibility?'Visible':'Hidden'}}
+                                            </td>
+                                            <td class="text-center">
                                                 <a *ngIf="certification.status=='Unverified'" class="link px-1"
                                                     type="button" style="font-size: 1rem!important;"
                                                     (click)="verifyCertification(certification.id)">Verify</a>
-                                                <a *ngIf="certification.status=='Unverified'"
+                                                <a *ngIf="certification.status=='Verified'" class="link px-1"
+                                                    type="button" style="font-size: 1rem!important;"
+                                                    (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide from profile':'Show on profile'}}</a>
+                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
                                                     style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</a>

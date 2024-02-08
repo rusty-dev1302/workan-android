@@ -76,6 +76,11 @@ export class UserService {
     return this.httpClient.post<BaseResponse>(postUrl, certification);
   }
 
+  certificationVisibility(certificationId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/certification/visibility?certificationId=${certificationId}`;
+    return this.httpClient.post<BaseResponse>(postUrl, certificationId);
+  }
+
   removeUserCertification(certId: number): Observable<BaseResponse> {
     const putUrl = `${this.baseUrl}/certification/remove?certId=${certId}`;
     return this.httpClient.delete<BaseResponse>(putUrl);
