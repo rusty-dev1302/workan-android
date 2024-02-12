@@ -125,7 +125,7 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   generatePdf(fileName: string, invoice: Invoice) {
-    this.pdfService.generatePdf(fileName, invoice);
+    this.pdfService.generatePdfForInvoice(fileName, invoice);
   }
 
   dateToString(date: Date): string {

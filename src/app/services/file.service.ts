@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { constants } from 'src/environments/constants';
 import { Invoice } from '../common/invoice';
-import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Observable } from 'rxjs';
 import { BaseResponse } from '../common/base-response';
 
@@ -11,7 +10,7 @@ import { BaseResponse } from '../common/base-response';
 })
 export class FileService {
 
-  private baseUrl = constants.API_SERVER+'/api/v1/files';
+  private baseUrl = constants.API_SERVER + '/api/v1/files';
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -28,13 +27,58 @@ export class FileService {
     return this.httpClient.post<BaseResponse>(postUrl, uploadData);
   }
 
-  generatePdf(fileName: string, invoice: Invoice) {
+  generatePdfForInvoice(fileName: string, invoice: Invoice) {
 
     this.pdfMake.createPdf(this.prepareInvoice(invoice)).download('invoice_' + fileName + '.pdf');
 
   }
 
+  formatBreakdown(breakdown: any): any {
+    var item:any;
+    var breakdownList = [
+      [
+        {
+          text: 'DESCRIPTION',
+          fillColor: '#eaf2f5',
+          border: [false, true, false, true],
+          margin: [0, 5, 0, 5],
+          textTransform: 'uppercase',
+        },
+        {
+          text: 'AMOUNT',
+          border: [false, true, false, true],
+          alignment: 'right',
+          fillColor: '#eaf2f5',
+          margin: [0, 5, 0, 5],
+          textTransform: 'uppercase',
+        },
+      ],
+    ];
+
+    for (let i = 0; i < breakdown.length; i++) {
+      item = [
+        {
+          text: breakdown[i].detail,
+          border: [false, false, false, true],
+          margin: [0, 5, 0, 5],
+          alignment: 'left',
+        },
+        {
+          border: [false, false, false, true],
+          text: '$'+breakdown[i].amount,
+          fillColor: '#f5f5f5',
+          alignment: 'right',
+          margin: [0, 5, 0, 5],
+        },
+      ];
+      breakdownList.push(item);
+    }
+
+    return breakdownList;
+  }
+
   prepareInvoice(invoice: Invoice): any {
+    var breakdown = invoice.breakdown;
     let invoiceDefinition = {
       content: [
         {
@@ -176,11 +220,11 @@ export class FileService {
         {
           columns: [
             {
-              text: invoice.fromAddress==null?'N/A':invoice.fromAddress,
+              text: invoice.fromAddress == null ? 'N/A' : invoice.fromAddress,
               style: 'invoiceBillingAddress',
             },
             {
-              text: invoice.toAddress==null?'N/A':invoice.toAddress,
+              text: invoice.toAddress == null ? 'N/A' : invoice.toAddress,
               style: 'invoiceBillingAddress',
             },
           ],
@@ -237,55 +281,7 @@ export class FileService {
           table: {
             headerRows: 1,
             widths: ['*', 80],
-            body: [
-              [
-                {
-                  text: 'DESCRIPTION',
-                  fillColor: '#eaf2f5',
-                  border: [false, true, false, true],
-                  margin: [0, 5, 0, 5],
-                  textTransform: 'uppercase',
-                },
-                {
-                  text: 'AMOUNT',
-                  border: [false, true, false, true],
-                  alignment: 'right',
-                  fillColor: '#eaf2f5',
-                  margin: [0, 5, 0, 5],
-                  textTransform: 'uppercase',
-                },
-              ],
-              [
-                {
-                  text: invoice.breakdown[0].detail,
-                  border: [false, false, false, true],
-                  margin: [0, 5, 0, 5],
-                  alignment: 'left',
-                },
-                {
-                  border: [false, false, false, true],
-                  text: '$999.99',
-                  fillColor: '#f5f5f5',
-                  alignment: 'right',
-                  margin: [0, 5, 0, 5],
-                },
-              ],
-              [
-                {
-                  text: 'Item 2',
-                  border: [false, false, false, true],
-                  margin: [0, 5, 0, 5],
-                  alignment: 'left',
-                },
-                {
-                  text: '$999.99',
-                  border: [false, false, false, true],
-                  fillColor: '#f5f5f5',
-                  alignment: 'right',
-                  margin: [0, 5, 0, 5],
-                },
-              ],
-            ],
+            body: this.formatBreakdown(breakdown),
           },
         },
         '\n',
@@ -371,7 +367,7 @@ export class FileService {
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: 'CAD $'+invoice.totalAmount.toFixed(2),
+                  text: 'CAD $' + invoice.totalAmount.toFixed(2),
                   bold: true,
                   fontSize: 15,
                   alignment: 'right',
@@ -414,13 +410,13 @@ export class FileService {
   downloadAttachment(attachmentByte: any, fileName: string, type: string) {
     const byteArray = new Uint8Array(
       atob(attachmentByte)
-      .split('')
-      .map((char)=>char.charCodeAt(0))
+        .split('')
+        .map((char) => char.charCodeAt(0))
     );
 
-    const file = new Blob([byteArray], {type: type});
+    const file = new Blob([byteArray], { type: type });
     const fileUrl = URL.createObjectURL(file);
-    let link  = document.createElement('a');
+    let link = document.createElement('a');
     link.download = fileName;
     link.target = '_blank';
     link.href = fileUrl;
@@ -429,6 +425,6 @@ export class FileService {
     document.body.removeChild(link);
   }
 
-  
+
 
 }
