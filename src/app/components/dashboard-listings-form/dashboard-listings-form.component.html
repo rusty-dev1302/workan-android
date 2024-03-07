@@ -399,7 +399,7 @@
                                                     [value]="listing.chargesType"
                                                     (change)="selectChargesType(chargesType.value)">
                                                     <option value="Per Visit" default>Per Visit</option>
-                                                    <option value="Hourly">Hourly</option>
+                                                    <option value="Per Visit+Parts/Material Cost">Per Visit+Parts/Material Cost</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -442,6 +442,8 @@
                                         <div class="modal-footer">
                                             <h6 class="small-text">** Area where the services are offered is the
                                                 <b>listing location</b>.
+                                            </h6>
+                                            <h6 class="small-text">**<b>Parts/Material Cost</b> to be directly paid to the professional.
                                             </h6>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
