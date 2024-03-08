@@ -336,7 +336,7 @@ export class FileService {
                 },
                 {
                   border: [false, true, false, true],
-                  text: '$999.99',
+                  text: 'CAD $' + invoice.totalAmount.toFixed(2),
                   alignment: 'right',
                   fillColor: '#f5f5f5',
                   margin: [0, 5, 0, 5],
