@@ -137,7 +137,7 @@
                     </div>
                     <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                        (click)="processOrder('CANCEL')">Cancel Order</button>
+                      data-bs-target="#cancellationReasonModal" (click)="processOrder('CANCEL')">Cancel Order</button>
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
                       <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()">Accept Direct Payment

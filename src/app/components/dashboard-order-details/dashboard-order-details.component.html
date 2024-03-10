@@ -148,11 +148,10 @@
                     </div>
                     <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-2">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                        data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
+                        data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
                   </div>
-                  <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED')"
-                    class="col-12">
+                  <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED')" class="col-12">
                     <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
                       data-bs-target="#writeReviewModal">Write a review</button>
                   </div>
@@ -185,6 +184,50 @@
     </div>
   </div>
   <!-- Write Review Modal Ends -->
+
+  <!-- Cancellation Reason Modal -->
+  <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cancellationReasonModalLabel">Cancellation Reason</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- step1 modal body start  -->
+        <div class="modal-body">
+          <div class="container">
+            <div class="col-lg-12 py-2">
+              <h6><b>Select Cancellation Reason:</b></h6>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+              <label class="form-check-label" for="flexRadioDefault1">
+                Default radio
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+              <label class="form-check-label" for="flexRadioDefault2">
+                Default checked radio
+              </label>
+            </div>
+            <hr class="style1">
+            <div class="d-flex justify-content-end py-3">
+              <button type="button" class="btn btn-warning btn-rounded col-12">
+                <span>Cancel Order</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+        <!-- step1 modal body ends  -->
+
+      </div>
+    </div>
+  </div>
+  <!-- Cancellation Reason Modal ends-->
 
   <!-- Confirm payment Modal begins  -->
   <div *ngIf="order" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"
