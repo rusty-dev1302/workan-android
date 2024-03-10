@@ -137,7 +137,7 @@
                     </div>
                     <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      data-bs-target="#cancellationReasonModal" (click)="processOrder('CANCEL')">Cancel Order</button>
+                      data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
                       <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()">Accept Direct Payment
@@ -158,7 +158,14 @@
 
   <!-- main section ends  -->
 
-
+  <!-- Cancellation Reason Modal -->
+  <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-cancellation-reason></app-cancellation-reason>
+    </div>
+  </div>
+  <!-- Cancellation Reason Modal ends-->
 
   <!-- Modal section begins -->
 
