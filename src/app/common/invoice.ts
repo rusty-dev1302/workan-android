@@ -8,6 +8,8 @@ export class Invoice {
         public fromAddress: string,
         public toAddress: string,
         public totalAmount: number,
+        public dateCreated: Date,
+        public paid: boolean,
         public breakdown: BreakdownItem[]
     ) {
     }

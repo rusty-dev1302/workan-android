@@ -1,109 +1,109 @@
 <!--Divider section-->
 
 <section class="bg-color py-2">
-    <section class="container">
-      <div class="row">
-  
-        <div
-          class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
-          <h1 class=" text-capitalize fw-bolder text-white">
-            My Orders
-          </h1>
-        </div>
+  <section class="container">
+    <div class="row">
+
+      <div
+        class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
+        <h1 class=" text-capitalize fw-bolder text-white">
+          My Orders
+        </h1>
       </div>
-    </section>
+    </div>
   </section>
-  
-  <!--Divider section end -->
-  
-  <div class="content-box">
-  
-    <!-- main section starts  -->
-  
-    <section class="common-section business-section" id="online_services">
-  
-      <div class="container">
-        <!-- <h1>Profile</h1> -->
-        <div class="row">
-  
-          <!-- to be iterated over orders start  -->
-          <div *ngFor="let order of orders" class="col-12">
-            <div class="form-section p-3 m-3">
-  
-              <form>
-  
-                <div class="mb-3">
-                <button class="btn btn-small btn-rounded disabled"
-                [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                           order.status=='COMPLETED'?'btn-success':'btn-primary']"
-                >{{order.status}}</button>
-                  <!-- display profile and name  -->
-                  <div class="row">
-  
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Appointment Date</label>
-                        <h5> {{order.appointmentDate|date:'dd-MMM-yyyy'}}</h5>
-                      </div>
+</section>
+
+<!--Divider section end -->
+
+<div class="content-box">
+
+  <!-- main section starts  -->
+
+  <section class="common-section business-section" id="online_services">
+
+    <div class="container">
+      <!-- <h1>Profile</h1> -->
+      <div class="row">
+
+        <!-- to be iterated over orders start  -->
+        <div *ngFor="let order of orders" class="col-12">
+          <div class="form-section p-3 m-3">
+
+            <form>
+
+              <div class="mb-3">
+                <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
+                           order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                <!-- display profile and name  -->
+                <div class="row">
+
+                  <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Appointment Date</label>
+                      <h5> {{order.appointmentDate|date:'dd-MMM-yyyy'}}</h5>
                     </div>
-  
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Appointment Time</label>
-                        <h5>{{convertTimeToString(order.startTimeHhmm)}}-{{convertTimeToString(order.endTimeHhmm)}}</h5>
-                      </div>
-                    </div>
-  
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Customer</label>
-                        <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
-                      </div>
-                    </div>
-  
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Customer Phone</label>
-                        <h5>{{order.customer.mobile | phone}}</h5>
-                      </div>
-                    </div>
-  
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Total Amount</label>
-                        <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number : '1.2-2'}} </h5>
-                      </div>
-                    </div>
-  
-                    <hr class="style1">
-                    <div class="col-12">
-                      <button class="btn btn-primary btn-rounded col-12" type="button"
-                        [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
-                    </div>
-  
                   </div>
+
+                  <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Appointment Time</label>
+                      <h5>{{convertTimeToString(order.startTimeHhmm)}}-{{convertTimeToString(order.endTimeHhmm)}}</h5>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Customer</label>
+                      <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Customer Phone</label>
+                      <h5>{{order.customer.mobile | phone}}</h5>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Total Amount</label>
+                      <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                        '1.2-2'}} </h5>
+                    </div>
+                  </div>
+                  <hr class="style1">
+                  <div class="col-12">
+                    <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
+                      style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
+                    <button class="btn btn-primary btn-rounded col-12" type="button"
+                      [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
+                  </div>
+
                 </div>
-              </form>
-              <!-- User Form Ends -->
-            </div>
+              </div>
+            </form>
+            <!-- User Form Ends -->
           </div>
-          <!-- to be iterated over orders end  -->
-  
-          <div class="col-12" style="padding-top: 150px;padding-bottom: 150px;">
-            <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-12" role="alert">
-              No orders found.
-            </div>
+        </div>
+        <!-- to be iterated over orders end  -->
+
+        <div class="col-12" style="padding-top: 150px;padding-bottom: 150px;">
+          <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-12" role="alert">
+            No orders found.
           </div>
         </div>
       </div>
-  
-    </section>
-  
-    <!-- main section ends  -->
-  
-  
-  
-    <!-- Modal section begins -->
-  
-  
-    <!-- Modals section ends -->
+    </div>
+
+  </section>
+
+  <!-- main section ends  -->
+
+
+
+  <!-- Modal section begins -->
+
+
+  <!-- Modals section ends -->

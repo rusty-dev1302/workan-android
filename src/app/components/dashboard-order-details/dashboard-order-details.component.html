@@ -189,7 +189,7 @@
   <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-cancellation-reason></app-cancellation-reason>
+      <app-cancellation-reason [cancellationReason]="cancellationReason" (cancellationReasonEvent)="cancelOrder($event)"></app-cancellation-reason>
     </div>
   </div>
   <!-- Cancellation Reason Modal ends-->

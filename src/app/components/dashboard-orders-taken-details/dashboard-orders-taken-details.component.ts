@@ -17,9 +17,11 @@ import { constants } from 'src/environments/constants';
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   private currentOrderId!: number;
-  order!: Order;
-  otpValue:string[] = ["","","","","",""]
   private autoRefresh!: Subscription;
+
+  order!: Order;
+  otpValue:string[] = ["","","","","",""];
+  cancellationReason: any[] = constants.CANCEL_REASON_PROFESSIONAL;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,9 +82,9 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     return (hour == 0 ? "00" : hour) + ":" + min + merd;
   }
 
-  processOrder(action: string) {
+  processOrder(action: string, cancellationReason:string="") {
     let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
-    let processOrderRequest = new ProcessOrderRequest(this.order.id, null, this.order.professional.id, action, otp);
+    let processOrderRequest = new ProcessOrderRequest(this.order.id, null, this.order.professional.id, action, otp, cancellationReason);
     const sub = this.orderService.processOrder(processOrderRequest).subscribe(
       (response) => {
         if(response.state!=constants.ERROR_STATE) {
@@ -108,6 +110,10 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  cancelOrder(cancellationReason:any) {
+    this.processOrder("CANCEL", cancellationReason.reason);
   }
 
 }

@@ -17,8 +17,10 @@ import { constants } from 'src/environments/constants';
 export class DashboardOrderDetailsComponent implements OnInit {
 
   private currentOrderId!: number;
-  order!: Order;
   private autoRefresh!: Subscription;
+
+  order!: Order;
+  cancellationReason = constants.CANCEL_REASON_CUSTOMER;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,8 +74,8 @@ export class DashboardOrderDetailsComponent implements OnInit {
     return (hour == 0 ? "00" : hour) + ":" + min + merd;
   }
 
-  processOrder(action: string) {
-    let processOrderRequest = new ProcessOrderRequest(this.order.id, this.order.customer.id, this.order.professional.id, action, "");
+  processOrder(action: string, cancellationReason:string="") {
+    let processOrderRequest = new ProcessOrderRequest(this.order.id, this.order.customer.id, this.order.professional.id, action,"", cancellationReason);
     const sub = this.orderService.processOrder(processOrderRequest).subscribe(
       (response) => {
         if(response.state!=constants.ERROR_STATE) {
@@ -85,6 +87,10 @@ export class DashboardOrderDetailsComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  cancelOrder(cancellationReason:any) {
+    this.processOrder("CANCEL", cancellationReason.reason);
   }
 
 }

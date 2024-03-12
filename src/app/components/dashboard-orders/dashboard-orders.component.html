@@ -33,12 +33,10 @@
             <form>
 
               <div class="mb-3">
-              <button class="btn btn-small btn-rounded disabled mb-2"
-              [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                         order.status=='COMPLETED'?'btn-success':'btn-primary']"
-              >{{order.status}}</button>
-              <button *ngIf="order.reviewDone" class="btn btn-warning btn-small btn-rounded disabled mb-2" style="margin-left: 3px;"
-              >REVIEW SUBMITTED</button>
+                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
+                         order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                <button *ngIf="order.reviewDone" class="btn btn-warning btn-small btn-rounded disabled mb-2"
+                  style="margin-left: 3px;">REVIEW SUBMITTED</button>
                 <!-- display profile and name  -->
                 <div class="row">
 
@@ -59,7 +57,9 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Professional</label>
-                      <h5><a class="link" type="button" [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}} {{order.professional.lastName}}</a></h5>
+                      <h5><a class="link" type="button"
+                          [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}}
+                          {{order.professional.lastName}}</a></h5>
                     </div>
                   </div>
 
@@ -73,12 +73,14 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Total Amount</label>
-                      <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number : '1.2-2'}} </h5>
+                      <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                        '1.2-2'}} </h5>
                     </div>
                   </div>
-
                   <hr class="style1">
                   <div class="col-12">
+                    <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
+                      style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                     <button class="btn btn-primary btn-rounded col-12" type="button"
                       [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
                   </div>

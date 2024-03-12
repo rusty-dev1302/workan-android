@@ -65,7 +65,7 @@ export class FileService {
         },
         {
           border: [false, false, false, true],
-          text: '$'+breakdown[i].amount,
+          text: this.amountToString(breakdown[i].amount),
           fillColor: '#f5f5f5',
           alignment: 'right',
           margin: [0, 5, 0, 5],
@@ -111,7 +111,7 @@ export class FileService {
                         alignment: 'right',
                       },
                       {
-                        text: '00001',
+                        text: invoice.id,
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
@@ -131,7 +131,7 @@ export class FileService {
                         alignment: 'right',
                       },
                       {
-                        text: 'June 01, 2016',
+                        text: invoice.dateCreated,
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
@@ -151,11 +151,11 @@ export class FileService {
                         width: '*',
                       },
                       {
-                        text: 'PAID',
+                        text: this.paymentComplete(invoice.paid),
                         bold: true,
                         fontSize: 14,
                         alignment: 'right',
-                        color: 'green',
+                        color: this.paymentCompleteColor(invoice.paid),
                         width: 100,
                       },
                     ],
@@ -233,7 +233,7 @@ export class FileService {
         {
           width: '100%',
           alignment: 'center',
-          text: 'Invoice No. 123',
+          text: 'Invoice No. '+invoice.id,
           bold: true,
           margin: [0, 10, 0, 10],
           fontSize: 15,
@@ -405,6 +405,30 @@ export class FileService {
       },
     };
     return invoiceDefinition;
+  }
+
+  paymentComplete(status: boolean): String{
+    if(status) {
+      return "PAID"
+    } else {
+      return "UNPAID"
+    }
+  }
+
+  paymentCompleteColor(status: boolean): string{
+    if(status) {
+      return "green"
+    } else {
+      return "red"
+    }
+  }
+
+  amountToString(amount: any):string {
+    if(amount<0) {
+      return "- $"+(-1*amount);
+    } else {
+      return "$"+(amount);
+    }
   }
 
   downloadAttachment(attachmentByte: any, fileName: string, type: string) {
