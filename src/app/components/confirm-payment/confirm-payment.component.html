@@ -1,4 +1,4 @@
-<div class="modal-content">
+<div *ngIf="invoice" class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="writeReviewModalLabel">Confirm Payment</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -28,7 +28,11 @@
                         [(ngModel)]="paymentMode">
                     <label class="form-check-label" for="payMethodDirect" type="button" (click)="getInvoice('direct')">
                         Pay directly to the Professional
-                        <br><a style="font-size: .9rem!important;">(Get discount on first order)</a>
+                        <!-- <br><a style="font-size: .9rem!important;">(Get discount on first order)</a>
+                        <span class="fa-stack fa-sm">
+                            <i class="fa fa-certificate fa-stack-2x"></i>
+                            <i class="fa fa-tag fa-stack-1x fa-inverse"></i>
+                        </span> for deals -->
                     </label>
                 </div>
 

@@ -1,0 +1,26 @@
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-cancellation-reason',
+  templateUrl: './cancellation-reason.component.html',
+  styleUrls: ['./cancellation-reason.component.css']
+})
+export class CancellationReasonComponent {
+
+  @Input()
+  cancellationReason: any[]=[];
+
+  @Output()
+  cancellationReasonEvent = new EventEmitter<any>();
+
+  currentCancellationReason: any;
+
+  setCancellationReason(currentCancellationReason:any) {
+    this.currentCancellationReason = currentCancellationReason;
+  }
+
+  cancel() {
+    this.cancellationReasonEvent.emit(this.currentCancellationReason);
+  }
+
+}

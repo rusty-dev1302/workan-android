@@ -58,6 +58,7 @@ import { AdminGuard } from './utility/admin.guard';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { VerifiedCertificatePipe } from './pipes/verified-cert-pipe';
+import { CancellationReasonComponent } from './components/cancellation-reason/cancellation-reason.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -136,6 +137,7 @@ const routes: Routes = [
     ManageVerificationsComponent,
     AdminDashboardComponent,
     ConfirmationDialogComponent,
+    CancellationReasonComponent,
   ],
   imports: [
     MatDialogModule,

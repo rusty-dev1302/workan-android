@@ -148,11 +148,10 @@
                     </div>
                     <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-2">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                        data-bs-target="#slotSelectorModal" (click)="processOrder('CANCEL')">Cancel Order</button>
+                        data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
                   </div>
-                  <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED')"
-                    class="col-12">
+                  <div *ngIf="!order.reviewDone &&(order.status=='COMPLETED')" class="col-12">
                     <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
                       data-bs-target="#writeReviewModal">Write a review</button>
                   </div>
@@ -185,6 +184,15 @@
     </div>
   </div>
   <!-- Write Review Modal Ends -->
+
+  <!-- Cancellation Reason Modal -->
+  <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-cancellation-reason [cancellationReason]="cancellationReason" (cancellationReasonEvent)="cancelOrder($event)"></app-cancellation-reason>
+    </div>
+  </div>
+  <!-- Cancellation Reason Modal ends-->
 
   <!-- Confirm payment Modal begins  -->
   <div *ngIf="order" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"

@@ -18,6 +18,7 @@ export class Order extends BaseResponse{
         public paymentStatus:string,
         public otp: string,
         public reviewDone: boolean,
+        public cancelReason: string,
         state: string,
         message: string
     ) {

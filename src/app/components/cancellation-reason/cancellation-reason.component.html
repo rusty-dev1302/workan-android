@@ -1,0 +1,30 @@
+<div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="cancellationReasonModalLabel">Cancellation Reason</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+
+    <!-- step1 modal body start  -->
+    <div class="modal-body">
+      <div class="container">
+        <div class="col-lg-12 py-2">
+          <h6><b>Select Cancellation Reason:</b></h6>
+        </div>
+        <div *ngFor="let reason of cancellationReason" class="form-check">
+          <input class="form-check-input" type="radio" name="cancelReasonRadio" [id]="reason.id">
+          <label class="form-check-label" [for]="reason.id" type="button" (click)="setCancellationReason(reason)">
+            {{reason.reason}}
+          </label>
+        </div>
+        <hr class="style1">
+        <div class="d-flex justify-content-end py-3">
+          <button type="button" class="btn btn-warning btn-rounded col-12" (click)="cancel()" [disabled]="!currentCancellationReason" data-bs-dismiss="modal">
+            <span>Cancel Order</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+    <!-- step1 modal body ends  -->
+
+  </div>

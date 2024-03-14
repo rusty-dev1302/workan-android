@@ -26,7 +26,7 @@
                                     style="margin-left: 5px;" type="button"
                                     (click)="removeListing(displayListing.id)"></i>
                             </h3>
-                            <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
+                            <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;">
                                 <b>Verification Mandatory **</b>
                             </h6>
@@ -84,14 +84,14 @@
 
                 </div>
                 <hr
-                    *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory">
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
+                    *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled">
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                     class="small-text">** This specialization <b>requires verified</b> certifications to post
                     listing.</h6>
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
-                    class="small-text">** Please upload all the <b>relevant certifications</b>.</h6>
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
-                    class="small-text">** Listing will become active once <b>all certifications get verified</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                    class="small-text">** Please upload all the <b>relevant documents</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                    class="small-text">** Listing will become active once <b>all documents get verified</b>.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -111,11 +111,11 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <h3><b>Certifications </b><i type="button" data-bs-toggle="modal"
+                                        <h3><b>Certifications / Documents </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addCertificationModal"
                                                 class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
-                                        <a class="link" type="button" style="font-size: .9rem!important;">Recommended
-                                            Certifications</a>
+                                        <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                            Certifications</a> -->
                                     </div>
                                 </div>
                             </div>
@@ -200,8 +200,12 @@
                                 </table>
                             </div>
                             <hr class="style1">
+                            <h6 class="small-text">** Please upload <b>relevant documents/certifications</b>.
+                            </h6>
                             <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments. Max size
                                 per attachment is <b>2Mb</b>.
+                            </h6>
+                            <h6 class="small-text">** You can allow certifications to be shown on your profile by clicking on <b>show on profile</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -326,7 +330,7 @@
                 </div>
 
                 <!-- Slots for the day end  -->
-
+                <h6 class="small-text">** Switching the schedule on/off will enable/disable the availability for the corresponding day.</h6>
                 <h6 class="small-text">** Multiple time intervals when you will be available to offer services.</h6>
                 <h6 class="small-text">** For example: 8:00AM-9:00AM</h6>
             </div>
@@ -399,7 +403,7 @@
                                                     [value]="listing.chargesType"
                                                     (change)="selectChargesType(chargesType.value)">
                                                     <option value="Per Visit" default>Per Visit</option>
-                                                    <option value="Hourly">Hourly</option>
+                                                    <option value="Per Visit+Parts/Material Cost Extra">Per Visit+Parts/Material Cost Extra</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -440,9 +444,15 @@
                                 <div class="mb-3">
                                     <div class="row">
                                         <div class="modal-footer">
-                                            <h6 class="small-text">** Area where the services are offered is the
-                                                <b>listing location</b>.
-                                            </h6>
+                                            <a>
+                                                <h6 class="small-text">** Area where the services are offered is the
+                                                    <b>listing location</b>.
+                                                </h6>
+                                                <h6 class="small-text">** Parts/Material Cost to be directly paid to the professional.
+                                                </h6>
+                                                <h6 class="small-text">** The charges should include all the taxes payable by the professional.
+                                                </h6>
+                                            </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
                                                             ||listing.charges<1
