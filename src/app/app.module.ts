@@ -59,6 +59,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { MatDialogModule } from '@angular/material/dialog';
 import { VerifiedCertificatePipe } from './pipes/verified-cert-pipe';
 import { CancellationReasonComponent } from './components/cancellation-reason/cancellation-reason.component';
+import { ViewMyListingComponent } from './components/view-my-listing/view-my-listing.component';
 
 const routes: Routes = [
   { path: 'firstLogin', component: FirstLoginComponent, canActivate: [AuthGuard] },
@@ -73,6 +74,7 @@ const routes: Routes = [
   { path: 'listings/:subcategory/:location', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listings', component: BrowseListingsComponent, canActivate: [AuthGuard] },
   { path: 'listingDetail/:id', component: ListingDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'viewMyListing', component: ViewMyListingComponent, canActivate: [AuthGuard, ProfessionalGuard] },
   { 
     path: 'admin', component: AdminDashboardComponent, canActivate: [AuthGuard],
           children: [
@@ -138,6 +140,7 @@ const routes: Routes = [
     AdminDashboardComponent,
     ConfirmationDialogComponent,
     CancellationReasonComponent,
+    ViewMyListingComponent,
   ],
   imports: [
     MatDialogModule,

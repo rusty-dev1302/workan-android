@@ -18,12 +18,18 @@ import { ContactDetail } from 'src/app/common/contact-detail';
   styleUrls: ['./slot-selector.component.css']
 })
 export class SlotSelectorComponent implements OnInit {
+
+  @Input()
+  professionalView:boolean = false;
+
   currentDate!: string;
   currentSlots!: any[];
   currentStep: number = 0;
 
   selectedDate!: Date;
   selectedSlot!: SlotTemplateItem;
+
+  dayBoolArray: boolean[] = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
 
   @Input() listingId: number = 0;
   customerAddress!: ContactDetail;
@@ -40,7 +46,7 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSlotsForDay(new Date());
+    this.getSlotsForDay(new Date(), 0);
     this.loadCustomer();
   }
 
@@ -62,11 +68,13 @@ export class SlotSelectorComponent implements OnInit {
 
   }
 
-  getSlotsForDay(date: Date) {
+  getSlotsForDay(date: Date, i: number) {
+    this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_CLEAR));
+    this.dayBoolArray[i] = true;
     if (date) {
       this.selectedDate = date;
-      this.currentDate = this.datePipe.transform(date, 'EEEE')!;
-      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
+      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)')!;
+      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
             this.currentSlots = data;

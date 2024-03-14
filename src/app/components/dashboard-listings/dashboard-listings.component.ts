@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Listing } from 'src/app/common/listing';
 
 @Component({
   selector: 'app-dashboard-listings',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-listings.component.css']
 })
 export class DashboardListingsComponent {
-
+  currentListing!: Listing;
+  setCurrentListing(event: any) {
+    this.currentListing = event;
+  }
 }

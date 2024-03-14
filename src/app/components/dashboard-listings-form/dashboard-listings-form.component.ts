@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Listing } from 'src/app/common/listing';
@@ -19,6 +19,8 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./dashboard-listings-form.component.css']
 })
 export class DashboardListingsFormComponent implements OnInit {
+
+  @Output() currentListingEvent = new EventEmitter<Listing>();
 
   isEditable: boolean = false;
 
@@ -95,6 +97,7 @@ export class DashboardListingsFormComponent implements OnInit {
           console.log("Listing: " + JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
+          this.currentListingEvent.emit(this.listing);
         }
 
         this.navigation.pageLoaded();

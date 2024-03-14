@@ -28,7 +28,7 @@
                             </h3>
                             <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;">
-                                <b>Verification Mandatory **</b>
+                                <b>Verification Mandatory</b>
                             </h6>
                         </div>
                     </div>
@@ -86,12 +86,10 @@
                 <hr
                     *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled">
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">** This specialization <b>requires verified</b> certifications to post
+                    class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">** Please upload all the <b>relevant documents</b>.</h6>
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">** Listing will become active once <b>all documents get verified</b>.</h6>
+                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -121,7 +119,7 @@
                             </div>
                             <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
                             <h6 *ngIf="displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                                style="color: red;"><b>Please add all relevant certifications.</b></h6>
+                                style="color: red;"><b>Please add all the relevant documents.</b></h6>
                             <div class="table-responsive">
                                 <table class="table table table-bordered th-sm">
                                     <thead
@@ -200,12 +198,12 @@
                                 </table>
                             </div>
                             <hr class="style1">
-                            <h6 class="small-text">** Please upload <b>relevant documents/certifications</b>.
+                            <h6 class="small-text">&bull; Please upload <b>relevant documents/certifications</b>.
                             </h6>
-                            <h6 class="small-text">** Only <b>image and pdf</b> files allowed as attachments. Max size
+                            <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max size
                                 per attachment is <b>2Mb</b>.
                             </h6>
-                            <h6 class="small-text">** You can allow certifications to be shown on your profile by clicking on <b>show on profile</b>.
+                            <h6 class="small-text">&bull; You can allow certifications to be shown on your profile by clicking on <b>show on profile</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -226,7 +224,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Week Availability Template</b>
+                            <h3><b>Day Availability</b>
                             </h3>
                         </div>
                     </div>
@@ -330,9 +328,8 @@
                 </div>
 
                 <!-- Slots for the day end  -->
-                <h6 class="small-text">** Switching the schedule on/off will enable/disable the availability for the corresponding day.</h6>
-                <h6 class="small-text">** Multiple time intervals when you will be available to offer services.</h6>
-                <h6 class="small-text">** For example: 8:00AM-9:00AM</h6>
+                <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the corresponding day.</h6>
+                <h6 class="small-text">&bull; Each slot represents the availability time for the corresponding day.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -445,11 +442,11 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <a>
-                                                <h6 class="small-text">** <b>Listing location:</b> Preferred address around which the services will be provided (~20km radius).
+                                                <h6 class="small-text">&bull; <b>Listing location:</b> Preferred address around which the services will be provided (~20km radius).
                                                 </h6>
-                                                <h6 class="small-text">** Parts/Material Cost to be directly paid to the professional.
+                                                <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the professional.
                                                 </h6>
-                                                <h6 class="small-text">** The charges should include all the taxes payable by the professional.
+                                                <h6 class="small-text">&bull; The charges should include all the taxes payable by the professional.
                                                 </h6>
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
