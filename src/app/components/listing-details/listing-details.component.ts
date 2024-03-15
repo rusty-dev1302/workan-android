@@ -60,6 +60,7 @@ export class ListingDetailsComponent implements OnInit{
       (listing) => {
         if(listing.state!=constants.ERROR_STATE){
           this.listing = listing;
+          console.log("enabled:"+this.listing.enabled)
           const sub = this.listingService.getProfessionalById(this.listing.professionalId).subscribe(
             (professional) => {
               this.professional = professional;

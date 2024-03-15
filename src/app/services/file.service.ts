@@ -4,6 +4,7 @@ import { constants } from 'src/environments/constants';
 import { Invoice } from '../common/invoice';
 import { Observable } from 'rxjs';
 import { BaseResponse } from '../common/base-response';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class FileService {
 
   constructor(
     private httpClient: HttpClient,
+    private datePipe: DatePipe,
   ) {
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
   }
@@ -56,21 +58,41 @@ export class FileService {
     ];
 
     for (let i = 0; i < breakdown.length; i++) {
-      item = [
-        {
-          text: breakdown[i].detail,
-          border: [false, false, false, true],
-          margin: [0, 5, 0, 5],
-          alignment: 'left',
-        },
-        {
-          border: [false, false, false, true],
-          text: this.amountToString(breakdown[i].amount),
-          fillColor: '#f5f5f5',
-          alignment: 'right',
-          margin: [0, 5, 0, 5],
-        },
-      ];
+      if(breakdown[i].detail==constants.AMOUNT_COLLECTED_CUSTOMER) {
+        item = [
+          {
+            text: breakdown[i].detail,
+            border: [false, true, false, true],
+            fillColor: '#f0f0f0',
+            margin: [0, 5, 0, 5],
+            alignment: 'left',
+          },
+          {
+            border: [false, true, false, true],
+            fillColor: '#f0f0f0',
+            text: this.amountToString(breakdown[i].amount),
+            alignment: 'right',
+            margin: [0, 5, 0, 5],
+          },
+        ];
+      } else {
+        item = [
+          {
+            text: breakdown[i].detail,
+            border: [false, false, false, true],
+            margin: [0, 5, 0, 5],
+            alignment: 'left',
+          },
+          {
+            border: [false, false, false, true],
+            text: this.amountToString(breakdown[i].amount),
+            fillColor: '#f5f5f5',
+            alignment: 'right',
+            margin: [0, 5, 0, 5],
+          },
+        ];
+      }
+      
       breakdownList.push(item);
     }
 
@@ -131,7 +153,7 @@ export class FileService {
                         alignment: 'right',
                       },
                       {
-                        text: invoice.dateCreated,
+                        text: this.datePipe.transform(invoice.dateCreated, 'dd/MM/YYYY'),
                         bold: true,
                         color: '#333333',
                         fontSize: 12,
