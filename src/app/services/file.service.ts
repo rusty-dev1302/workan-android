@@ -62,13 +62,13 @@ export class FileService {
         item = [
           {
             text: breakdown[i].detail,
-            border: [false, true, false, true],
+            border: [true, true, false, true],
             fillColor: '#f0f0f0',
             margin: [0, 5, 0, 5],
             alignment: 'left',
           },
           {
-            border: [false, true, false, true],
+            border: [false, true, true, true],
             fillColor: '#f0f0f0',
             text: this.amountToString(breakdown[i].amount),
             alignment: 'right',
