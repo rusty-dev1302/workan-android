@@ -12,11 +12,16 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
 import { Certification } from 'src/app/common/certification';
 import { UserService } from 'src/app/services/user.service';
 import { FileService } from 'src/app/services/file.service';
+import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-dashboard-listings-form',
-  templateUrl: './dashboard-listings-form.component.html',
-  styleUrls: ['./dashboard-listings-form.component.css']
+    selector: 'app-dashboard-listings-form',
+    templateUrl: './dashboard-listings-form.component.html',
+    styleUrls: ['./dashboard-listings-form.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe]
 })
 export class DashboardListingsFormComponent implements OnInit {
 

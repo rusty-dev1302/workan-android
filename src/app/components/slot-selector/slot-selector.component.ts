@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf, NgFor, NgClass } from '@angular/common';
 import { ListingService } from 'src/app/services/listing.service';
 import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 import { OrderService } from 'src/app/services/order.service';
@@ -11,11 +11,14 @@ import { ToastrService } from 'ngx-toastr';
 import { constants } from 'src/environments/constants';
 import { Router } from '@angular/router';
 import { ContactDetail } from 'src/app/common/contact-detail';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-slot-selector',
-  templateUrl: './slot-selector.component.html',
-  styleUrls: ['./slot-selector.component.css']
+    selector: 'app-slot-selector',
+    templateUrl: './slot-selector.component.html',
+    styleUrls: ['./slot-selector.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, NgClass, DatePipe]
 })
 export class SlotSelectorComponent implements OnInit {
 

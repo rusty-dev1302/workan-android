@@ -1,10 +1,15 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { DashboardProfileFormComponent } from '../dashboard-profile-form/dashboard-profile-form.component';
+import { PhotoUploaderComponent } from '../photo-uploader/photo-uploader.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-profile',
-  templateUrl: './dashboard-profile.component.html',
-  styleUrls: ['./dashboard-profile.component.css']
+    selector: 'app-dashboard-profile',
+    templateUrl: './dashboard-profile.component.html',
+    styleUrls: ['./dashboard-profile.component.css'],
+    standalone: true,
+    imports: [NgIf, PhotoUploaderComponent, DashboardProfileFormComponent]
 })
 export class DashboardProfileComponent implements OnInit{
 

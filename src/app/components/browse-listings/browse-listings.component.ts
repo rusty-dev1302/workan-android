@@ -1,7 +1,7 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgFor, NgIf, SlicePipe, DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/customer';
@@ -11,11 +11,17 @@ import { ListingService } from 'src/app/services/listing.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-browse-listings',
-  templateUrl: './browse-listings.component.html',
-  styleUrls: ['./browse-listings.component.css']
+    selector: 'app-browse-listings',
+    templateUrl: './browse-listings.component.html',
+    styleUrls: ['./browse-listings.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgFor, SelectMapLocationComponent, NgIf, InfiniteScrollModule, RouterLink, SlicePipe, DecimalPipe, VerifiedCertificatePipe]
 })
 export class BrowseListingsComponent implements OnInit {
   options=[

@@ -5,12 +5,16 @@ import { ToastrService } from 'ngx-toastr';
 import { OrderService } from 'src/app/services/order.service';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 
 @Component({
-  selector: 'app-confirm-payment',
-  templateUrl: './confirm-payment.component.html',
-  styleUrls: ['./confirm-payment.component.css']
+    selector: 'app-confirm-payment',
+    templateUrl: './confirm-payment.component.html',
+    styleUrls: ['./confirm-payment.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor, FormsModule, DecimalPipe]
 })
 export class ConfirmPaymentComponent implements OnInit{
 

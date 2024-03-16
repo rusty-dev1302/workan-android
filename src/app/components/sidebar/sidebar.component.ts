@@ -6,11 +6,15 @@ import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.css'],
+    standalone: true,
+    imports: [NgIf, RouterLink]
 })
 export class SidebarComponent implements OnInit{
 

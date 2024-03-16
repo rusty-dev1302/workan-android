@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { FileService } from 'src/app/services/file.service';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-manage-verifications',
-  templateUrl: './manage-verifications.component.html',
-  styleUrls: ['./manage-verifications.component.css']
+    selector: 'app-manage-verifications',
+    templateUrl: './manage-verifications.component.html',
+    styleUrls: ['./manage-verifications.component.css'],
+    standalone: true,
+    imports: [NgFor, NgIf]
 })
 export class ManageVerificationsComponent implements OnInit {
 

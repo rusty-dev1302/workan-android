@@ -11,11 +11,15 @@ import { Invoice } from 'src/app/common/invoice';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { FormsModule } from '@angular/forms';
+import { NgClass, NgIf, NgFor, DecimalPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-payments',
-  templateUrl: './dashboard-payments.component.html',
-  styleUrls: ['./dashboard-payments.component.css']
+    selector: 'app-dashboard-payments',
+    templateUrl: './dashboard-payments.component.html',
+    styleUrls: ['./dashboard-payments.component.css'],
+    standalone: true,
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe]
 })
 export class DashboardPaymentsComponent implements OnInit {
 

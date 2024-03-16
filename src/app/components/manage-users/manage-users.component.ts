@@ -10,11 +10,17 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { PhonePipe } from '../../pipes/phone-pipe';
+import { NgIf, DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
-  selector: 'app-manage-users',
-  templateUrl: './manage-users.component.html',
-  styleUrls: ['./manage-users.component.css']
+    selector: 'app-manage-users',
+    templateUrl: './manage-users.component.html',
+    styleUrls: ['./manage-users.component.css'],
+    standalone: true,
+    imports: [SearchComponent, FormsModule, NgIf, DecimalPipe, PhonePipe]
 })
 export class ManageUsersComponent implements OnInit {
 

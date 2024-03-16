@@ -5,11 +5,16 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgClass, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-orders',
-  templateUrl: './dashboard-orders.component.html',
-  styleUrls: ['./dashboard-orders.component.css']
+    selector: 'app-dashboard-orders',
+    templateUrl: './dashboard-orders.component.html',
+    styleUrls: ['./dashboard-orders.component.css'],
+    standalone: true,
+    imports: [NgFor, FormsModule, NgClass, NgIf, RouterLink, DecimalPipe, DatePipe]
 })
 export class DashboardOrdersComponent implements OnInit {
 

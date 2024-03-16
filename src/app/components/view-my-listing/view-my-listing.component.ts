@@ -7,11 +7,17 @@ import { ListingService } from 'src/app/services/listing.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
+import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
+import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-view-my-listing',
-  templateUrl: './view-my-listing.component.html',
-  styleUrls: ['./view-my-listing.component.css']
+    selector: 'app-view-my-listing',
+    templateUrl: './view-my-listing.component.html',
+    styleUrls: ['./view-my-listing.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
 })
 export class ViewMyListingComponent implements OnInit{
 

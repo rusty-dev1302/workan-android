@@ -1,11 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PushNotification } from 'src/app/common/push-notification';
 import { NotificationService } from 'src/app/services/notification.service';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-notification-sidebar',
-  templateUrl: './notification-sidebar.component.html',
-  styleUrls: ['./notification-sidebar.component.css']
+    selector: 'app-notification-sidebar',
+    templateUrl: './notification-sidebar.component.html',
+    styleUrls: ['./notification-sidebar.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor, NgClass, RouterLink, DatePipe]
 })
 export class NotificationSidebarComponent {
 
