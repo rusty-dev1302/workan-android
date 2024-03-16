@@ -6,9 +6,10 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
-  selector: 'app-payment-gateway',
-  templateUrl: './payment-gateway.component.html',
-  styleUrls: ['./payment-gateway.component.css']
+    selector: 'app-payment-gateway',
+    templateUrl: './payment-gateway.component.html',
+    styleUrls: ['./payment-gateway.component.css'],
+    standalone: true
 })
 export class PaymentGatewayComponent implements OnInit {
 

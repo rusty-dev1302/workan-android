@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, interval } from 'rxjs';
 import { Order } from 'src/app/common/order';
@@ -8,11 +8,17 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
+import { PhonePipe } from '../../pipes/phone-pipe';
+import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-orders-taken-details',
-  templateUrl: './dashboard-orders-taken-details.component.html',
-  styleUrls: ['./dashboard-orders-taken-details.component.css']
+    selector: 'app-dashboard-orders-taken-details',
+    templateUrl: './dashboard-orders-taken-details.component.html',
+    styleUrls: ['./dashboard-orders-taken-details.component.css'],
+    standalone: true,
+    imports: [RouterLink, NgIf, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 

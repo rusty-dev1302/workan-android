@@ -165,7 +165,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h6 class="small-text" style="font-weight: bold;color: rgb(45, 45, 45);">** Please link your paypal account. Your earnings will be directly credited to it.</h6>
+                                    <h6 class="small-text" style="font-weight: bold;color: rgb(45, 45, 45);">&bull; Please link your paypal account. Your earnings will be directly credited to it.</h6>
                                     <hr class="style1">
                                     <div class="row">
                                         <h5 *ngIf="!paymentAccount.paypalAccount.email">Email:
@@ -262,7 +262,7 @@
                                                     <td class="text-center">${{transaction.total| number : '1.2-2'}}
                                                     </td>
                                                     <td class="text-center"><a class="link" type="button"
-                                                            (click)="generatePdf(dateToString(transaction.transactionDate), transaction.invoice)"><i
+                                                            (click)="prepareInvoiceForProfessional(dateToString(transaction.transactionDate), transaction.invoice)"><i
                                                                 class="fa fa-download" aria-hidden="true"></i>
                                                         </a></td>
                                                 </tr>
@@ -294,7 +294,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="enterOtpModalLabel">Enter OTP</h5>
+                <h5 class="modal-title" id="enterOtpModalLabel" style="font-weight: bold;">Enter OTP</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeOtpModal()"></button>
             </div>
 

@@ -1,12 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import Geohash from 'latlon-geohash';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-select-map-location',
-  templateUrl: './select-map-location.component.html',
-  styleUrls: ['./select-map-location.component.css']
+    selector: 'app-select-map-location',
+    templateUrl: './select-map-location.component.html',
+    styleUrls: ['./select-map-location.component.css'],
+    standalone: true,
+    imports: [FormsModule]
 })
 export class SelectMapLocationComponent implements OnInit {
 

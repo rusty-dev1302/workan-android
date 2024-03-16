@@ -140,7 +140,7 @@
                       data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()">Accept Direct Payment
+                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()" [disabled]="!order.directInitiated">Accept Direct Payment
                     </button>
                     </div>
                   </div>
@@ -174,7 +174,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="enterOtpModalLabel">Enter OTP</h5>
+          <h5 class="modal-title" id="enterOtpModalLabel" style="font-weight: bold;">Enter OTP</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 

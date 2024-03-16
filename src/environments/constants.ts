@@ -131,4 +131,11 @@ export const constants = {
   {"id":"reason3", "reason":"Change in availability schedule."},
   {"id":"reason4", "reason":"Emergency cancellation."},
 ],
+AMOUNT_COLLECTED_CUSTOMER: "Amount collected from customer",
+DAY_BOOL_ARRAY_INIT: [
+  true, false, false, false, false, false, false
+],
+DAY_BOOL_ARRAY_CLEAR: [
+  false, false, false, false, false, false, false
+],
 };

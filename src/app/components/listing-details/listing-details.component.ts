@@ -11,11 +11,17 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
 import { UserService } from 'src/app/services/user.service';
 import { KeycloakService } from 'keycloak-angular';
 import Geohash from 'latlon-geohash';
+import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
+import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-listing-details',
-  templateUrl: './listing-details.component.html',
-  styleUrls: ['./listing-details.component.css']
+    selector: 'app-listing-details',
+    templateUrl: './listing-details.component.html',
+    styleUrls: ['./listing-details.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
 })
 export class ListingDetailsComponent implements OnInit{
 
@@ -60,6 +66,7 @@ export class ListingDetailsComponent implements OnInit{
       (listing) => {
         if(listing.state!=constants.ERROR_STATE){
           this.listing = listing;
+          console.log("enabled:"+this.listing.enabled)
           const sub = this.listingService.getProfessionalById(this.listing.professionalId).subscribe(
             (professional) => {
               this.professional = professional;

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
@@ -10,11 +10,16 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { PhonePipe } from '../../pipes/phone-pipe';
+import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
+import { NgIf, NgFor, NgClass, KeyValuePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-profile-form',
-  templateUrl: './dashboard-profile-form.component.html',
-  styleUrls: ['./dashboard-profile-form.component.css']
+    selector: 'app-dashboard-profile-form',
+    templateUrl: './dashboard-profile-form.component.html',
+    styleUrls: ['./dashboard-profile-form.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, NgClass, SelectMapLocationComponent, KeyValuePipe, PhonePipe]
 })
 export class DashboardProfileFormComponent implements OnInit {
 

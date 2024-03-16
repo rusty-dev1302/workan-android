@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-    name: "certificate"
-  })
+    name: "certificate",
+    standalone: true
+})
   export class VerifiedCertificatePipe implements PipeTransform {
     transform(items: any[]) {
         return items.filter(

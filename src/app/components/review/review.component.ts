@@ -4,11 +4,15 @@ import { Professional } from 'src/app/common/professional';
 import { Review } from 'src/app/common/review';
 import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
+import { FormsModule } from '@angular/forms';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-review',
-  templateUrl: './review.component.html',
-  styleUrls: ['./review.component.css']
+    selector: 'app-review',
+    templateUrl: './review.component.html',
+    styleUrls: ['./review.component.css'],
+    standalone: true,
+    imports: [NgIf, NgFor, NgClass, FormsModule]
 })
 export class ReviewComponent {
   @Input() professional!: Professional;

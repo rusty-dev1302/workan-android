@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Listing } from 'src/app/common/listing';
@@ -12,13 +12,20 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
 import { Certification } from 'src/app/common/certification';
 import { UserService } from 'src/app/services/user.service';
 import { FileService } from 'src/app/services/file.service';
+import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-dashboard-listings-form',
-  templateUrl: './dashboard-listings-form.component.html',
-  styleUrls: ['./dashboard-listings-form.component.css']
+    selector: 'app-dashboard-listings-form',
+    templateUrl: './dashboard-listings-form.component.html',
+    styleUrls: ['./dashboard-listings-form.component.css'],
+    standalone: true,
+    imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe]
 })
 export class DashboardListingsFormComponent implements OnInit {
+
+  @Output() currentListingEvent = new EventEmitter<Listing>();
 
   isEditable: boolean = false;
 
@@ -95,6 +102,7 @@ export class DashboardListingsFormComponent implements OnInit {
           console.log("Listing: " + JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
+          this.currentListingEvent.emit(this.listing);
         }
 
         this.navigation.pageLoaded();

@@ -1,13 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ImageCroppedEvent, base64ToFile } from 'ngx-image-cropper';
+import { ImageCroppedEvent, base64ToFile, ImageCropperModule } from 'ngx-image-cropper';
 import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { constants } from 'src/environments/constants';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-photo-uploader',
-  templateUrl: './photo-uploader.component.html',
-  styleUrls: ['./photo-uploader.component.css']
+    selector: 'app-photo-uploader',
+    templateUrl: './photo-uploader.component.html',
+    styleUrls: ['./photo-uploader.component.css'],
+    standalone: true,
+    imports: [NgIf, ImageCropperModule]
 })
 export class PhotoUploaderComponent implements OnInit{
 

@@ -1,9 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-cancellation-reason',
-  templateUrl: './cancellation-reason.component.html',
-  styleUrls: ['./cancellation-reason.component.css']
+    selector: 'app-cancellation-reason',
+    templateUrl: './cancellation-reason.component.html',
+    styleUrls: ['./cancellation-reason.component.css'],
+    standalone: true,
+    imports: [NgFor]
 })
 export class CancellationReasonComponent {
 

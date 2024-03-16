@@ -1,15 +1,20 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { KeycloakService} from 'keycloak-angular';
 import { interval } from 'rxjs';
 import { PushNotification } from 'src/app/common/push-notification';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
+import { NotificationSidebarComponent } from '../notification-sidebar/notification-sidebar.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: true,
+    imports: [NgIf, RouterLink, SidebarComponent, NotificationSidebarComponent]
 })
 export class HeaderComponent implements OnInit{
 

@@ -7,10 +7,10 @@
             <div
                 class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
                 <h1 class=" text-capitalize fw-bolder text-white">
-                    My Listing
+                    Manage Listing
                 </h1>
+                <button routerLink="/viewMyListing" class="btn btn-primary btn-small btn-rounded m-1" [disabled]="!currentListing">View Listing</button>
             </div>
-
         </div>
     </section>
 </section>
@@ -27,7 +27,7 @@
                 <!-- Ratings panel starts -->
                 <div class="row g-5">
 
-                    <app-dashboard-listings-form></app-dashboard-listings-form>
+                    <app-dashboard-listings-form (currentListingEvent)="setCurrentListing($event)"></app-dashboard-listings-form>
 
                 </div>
                 <!-- Ratings panel ends -->

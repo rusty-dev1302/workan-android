@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf, NgFor, NgClass } from '@angular/common';
 import { ListingService } from 'src/app/services/listing.service';
 import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 import { OrderService } from 'src/app/services/order.service';
@@ -11,19 +11,28 @@ import { ToastrService } from 'ngx-toastr';
 import { constants } from 'src/environments/constants';
 import { Router } from '@angular/router';
 import { ContactDetail } from 'src/app/common/contact-detail';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-slot-selector',
-  templateUrl: './slot-selector.component.html',
-  styleUrls: ['./slot-selector.component.css']
+    selector: 'app-slot-selector',
+    templateUrl: './slot-selector.component.html',
+    styleUrls: ['./slot-selector.component.css'],
+    standalone: true,
+    imports: [NgIf, FormsModule, NgFor, NgClass, DatePipe]
 })
 export class SlotSelectorComponent implements OnInit {
+
+  @Input()
+  professionalView:boolean = false;
+
   currentDate!: string;
   currentSlots!: any[];
   currentStep: number = 0;
 
   selectedDate!: Date;
   selectedSlot!: SlotTemplateItem;
+
+  dayBoolArray: boolean[] = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
 
   @Input() listingId: number = 0;
   customerAddress!: ContactDetail;
@@ -40,7 +49,7 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSlotsForDay(new Date());
+    this.getSlotsForDay(new Date(), 0);
     this.loadCustomer();
   }
 
@@ -62,11 +71,13 @@ export class SlotSelectorComponent implements OnInit {
 
   }
 
-  getSlotsForDay(date: Date) {
+  getSlotsForDay(date: Date, i: number) {
+    this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_CLEAR));
+    this.dayBoolArray[i] = true;
     if (date) {
       this.selectedDate = date;
-      this.currentDate = this.datePipe.transform(date, 'EEEE')!;
-      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.currentDate, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
+      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)')!;
+      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
             this.currentSlots = data;

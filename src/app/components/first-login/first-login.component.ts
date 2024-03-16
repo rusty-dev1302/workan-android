@@ -9,9 +9,10 @@ import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
 @Component({
-  selector: 'app-first-login',
-  templateUrl: './first-login.component.html',
-  styleUrls: ['./first-login.component.css']
+    selector: 'app-first-login',
+    templateUrl: './first-login.component.html',
+    styleUrls: ['./first-login.component.css'],
+    standalone: true
 })
 export class FirstLoginComponent implements OnInit {
 

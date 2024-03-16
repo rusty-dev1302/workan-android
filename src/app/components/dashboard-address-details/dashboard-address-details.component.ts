@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { DashboardProfileFormComponent } from '../dashboard-profile-form/dashboard-profile-form.component';
 
 @Component({
-  selector: 'app-dashboard-address-details',
-  templateUrl: './dashboard-address-details.component.html',
-  styleUrls: ['./dashboard-address-details.component.css']
+    selector: 'app-dashboard-address-details',
+    templateUrl: './dashboard-address-details.component.html',
+    styleUrls: ['./dashboard-address-details.component.css'],
+    standalone: true,
+    imports: [DashboardProfileFormComponent]
 })
 export class DashboardAddressDetailsComponent implements OnInit{
   

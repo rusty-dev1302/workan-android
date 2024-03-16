@@ -18,6 +18,7 @@ export class CustomerOrder extends BaseResponse{
         public paymentStatus:string,
         public reviewDone: boolean,
         public cancelReason: string,
+        public directInitiated: boolean,
         public otp: string,
         state: string,
         message: string

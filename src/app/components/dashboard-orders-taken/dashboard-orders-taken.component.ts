@@ -5,11 +5,17 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { PhonePipe } from '../../pipes/phone-pipe';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgClass, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-orders-taken',
-  templateUrl: './dashboard-orders-taken.component.html',
-  styleUrls: ['./dashboard-orders-taken.component.css']
+    selector: 'app-dashboard-orders-taken',
+    templateUrl: './dashboard-orders-taken.component.html',
+    styleUrls: ['./dashboard-orders-taken.component.css'],
+    standalone: true,
+    imports: [NgFor, FormsModule, NgClass, NgIf, RouterLink, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrdersTakenComponent {
 

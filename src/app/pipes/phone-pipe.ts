@@ -1,8 +1,9 @@
 import { Pipe } from "@angular/core";
 
 @Pipe({
-    name: "phone"
-  })
+    name: "phone",
+    standalone: true
+})
   export class PhonePipe {
     transform(rawNumStr:number) {
 

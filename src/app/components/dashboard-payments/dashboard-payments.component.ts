@@ -10,11 +10,16 @@ import { FileService } from 'src/app/services/file.service';
 import { Invoice } from 'src/app/common/invoice';
 import { constants } from 'src/environments/constants';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { FormsModule } from '@angular/forms';
+import { NgClass, NgIf, NgFor, DecimalPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-dashboard-payments',
-  templateUrl: './dashboard-payments.component.html',
-  styleUrls: ['./dashboard-payments.component.css']
+    selector: 'app-dashboard-payments',
+    templateUrl: './dashboard-payments.component.html',
+    styleUrls: ['./dashboard-payments.component.css'],
+    standalone: true,
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe]
 })
 export class DashboardPaymentsComponent implements OnInit {
 
@@ -36,6 +41,7 @@ export class DashboardPaymentsComponent implements OnInit {
 
   constructor(
     private navigationService: NavigationService,
+    private dialogService: ConfirmationDialogService,
     private userService: UserService,
     private keycloakService: KeycloakService,
     private pdfService: FileService,
@@ -56,13 +62,22 @@ export class DashboardPaymentsComponent implements OnInit {
 
   addPaypalEmail() {
     this.emailSpinner = true;
-    const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
-      (response) => {
-        if (!(response.state == constants.ERROR_STATE)) {
-          window.location.reload();
+    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true).subscribe(
+      (response)=> {
+        if(response) {
+          const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
+            (response) => {
+              if (!(response.state == constants.ERROR_STATE)) {
+                window.location.reload();
+              }
+              this.emailSpinner = false;
+              sub.unsubscribe();
+            }
+          );
+        } else {
+          this.emailSpinner = false;
         }
-        this.emailSpinner = false;
-        sub.unsubscribe();
+        sub1.unsubscribe();
       }
     );
   }
@@ -122,6 +137,19 @@ export class DashboardPaymentsComponent implements OnInit {
         subscription.unsubscribe();
       }
     );
+  }
+
+  prepareInvoiceForProfessional(fileName: string, invoice: Invoice) {
+    if(this.isProfessional) {
+      let sum = 0;
+      invoice.breakdown.forEach(item => {
+        if(item.detail==constants.AMOUNT_COLLECTED_CUSTOMER) {
+          item.amount = sum;
+        }
+        sum = sum+item.amount;
+      });
+    }
+    this.generatePdf(fileName, invoice);
   }
 
   generatePdf(fileName: string, invoice: Invoice) {

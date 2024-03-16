@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css']
+    selector: 'app-confirmation-dialog',
+    templateUrl: './confirmation-dialog.component.html',
+    styleUrls: ['./confirmation-dialog.component.css'],
+    standalone: true,
+    imports: [NgIf, RouterLink]
 })
 export class ConfirmationDialogComponent implements OnInit {
 
