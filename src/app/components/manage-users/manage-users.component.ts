@@ -124,7 +124,6 @@ export class ManageUsersComponent implements OnInit {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.displayListing = data;
-          console.log(data)
         }
 
         subscription.unsubscribe();

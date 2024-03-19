@@ -91,7 +91,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.emailValue).subscribe(
       (data) => {
         if (!(data.state == constants.ERROR_STATE)) {
-          console.log(data)
           if (data.mobile != 0) {
             this.allowListing = true;
           } else {
@@ -105,7 +104,6 @@ export class DashboardListingsFormComponent implements OnInit {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.listing = data;
-          console.log("Listing: " + JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
           this.currentListingEvent.emit(this.listing);
@@ -232,6 +230,10 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addCertName = '';
   }
 
+  addServicePricing() {
+    console.log(this.addServicePriceName+" "+this.addServicePriceCharges)
+  }
+
   resetCertificationDialog() {
     this.addCertName = '';
   }
@@ -242,7 +244,6 @@ export class DashboardListingsFormComponent implements OnInit {
     let uploadData = new FormData();
 
     uploadData.append('attachment', file);
-    console.log(file)
 
     const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
       () => {
@@ -262,7 +263,6 @@ export class DashboardListingsFormComponent implements OnInit {
 
     if (file.type.includes("image") || file.type.includes("pdf")) {
       this.attachmentChangeEvt = event;
-      console.log(file);
 
       const sub = this.dialogService.openDialog(" upload " + file.name.replaceAll(" ", "_")).subscribe(
         (response) => {
@@ -287,7 +287,6 @@ export class DashboardListingsFormComponent implements OnInit {
   downloadAttachments(attachments: any[]) {
     attachments.map(
       (a) => {
-        console.log(a)
         this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
       }
     );
@@ -296,6 +295,12 @@ export class DashboardListingsFormComponent implements OnInit {
   resetSlotDialog() {
     this.dialogSlotTemplateEndTime = "";
     this.dialogSlotTemplateStartTime = "";
+  }
+
+  resetServicePriceDialog() {
+    this.addServicePriceName = "";
+    this.addServicePriceCharges = null!;
+    this.isServicePriceSelect = true;
   }
 
   // methods to add values to slot dialog start 
@@ -422,7 +427,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const subs = this.dialogService.openDialog(" change profile visibility").subscribe(
       (response) => {
         if (response) {
-          console.log(certId)
           const sub = this.userService.certificationVisibility(certId).subscribe(
             (response) => {
               if(response.state!=constants.ERROR_STATE) {
@@ -442,7 +446,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const subs = this.dialogService.openDialog(" delete the certification").subscribe(
       (response) => {
         if (response) {
-          console.log(certId)
           const sub = this.userService.removeUserCertification(certId).subscribe(
             () => {
               this.getCertificationsByEmail();

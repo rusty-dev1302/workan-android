@@ -61,12 +61,6 @@
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
-                            <label>Charges Type</label>
-                            <h5>{{displayListing.chargesType}}</h5>
-                        </div>
-                    </div>
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
                             <label>Charges</label>
                             <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges |
                                 number : '1.2-2'}} </h5>
@@ -489,32 +483,6 @@
 
                                 <div class="mb-3">
                                     <div class="row">
-                                        <div class="col-xxl-6 col-lg-6 col-6">
-                                            <div class="form-group">
-                                                <label for="chargesType">Charges Type</label>
-                                                <select #chargesType class="form-select" aria-label="gender"
-                                                    [value]="listing.chargesType"
-                                                    (change)="selectChargesType(chargesType.value)">
-                                                    <option value="Per Visit" default>Per Visit</option>
-                                                    <option value="Per Visit+Parts/Material Cost Extra">Per
-                                                        Visit+Parts/Material Cost Extra</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-6 col-lg-6 col-6">
-                                            <div class="form-group">
-                                                <label for="chargesType">CAD</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" style="color: green;">$</span>
-                                                    </div>
-                                                    <input #charges="ngModel" name="charges" id="charges" required
-                                                        [(ngModel)]="listing.charges" type="number" autocomplete="off"
-                                                        class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="col-4">
                                             <div class="form-group">
@@ -545,7 +513,6 @@
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
-                                                            ||listing.charges<1
                                                             ||listing.location==''" data-bs-toggle="modal"
                                                 data-bs-target="#listingDetailsModal">Save</button>
                                         </div>
@@ -629,7 +596,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="aaddServicePriceModalLabel">Service Price</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    (click)="resetCertificationDialog()"></button>
+                    (click)="resetServicePriceDialog()"></button>
             </div>
             <div class="modal-body">
                 <section class="container">
@@ -638,7 +605,7 @@
                         <div class="form-section">
 
                             <!-- User Form Starts -->
-                            <form #editListing="ngForm" (ngSubmit)="addCertificate()">
+                            <form #editListing="ngForm" (ngSubmit)="addServicePricing()">
 
                                 <div class="mb-3">
                                     <div class="row g-3">
@@ -670,7 +637,7 @@
                                                 </select>
                                                 <input *ngIf="!isServicePriceSelect" #certName="ngModel" required [(ngModel)]="addServicePriceName" style="margin-top: .3rem;"
                                                     minlength="3" maxlength="50" name="certName" id="certName"
-                                                    type="text" class="form-control" autocomplete="off">
+                                                    type="text" class="form-control" autocomplete="off" placeholder="Enter a custom service name">
                                             </div>
                                         </div>
 
@@ -694,7 +661,7 @@
                                 <div class="row">
                                     <div class="modal-footer" style="border-top: 0!important;">
                                         <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                            [disabled]="addCertName==''&&addCertName.length<4" data-bs-toggle="modal"
+                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10' data-bs-toggle="modal"
                                             data-bs-target="#addCertificationModal">Add Service</button>
                                     </div>
                                 </div>

@@ -99,7 +99,6 @@ export class DashboardPaymentsComponent implements OnInit {
 
   verifyOtp() {
     let otp = this.otpValue[0] + this.otpValue[1] + this.otpValue[2] + this.otpValue[3] + this.otpValue[4] + this.otpValue[5];
-    console.log(otp);
     const sub = this.userService.verifyPaypalOtp(otp).subscribe(
       (response) => {
         if (!(response.state == constants.ERROR_STATE)) {

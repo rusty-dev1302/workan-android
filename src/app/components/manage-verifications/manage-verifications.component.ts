@@ -46,7 +46,6 @@ export class ManageVerificationsComponent implements OnInit {
   }
 
   activateDeactivateListing(listingId: number) {
-    console.log(listingId)
     const sub = this.adminService.activateInactivateListing(listingId).subscribe(
       () => {
         this.getAllCertificationsToVerify();
@@ -58,7 +57,6 @@ export class ManageVerificationsComponent implements OnInit {
   verifyCertificationById(certificationId: number) {
     const sub = this.adminService.verifyCertificationById(certificationId).subscribe(
       () => {
-        console.log(certificationId)
         this.getAllCertificationsToVerify();
         sub.unsubscribe();
       }

@@ -132,7 +132,6 @@ export class BrowseListingsComponent implements OnInit {
     }
     const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortByValue, this.pageNumber).subscribe(
       data => {
-        console.log(data)
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
             data.forEach(
@@ -202,7 +201,6 @@ export class BrowseListingsComponent implements OnInit {
 
             } else {
               if(currentSlots.length>0) {
-                console.log(currentSlots)
                 listing.availableTomorrow = true;
               } else {
                 listing.availableTomorrow = false;

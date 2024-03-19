@@ -63,7 +63,6 @@ export class SlotSelectorComponent implements OnInit {
   loadCustomer() {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
-        console.log(data.contact)
         this.customerAddress = data.contact;
         sub.unsubscribe();
       }
@@ -132,7 +131,6 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        console.log(data)
         let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate));
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
