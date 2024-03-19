@@ -75,6 +75,11 @@ export class ListingService {
     return this.httpClient.post<BaseResponse>(postUrl, servicePricing);
   }
 
+  removeServicePricing(spId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/servicepricing/delete?id=${spId}`;
+    return this.httpClient.delete<BaseResponse>(postUrl);
+  }
+
   getServicePricings(listingId: number): Observable<ServicePricing[]> {
     const getUrl = `${this.baseUrl}/servicepricing?id=${listingId}`;
     return this.httpClient.get<ServicePricing[]>(getUrl)

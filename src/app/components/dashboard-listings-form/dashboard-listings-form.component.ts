@@ -18,11 +18,11 @@ import { FormsModule } from '@angular/forms';
 import { ServicePricing } from 'src/app/common/service-pricing';
 
 @Component({
-    selector: 'app-dashboard-listings-form',
-    templateUrl: './dashboard-listings-form.component.html',
-    styleUrls: ['./dashboard-listings-form.component.css'],
-    standalone: true,
-    imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe]
+  selector: 'app-dashboard-listings-form',
+  templateUrl: './dashboard-listings-form.component.html',
+  styleUrls: ['./dashboard-listings-form.component.css'],
+  standalone: true,
+  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe]
 })
 export class DashboardListingsFormComponent implements OnInit {
 
@@ -139,7 +139,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   loadServicePricings() {
     const sub = this.listingService.getServicePricings(this.listing.id).subscribe(
-      (response)=>{
+      (response) => {
         this.servicePricings = response;
       }
     );
@@ -243,11 +243,27 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addServicePricing() {
-    let servicePricing = new ServicePricing(this.addServicePriceName, this.addServicePriceCharges, "", "");
+    let servicePricing = new ServicePricing(null!, this.addServicePriceName, this.addServicePriceCharges, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
-      (response)=>{
+      (response) => {
         this.loadServicePricings();
         sub.unsubscribe();
+      }
+    );
+  }
+
+  removeServicePricing(id: number) {
+    const subscription = this.dialogService.openDialog("you want to delete current pricing").subscribe(
+      (response) => {
+        if (response) {
+          const sub = this.listingService.removeServicePricing(id).subscribe(
+            (response) => {
+              this.loadServicePricings();
+              sub.unsubscribe();
+            }
+          );
+        }
+        subscription.unsubscribe();
       }
     );
   }
@@ -447,7 +463,7 @@ export class DashboardListingsFormComponent implements OnInit {
         if (response) {
           const sub = this.userService.certificationVisibility(certId).subscribe(
             (response) => {
-              if(response.state!=constants.ERROR_STATE) {
+              if (response.state != constants.ERROR_STATE) {
                 this.getCertificationsByEmail();
                 sub.unsubscribe();
               }

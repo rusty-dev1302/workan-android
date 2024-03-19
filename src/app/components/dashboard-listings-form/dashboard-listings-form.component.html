@@ -120,6 +120,7 @@
                                         <tr>
                                             <th scope="col" class="text-center">Service Name</th>
                                             <th scope="col" class="text-center">Charges (CAD)</th>
+                                            <th scope="col" class="text-center">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -129,6 +130,9 @@
                                             </td>
                                             <td class="text-center">
                                                 <i class="fa-solid fa-dollar-sign" style="color: green;margin-right: .1rem;"></i>{{servicePricing.charges|number : '1.2-2'}}
+                                            </td>
+                                            <td class="text-center">
+                                                <i type="button" class="fa-sharp fa-solid fa-trash" (click)="removeServicePricing(servicePricing.id)"></i>
                                             </td>
                                         </tr>
                                     </tbody>
