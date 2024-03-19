@@ -119,7 +119,7 @@
                                         style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
                                         <tr>
                                             <th scope="col" class="text-center">Service Name</th>
-                                            <th scope="col" class="text-center">Charges</th>
+                                            <th scope="col" class="text-center">Charges (CAD)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -128,7 +128,7 @@
                                                 {{servicePricing.serviceName}}
                                             </td>
                                             <td class="text-center">
-                                                {{servicePricing.charges}}
+                                                <i class="fa-solid fa-dollar-sign" style="color: green;margin-right: .1rem;"></i>{{servicePricing.charges|number : '1.2-2'}}
                                             </td>
                                         </tr>
                                     </tbody>

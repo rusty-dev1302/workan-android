@@ -246,6 +246,7 @@ export class DashboardListingsFormComponent implements OnInit {
     let servicePricing = new ServicePricing(this.addServicePriceName, this.addServicePriceCharges, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
       (response)=>{
+        this.loadServicePricings();
         sub.unsubscribe();
       }
     );
