@@ -123,43 +123,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let certification of certifications">
+                                        <tr *ngFor="let servicePricing of servicePricings">
                                             <td class="text-center">
-                                                {{certification.name}}
+                                                {{servicePricing.serviceName}}
                                             </td>
                                             <td class="text-center">
-                                                <div class="col">
-                                                    <a *ngFor="let attachment of certification.attachments; let first=first"
-                                                        style="font-size: .9rem!important;"><a *ngIf="!first">,
-                                                        </a>{{attachment.name}}</a>
-                                                    <a *ngIf="certification.attachments.length<=0"
-                                                        style="font-size: .9rem!important;color: grey;">
-                                                        No Attachments
-                                                    </a>
-                                                </div>
-                                                <div class="col">
-                                                    <a class="link px-1" type="button"
-                                                        *ngIf="certification.status=='Unverified'"
-                                                        (click)="setClickCertId(certification.id)">
-                                                        <label type="button" for="files" class="col-12"><i
-                                                                class="fa fa-plus-circle"></i></label>
-                                                    </a>
-                                                    <a *ngIf="certification.attachments.length>0" class=" px-1"
-                                                        type="button"
-                                                        (click)="downloadAttachments(certification.attachments)"><i
-                                                            class="fa fa-download" aria-hidden="true"></i></a>
-                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
-                                                        class="link px-1" type="button"
-                                                        (click)="clearAllAttachments(certification.id)"><i
-                                                            class="fa fa-trash primary-cancel"
-                                                            aria-hidden="true"></i></a>
-                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
-                                                        class="fa fa-download px-1" style="color: rgb(162, 162, 162);"
-                                                        aria-hidden="true"></i>
-                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
-                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
-                                                        aria-hidden="true"></i>
-                                                </div>
+                                                {{servicePricing.charges}}
                                             </td>
                                         </tr>
                                     </tbody>

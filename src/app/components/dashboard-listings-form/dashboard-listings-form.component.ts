@@ -15,6 +15,7 @@ import { FileService } from 'src/app/services/file.service';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ServicePricing } from 'src/app/common/service-pricing';
 
 @Component({
     selector: 'app-dashboard-listings-form',
@@ -55,6 +56,8 @@ export class DashboardListingsFormComponent implements OnInit {
   addServicePriceCharges!: number;
 
   certifications: Certification[] = [];
+
+  servicePricings: ServicePricing[] = [];
 
   timeSlots: string[] = constants.TIMESLOTS;
 
@@ -106,6 +109,7 @@ export class DashboardListingsFormComponent implements OnInit {
           this.listing = data;
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.loadSlotTemplates(this.listing.id);
+          this.loadServicePricings();
           this.currentListingEvent.emit(this.listing);
         }
 
@@ -129,6 +133,14 @@ export class DashboardListingsFormComponent implements OnInit {
         this.slotTemplates[0].items.sort();
         this.toggleLoader = false;
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  loadServicePricings() {
+    const sub = this.listingService.getServicePricings(this.listing.id).subscribe(
+      (response)=>{
+        this.servicePricings = response;
       }
     );
   }
@@ -231,7 +243,12 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addServicePricing() {
-    console.log(this.addServicePriceName+" "+this.addServicePriceCharges)
+    let servicePricing = new ServicePricing(this.addServicePriceName, this.addServicePriceCharges, "", "");
+    const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
+      (response)=>{
+        sub.unsubscribe();
+      }
+    );
   }
 
   resetCertificationDialog() {

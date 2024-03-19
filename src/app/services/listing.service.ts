@@ -8,6 +8,7 @@ import { SlotTemplateItem } from '../common/slot-template-item';
 import { BaseResponse } from '../common/base-response';
 import { Customer } from '../common/customer';
 import { Professional } from '../common/professional';
+import { ServicePricing } from '../common/service-pricing';
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +67,17 @@ export class ListingService {
   saveSlotTemplateItem(slotTemplateItem: SlotTemplateItem): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/slotTemplateItem/save`;
     return this.httpClient.post<BaseResponse>(postUrl, slotTemplateItem);
+  }
+
+  saveServicePricing(servicePricing: ServicePricing, listingId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/servicepricing/add?id=${listingId}`;
+    console.log(JSON.stringify(servicePricing)+" "+listingId)
+    return this.httpClient.post<BaseResponse>(postUrl, servicePricing);
+  }
+
+  getServicePricings(listingId: number): Observable<ServicePricing[]> {
+    const getUrl = `${this.baseUrl}/servicepricing?id=${listingId}`;
+    return this.httpClient.get<ServicePricing[]>(getUrl)
   }
 
   saveSlotTemplateItems(slotTemplateId: number, slotTemplateItems: SlotTemplateItem[]): Observable<BaseResponse> {
