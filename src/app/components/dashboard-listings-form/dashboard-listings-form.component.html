@@ -605,7 +605,7 @@
                         <div class="form-section">
 
                             <!-- User Form Starts -->
-                            <form #editListing="ngForm" (ngSubmit)="addServicePricing()">
+                            <form #editServicePricing="ngForm" (ngSubmit)="addServicePricing()">
 
                                 <div class="mb-3">
                                     <div class="row g-3">
@@ -662,7 +662,7 @@
                                     <div class="modal-footer" style="border-top: 0!important;">
                                         <button type="submit" class="btn btn-danger btn-rounded col-12"
                                             [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10' data-bs-toggle="modal"
-                                            data-bs-target="#addCertificationModal">Add Service</button>
+                                            data-bs-target="#addServicePriceModal">Add Service</button>
                                     </div>
                                 </div>
 
