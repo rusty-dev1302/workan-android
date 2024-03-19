@@ -29,6 +29,8 @@ export class DashboardListingsFormComponent implements OnInit {
 
   isEditable: boolean = false;
 
+  isServicePriceSelect: boolean = true;
+
   subscription!: Subscription;
 
   listing: Listing = constants.DEFAULT_LISTING;
@@ -47,6 +49,10 @@ export class DashboardListingsFormComponent implements OnInit {
   selectedDay: string = "Monday";
 
   addCertName: string = "";
+
+  addServicePriceName: string = "";
+
+  addServicePriceCharges!: number;
 
   certifications: Certification[] = [];
 
@@ -168,6 +174,14 @@ export class DashboardListingsFormComponent implements OnInit {
         subscription.unsubscribe();
       }
     );
+  }
+
+  toggleServicePriceSelect(value: boolean) {
+    this.isServicePriceSelect = value;
+  }
+
+  selectServicePrice(servicePrice: string) {
+    this.addServicePriceName = servicePrice;
   }
 
   selectSubCategory(subcategory: string) {

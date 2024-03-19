@@ -54,6 +54,7 @@ export const constants = {
       id:0,
       subCategoryName: "",
       categoryName: "",
+      servicePricings: [],
       verificationMandatory: false
     },
     location: "",

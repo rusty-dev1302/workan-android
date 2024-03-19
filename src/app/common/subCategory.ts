@@ -6,6 +6,8 @@ export class SubCategory{
 
         public categoryName: string,
 
+        public servicePricings: string[],
+
         public verificationMandatory: boolean
     ) {
     }

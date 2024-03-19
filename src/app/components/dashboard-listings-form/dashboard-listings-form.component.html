@@ -89,10 +89,102 @@
                     class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.</h6>
+                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.
+                </h6>
             </div>
         </form>
         <!-- User Form Ends -->
+    </div>
+
+    <div *ngIf="slotTemplates" class="row g-5">
+        <div class="col-xl-12 col-md-12 ">
+            <!-- Ratings panel starts -->
+            <div class="row g-5">
+
+                <div class="col-xl-12 col-md-12">
+
+                    <div class="form-section p-3 m-3">
+
+                        <!-- User Form Starts -->
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <h3><b>Service Pricing Chart </b><i type="button" data-bs-toggle="modal"
+                                                data-bs-target="#addServicePriceModal"
+                                                class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
+                                        <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                            Certifications</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                            <div class="table-responsive">
+                                <table class="table table table-bordered th-sm">
+                                    <thead
+                                        style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                        <tr>
+                                            <th scope="col" class="text-center">Service Name</th>
+                                            <th scope="col" class="text-center">Charges</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let certification of certifications">
+                                            <td class="text-center">
+                                                {{certification.name}}
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="col">
+                                                    <a *ngFor="let attachment of certification.attachments; let first=first"
+                                                        style="font-size: .9rem!important;"><a *ngIf="!first">,
+                                                        </a>{{attachment.name}}</a>
+                                                    <a *ngIf="certification.attachments.length<=0"
+                                                        style="font-size: .9rem!important;color: grey;">
+                                                        No Attachments
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a class="link px-1" type="button"
+                                                        *ngIf="certification.status=='Unverified'"
+                                                        (click)="setClickCertId(certification.id)">
+                                                        <label type="button" for="files" class="col-12"><i
+                                                                class="fa fa-plus-circle"></i></label>
+                                                    </a>
+                                                    <a *ngIf="certification.attachments.length>0" class=" px-1"
+                                                        type="button"
+                                                        (click)="downloadAttachments(certification.attachments)"><i
+                                                            class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
+                                                        class="link px-1" type="button"
+                                                        (click)="clearAllAttachments(certification.id)"><i
+                                                            class="fa fa-trash primary-cancel"
+                                                            aria-hidden="true"></i></a>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-download px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr class="style1">
+                            <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the professional.
+                            </h6>
+                            <h6 class="small-text">&bull; The charges should include all the taxes payable by the
+                                professional.
+                            </h6>
+                        </div>
+                        <!-- User Form Ends -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- Ratings panel ends -->
+        </div>
     </div>
 
     <div *ngIf="slotTemplates" class="row g-5">
@@ -187,7 +279,8 @@
                                                     (click)="verifyCertification(certification.id)">Verify</a>
                                                 <a *ngIf="certification.status=='Verified'" class="link px-1"
                                                     type="button" style="font-size: 1rem!important;"
-                                                    (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide from profile':'Show on profile'}}</a>
+                                                    (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
+                                                    from profile':'Show on profile'}}</a>
                                                 <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
                                                     style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
@@ -200,10 +293,12 @@
                             <hr class="style1">
                             <h6 class="small-text">&bull; Please upload <b>relevant documents/certifications</b>.
                             </h6>
-                            <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max size
+                            <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max
+                                size
                                 per attachment is <b>2Mb</b>.
                             </h6>
-                            <h6 class="small-text">&bull; You can allow certifications to be shown on your profile by clicking on <b>show on profile</b>.
+                            <h6 class="small-text">&bull; You can allow certifications to be shown on your profile by
+                                clicking on <b>show on profile</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -328,7 +423,8 @@
                 </div>
 
                 <!-- Slots for the day end  -->
-                <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the corresponding day.</h6>
+                <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the
+                    corresponding day.</h6>
                 <h6 class="small-text">&bull; Each slot represents the availability time for the corresponding day.</h6>
             </div>
         </form>
@@ -400,7 +496,8 @@
                                                     [value]="listing.chargesType"
                                                     (change)="selectChargesType(chargesType.value)">
                                                     <option value="Per Visit" default>Per Visit</option>
-                                                    <option value="Per Visit+Parts/Material Cost Extra">Per Visit+Parts/Material Cost Extra</option>
+                                                    <option value="Per Visit+Parts/Material Cost Extra">Per
+                                                        Visit+Parts/Material Cost Extra</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -442,11 +539,8 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <a>
-                                                <h6 class="small-text">&bull; <b>Listing location:</b> Preferred address around which the services will be provided (~20km radius).
-                                                </h6>
-                                                <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the professional.
-                                                </h6>
-                                                <h6 class="small-text">&bull; The charges should include all the taxes payable by the professional.
+                                                <h6 class="small-text">&bull; <b>Listing location:</b> Preferred address
+                                                    around which the services will be provided (~20km radius).
                                                 </h6>
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
@@ -526,6 +620,97 @@
     </div>
 </div>
 <!-- Add Certification Modal Ends -->
+
+<!-- Add Service Price Modal -->
+<div class="modal fade" id="addServicePriceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addServicePriceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aaddServicePriceModalLabel">Service Price</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="resetCertificationDialog()"></button>
+            </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
+
+                        <div class="form-section">
+
+                            <!-- User Form Starts -->
+                            <form #editListing="ngForm" (ngSubmit)="addCertificate()">
+
+                                <div class="mb-3">
+                                    <div class="row g-3">
+
+                                        <div class="col-12">
+                                            <label>Service Name:</label>
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label type="button" class="form-check-label" for="serviceNameRadio1" (click)="toggleServicePriceSelect(true)">
+                                                        <input class="form-check-input" type="radio" name="serviceNameRadioDefault"
+                                                        id="serviceNameRadio1" checked>
+                                                        Select
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label type="button" class="form-check-label" for="serviceNameRadio2" (click)="toggleServicePriceSelect(false)">
+                                                        <input class="form-check-input" type="radio" name="serviceNameRadioDefault"
+                                                        id="serviceNameRadio2">
+                                                        Custom
+                                                    </label>
+                                                </div>
+                                                <select *ngIf="isServicePriceSelect" #serviceName class="form-select" aria-label="servicePricings" style="margin-top: .3rem;"
+                                                    [value]="addServicePriceName"
+                                                    (change)="selectServicePrice(serviceName.value)">
+                                                    <option value="" default hidden>Select a service name</option>
+                                                    <option
+                                                        *ngFor="let servicePrice of listing.subCategory.servicePricings"
+                                                        [value]="servicePrice">{{servicePrice}}</option>
+                                                </select>
+                                                <input *ngIf="!isServicePriceSelect" #certName="ngModel" required [(ngModel)]="addServicePriceName" style="margin-top: .3rem;"
+                                                    minlength="3" maxlength="50" name="certName" id="certName"
+                                                    type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="serviceCharges">Charges(CAD):</label>
+                                                <div class="input-group mb-3" style="margin-top: .3rem;">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="color: green;">$</span>
+                                                    </div>
+                                                    <input #charges="ngModel" name="serviceCharges" id="serviceCharges"
+                                                        required [(ngModel)]="addServicePriceCharges" type="number"
+                                                        autocomplete="off" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="row">
+                                    <div class="modal-footer" style="border-top: 0!important;">
+                                        <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                            [disabled]="addCertName==''&&addCertName.length<4" data-bs-toggle="modal"
+                                            data-bs-target="#addCertificationModal">Add Service</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Service Price Modal Ends -->
 
 <!-- Add Slot Modal -->
 <div class="modal fade" id="addSlotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
