@@ -73,8 +73,75 @@
   </div>
   <!-- step0 modal body ends  -->
 
-  <!-- step1 modal body start  -->
-  <div *ngIf="currentStep==1" class="modal-body">
+    <!-- step1 modal body start  -->
+    <div *ngIf="currentStep==1" class="modal-body">
+      <div class="form-section" style="padding: 0!important;">
+        <div class="row">
+  
+          <div class="d-flex justify-content-center align-items-center">
+            <!-- Selector card start -->
+            <div class="px-3">
+              <!-- Slots start -->
+              <div class="mt-3 mb-3">
+                <div class="container p-2">
+  
+                  <div class="row g-2">
+                    <div class="col-lg-12">
+                      <label>Day</label>
+                      <h5>{{selectedDate|date:'EEEE'}}</h5>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <div class="row">
+                          <label class="review-count">Time Slot</label>
+                          <h5>
+                            {{convertTimeToString(selectedSlot.startTimeHhmm)}}-{{convertTimeToString(selectedSlot.endTimeHhmm)}}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+                      class="col-12">
+                      <div class="form-group">
+                        <div class="row">
+                          <label class="review-count">Customer Address</label>
+                          <h5 style="margin-bottom: 3px;">
+                            {{customerAddress.addressLine1}},
+                          </h5>
+                          <h5 style="margin-bottom: 3px;">
+                            {{customerAddress.addressLine2}},
+                          </h5>
+                          <h5>
+                            {{customerAddress.addressLine3}}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <hr class="style1">
+                    <h6 *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+                      class="small-text">&bull; Please confirm the date and slot timings</h6>
+                    <h6 *ngIf="!(customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1)"
+                      class="small-text" style="color: rgb(225, 0, 0);font-weight: bold;">&bull; Please update your address to place the order.</h6>
+                  </div>
+  
+                </div>
+              </div>
+              <!-- Slots end -->
+              <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+                class="d-flex justify-content-end">
+                <button type="button" class="btn btn-danger btn-rounded col-12" (click)="bookSlot()"
+                  data-bs-dismiss="modal" aria-label="Close">Book</button>
+              </div>
+              <!-- Selector card end -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- step1 modal body ends  -->
+
+  <!-- step2 modal body start  -->
+  <div *ngIf="currentStep==2" class="modal-body">
     <div class="form-section" style="padding: 0!important;">
       <div class="row">
 
@@ -138,6 +205,6 @@
       </div>
     </div>
   </div>
-  <!-- step1 modal body ends  -->
+  <!-- step2 modal body ends  -->
 
 </div>
