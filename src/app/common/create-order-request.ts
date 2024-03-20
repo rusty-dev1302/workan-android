@@ -5,6 +5,7 @@ export class CreateOrderRequest {
         public customer: Customer,
         public slotTemplateItemId: number,
         public appointmentDate: Date,
+        public menuItems: any[]
     ) {
     }
 }

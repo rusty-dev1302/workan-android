@@ -20,6 +20,7 @@ export class Order extends BaseResponse{
         public directInitiated: boolean,
         public reviewDone: boolean,
         public cancelReason: string,
+        public menuItems: any[],
         state: string,
         message: string
     ) {

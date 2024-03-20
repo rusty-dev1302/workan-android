@@ -141,6 +141,7 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.listingService.getServicePricings(this.listing.id).subscribe(
       (response) => {
         this.servicePricings = response;
+        sub.unsubscribe();
       }
     );
   }

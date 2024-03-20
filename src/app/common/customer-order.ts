@@ -19,6 +19,7 @@ export class CustomerOrder extends BaseResponse{
         public reviewDone: boolean,
         public cancelReason: string,
         public directInitiated: boolean,
+        public menuItems: any[],
         public otp: string,
         state: string,
         message: string

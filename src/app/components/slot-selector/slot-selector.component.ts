@@ -27,10 +27,14 @@ export class SlotSelectorComponent implements OnInit {
 
   currentDate!: string;
   currentSlots!: any[];
+  availableMenuItems!: any[];
+  totalMenuCharges: number = 0;
   currentStep: number = 0;
 
   selectedDate!: Date;
   selectedSlot!: SlotTemplateItem;
+
+  selectedMenuItems: any[]=[];
 
   dayBoolArray: boolean[] = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
 
@@ -104,6 +108,39 @@ export class SlotSelectorComponent implements OnInit {
     }
   }
 
+  addMenuItem(i: number) {
+    if(this.selectedMenuItems[i]==null) {
+      let item:any = {};
+      item.serviceName = this.availableMenuItems[i].serviceName;
+      item.charges = this.availableMenuItems[i].charges;
+      item.quantity = 0;
+      this.selectedMenuItems[i] = item;
+    }
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity+1;
+    this.calculateTotalMenuCharges();
+  }
+
+  calculateTotalMenuCharges() {
+    this.totalMenuCharges = 0;
+    this.selectedMenuItems.forEach(
+      (mi) => {
+        this.totalMenuCharges += mi.quantity*mi.charges;
+      }
+    );
+  }
+
+  removeMenuItem(i: number) {
+    if(this.selectedMenuItems[i]==null) {
+      let item:any = {};
+      item.serviceName = this.availableMenuItems[i].serviceName;
+      item.charges = this.availableMenuItems[i].charges;
+      item.quantity = 0;
+      this.selectedMenuItems[i] = item;
+    }
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity==0?0:(this.selectedMenuItems[i].quantity-1);
+    this.calculateTotalMenuCharges();
+  }
+
   convertTimeToString(time: number): string {
     let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
     let min = (time % 100 == 0 ? "00" : time % 100);
@@ -123,6 +160,18 @@ export class SlotSelectorComponent implements OnInit {
 
   nextStep() {
     this.currentStep++;
+    if(this.currentStep==1) {
+      this.loadServicePricings();
+    }
+  }
+
+  loadServicePricings() {
+    const sub = this.listingService.getServicePricings(this.listingId).subscribe(
+      (response) => {
+        this.availableMenuItems = response;
+        sub.unsubscribe();
+      }
+    );
   }
 
   bookSlot() {
@@ -131,7 +180,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate));
+        let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate), this.selectedMenuItems);
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {
