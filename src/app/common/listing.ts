@@ -10,7 +10,6 @@ export class Listing extends BaseResponse{
         public charges: number,
         public minCharge: number,
         public maxCharge: number,
-        public chargesType: string,
         public enabled: boolean,
         public professionalEmail: string,
         public location: string,

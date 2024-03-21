@@ -169,10 +169,6 @@ export class DashboardListingsFormComponent implements OnInit {
     this.listing.subCategory.subCategoryName = subcategory;
   }
 
-  selectChargesType(chargesType: string) {
-    this.listing.chargesType = chargesType;
-  }
-
   selectExperience(experience: string) {
     this.listing.experience = +experience;
   }
