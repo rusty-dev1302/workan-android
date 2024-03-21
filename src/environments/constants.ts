@@ -38,6 +38,8 @@ export const constants = {
   DEFAULT_LISTING: {
     id: 0,
     charges: 0,
+    minCharge: 0,
+    maxCharge: 0,
     chargesType: "Per Visit",
     professionalEmail: "",
     professionalId: 0,

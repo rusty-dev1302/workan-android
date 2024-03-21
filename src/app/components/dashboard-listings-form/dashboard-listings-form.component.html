@@ -62,8 +62,8 @@
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
                             <label>Charges</label>
-                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges |
-                                number : '1.2-2'}} </h5>
+                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.minCharge
+                                | number : '1.2-2'}} - {{displayListing.maxCharge | number : '1.2-2'}}</h5>
                         </div>
                     </div>
 
@@ -129,10 +129,13 @@
                                                 {{servicePricing.serviceName}}
                                             </td>
                                             <td class="text-center">
-                                                <i class="fa-solid fa-dollar-sign" style="color: green;margin-right: .1rem;"></i>{{servicePricing.charges|number : '1.2-2'}}
+                                                <i class="fa-solid fa-dollar-sign"
+                                                    style="color: green;margin-right: .1rem;"></i>{{servicePricing.charges|number
+                                                : '1.2-2'}}
                                             </td>
                                             <td class="text-center">
-                                                <i type="button" class="fa-sharp fa-solid fa-trash" (click)="removeServicePricing(servicePricing.id)"></i>
+                                                <i type="button" class="fa-sharp fa-solid fa-trash"
+                                                    (click)="removeServicePricing(servicePricing.id)"></i>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -392,8 +395,10 @@
                 <!-- Slots for the day end  -->
                 <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the
                     corresponding day.</h6>
-                <h6 class="small-text">&bull; Each slot represents 30min availability time unit for the corresponding day.</h6>
-                <h6 class="small-text">&bull; Remove the time units for the time you will be unavailable for the day.</h6>
+                <h6 class="small-text">&bull; Each slot represents 30min availability time unit for the corresponding
+                    day.</h6>
+                <h6 class="small-text">&bull; Remove the time units for the time you will be unavailable for the day.
+                </h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -588,20 +593,26 @@
                                             <label>Service Name:</label>
                                             <div class="form-group">
                                                 <div class="form-check form-check-inline">
-                                                    <label type="button" class="form-check-label" for="serviceNameRadio1" (click)="toggleServicePriceSelect(true)">
-                                                        <input class="form-check-input" type="radio" name="serviceNameRadioDefault"
-                                                        id="serviceNameRadio1" checked>
+                                                    <label type="button" class="form-check-label"
+                                                        for="serviceNameRadio1"
+                                                        (click)="toggleServicePriceSelect(true)">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="serviceNameRadioDefault" id="serviceNameRadio1"
+                                                            checked>
                                                         Select
                                                     </label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <label type="button" class="form-check-label" for="serviceNameRadio2" (click)="toggleServicePriceSelect(false)">
-                                                        <input class="form-check-input" type="radio" name="serviceNameRadioDefault"
-                                                        id="serviceNameRadio2">
+                                                    <label type="button" class="form-check-label"
+                                                        for="serviceNameRadio2"
+                                                        (click)="toggleServicePriceSelect(false)">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="serviceNameRadioDefault" id="serviceNameRadio2">
                                                         Custom
                                                     </label>
                                                 </div>
-                                                <select *ngIf="isServicePriceSelect" #serviceName class="form-select" aria-label="servicePricings" style="margin-top: .3rem;"
+                                                <select *ngIf="isServicePriceSelect" #serviceName class="form-select"
+                                                    aria-label="servicePricings" style="margin-top: .3rem;"
                                                     [value]="addServicePriceName"
                                                     (change)="selectServicePrice(serviceName.value)">
                                                     <option value="" default hidden>Select a service name</option>
@@ -609,9 +620,11 @@
                                                         *ngFor="let servicePrice of listing.subCategory.servicePricings"
                                                         [value]="servicePrice">{{servicePrice}}</option>
                                                 </select>
-                                                <input *ngIf="!isServicePriceSelect" #certName="ngModel" required [(ngModel)]="addServicePriceName" style="margin-top: .3rem;"
+                                                <input *ngIf="!isServicePriceSelect" #certName="ngModel" required
+                                                    [(ngModel)]="addServicePriceName" style="margin-top: .3rem;"
                                                     minlength="3" maxlength="50" name="certName" id="certName"
-                                                    type="text" class="form-control" autocomplete="off" placeholder="Enter a custom service name">
+                                                    type="text" class="form-control" autocomplete="off"
+                                                    placeholder="Enter a custom service name">
                                             </div>
                                         </div>
 
@@ -635,8 +648,9 @@
                                 <div class="row">
                                     <div class="modal-footer" style="border-top: 0!important;">
                                         <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10' data-bs-toggle="modal"
-                                            data-bs-target="#addServicePriceModal">Add Service</button>
+                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10'
+                                            data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add
+                                            Service</button>
                                     </div>
                                 </div>
 
@@ -659,7 +673,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSlotModalLabel">Add availability time</h5>
+                <h5 class="modal-title" id="addSlotModalLabel">Set availability time</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="resetSlotDialog()"></button>
             </div>
