@@ -133,7 +133,7 @@
 
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
-                    <div *ngIf="order.status=='UPCOMING'" class="col-12 py-2">
+                    <div *ngIf="order.status=='CONFIRMED'" class="col-12 py-2">
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" (click)="processOrder('START')">Start Order</button>
                     </div>
@@ -146,7 +146,7 @@
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" (click)="processOrder('COMPLETE')">Complete Order</button>
                     </div>
-                    <div *ngIf="order.status=='UPCOMING'||order.status=='STARTING'" class="col-12 py-2">
+                    <div *ngIf="order.status=='AWAITING CONFIRMATION'||order.status=='CONFIRMED'||order.status=='STARTING'" class="col-12 py-2">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
