@@ -39,10 +39,10 @@
                       <h5 class="review-count">Available Slots:</h5>
                       <div class="row">
                         <!-- Time slot to be iterated  -->
-                        <div *ngFor="let slot of currentSlots" class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
+                        <div *ngFor="let slot of currentSlots" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 col py-1">
                           <span class="btn btn-rounded"
                             [ngClass]="[selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary',professionalView==true?'no-hover':'']"
-                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
+                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}</span>
                         </div>
                         <!-- Time slot to be iterated end -->
                         <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">

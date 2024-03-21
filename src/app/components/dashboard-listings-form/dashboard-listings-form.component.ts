@@ -146,36 +146,6 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  copySlotItems(dayName: string, items: SlotTemplateItem[]) {
-    const sub = this.dialogService.openDialog(" copy time slots from " + dayName).subscribe(
-      (result) => {
-        if (result) {
-          this.pasteItems = JSON.parse(JSON.stringify(items));
-        }
-        sub.unsubscribe();
-      }
-    );
-  }
-
-  pasteSlotItems(dayName: string, templateId: number, templateEnabled: boolean) {
-    const subs = this.dialogService.openDialog("Are you sure you want to paste time slots to " + dayName + "? All of the current day slots will be switched OFF momentarily.", true).subscribe(
-      (result) => {
-        if (result) {
-          if (templateEnabled) {
-            this.toggleSlotTemplate(templateId);
-          }
-          const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
-            () => {
-              this.loadSlotTemplates(this.listing.id);
-              sub.unsubscribe();
-            }
-          );
-        }
-        subs.unsubscribe();
-      }
-    );
-  }
-
   loadAllSubcategories() {
     const subscription = this.listingService.getAllSubcategories().subscribe(
       (subcategories) => {
@@ -207,6 +177,44 @@ export class DashboardListingsFormComponent implements OnInit {
     this.listing.experience = +experience;
   }
 
+  createSlotRange() {
+    this.pasteItems = [];
+
+    let i = this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
+    let j = this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
+
+    if (i < j) {
+      constants.TIME_RANGE.forEach(
+        (range) => {
+          if (range.start >= i && range.start < j) {
+            let id!: number;
+            let startTime: number = range.start;
+            let endTime: number = range.end;
+            let slot: SlotTemplateItem = new SlotTemplateItem(id, this.dialogSlotTemplateId, startTime, endTime, "", "");
+            this.pasteItems.push(slot);
+          }
+        }
+      );
+
+      const subs = this.dialogService.openDialog(" create time slots for selected range").subscribe(
+        (result) => {
+          if (result) {
+            const sub = this.listingService.saveSlotTemplateItems(this.dialogSlotTemplateId, this.pasteItems).subscribe(
+              () => {
+                this.loadSlotTemplates(this.listing.id);
+                this.pasteItems = [];
+                sub.unsubscribe();
+              }
+            );
+          }
+          subs.unsubscribe();
+        }
+      );
+    } else {
+      this.toastrService.error("StartTime Should be Less Than EndTime");
+    }
+  }
+
   addSlotTemplateItem() {
     let id!: number;
 
@@ -230,6 +238,36 @@ export class DashboardListingsFormComponent implements OnInit {
     }
     this.resetSlotDialog();
 
+  }
+
+  copySlotItems(dayName: string, items: SlotTemplateItem[]) {
+    const sub = this.dialogService.openDialog(" copy time slots from " + dayName).subscribe(
+      (result) => {
+        if (result) {
+          this.pasteItems = JSON.parse(JSON.stringify(items));
+        }
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  pasteSlotItems(dayName: string, templateId: number, templateEnabled: boolean) {
+    const subs = this.dialogService.openDialog("Are you sure you want to paste time slots to " + dayName + "? All of the current day slots will be switched OFF momentarily.", true).subscribe(
+      (result) => {
+        if (result) {
+          if (templateEnabled) {
+            this.toggleSlotTemplate(templateId);
+          }
+          const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
+            () => {
+              this.loadSlotTemplates(this.listing.id);
+              sub.unsubscribe();
+            }
+          );
+        }
+        subs.unsubscribe();
+      }
+    );
   }
 
   addCertificate() {

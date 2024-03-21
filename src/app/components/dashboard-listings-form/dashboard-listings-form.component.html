@@ -392,7 +392,8 @@
                 <!-- Slots for the day end  -->
                 <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the
                     corresponding day.</h6>
-                <h6 class="small-text">&bull; Each slot represents the availability time for the corresponding day.</h6>
+                <h6 class="small-text">&bull; Each slot represents 30min availability time unit for the corresponding day.</h6>
+                <h6 class="small-text">&bull; Remove the time units for the time you will be unavailable for the day.</h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -658,7 +659,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSlotModalLabel">Add time slot</h5>
+                <h5 class="modal-title" id="addSlotModalLabel">Add availability time</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="resetSlotDialog()"></button>
             </div>
@@ -669,7 +670,7 @@
                         <div class="form-section" style="padding: 0!important;">
 
                             <!-- User Form Starts -->
-                            <form #editListing="ngForm" (ngSubmit)="addSlotTemplateItem()">
+                            <form #editListing="ngForm" (ngSubmit)="createSlotRange()">
 
                                 <div class="mb-4">
                                     <div class="row g-3">
