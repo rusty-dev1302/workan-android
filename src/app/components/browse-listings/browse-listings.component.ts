@@ -1,9 +1,6 @@
 import { DatePipe, NgFor, NgIf, SlicePipe, DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
-import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
 import { SlotTemplateItem } from 'src/app/common/slot-template-item';

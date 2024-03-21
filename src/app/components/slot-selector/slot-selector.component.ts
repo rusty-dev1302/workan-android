@@ -108,34 +108,41 @@ export class SlotSelectorComponent implements OnInit {
     }
   }
 
-  addMenuItem(i: number) {
-    if(this.selectedMenuItems[i]==null) {
-      let item:any = {};
-      item.serviceName = this.availableMenuItems[i].serviceName;
-      item.charges = this.availableMenuItems[i].charges;
-      item.quantity = 0;
-      this.selectedMenuItems[i] = item;
-    }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity+1;
-    this.calculateTotalMenuCharges();
-  }
-
   calculateTotalMenuCharges() {
     this.totalMenuCharges = 0;
     this.selectedMenuItems.forEach(
       (mi) => {
+        if(mi.quantity==null) {
+          mi.quantity=0;
+        }
         this.totalMenuCharges += mi.quantity*mi.charges;
       }
     );
   }
 
+  loadServicePricings() {
+    const sub = this.listingService.getServicePricings(this.listingId).subscribe(
+      (response) => {
+        this.availableMenuItems = response;
+        this.selectedMenuItems = JSON.parse(JSON.stringify(this.availableMenuItems));
+        console.log(this.selectedMenuItems)
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  addMenuItem(i: number) {
+    if(this.selectedMenuItems[i].quantity==null) {
+      this.selectedMenuItems[i].quantity = 0;
+      console.log(this.selectedMenuItems)
+    }
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity+1;
+    this.calculateTotalMenuCharges();
+  }
+
   removeMenuItem(i: number) {
-    if(this.selectedMenuItems[i]==null) {
-      let item:any = {};
-      item.serviceName = this.availableMenuItems[i].serviceName;
-      item.charges = this.availableMenuItems[i].charges;
-      item.quantity = 0;
-      this.selectedMenuItems[i] = item;
+    if(this.selectedMenuItems[i].quantity==null) {
+      this.selectedMenuItems[i].quantity = 0;
     }
     this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity==0?0:(this.selectedMenuItems[i].quantity-1);
     this.calculateTotalMenuCharges();
@@ -165,13 +172,8 @@ export class SlotSelectorComponent implements OnInit {
     }
   }
 
-  loadServicePricings() {
-    const sub = this.listingService.getServicePricings(this.listingId).subscribe(
-      (response) => {
-        this.availableMenuItems = response;
-        sub.unsubscribe();
-      }
-    );
+  previousStep() {
+    this.currentStep--;
   }
 
   bookSlot() {

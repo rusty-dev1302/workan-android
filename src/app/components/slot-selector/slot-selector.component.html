@@ -105,9 +105,11 @@
                               {{menuItem.serviceName}}
                             </td>
                             <td class="text-center">
-                              <i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue" style="margin-right: .4rem;"
-                                aria-hidden="true"></i>{{selectedMenuItems[i]==null?'0':selectedMenuItems[i].quantity}}<i type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue" aria-hidden="true"
-                                style="margin-left: .4rem;"></i>
+                              <i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue"
+                                style="margin-right: .4rem;"
+                                aria-hidden="true"></i>{{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}<i
+                                type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue"
+                                aria-hidden="true" style="margin-left: .4rem;"></i>
                             </td>
                             <td class="text-center">
                               <i class="fa-solid fa-dollar-sign"
@@ -117,8 +119,8 @@
                         </tbody>
                       </table>
                       <div style="text-align:end;">
-                        <b>Total:</b> <i class="fa-solid fa-dollar-sign"
-                        style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
+                        <b>Total: </b> <i class="fa-solid fa-dollar-sign"
+                          style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
                       </div>
                     </div>
                   </div>
@@ -130,8 +132,8 @@
             </div>
             <!-- Slots end -->
             <div class="d-flex">
-              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="bookSlot()"
-                data-bs-dismiss="modal" aria-label="Close">Book</button>
+              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()"
+                [disabled]="totalMenuCharges<=0">Next</button>
             </div>
             <!-- Selector card end -->
           </div>
@@ -150,39 +152,53 @@
           <!-- Selector card start -->
           <div class="px-3">
             <!-- Slots start -->
-            <div class="mt-3 mb-3">
-              <div class="container p-2">
-
-                <div class="row g-2">
-                  <div class="col-lg-12">
-                    <label>Day</label>
+            <div class="mt-1 mb-1">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="review-count" style="font-weight: bold;">Total Charges</label>
+                    <h5>
+                      <i class="fa-solid fa-dollar-sign" style="color: green;margin-right: .1rem;"></i>
+                      {{totalMenuCharges}}
+                    </h5>
+                  </div>
+                  <div class="col-6">
+                    <label style="font-weight: bold;">Day</label>
                     <h5>{{selectedDate|date:'EEEE'}}</h5>
                   </div>
-                  <div class="col-12">
+                  <div class="col-6">
                     <div class="form-group">
                       <div class="row">
-                        <label class="review-count">Time Slot</label>
+                        <label class="review-count" style="font-weight: bold;">Time Slot</label>
                         <h5>
                           {{convertTimeToString(selectedSlot.startTimeHhmm)}}-{{convertTimeToString(selectedSlot.endTimeHhmm)}}
                         </h5>
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
-                    class="col-12">
+                  <div class="col-12">
                     <div class="form-group">
-                      <div class="row">
-                        <label class="review-count">Customer Address</label>
-                        <h5 style="margin-bottom: 3px;">
-                          {{customerAddress.addressLine1}},
-                        </h5>
-                        <h5 style="margin-bottom: 3px;">
-                          {{customerAddress.addressLine2}},
-                        </h5>
-                        <h5>
-                          {{customerAddress.addressLine3}}
-                        </h5>
-                      </div>
+                      <label class="review-count" style="font-weight: bold;">Services</label>
+                      <h6 *ngFor="let service of selectedMenuItems; let i=index"
+                        style="margin-top: .2rem;margin-bottom: .2rem;">
+                        <a *ngIf="service.quantity>0" style="font-size: 1rem!important;">{{service.serviceName}}
+                          X{{service.quantity}}</a>
+                      </h6>
+                    </div>
+                  </div>
+                  <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+                    class="col-12" style="margin-top: .5rem;">
+                    <div class="form-group">
+                      <label class="review-count" style="font-weight: bold;">Customer Address</label>
+                      <h5 style="margin-bottom: 3px;">
+                        {{customerAddress.addressLine1}},
+                      </h5>
+                      <h5 style="margin-bottom: 3px;">
+                        {{customerAddress.addressLine2}},
+                      </h5>
+                      <h5>
+                        {{customerAddress.addressLine3}}
+                      </h5>
                     </div>
                   </div>
                   <hr class="style1">
@@ -198,8 +214,13 @@
             <!-- Slots end -->
             <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
               class="d-flex justify-content-end">
-              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="bookSlot()"
-                data-bs-dismiss="modal" aria-label="Close">Book</button>
+              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="previousStep()"
+                style="margin-bottom: .5rem;">Back</button>
+            </div>
+            <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+              class="d-flex justify-content-end">
+              <button type="button" class="btn btn-warning btn-rounded col-12" (click)="bookSlot()"
+                data-bs-dismiss="modal" aria-label="Close">Book Appointment</button>
             </div>
             <!-- Selector card end -->
           </div>
