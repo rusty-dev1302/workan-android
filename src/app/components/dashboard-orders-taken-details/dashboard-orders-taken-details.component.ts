@@ -12,13 +12,14 @@ import { PhonePipe } from '../../pipes/phone-pipe';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { FormsModule } from '@angular/forms';
 import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component';
 
 @Component({
     selector: 'app-dashboard-orders-taken-details',
     templateUrl: './dashboard-orders-taken-details.component.html',
     styleUrls: ['./dashboard-orders-taken-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe]
+    imports: [RouterLink, NgIf, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, ConfirmOrderComponent]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 

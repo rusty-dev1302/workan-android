@@ -136,16 +136,20 @@
                         data-bs-target="#enterOtpModal">Complete Order</button>
                     </div>
                     <div *ngIf="order.status=='AWAITING CONFIRMATION'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmOrder()">Confirm Order
-                    </button>
+                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmOrder()">Confirm
+                        Order
+                      </button>
                     </div>
-                    <div *ngIf="order.status=='AWAITING CONFIRMATION'||order.status=='CONFIRMED'||order.status=='STARTING'" class="col-12 py-1">
+                    <div
+                      *ngIf="order.status=='AWAITING CONFIRMATION'||order.status=='CONFIRMED'||order.status=='STARTING'"
+                      class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      data-bs-target="#cancellationReasonModal">Cancel Order</button>
+                        data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()" [disabled]="!order.directInitiated">Accept Direct Payment
-                    </button>
+                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()"
+                        [disabled]="!order.directInitiated">Accept Direct Payment
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -166,7 +170,8 @@
   <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-cancellation-reason [cancellationReason]="cancellationReason" (cancellationReasonEvent)="cancelOrder($event)"></app-cancellation-reason>
+      <app-cancellation-reason [cancellationReason]="cancellationReason"
+        (cancellationReasonEvent)="cancelOrder($event)"></app-cancellation-reason>
     </div>
   </div>
   <!-- Cancellation Reason Modal ends-->
@@ -192,38 +197,39 @@
                 <div class="row g-4">
                   <div class="form-group col-2">
                     <input required [(ngModel)]="otpValue[0]"
-                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
-                      id="otp_1" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1"
+                      name="otpValue" id="otp_1" type="text" pattern="\d*" class="form-control" autocomplete="off"
                       (keyup)="moveToNext(2)" onfocus="this.value=''">
                   </div>
                   <div class="form-group col-2">
                     <input required [(ngModel)]="otpValue[1]"
-                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
-                      id="otp_2" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1"
+                      name="otpValue" id="otp_2" type="text" pattern="\d*" class="form-control" autocomplete="off"
                       (keyup)="moveToNext(3)" onfocus="this.value=''">
                   </div>
                   <div class="form-group col-2">
                     <input required [(ngModel)]="otpValue[2]"
-                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
-                      id="otp_3" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1"
+                      name="otpValue" id="otp_3" type="text" pattern="\d*" class="form-control" autocomplete="off"
                       (keyup)="moveToNext(4)" onfocus="this.value=''">
                   </div>
                   <div class="form-group col-2">
                     <input required [(ngModel)]="otpValue[3]"
-                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
-                      id="otp_4" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1"
+                      name="otpValue" id="otp_4" type="text" pattern="\d*" class="form-control" autocomplete="off"
                       (keyup)="moveToNext(5)" onfocus="this.value=''">
                   </div>
                   <div class="form-group col-2">
                     <input required [(ngModel)]="otpValue[4]"
-                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
-                      id="otp_5" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1"
+                      name="otpValue" id="otp_5" type="text" pattern="\d*" class="form-control" autocomplete="off"
                       (keyup)="moveToNext(6)" onfocus="this.value=''">
                   </div>
                   <div class="form-group col-2">
                     <input required [(ngModel)]="otpValue[5]"
-                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1" name="otpValue"
-                      id="otp_6" type="text" pattern="\d*" class="form-control" autocomplete="off" onfocus="this.value=''">
+                      style="padding-left: 15%;padding-right: 15%;min-width: 24px;text-align: center;" maxlength="1"
+                      name="otpValue" id="otp_6" type="text" pattern="\d*" class="form-control" autocomplete="off"
+                      onfocus="this.value=''">
                   </div>
                 </div>
               </div>
@@ -240,4 +246,13 @@
     </div>
   </div>
 
+
+  <!-- Accept Order Modal -->
+  <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-confirm-order></app-confirm-order>
+    </div>
+  </div>
+  <!-- Accept Order Modal ends-->
   <!-- Modals section ends -->
