@@ -136,7 +136,8 @@
                         data-bs-target="#enterOtpModal">Complete Order</button>
                     </div>
                     <div *ngIf="order.status=='AWAITING CONFIRMATION'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmOrder()">Confirm
+                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                      data-bs-target="#confirmOrderModal">Confirm
                         Order
                       </button>
                     </div>
@@ -248,8 +249,8 @@
 
 
   <!-- Accept Order Modal -->
-  <div *ngIf="order" class="modal fade" id="cancellationReasonModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="cancellationReasonModalLabel" aria-hidden="true">
+  <div *ngIf="order" class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <app-confirm-order></app-confirm-order>
     </div>
