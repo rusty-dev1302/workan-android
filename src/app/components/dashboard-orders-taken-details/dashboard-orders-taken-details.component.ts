@@ -104,6 +104,10 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     );
   }
 
+  confirmOrder() {
+    
+  }
+
   confirmDirectPayment() {
     const sub = this.paymentService.confirmDirectPayment(this.order.id).subscribe(
       (response) => {

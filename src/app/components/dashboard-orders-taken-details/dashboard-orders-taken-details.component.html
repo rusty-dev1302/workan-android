@@ -135,6 +135,10 @@
                         data-bs-target="#slotSelectorModal" data-bs-toggle="modal"
                         data-bs-target="#enterOtpModal">Complete Order</button>
                     </div>
+                    <div *ngIf="order.status=='AWAITING CONFIRMATION'" class="col-12 py-2">
+                      <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmOrder()">Confirm Order
+                    </button>
+                    </div>
                     <div *ngIf="order.status=='AWAITING CONFIRMATION'||order.status=='CONFIRMED'||order.status=='STARTING'" class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                       data-bs-target="#cancellationReasonModal">Cancel Order</button>
