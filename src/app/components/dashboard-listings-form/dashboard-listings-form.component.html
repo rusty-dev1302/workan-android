@@ -167,7 +167,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <h3><b>Certifications / Documents </b><i type="button" data-bs-toggle="modal"
+                                        <h3><b>Documents / Certifications </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addCertificationModal"
                                                 class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
                                         <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
@@ -247,7 +247,7 @@
                                                     type="button" style="font-size: 1rem!important;"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
                                                     from profile':'Show on profile'}}</a>
-                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                <a class="link px-1" *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
                                                     style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</a>

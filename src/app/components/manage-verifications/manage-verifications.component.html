@@ -37,7 +37,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <h3>Verification Requests</h3>
+                                            <h3>Verification Requests <i type="button" (click)="getAllCertificationsToVerify()" class="fa fa-refresh" aria-hidden="true"></i>
+                                            </h3>
                                         </div>
                                     </div>
                                 </div>
@@ -52,7 +53,7 @@
                                                 <th scope="col" class="text-center">Certification</th>
                                                 <th scope="col" class="text-center">Attachments</th>
                                                 <th scope="col" class="text-center">Verification Status</th>
-                                                <th scope="col" class="text-center">Listing Status</th>
+                                                <th scope="col" class="text-center">Listing Status(Auto-Refresh)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,8 +66,8 @@
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
                                                 <td class="text-center">{{verificationRequest.status}} |
-                                                    <a type="button" (click)="verifyCertificationById(verificationRequest.id)" class="link" style="font-size: 1rem!important;" >Verify</a> /
-                                                    <a type="button" (click)="rejectCertificationById(verificationRequest.id)" class="link" style="font-size: 1rem!important;" >Reject</a>
+                                                    <a type="button" (click)="verifyCertificationById(verificationRequest.id)" class="link" [ngClass]="verifyPressed?'visited-link no-hover disabled':''" style="font-size: 1rem!important;">Verify</a> /
+                                                    <a type="button" (click)="rejectCertificationById(verificationRequest.id)" class="link" [ngClass]="rejectPressed?'visited-link no-hover disabled':''" style="font-size: 1rem!important;" >Reject</a>
                                                 </td>
                                                 <td class="text-center">{{verificationRequest.professional.listing.enabled?'Active':'Inactive'}} /
                                                 <a type="button" (click)="activateDeactivateListing(verificationRequest.professional.listing.id)" class="link" style="font-size: 1rem!important;" *ngIf="!verificationRequest.professional.listing.enabled">Activate</a>

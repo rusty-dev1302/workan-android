@@ -192,7 +192,7 @@
                                                     Select
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a class="dropdown-item" (click)="resetLanguages()"
+                                                    <li><a class="dropdown-item" style="color: #0d6efd;" (click)="resetLanguages()"
                                                             type="button">Clear All</a></li>
                                                     <li *ngFor="let language of availableLanguages | keyvalue">
                                                         <a *ngIf="language.key!='dummy'" class="dropdown-item"

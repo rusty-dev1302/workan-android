@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { FileService } from 'src/app/services/file.service';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-manage-verifications',
     templateUrl: './manage-verifications.component.html',
     styleUrls: ['./manage-verifications.component.css'],
     standalone: true,
-    imports: [NgFor, NgIf]
+    imports: [NgFor, NgIf, NgClass]
 })
 export class ManageVerificationsComponent implements OnInit {
 
   verificationRequests: any[] = [];
+  verifyPressed:boolean = false;
+  rejectPressed:boolean = false;
 
   constructor(
     private navigationService: NavigationService,
@@ -57,7 +59,8 @@ export class ManageVerificationsComponent implements OnInit {
   verifyCertificationById(certificationId: number) {
     const sub = this.adminService.verifyCertificationById(certificationId).subscribe(
       () => {
-        this.getAllCertificationsToVerify();
+        this.verifyPressed = true;
+        this.rejectPressed = false;
         sub.unsubscribe();
       }
     );
@@ -66,7 +69,8 @@ export class ManageVerificationsComponent implements OnInit {
   rejectCertificationById(certificationId: number) {
     const sub = this.adminService.rejectCertificationById(certificationId).subscribe(
       () => {
-        this.getAllCertificationsToVerify();
+        this.verifyPressed = false;
+        this.rejectPressed = true;
         sub.unsubscribe();
       }
     );
