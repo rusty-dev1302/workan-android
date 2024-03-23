@@ -52,6 +52,9 @@ export class DashboardOrdersComponent implements OnInit {
   }
 
   convertTimeToString(time: number): string{
+    if(!time) {
+      return "--";
+    }
     let hour = Math.floor(time/100)<=12?Math.floor(time/100):Math.floor(time/100)%12;
     let min = (time%100==0?"00":time%100);
     let merd = (Math.floor(time/100)<12?"AM":"PM");

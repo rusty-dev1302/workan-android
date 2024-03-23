@@ -14,6 +14,7 @@ import { CancellationReasonComponent } from '../cancellation-reason/cancellation
 import { ReviewComponent } from '../review/review.component';
 import { FormsModule } from '@angular/forms';
 import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { CustomerOrder } from 'src/app/common/customer-order';
 
 @Component({
     selector: 'app-dashboard-order-details',
@@ -27,7 +28,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
   private currentOrderId!: number;
   private autoRefresh!: Subscription;
 
-  order!: Order;
+  order!: CustomerOrder;
   cancellationReason = constants.CANCEL_REASON_CUSTOMER;
 
   constructor(
@@ -75,6 +76,9 @@ export class DashboardOrderDetailsComponent implements OnInit {
   }
 
   convertTimeToString(time: number): string {
+    if(!time) {
+      return "--";
+    }
     let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
     let min = (time % 100 == 0 ? "00" : time % 100);
     let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
