@@ -135,6 +135,7 @@ export class DashboardListingsFormComponent implements OnInit {
             enabled: JSON.parse((data[key] as unknown as string).split(",")[2])
           }
         });
+        subscription.unsubscribe();
       }
     );
   }
@@ -194,20 +195,14 @@ export class DashboardListingsFormComponent implements OnInit {
         }
       );
 
-      const subs = this.dialogService.openDialog(" create selected time range").subscribe(
-        (result) => {
-          if (result) {
-            const sub = this.listingService.saveSlotTemplateItems(templateId ? templateId : this.dialogSlotTemplateId, this.pasteItems).subscribe(
-              () => {
-                this.getAvailability(this.listing.id);
-                this.pasteItems = [];
-                sub.unsubscribe();
-              }
-            );
-          }
-          subs.unsubscribe();
+      const sub = this.listingService.saveSlotTemplateItems(templateId ? templateId : this.dialogSlotTemplateId, this.pasteItems).subscribe(
+        () => {
+          this.getAvailability(this.listing.id);
+          this.pasteItems = [];
+          sub.unsubscribe();
         }
       );
+
     } else {
       this.toastrService.error("StartTime Should be Less Than EndTime");
     }
@@ -251,10 +246,14 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   pasteSlotItems(dayName: string, templateId: string, templateEnabled: boolean) {
-    if (templateEnabled) {
-      this.toggleSlotTemplate(+templateId);
-    }
-    this.createSlotRange(+templateId, this.copyStartTime, this.copyEndTime);
+    const sub = this.dialogService.openDialog("paste schedule to "+dayName).subscribe(
+      (response)=>{
+        if(response) {
+          this.createSlotRange(+templateId, this.copyStartTime, this.copyEndTime);
+        }
+        sub.unsubscribe();
+      }
+    );
   }
 
   addCertificate() {
