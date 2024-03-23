@@ -125,7 +125,6 @@ export class SlotSelectorComponent implements OnInit {
       (response) => {
         this.availableMenuItems = response;
         this.selectedMenuItems = JSON.parse(JSON.stringify(this.availableMenuItems));
-        console.log(this.selectedMenuItems)
         sub.unsubscribe();
       }
     );
@@ -134,7 +133,6 @@ export class SlotSelectorComponent implements OnInit {
   addMenuItem(i: number) {
     if(this.selectedMenuItems[i].quantity==null) {
       this.selectedMenuItems[i].quantity = 0;
-      console.log(this.selectedMenuItems)
     }
     this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity+1;
     this.calculateTotalMenuCharges();

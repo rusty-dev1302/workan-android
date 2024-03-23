@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Listing } from 'src/app/common/listing';
@@ -26,6 +26,8 @@ import { ServicePricing } from 'src/app/common/service-pricing';
 })
 export class DashboardListingsFormComponent implements OnInit {
 
+  @Input() menuItem: number = 0;
+
   @Output() currentListingEvent = new EventEmitter<Listing>();
 
   isEditable: boolean = false;
@@ -36,9 +38,11 @@ export class DashboardListingsFormComponent implements OnInit {
 
   listing: Listing = constants.DEFAULT_LISTING;
   displayListing!: Listing;
-  slotTemplates!: SlotTemplate[];
+  availabilityRange!: any[];
   emailValue!: string;
 
+  copyStartTime!: string;
+  copyEndTime!: string;
   pasteItems: SlotTemplateItem[] = [];
 
   // Add time slot dialog values
@@ -108,7 +112,7 @@ export class DashboardListingsFormComponent implements OnInit {
           // Populate form from data
           this.listing = data;
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
-          this.loadSlotTemplates(this.listing.id);
+          this.getAvailability(this.listing.id);
           this.loadServicePricings();
           this.currentListingEvent.emit(this.listing);
         }
@@ -119,20 +123,18 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  loadSlotTemplates(listingId: number) {
-    const subscription = this.listingService.getSlotTemplates(listingId).subscribe(
+  getAvailability(listingId: number) {
+    const subscription = this.listingService.getAvailabilityRange(listingId).subscribe(
       (data) => {
-        this.slotTemplates = data;
-        for (let i = 0; i < this.slotTemplates.length; i++) {
-          this.slotTemplates[i].items.sort(
-            (a, b) => {
-              return a.startTimeHhmm - b.startTimeHhmm;
-            }
-          );
-        }
-        this.slotTemplates[0].items.sort();
-        this.toggleLoader = false;
-        subscription.unsubscribe();
+        this.availabilityRange = Object.keys(data).map((key: any) => {
+          return {
+            templateId: key,
+            dayName: (data[key] as unknown as string).split(",")[0],
+            startTimeHhmm: (data[key] as unknown as string).split(",")[1].split("-")[0],
+            endTimeHhmm: (data[key] as unknown as string).split(",")[1].split("-")[1],
+            enabled: JSON.parse((data[key] as unknown as string).split(",")[2])
+          }
+        });
       }
     );
   }
@@ -173,11 +175,11 @@ export class DashboardListingsFormComponent implements OnInit {
     this.listing.experience = +experience;
   }
 
-  createSlotRange() {
+  createSlotRange(templateId: number = null!, startTime: string = null!, endTime: string = null!) {
     this.pasteItems = [];
 
-    let i = this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
-    let j = this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
+    let i = startTime != null ? +startTime : this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
+    let j = endTime != null ? +endTime : this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
 
     if (i < j) {
       constants.TIME_RANGE.forEach(
@@ -186,18 +188,18 @@ export class DashboardListingsFormComponent implements OnInit {
             let id!: number;
             let startTime: number = range.start;
             let endTime: number = range.end;
-            let slot: SlotTemplateItem = new SlotTemplateItem(id, this.dialogSlotTemplateId, startTime, endTime, "", "");
+            let slot: SlotTemplateItem = new SlotTemplateItem(id, templateId ? templateId : this.dialogSlotTemplateId, startTime, endTime, "", "");
             this.pasteItems.push(slot);
           }
         }
       );
 
-      const subs = this.dialogService.openDialog(" create time slots for selected range").subscribe(
+      const subs = this.dialogService.openDialog(" create selected time range").subscribe(
         (result) => {
           if (result) {
-            const sub = this.listingService.saveSlotTemplateItems(this.dialogSlotTemplateId, this.pasteItems).subscribe(
+            const sub = this.listingService.saveSlotTemplateItems(templateId ? templateId : this.dialogSlotTemplateId, this.pasteItems).subscribe(
               () => {
-                this.loadSlotTemplates(this.listing.id);
+                this.getAvailability(this.listing.id);
                 this.pasteItems = [];
                 sub.unsubscribe();
               }
@@ -224,7 +226,7 @@ export class DashboardListingsFormComponent implements OnInit {
       const subscription = this.listingService.saveSlotTemplateItem(slot).subscribe(
         (data) => {
           if (data.state == constants.SUCCESS_STATE) {
-            this.loadSlotTemplates(this.listing.id);
+            this.getAvailability(this.listing.id);
           }
           subscription.unsubscribe();
         }
@@ -236,34 +238,23 @@ export class DashboardListingsFormComponent implements OnInit {
 
   }
 
-  copySlotItems(dayName: string, items: SlotTemplateItem[]) {
+  copySlotItems(dayName: string, startTime: string, endTime: string) {
     const sub = this.dialogService.openDialog(" copy time slots from " + dayName).subscribe(
       (result) => {
         if (result) {
-          this.pasteItems = JSON.parse(JSON.stringify(items));
+          this.copyStartTime = startTime;
+          this.copyEndTime = endTime;
         }
         sub.unsubscribe();
       }
     );
   }
 
-  pasteSlotItems(dayName: string, templateId: number, templateEnabled: boolean) {
-    const subs = this.dialogService.openDialog("Are you sure you want to paste time slots to " + dayName + "? All of the current day slots will be switched OFF momentarily.", true).subscribe(
-      (result) => {
-        if (result) {
-          if (templateEnabled) {
-            this.toggleSlotTemplate(templateId);
-          }
-          const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
-            () => {
-              this.loadSlotTemplates(this.listing.id);
-              sub.unsubscribe();
-            }
-          );
-        }
-        subs.unsubscribe();
-      }
-    );
+  pasteSlotItems(dayName: string, templateId: string, templateEnabled: boolean) {
+    if (templateEnabled) {
+      this.toggleSlotTemplate(+templateId);
+    }
+    this.createSlotRange(+templateId, this.copyStartTime, this.copyEndTime);
   }
 
   addCertificate() {
@@ -387,27 +378,6 @@ export class DashboardListingsFormComponent implements OnInit {
   }
   // methods to add values to slot dialog end 
 
-  removeSlotTemplateItem(slotTemplateItemId: number) {
-    const sub = this.dialogService.openDialog(" remove this time slot").subscribe(
-      (response) => {
-        if (response) {
-          const subscription = this.listingService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
-            (data) => {
-              if (data.state == constants.SUCCESS_STATE) {
-                this.toastrService.success(constants.SUCCESS_STATE);
-              } else {
-                this.toastrService.error(data.message);
-              }
-              this.loadSlotTemplates(this.listing.id);
-              subscription.unsubscribe();
-            }
-          );
-        }
-        sub.unsubscribe();
-      }
-    );
-  }
-
   toggleSlotTemplate(slotTemplateId: number) {
     this.toggleLoader = true;
     const subscription = this.listingService.toggleSlotTemplate(slotTemplateId).subscribe(
@@ -417,7 +387,8 @@ export class DashboardListingsFormComponent implements OnInit {
         } else {
           this.toastrService.error(response.message);
         }
-        this.loadSlotTemplates(this.listing.id);
+        this.toggleLoader = false;
+        this.getAvailability(this.listing.id);
         subscription.unsubscribe();
       }
     );

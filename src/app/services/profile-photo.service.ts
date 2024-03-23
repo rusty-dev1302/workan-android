@@ -28,7 +28,6 @@ export class ProfilePhotoService {
 
   uploadImage(uploadImageData: any): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/save`;
-    console.log(uploadImageData)
     return this.httpClient.post<BaseResponse>(postUrl, uploadImageData);
   }
 

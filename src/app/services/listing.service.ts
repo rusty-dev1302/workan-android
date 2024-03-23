@@ -54,9 +54,9 @@ export class ListingService {
     return this.httpClient.get<string[]>(getUrl)
   }
 
-  getSlotTemplates(listingId: number): Observable<SlotTemplate[]> {
-    const getUrl = `${this.baseUrl}/slotTemplates?listingId=${listingId}`;
-    return this.httpClient.get<SlotTemplate[]>(getUrl)
+  getAvailabilityRange(listingId: number): Observable<Map<string, string>[]> {
+    const getUrl = `${this.baseUrl}/getAvailabilityRange?listingId=${listingId}`;
+    return this.httpClient.get<Map<string, string>[]>(getUrl)
   }
 
   getAvailableSlotsItems(listingId: number, dayOfWeek: string, date: string): Observable<SlotTemplateItem[]> {
@@ -71,7 +71,6 @@ export class ListingService {
 
   saveServicePricing(servicePricing: ServicePricing, listingId: number): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/servicepricing/add?id=${listingId}`;
-    console.log(JSON.stringify(servicePricing)+" "+listingId)
     return this.httpClient.post<BaseResponse>(postUrl, servicePricing);
   }
 
