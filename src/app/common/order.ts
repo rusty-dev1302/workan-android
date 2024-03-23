@@ -12,6 +12,7 @@ export class Order extends BaseResponse{
         public appointmentDate: Date,
         public charges: number,
         public listingId: number,
+        public appointmentTimeHhmm: number,
         public preferredStartTimeHhmm: number,
         public preferredEndTimeHhmm: number,
         public subCategoryName: string,

@@ -134,7 +134,7 @@
                       <div class="col-12">
                         <button *ngIf="timezoneOffset==listing.timezoneOffset&&listingDistance<=DISTANT_LOCATION"
                           class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#slotSelectorModal" [disabled]="!listing.enabled">Book A Slot</button>
+                          data-bs-target="#slotSelectorModal" [disabled]="!listing.enabled">Book Appointment</button>
                         <button *ngIf="timezoneOffset!=listing.timezoneOffset||listingDistance>DISTANT_LOCATION"
                           class="btn btn-danger btn-rounded col-12" type="button" (click)="bookError()">Book A
                           Slot</button>
