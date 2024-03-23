@@ -124,7 +124,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   getAvailability(listingId: number) {
-    const subscription = this.listingService.getAvailabilityRange(listingId).subscribe(
+    const subscription = this.listingService.getAvailabilityRange(listingId, true).subscribe(
       (data) => {
         this.availabilityRange = Object.keys(data).map((key: any) => {
           return {

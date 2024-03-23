@@ -54,8 +54,8 @@ export class ListingService {
     return this.httpClient.get<string[]>(getUrl)
   }
 
-  getAvailabilityRange(listingId: number): Observable<Map<string, string>[]> {
-    const getUrl = `${this.baseUrl}/getAvailabilityRange?listingId=${listingId}`;
+  getAvailabilityRange(listingId: number, isProfessional: boolean=false): Observable<Map<string, string>[]> {
+    const getUrl = `${this.baseUrl}/getAvailabilityRange?listingId=${listingId}&&isProfessional=${isProfessional}`;
     return this.httpClient.get<Map<string, string>[]>(getUrl)
   }
 
