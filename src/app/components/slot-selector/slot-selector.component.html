@@ -27,7 +27,8 @@
                         Select
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                        <li *ngFor="let e of dayBoolArray; let i = index"><a [ngClass]="e==true?'disabled':''"
+                        <li *ngFor="let e of dayBoolArray; let i = index"><a
+                            [ngClass]="[e==true?'selected':'', availabilityRange&&availabilityRange.get(slotDate(i)|date:'EEEE')?'':'strike-through disabled']"
                             class="dropdown-item" type="button"
                             (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)'}}</a>
                         </li>
@@ -36,24 +37,41 @@
                   </div>
                   <div class="col-12">
                     <div class="form-group">
-                      <h5 class="review-count">Available Slots:</h5>
-                      <div class="row">
-                        <!-- Time slot to be iterated  -->
-                        <div *ngFor="let slot of currentSlots" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 col py-1">
-                          <span class="btn btn-rounded"
-                            [ngClass]="[selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary',professionalView==true?'no-hover':'']"
-                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}</span>
+                      <div *ngIf="currentTimeRange">
+                        <!-- If professional available for the day  -->
+                        <h5>Please select preferred time range:</h5>
+                        <span style="font-size: .9rem;">(Professional is available from
+                          {{convertTimeToString(currentTimeRange.startTimeHhmm)}} -
+                          {{convertTimeToString(currentTimeRange.endTimeHhmm)}})</span>
+                      </div>
+                      <div class="col-12 mt-3">
+                        <div class="form-group">
+                          <label for="startTime">From Time</label>
                         </div>
-                        <!-- Time slot to be iterated end -->
-                        <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
-                          Please Select A Day.
+                        <select #startTime class="form-select" aria-label="gender" [value]="selectedTimeRange.startTime"
+                          (change)="setDialogStartTime(startTime.value)">
+                          <option default hidden>Select a time</option>
+                          <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                            {{timeSlot}}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-12 mt-3 mb-3">
+                        <div class="form-group">
+                          <label for="endTime">To Time</label>
                         </div>
-                        <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
-                          No Slots Available
-                        </div>
+                        <select #endTime class="form-select" aria-label="gender" [value]="selectedTimeRange.endTime"
+                          (change)="setDialogEndTime(endTime.value)">
+                          <option default hidden>Select a time</option>
+                          <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                            {{timeSlot}}</option>
+                        </select>
+                      </div>
+                      <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be allocated an appointment within the preferred time range</span>
+                      <div *ngIf="!currentTimeRange" class="alert alert-warning col-md-12" role="alert">
+                        Professional unavailable for the selected date.
                       </div>
                     </div>
-                    <!-- <h6 class="small-text">&bull; Time slots can be booked for today or tomorrow</h6> -->
                   </div>
                 </div>
                 <hr class="style1">
@@ -62,8 +80,8 @@
             <!-- Slots end -->
 
             <div *ngIf="!professionalView" class="d-flex justify-content-end">
-              <button *ngIf="selectedDate&&selectedSlot" type="button" class="btn btn-danger btn-rounded col-12"
-                (click)="nextStep()">Next</button>
+              <button *ngIf="selectedDate&&selectedTimeRange.startTime!=''&&selectedTimeRange.endTime!=''&&convertTimeToNumber(selectedTimeRange.startTime)<convertTimeToNumber(selectedTimeRange.endTime)"
+                type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()">Next</button>
             </div>
 
             <!-- Selector card end -->
@@ -164,14 +182,14 @@
                   </div>
                   <div class="col-6">
                     <label style="font-weight: bold;">Day</label>
-                    <h5>{{selectedDate|date:'EEEE'}}</h5>
+                    <h5>{{selectedDate|date:'dd MM (EEEE)'}}</h5>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
                       <div class="row">
-                        <label class="review-count" style="font-weight: bold;">Time Slot</label>
+                        <label class="review-count" style="font-weight: bold;">Preferred Time</label>
                         <h5>
-                          {{convertTimeToString(selectedSlot.startTimeHhmm)}}-{{convertTimeToString(selectedSlot.endTimeHhmm)}}
+                          {{selectedTimeRange.startTime}}-{{selectedTimeRange.endTime}}
                         </h5>
                       </div>
                     </div>

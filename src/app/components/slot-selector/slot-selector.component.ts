@@ -14,27 +14,32 @@ import { ContactDetail } from 'src/app/common/contact-detail';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'app-slot-selector',
-    templateUrl: './slot-selector.component.html',
-    styleUrls: ['./slot-selector.component.css'],
-    standalone: true,
-    imports: [NgIf, FormsModule, NgFor, NgClass, DatePipe]
+  selector: 'app-slot-selector',
+  templateUrl: './slot-selector.component.html',
+  styleUrls: ['./slot-selector.component.css'],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, NgClass, DatePipe]
 })
 export class SlotSelectorComponent implements OnInit {
 
   @Input()
-  professionalView:boolean = false;
+  professionalView: boolean = false;
 
   currentDate!: string;
-  currentSlots!: any[];
+  currentTimeRange!: any;
+  selectedTimeRange: any = {startTime:'', endTime:''}
   availableMenuItems!: any[];
   totalMenuCharges: number = 0;
   currentStep: number = 0;
 
-  selectedDate!: Date;
-  selectedSlot!: SlotTemplateItem;
+  timeSlots: string[] = constants.TIMESLOTS;
 
-  selectedMenuItems: any[]=[];
+  availabilityRange = new Map();
+
+  selectedDate!: Date;
+  selectedSlot: any={};
+
+  selectedMenuItems: any[] = [];
 
   dayBoolArray: boolean[] = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
 
@@ -53,8 +58,22 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSlotsForDay(new Date(), 0);
+    this.getAvailability(this.listingId);
     this.loadCustomer();
+  }
+
+  getAvailability(listingId: number) {
+    this.availabilityRange = new Map();
+    const subscription = this.listingService.getAvailabilityRange(listingId).subscribe(
+      (data) => {
+        Object.keys(data).map((key: any) => {
+          this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
+        });
+
+        this.getSlotsForDay(new Date(), 0);
+        subscription.unsubscribe();
+      }
+    );
   }
 
   slotDate(index: number): Date {
@@ -74,48 +93,43 @@ export class SlotSelectorComponent implements OnInit {
 
   }
 
+  setDialogStartTime(startTime: string) {
+    this.selectedTimeRange.startTime = startTime;
+  }
+
+  setDialogEndTime(endTime: string) {
+
+    this.selectedTimeRange.endTime = endTime;
+  }
+
   getSlotsForDay(date: Date, i: number) {
+    this.selectedDate = date;
+    this.currentTimeRange = null;
     this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_CLEAR));
     this.dayBoolArray[i] = true;
-    if (date) {
-      this.selectedDate = date;
-      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)')!;
-      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
-        (data) => {
-          if (data) {
-            this.currentSlots = data;
+    this.currentDate = this.datePipe.transform(date, 'dd MMM (EEEE)')!;
 
-            const todayDate = new Date().getDate();
+    let day: string = this.datePipe.transform(date, 'EEEE')!;
 
-            //Filter slots starting after current time
-            if (todayDate == date.getDate()) {
-              const todayTime = this.datePipe.transform(new Date(), 'HHmm');
-              this.currentSlots = this.currentSlots.filter(
-                a => a.startTimeHhmm > +todayTime!
-              );
-            }
-
-            this.currentSlots.sort(
-              (a, b) => {
-                return a.startTimeHhmm - b.startTimeHhmm;
-              }
-            );
-
-          }
-          sub.unsubscribe();
-        }
-      );
+    if (this.availabilityRange.get(day)) {
+      this.currentTimeRange = {
+        startTimeHhmm: this.availabilityRange.get(day).split("-")[0],
+        endTimeHhmm: this.availabilityRange.get(day).split("-")[1]
+      };
+    } else {
+      this.currentTimeRange = null;
     }
+
   }
 
   calculateTotalMenuCharges() {
     this.totalMenuCharges = 0;
     this.selectedMenuItems.forEach(
       (mi) => {
-        if(mi.quantity==null) {
-          mi.quantity=0;
+        if (mi.quantity == null) {
+          mi.quantity = 0;
         }
-        this.totalMenuCharges += mi.quantity*mi.charges;
+        this.totalMenuCharges += mi.quantity * mi.charges;
       }
     );
   }
@@ -131,18 +145,18 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   addMenuItem(i: number) {
-    if(this.selectedMenuItems[i].quantity==null) {
+    if (this.selectedMenuItems[i].quantity == null) {
       this.selectedMenuItems[i].quantity = 0;
     }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity+1;
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity + 1;
     this.calculateTotalMenuCharges();
   }
 
   removeMenuItem(i: number) {
-    if(this.selectedMenuItems[i].quantity==null) {
+    if (this.selectedMenuItems[i].quantity == null) {
       this.selectedMenuItems[i].quantity = 0;
     }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity==0?0:(this.selectedMenuItems[i].quantity-1);
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity == 0 ? 0 : (this.selectedMenuItems[i].quantity - 1);
     this.calculateTotalMenuCharges();
   }
 
@@ -154,18 +168,30 @@ export class SlotSelectorComponent implements OnInit {
     return (hour == 0 ? "00" : hour) + ":" + min + merd;
   }
 
-  selectSlot(slot: SlotTemplateItem) {
-    this.selectedSlot = slot;
+  convertTimeToNumber(time: string): number {
+    console.log("hello")
+    let hour: number = 0;
+    let min: number = 0;
+    hour = +time.split(":")[0];
+
+    if (time.includes("AM")) {
+      min = +time.split(":")[1].split("AM")[0];
+    } else if (time.includes("PM")) {
+      min = +time.split(":")[1].split("PM")[0];
+      hour = hour == 12 ? 12 : (hour + 12) % 24;
+    }
+
+    return hour * 100 + min;
   }
 
   closeDialog() {
-    this.selectedSlot = null!;
+    this.selectedTimeRange = {startTime:'', endTime:''};
     this.currentStep = 0;
   }
 
   nextStep() {
     this.currentStep++;
-    if(this.currentStep==1) {
+    if (this.currentStep == 1) {
       this.loadServicePricings();
     }
   }
@@ -195,6 +221,12 @@ export class SlotSelectorComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  parseInt(input: string): number {
+    const result:number = +input;
+    console.log(input)
+    return result;
   }
 
 }
