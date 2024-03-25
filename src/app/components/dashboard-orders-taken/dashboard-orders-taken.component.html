@@ -55,14 +55,16 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Customer</label>
-                      <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                      <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                      <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                     </div>
                   </div>
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Customer Phone</label>
-                      <h5>{{order.customer.mobile | phone}}</h5>
+                      <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
+                      <h6 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h6>
                     </div>
                   </div>
 
@@ -77,6 +79,11 @@
                   <div class="col-12">
                     <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
                       style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
+                    <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
+                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                      data-bs-target="#confirmOrderModal">Confirm Appointment
+                      </button>
+                    </div>
                     <button class="btn btn-primary btn-rounded col-12" type="button"
                       [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
                   </div>
@@ -105,5 +112,13 @@
 
   <!-- Modal section begins -->
 
+    <!-- Accept Order Modal -->
+  <div class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-confirm-order></app-confirm-order>
+    </div>
+  </div>
+  <!-- Accept Order Modal ends-->
 
   <!-- Modals section ends -->

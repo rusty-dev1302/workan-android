@@ -168,51 +168,8 @@ export class BrowseListingsComponent implements OnInit {
 
   getAvailabilityForListing(listing: Listing) {
     let today: Date = new Date();  
-    this.getSlotsForDay(today, listing);
     let tomorrow: Date = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    this.getSlotsForDay(tomorrow, listing, true);
   }
 
-  getSlotsForDay(date: Date, listing: Listing, stopLoad:boolean=false) {
-    if (date) {
-      const sub = this.listingService.getAvailableSlotsItems(listing.id, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
-        (data) => {
-          if (data) {
-
-            let currentSlots:SlotTemplateItem[] = data;
-
-            const todayDate = new Date().getDate();
-
-            if (todayDate == date.getDate()) {
-              const todayTime = this.datePipe.transform(new Date(), 'HHmm');
-              currentSlots = currentSlots.filter(
-                a => a.startTimeHhmm > +todayTime!
-              );
-
-              if(currentSlots.length>0) {
-                listing.availableToday = true;
-              } else {
-                listing.availableToday = false;
-              }
-
-            } else {
-              if(currentSlots.length>0) {
-                listing.availableTomorrow = true;
-              } else {
-                listing.availableTomorrow = false;
-              }
-
-            }
-
-            if(stopLoad) {
-              listing.availabilityLoaded = true;
-            }
-
-            sub.unsubscribe();
-          }
-        }
-      );
-    }
-  }
 }

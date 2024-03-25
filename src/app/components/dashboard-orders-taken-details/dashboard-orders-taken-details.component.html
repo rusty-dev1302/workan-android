@@ -86,25 +86,30 @@
                     <div class="form-group">
                       <label>Customer Name</label>
                       <div class="col-12">
-                        <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
                     <div class="form-group">
                       <label>Customer Phone</label>
                       <div class="col-12">
-                        <h5>{{order.customer.mobile | phone}}</h5>
+                        <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
                     <div class="form-group">
                       <label>Customer Address</label>
                       <div class="col-12">
-                        <h5>{{order.customer.contact.addressLine1}}</h5>
+                        <h5 *ngIf="order.customer">{{order.customer.contact.addressLine1}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                       <div class="col-12">
-                        <h5>{{order.customer.contact.addressLine2}}</h5>
+                        <h5 *ngIf="order.customer">{{order.customer.contact.addressLine2}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                       <div class="col-12">
-                        <h5>{{order.customer.contact.addressLine3}}</h5>
+                        <h5 *ngIf="order.customer">{{order.customer.contact.addressLine3}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
                   </div>
@@ -134,12 +139,6 @@
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" data-bs-toggle="modal"
                         data-bs-target="#enterOtpModal">Complete Order</button>
-                    </div>
-                    <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                      data-bs-target="#confirmOrderModal">Confirm
-                        Order
-                      </button>
                     </div>
                     <div
                       *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='CONFIRMED'||order.status=='STARTING'"
@@ -246,14 +245,4 @@
       </div>
     </div>
   </div>
-
-
-  <!-- Accept Order Modal -->
-  <div *ngIf="order" class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <app-confirm-order></app-confirm-order>
-    </div>
-  </div>
-  <!-- Accept Order Modal ends-->
   <!-- Modals section ends -->

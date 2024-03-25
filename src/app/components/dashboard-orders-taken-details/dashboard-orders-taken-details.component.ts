@@ -12,7 +12,6 @@ import { PhonePipe } from '../../pipes/phone-pipe';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { FormsModule } from '@angular/forms';
 import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
-import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
@@ -20,7 +19,7 @@ import { DateTimeService } from 'src/app/common/services/date-time.service';
     templateUrl: './dashboard-orders-taken-details.component.html',
     styleUrls: ['./dashboard-orders-taken-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, ConfirmOrderComponent]
+    imports: [RouterLink, NgIf, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 

@@ -82,7 +82,7 @@ export class ConfirmOrderComponent implements OnInit {
     if (date) {
       this.selectedDate = date;
       this.currentDate = this.datePipe.transform(date, 'd MMM (EE)')!;
-      const sub = this.listingService.getAvailableSlotsItems(this.listingId, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
+      const sub = this.listingService.getAvailableSlotsItems(this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
             this.currentSlots = data;
