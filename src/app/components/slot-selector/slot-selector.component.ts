@@ -12,6 +12,7 @@ import { constants } from 'src/environments/constants';
 import { Router } from '@angular/router';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { FormsModule } from '@angular/forms';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
   selector: 'app-slot-selector',
@@ -54,6 +55,7 @@ export class SlotSelectorComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private router: Router,
+    public dateTimeService: DateTimeService
   ) {
   }
 
@@ -160,30 +162,6 @@ export class SlotSelectorComponent implements OnInit {
     this.calculateTotalMenuCharges();
   }
 
-  convertTimeToString(time: number): string {
-    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
-    let min = (time % 100 == 0 ? "00" : time % 100);
-    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
-
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
-  }
-
-  convertTimeToNumber(time: string): number {
-    console.log("hello")
-    let hour: number = 0;
-    let min: number = 0;
-    hour = +time.split(":")[0];
-
-    if (time.includes("AM")) {
-      min = +time.split(":")[1].split("AM")[0];
-    } else if (time.includes("PM")) {
-      min = +time.split(":")[1].split("PM")[0];
-      hour = hour == 12 ? 12 : (hour + 12) % 24;
-    }
-
-    return hour * 100 + min;
-  }
-
   closeDialog() {
     this.selectedTimeRange = {startTime:'', endTime:''};
     this.currentStep = 0;
@@ -206,7 +184,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate), this.selectedMenuItems);
+        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), new Date(this.selectedDate), this.selectedMenuItems);
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {
@@ -225,7 +203,6 @@ export class SlotSelectorComponent implements OnInit {
 
   parseInt(input: string): number {
     const result:number = +input;
-    console.log(input)
     return result;
   }
 

@@ -8,6 +8,7 @@ import { constants } from 'src/environments/constants';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgClass, NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
     selector: 'app-dashboard-orders',
@@ -25,7 +26,8 @@ export class DashboardOrdersComponent implements OnInit {
     private orderService: OrderService,
     private userService: UserService,
     private keycloakService: KeycloakService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    public dateTimeService: DateTimeService
   ) { }
 
   ngOnInit() {
@@ -49,17 +51,6 @@ export class DashboardOrdersComponent implements OnInit {
         this.subscription.unsubscribe();
       }
     );
-  }
-
-  convertTimeToString(time: number): string{
-    if(!time) {
-      return "--";
-    }
-    let hour = Math.floor(time/100)<=12?Math.floor(time/100):Math.floor(time/100)%12;
-    let min = (time%100==0?"00":time%100);
-    let merd = (Math.floor(time/100)<12?"AM":"PM");
-
-    return (hour==0?"00":hour)+":"+min+merd;
   }
 
 }

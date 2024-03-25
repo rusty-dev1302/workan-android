@@ -41,33 +41,35 @@
                         <!-- If professional available for the day  -->
                         <h5>Please select preferred time range:</h5>
                         <span style="font-size: .9rem;">(Professional is available from
-                          {{convertTimeToString(currentTimeRange.startTimeHhmm)}} -
-                          {{convertTimeToString(currentTimeRange.endTimeHhmm)}})</span>
-                      </div>
-                      <div class="col-12 mt-3">
-                        <div class="form-group">
-                          <label for="startTime">From Time</label>
+                          {{dateTimeService.convertTimeToString(currentTimeRange.startTimeHhmm)}} -
+                          {{dateTimeService.convertTimeToString(currentTimeRange.endTimeHhmm)}})</span>
+                        <div class="col-12 mt-3">
+                          <div class="form-group">
+                            <label for="startTime">From Time</label>
+                          </div>
+                          <select #startTime class="form-select" aria-label="gender"
+                            [value]="selectedTimeRange.startTime" (change)="setDialogStartTime(startTime.value)">
+                            <option default hidden>Select a time</option>
+                            <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                              {{timeSlot}}</option>
+                          </select>
                         </div>
-                        <select #startTime class="form-select" aria-label="gender" [value]="selectedTimeRange.startTime"
-                          (change)="setDialogStartTime(startTime.value)">
-                          <option default hidden>Select a time</option>
-                          <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
-                            {{timeSlot}}</option>
-                        </select>
+
+                        <div class="col-12 mt-3 mb-3">
+                          <div class="form-group">
+                            <label for="endTime">To Time</label>
+                          </div>
+                          <select #endTime class="form-select" aria-label="gender" [value]="selectedTimeRange.endTime"
+                            (change)="setDialogEndTime(endTime.value)">
+                            <option default hidden>Select a time</option>
+                            <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                              {{timeSlot}}</option>
+                          </select>
+                        </div>
+                        <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be allocated an
+                          appointment within the preferred time range</span>
                       </div>
 
-                      <div class="col-12 mt-3 mb-3">
-                        <div class="form-group">
-                          <label for="endTime">To Time</label>
-                        </div>
-                        <select #endTime class="form-select" aria-label="gender" [value]="selectedTimeRange.endTime"
-                          (change)="setDialogEndTime(endTime.value)">
-                          <option default hidden>Select a time</option>
-                          <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
-                            {{timeSlot}}</option>
-                        </select>
-                      </div>
-                      <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be allocated an appointment within the preferred time range</span>
                       <div *ngIf="!currentTimeRange" class="alert alert-warning col-md-12" role="alert">
                         Professional unavailable for the selected date.
                       </div>
@@ -80,7 +82,8 @@
             <!-- Slots end -->
 
             <div *ngIf="!professionalView" class="d-flex justify-content-end">
-              <button *ngIf="selectedDate&&selectedTimeRange.startTime!=''&&selectedTimeRange.endTime!=''&&convertTimeToNumber(selectedTimeRange.startTime)<convertTimeToNumber(selectedTimeRange.endTime)"
+              <button
+                *ngIf="selectedDate&&selectedTimeRange.startTime!=''&&selectedTimeRange.endTime!=''&&dateTimeService.convertTimeToNumber(selectedTimeRange.startTime)<dateTimeService.convertTimeToNumber(selectedTimeRange.endTime)"
                 type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()">Next</button>
             </div>
 

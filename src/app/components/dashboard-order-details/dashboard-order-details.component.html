@@ -51,7 +51,7 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Appointment Time</label>
-                      <h5>{{convertTimeToString(order.appointmentTimeHhmm)}}</h5>
+                      <h5>{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
                     </div>
                   </div>
 
@@ -146,7 +146,7 @@
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" (click)="processOrder('COMPLETE')">Complete Order</button>
                     </div>
-                    <div *ngIf="order.status=='AWAITING CONFIRMATION'||order.status=='CONFIRMED'||order.status=='STARTING'" class="col-12 py-2">
+                    <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='CONFIRMED'||order.status=='STARTING'" class="col-12 py-2">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>

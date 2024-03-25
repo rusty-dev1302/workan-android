@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DatePipe, NgIf, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
   selector: 'app-confirm-order',
@@ -49,6 +50,7 @@ export class ConfirmOrderComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private router: Router,
+    public dateTimeService: DateTimeService
   ) {
   }
 
@@ -146,14 +148,6 @@ export class ConfirmOrderComponent implements OnInit {
     this.calculateTotalMenuCharges();
   }
 
-  convertTimeToString(time: number): string {
-    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
-    let min = (time % 100 == 0 ? "00" : time % 100);
-    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
-
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
-  }
-
   selectSlot(slot: SlotTemplateItem) {
     this.selectedSlot = slot;
   }
@@ -180,8 +174,9 @@ export class ConfirmOrderComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate), this.selectedMenuItems);
-        const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
+        let createOrderRequest = null;
+        // new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate), this.selectedMenuItems);
+        const subscription = this.orderService.createOrder(createOrderRequest!).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {
               this.toastr.success(data.state)

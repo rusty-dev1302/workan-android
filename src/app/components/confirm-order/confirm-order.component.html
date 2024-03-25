@@ -42,7 +42,7 @@
                           <div *ngFor="let slot of currentSlots" class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-xs-3 col py-1">
                             <span class="btn btn-rounded"
                               [ngClass]="[selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary',professionalView==true?'no-hover':'']"
-                              (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}</span>
+                              (click)="selectSlot(slot)">{{dateTimeService.convertTimeToString(slot.startTimeHhmm)}}</span>
                           </div>
                           <!-- Time slot to be iterated end -->
                           <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
@@ -171,7 +171,7 @@
                         <div class="row">
                           <label class="review-count" style="font-weight: bold;">Time Slot</label>
                           <h5>
-                            {{convertTimeToString(selectedSlot.startTimeHhmm)}}-{{convertTimeToString(selectedSlot.endTimeHhmm)}}
+                            {{dateTimeService.convertTimeToString(selectedSlot.startTimeHhmm)}}-{{dateTimeService.convertTimeToString(selectedSlot.endTimeHhmm)}}
                           </h5>
                         </div>
                       </div>

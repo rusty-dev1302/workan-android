@@ -348,7 +348,7 @@
                                         <a *ngIf="!copyStartTime" class="link link-disabled"
                                             style="font-size: 0.8rem!important;">Paste</a>
                                     </h4>
-                                    <div *ngIf="!toggleLoader" class="form-check form-switch">
+                                    <div *ngIf="!toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm" class="form-check form-switch">
                                         <label type="button" [hidden]="!template.enabled" class="form-check-label"
                                             for="slotSwitch">On</label>
                                         <label type="button" [hidden]="template.enabled" class="form-check-label"
@@ -357,7 +357,7 @@
                                             class="form-check-input" type="checkbox" [checked]="template.enabled"
                                             role="switch">
                                     </div>
-                                    <div *ngIf="toggleLoader">
+                                    <div *ngIf="toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm">
                                         <i class="fas fa-spinner fa-pulse"></i>
                                     </div>
                                 </div>
@@ -371,8 +371,8 @@
                                                 data-bs-target="#addSlotModal" style="margin-left: .2rem;"
                                                 (click)="addSlotTemplateItemToDialog(template.templateId)">
                                                 <span *ngIf="template.startTimeHhmm&&template.endTimeHhmm"
-                                                    style="margin-right: .4rem;">{{convertTimeToString(template.startTimeHhmm)}}
-                                                    - {{convertTimeToString(template.endTimeHhmm)}}</span>
+                                                    style="margin-right: .4rem;">{{dateTimeService.convertTimeToString(template.startTimeHhmm)}}
+                                                    - {{dateTimeService.convertTimeToString(template.endTimeHhmm)}}</span>
                                                 <i class="fa-solid fa-pen"></i></span>
                                         </div>
                                     </div>

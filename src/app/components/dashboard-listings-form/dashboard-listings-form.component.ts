@@ -16,6 +16,7 @@ import { SelectMapLocationComponent } from '../select-map-location/select-map-lo
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicePricing } from 'src/app/common/service-pricing';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -79,7 +80,8 @@ export class DashboardListingsFormComponent implements OnInit {
     private navigation: NavigationService,
     private dialogService: ConfirmationDialogService,
     private userService: UserService,
-    private fileService: FileService
+    private fileService: FileService,
+    public dateTimeService: DateTimeService
   ) { }
 
   ngOnInit(): void {
@@ -179,8 +181,8 @@ export class DashboardListingsFormComponent implements OnInit {
   createSlotRange(templateId: number = null!, startTime: string = null!, endTime: string = null!) {
     this.pasteItems = [];
 
-    let i = startTime != null ? +startTime : this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
-    let j = endTime != null ? +endTime : this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
+    let i = startTime != null ? +startTime : this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateStartTime);
+    let j = endTime != null ? +endTime : this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateEndTime);
 
     if (i < j) {
       constants.TIME_RANGE.forEach(
@@ -211,8 +213,8 @@ export class DashboardListingsFormComponent implements OnInit {
   addSlotTemplateItem() {
     let id!: number;
 
-    let startTime: number = this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
-    let endTime: number = this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
+    let startTime: number = this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateStartTime);
+    let endTime: number = this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateEndTime);
 
     let slot: SlotTemplateItem = new SlotTemplateItem(id, this.dialogSlotTemplateId, startTime, endTime, "", "");
 
@@ -514,29 +516,6 @@ export class DashboardListingsFormComponent implements OnInit {
         sub.unsubscribe();
       }
     );
-  }
-
-  convertTimeToString(time: number): string {
-    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
-    let min = (time % 100 == 0 ? "00" : time % 100);
-    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
-
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
-  }
-
-  convertTimeToNumber(time: string): number {
-    let hour: number = 0;
-    let min: number = 0;
-    hour = +time.split(":")[0];
-
-    if (time.includes("AM")) {
-      min = +time.split(":")[1].split("AM")[0];
-    } else if (time.includes("PM")) {
-      min = +time.split(":")[1].split("PM")[0];
-      hour = hour == 12 ? 12 : (hour + 12) % 24;
-    }
-
-    return hour * 100 + min;
   }
 
 }

@@ -3,7 +3,9 @@ import { Customer } from "./customer";
 export class CreateOrderRequest {
     constructor(
         public customer: Customer,
-        public slotTemplateItemId: number,
+        public listingId: number,
+        public preferredStartTimeHhmm: number,
+        public preferredEndTimeHhmm: number,
         public appointmentDate: Date,
         public menuItems: any[],
     ) {
