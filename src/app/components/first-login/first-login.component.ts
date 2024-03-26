@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
@@ -12,7 +13,8 @@ import { constants } from 'src/environments/constants';
     selector: 'app-first-login',
     templateUrl: './first-login.component.html',
     styleUrls: ['./first-login.component.css'],
-    standalone: true
+    standalone: true,
+    imports: [NgIf]
 })
 export class FirstLoginComponent implements OnInit {
 
@@ -20,6 +22,7 @@ export class FirstLoginComponent implements OnInit {
   isFirstLogin: boolean = false;
   user: Customer = constants.DEFAULT_CUSTOMER;
   subscription!: Subscription;
+  isWorkAuthorized: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -41,6 +44,10 @@ export class FirstLoginComponent implements OnInit {
       }
     );
     this.userService.updateFirstLogin();
+  }
+
+  toggleWorkAuthorized() {
+    this.isWorkAuthorized = !this.isWorkAuthorized;
   }
 
   setAccountType(type: string) {
