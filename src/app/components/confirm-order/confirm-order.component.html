@@ -35,11 +35,7 @@
                                     {{menuItem.serviceName}}
                                   </td>
                                   <td class="text-center">
-                                    <i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue"
-                                      style="margin-right: .4rem;"
-                                      aria-hidden="true"></i>{{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}<i
-                                      type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue"
-                                      aria-hidden="true" style="margin-left: .4rem;"></i>
+                                    {{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}
                                   </td>
                                   <td class="text-center">
                                     <i class="fa-solid fa-dollar-sign"
@@ -50,7 +46,7 @@
                             </table>
                             <div style="text-align:end;">
                               <b>Total: </b> <i class="fa-solid fa-dollar-sign"
-                                style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
+                                style="color: green;margin-right: .1rem;"></i>{{calculateTotalMenuCharges(selectedMenuItems)}}
                             </div>
                           </div>
                         </div>

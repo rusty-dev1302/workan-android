@@ -30,6 +30,11 @@ export class OrderService {
     return this.httpClient.get<Order[]>(getUrl)
   }
 
+  getMenuItemsForOrder(orderId: number): Observable<any[]> {
+    const getUrl = `${this.baseUrl}/menuItems?orderId=${orderId}`;
+    return this.httpClient.get<any[]>(getUrl)
+  }
+
   getOrdersForProfessional(professionalId: number): Observable<Order[]> {
     const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}`;
     return this.httpClient.get<Order[]>(getUrl)

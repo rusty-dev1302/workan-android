@@ -25,6 +25,8 @@ export class DashboardOrdersTakenComponent {
   orders!: Order[];
   subscription: any;
 
+  selectedMenuItemsForOrder: any[]=[];
+
   constructor(
     private orderService: OrderService,
     private userService: UserService,
@@ -36,6 +38,15 @@ export class DashboardOrdersTakenComponent {
   ngOnInit() {
     this.navigationService.showLoader();
     this.loadOrders();
+  }
+
+  getMenuItemsForOrder(orderId: number) {
+    this.selectedMenuItemsForOrder = [];
+    const sub = this.orderService.getMenuItemsForOrder(orderId).subscribe(
+      (data)=>{
+        this.selectedMenuItemsForOrder = data;
+      }
+    );
   }
 
   loadOrders() {

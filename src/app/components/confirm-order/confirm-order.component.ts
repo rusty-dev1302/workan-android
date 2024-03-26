@@ -24,19 +24,22 @@ export class ConfirmOrderComponent implements OnInit {
   @Input()
   professionalView:boolean = false;
 
+  @Input() 
+  listingId: number = 0;
+
+  @Input()
+  selectedMenuItems: any[]=[];
+
+  totalMenuCharges: number = 0
+
   currentDate!: string;
   currentSlots!: any[];
-  totalMenuCharges: number = 0;
   currentStep: number = 0;
 
   selectedDate!: Date;
   selectedSlot!: SlotTemplateItem;
 
-  selectedMenuItems: any[]=[];
-
   dayBoolArray: boolean[] = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
-
-  @Input() listingId: number = 0;
 
   constructor(
     private datePipe: DatePipe,
@@ -95,9 +98,9 @@ export class ConfirmOrderComponent implements OnInit {
     }
   }
 
-  calculateTotalMenuCharges() {
+  calculateTotalMenuCharges(items: any[]): number {
     this.totalMenuCharges = 0;
-    this.selectedMenuItems.forEach(
+    items.forEach(
       (mi) => {
         if(mi.quantity==null) {
           mi.quantity=0;
@@ -105,24 +108,9 @@ export class ConfirmOrderComponent implements OnInit {
         this.totalMenuCharges += mi.quantity*mi.charges;
       }
     );
+    return this.totalMenuCharges;
   }
 
-
-  addMenuItem(i: number) {
-    if(this.selectedMenuItems[i].quantity==null) {
-      this.selectedMenuItems[i].quantity = 0;
-    }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity+1;
-    this.calculateTotalMenuCharges();
-  }
-
-  removeMenuItem(i: number) {
-    if(this.selectedMenuItems[i].quantity==null) {
-      this.selectedMenuItems[i].quantity = 0;
-    }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity==0?0:(this.selectedMenuItems[i].quantity-1);
-    this.calculateTotalMenuCharges();
-  }
 
   selectSlot(slot: SlotTemplateItem) {
     this.selectedSlot = slot;
