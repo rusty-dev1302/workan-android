@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { DatePipe, NgIf, NgFor, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
+import { CreateOrderRequest } from 'src/app/common/create-order-request';
 
 @Component({
   selector: 'app-confirm-order',
@@ -25,7 +26,7 @@ export class ConfirmOrderComponent implements OnInit {
   professionalView:boolean = false;
 
   @Input() 
-  listingId: number = 0;
+  selectedOrderId: number = 0;
 
   @Input()
   selectedMenuItems: any[]=[];
@@ -69,7 +70,7 @@ export class ConfirmOrderComponent implements OnInit {
     this.dayBoolArray[i] = true;
     if (date) {
       this.selectedDate = date;
-      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)')!;
+      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)', '+0000')!;
       const sub = this.listingService.getAvailableSlotsItems(this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
@@ -135,9 +136,8 @@ export class ConfirmOrderComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = null;
-        // new CreateOrderRequest(customer, this.selectedSlot.id, new Date(this.selectedDate), this.selectedMenuItems);
-        const subscription = this.orderService.createOrder(createOrderRequest!).subscribe(
+       let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, new Date(this.selectedDate), null!);
+        const subscription = this.orderService.confirmOrderAppointment(this.selectedOrderId, this.selectedSlot.id, createOrderRequest!).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {
               this.toastr.success(data.state)

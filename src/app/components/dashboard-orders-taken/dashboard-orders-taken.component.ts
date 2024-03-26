@@ -26,6 +26,7 @@ export class DashboardOrdersTakenComponent {
   subscription: any;
 
   selectedMenuItemsForOrder: any[]=[];
+  selectedOrderId: number = 0;
 
   constructor(
     private orderService: OrderService,
@@ -41,6 +42,7 @@ export class DashboardOrdersTakenComponent {
   }
 
   getMenuItemsForOrder(orderId: number) {
+    this.selectedOrderId = orderId;
     this.selectedMenuItemsForOrder = [];
     const sub = this.orderService.getMenuItemsForOrder(orderId).subscribe(
       (data)=>{

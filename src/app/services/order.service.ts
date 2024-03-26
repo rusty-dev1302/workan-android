@@ -25,6 +25,11 @@ export class OrderService {
     return this.httpClient.post<BaseResponse>(postUrl, createOrderRequest);
   }
 
+  confirmOrderAppointment(orderId: number, slotTemplateItemId: number, request: CreateOrderRequest): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/confirm?orderId=${orderId}&&slotTemplateItemId=${slotTemplateItemId}`;
+    return this.httpClient.post<BaseResponse>(postUrl, request);
+  }
+
   getOrdersForCustomer(customerId: number): Observable<Order[]> {
     const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}`;
     return this.httpClient.get<Order[]>(getUrl)

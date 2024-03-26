@@ -83,6 +83,11 @@
                       style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                     <button class="btn btn-primary btn-rounded col-12" type="button"
                       [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
+                    <div *ngIf="order.status=='Awaiting Customer\'s Confirmation'" class="col-12 py-2">
+                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                        data-bs-target="#confirmOrderModal" (click)="confirmOrderAppointment(order.id)">Confirm Appointment
+                      </button>
+                    </div>
                   </div>
 
                 </div>
