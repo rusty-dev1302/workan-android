@@ -13,7 +13,7 @@ import { ConfirmPaymentComponent } from '../confirm-payment/confirm-payment.comp
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { ReviewComponent } from '../review/review.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { NgIf, DecimalPipe, DatePipe, NgFor } from '@angular/common';
 import { CustomerOrder } from 'src/app/common/customer-order';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
 
@@ -22,7 +22,7 @@ import { DateTimeService } from 'src/app/common/services/date-time.service';
     templateUrl: './dashboard-order-details.component.html',
     styleUrls: ['./dashboard-order-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, FormsModule, ReviewComponent, CancellationReasonComponent, ConfirmPaymentComponent, DecimalPipe, DatePipe, PhonePipe]
+    imports: [RouterLink, NgIf, NgFor, FormsModule, ReviewComponent, CancellationReasonComponent, ConfirmPaymentComponent, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrderDetailsComponent implements OnInit {
 

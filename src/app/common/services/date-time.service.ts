@@ -30,6 +30,9 @@ export class DateTimeService {
     let min = (time % 100 == 0 ? "00" : time % 100);
     let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
 
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
+    let hourStr = hour == 0 ? "00" : hour;
+    hourStr = hour<10?("0"+hourStr):hourStr;
+
+    return hourStr + ":" + min + merd;
   }
 }
