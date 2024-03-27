@@ -97,7 +97,7 @@ export class ManageUsersComponent implements OnInit {
         } else {
           this.contactDetail = constants.DEFAULT_CONTACT_DETAIL;
         }
-        if (this.contactDetail.addressLine1 != "" && this.contactDetail.addressLine2 != "" && this.contactDetail.addressLine3 != "") {
+        if (this.contactDetail.addressLine3 != "") {
           this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
         }
         contactSubscription.unsubscribe();

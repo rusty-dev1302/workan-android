@@ -21,7 +21,7 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="subcategory">Subcategory</label>
+                        <label for="subcategory"><i class="fa fa-sitemap px-1" aria-hidden="true"></i>Subcategory</label>
                       </div>
                       <select #subcategory class="form-select" aria-label="subcategory" [value]="currentSubcategory"
                         (change)="selectSubcategory(subcategory.value)">
@@ -34,7 +34,8 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="sortBy">Sort by</label>
+                        <label for="sortBy"><i class="fa fa-sort px-2" aria-hidden="true"></i>Sort by
+                        </label>
                       </div>
                       <select #sortBy class="form-select" aria-label="sortBy" [value]="sortByValue"
                         (change)="selectSortBy(sortBy.value)">
@@ -47,7 +48,7 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <app-select-map-location headline="Location" [initialValue]="currentLocation"
+                        <app-select-map-location headline="Location" [initialValue]="currentLocation" [isFilter]="true"
                           (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
                       </div>
                     </div>

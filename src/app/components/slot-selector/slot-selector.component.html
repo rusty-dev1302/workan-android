@@ -207,25 +207,19 @@
                       </h6>
                     </div>
                   </div>
-                  <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+                  <div *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
                     class="col-12" style="margin-top: .5rem;">
                     <div class="form-group">
                       <label class="review-count" style="font-weight: bold;">Customer Address</label>
-                      <h5 style="margin-bottom: 3px;">
-                        {{customerAddress.addressLine1}},
-                      </h5>
-                      <h5 style="margin-bottom: 3px;">
-                        {{customerAddress.addressLine2}},
-                      </h5>
                       <h5>
                         {{customerAddress.addressLine3}}
                       </h5>
                     </div>
                   </div>
                   <hr class="style1">
-                  <h6 *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+                  <h6 *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
                     class="small-text">&bull; Please confirm the date and slot timings</h6>
-                  <h6 *ngIf="!(customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1)"
+                  <h6 *ngIf="!(customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3)"
                     class="small-text" style="color: rgb(225, 0, 0);font-weight: bold;">&bull; Please update your
                     address to place the order.</h6>
                 </div>
@@ -233,12 +227,12 @@
               </div>
             </div>
             <!-- Slots end -->
-            <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+            <div *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
               class="d-flex justify-content-end">
               <button type="button" class="btn btn-danger btn-rounded col-12" (click)="previousStep()"
                 style="margin-bottom: .5rem;">Back</button>
             </div>
-            <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
+            <div *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
               class="d-flex justify-content-end">
               <button type="button" class="btn btn-warning btn-rounded col-12" (click)="bookSlot()"
                 data-bs-dismiss="modal" aria-label="Close">Book Appointment</button>
