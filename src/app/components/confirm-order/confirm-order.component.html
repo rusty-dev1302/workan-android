@@ -81,8 +81,17 @@
               <div class="container">
 
                 <div class="row g-2">
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 col">
+                    <h6 class="review-count" style="font-weight: bold;">Preferred Day</h6>
+                    <span>{{appointmentDate|date:'dd MMM (EE)':'+0000'}}</span>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 col">
+                    <h6 class="review-count" style="font-weight: bold;">Preferred Time</h6>
+                    <span>{{dateTimeService.convertTimeToString(preferredStartTimeHhmm)}} - {{dateTimeService.convertTimeToString(preferredEndTimeHhmm)}}</span>
+                  </div>
+                  <hr>
                   <div class="col-lg-12">
-                    <h5 class="review-count">Day</h5>
+                    <h6 class="review-count" style="font-weight: bold;">Selected Day</h6>
                     <div class="input-group mb-3 dropdown">
                       <input [ngModel]="currentDate" type="text" class="form-control" name="slotDay" readonly
                         style="background-color: white;">
@@ -100,7 +109,7 @@
                   </div>
                   <div class="col-12">
                     <div class="form-group">
-                      <h5 class="review-count">Available Slots:</h5>
+                      <h6 class="review-count" style="font-weight: bold;">Available Slots:</h6>
                       <div class="row">
                         <!-- Time slot to be iterated  -->
                         <div *ngFor="let slot of currentSlots"

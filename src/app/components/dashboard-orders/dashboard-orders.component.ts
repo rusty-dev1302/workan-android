@@ -21,8 +21,10 @@ import { CreateOrderRequest } from 'src/app/common/create-order-request';
 })
 export class DashboardOrdersComponent implements OnInit {
 
-  orders!: Order[];
+  allOrders!: Order[];
+  cancelledOrders!: Order[];
   subscription: any;
+  cancelledOrdersSelected: boolean = false;
 
   constructor(
     private orderService: OrderService,
@@ -61,7 +63,9 @@ export class DashboardOrdersComponent implements OnInit {
         if (user.state == constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForCustomer(user.id).subscribe(
             (data) => {
-              this.orders = data.sort((a, b) => b.id - a.id);
+              this.allOrders = data.filter((order)=>order.status!='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
+              this.cancelledOrders = data.filter((order)=>order.status=='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
+ 
               this.navigationService.pageLoaded();
               subscription.unsubscribe();
             }
@@ -70,6 +74,10 @@ export class DashboardOrdersComponent implements OnInit {
         this.subscription.unsubscribe();
       }
     );
+  }
+
+  toggleTabs() {
+    this.cancelledOrdersSelected = !this.cancelledOrdersSelected;
   }
 
 }

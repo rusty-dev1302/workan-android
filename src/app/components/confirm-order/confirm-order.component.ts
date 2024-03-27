@@ -31,6 +31,15 @@ export class ConfirmOrderComponent implements OnInit {
   @Input()
   selectedMenuItems: any[]=[];
 
+  @Input()
+  appointmentDate!: Date;
+
+  @Input()
+  preferredStartTimeHhmm!: number;
+
+  @Input()
+  preferredEndTimeHhmm!: number;
+
   totalMenuCharges: number = 0
 
   currentDate!: string;

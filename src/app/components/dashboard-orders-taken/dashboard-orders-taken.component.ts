@@ -22,11 +22,18 @@ import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component'
 export class DashboardOrdersTakenComponent {
 
   
-  orders!: Order[];
+  allOrders!: Order[];
+  cancelledOrders!: Order[];
   subscription: any;
 
   selectedMenuItemsForOrder: any[]=[];
   selectedOrderId: number = 0;
+  selectedAppointmentDate!: Date;
+  selectedPreferredStartTimeHhmm!: number;
+  selectedPreferredEndTimeHhmm!: number;
+
+  cancelledOrdersSelected: boolean = false;
+
 
   constructor(
     private orderService: OrderService,
@@ -41,14 +48,23 @@ export class DashboardOrdersTakenComponent {
     this.loadOrders();
   }
 
-  getMenuItemsForOrder(orderId: number) {
-    this.selectedOrderId = orderId;
+  prepareDataForConfirm(order: Order) {
+    this.selectedAppointmentDate = order.appointmentDate;
+    this.selectedPreferredStartTimeHhmm = order.preferredStartTimeHhmm;
+    this.selectedPreferredEndTimeHhmm = order.preferredEndTimeHhmm;
+
+    this.selectedOrderId = order.id;
     this.selectedMenuItemsForOrder = [];
-    const sub = this.orderService.getMenuItemsForOrder(orderId).subscribe(
+    const sub = this.orderService.getMenuItemsForOrder(order.id).subscribe(
       (data)=>{
         this.selectedMenuItemsForOrder = data;
+        sub.unsubscribe();
       }
     );
+  }
+  
+  toggleTabs() {
+    this.cancelledOrdersSelected = !this.cancelledOrdersSelected;
   }
 
   loadOrders() {
@@ -58,8 +74,10 @@ export class DashboardOrdersTakenComponent {
         if(user.state==constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
             (data) => {
-              this.orders = data.sort((a, b)=>b.id-a.id);
-
+              console.log(this.allOrders)
+              this.allOrders = data.filter((order)=>order.status!='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
+              this.cancelledOrders = data.filter((order)=>order.status=='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
+              
               this.navigationService.pageLoaded();
               subscription.unsubscribe();
             }
