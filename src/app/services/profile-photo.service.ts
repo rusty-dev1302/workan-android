@@ -31,8 +31,8 @@ export class ProfilePhotoService {
     return this.httpClient.post<BaseResponse>(postUrl, uploadImageData);
   }
 
-  getImageByCustomerId(customerId: number): Observable<ProfilePhoto> {
-    const getUrl = `${this.baseUrl}/get?customerId=${customerId}`;
+  getImageByCustomerId(customerId: number, forEdit: boolean=false): Observable<ProfilePhoto> {
+    const getUrl = `${this.baseUrl}/get?customerId=${customerId}&&forEdit=${forEdit}`;
     return this.httpClient.get<ProfilePhoto>(getUrl);
   }
 

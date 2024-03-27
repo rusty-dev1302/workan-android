@@ -31,14 +31,14 @@
                         <img *ngIf="!listing.professional.profilePhoto" alt="..." class="img-fluid" width="90%"
                           src="assets/profile.png">
                         <img *ngIf="listing.professional.profilePhoto" alt="..." class="img-fluid profile-photo"
-                          width="90%" [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
+                          width="90%" [src]="'data:image/png;base64,'+listing.professional.profilePhoto.thumbnail">
                       </div>
                       <div class="col-12">
                         <div class="form-group">
                           <h4>{{professional.firstName}} {{professional.lastName}}</h4>
-                          <h6 *ngIf="listing" style="padding-left: .26rem!important;"><b><i
-                                class="fa-solid fa-dollar-sign" style="color: green;"></i> {{listing.charges | number :
-                              '1.2-2'}}</b></h6>
+                          <h6 *ngIf="listing" style="padding-left: .26rem!important;"><b><i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{listing.minCharge |
+                            number : '1.2-2'}} - <i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{listing.maxCharge |
+                            number : '1.2-2'}}</b></h6>
                           <h6><i class="fa fa-star rating-color"></i> {{professional.rating | number : '1.1-1'}}</h6>
                           <h6>
                             <div class="svg-container">

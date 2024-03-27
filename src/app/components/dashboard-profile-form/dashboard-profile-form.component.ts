@@ -130,6 +130,7 @@ export class DashboardProfileFormComponent implements OnInit {
         if (image && image.state != constants.ERROR_STATE) {
           this.profilePhoto = image;
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
+          this.profilePhoto.thumbnail = 'data:image/jpeg;base64,' + image.thumbnail;
         }
 
         this.navigationService.pageLoaded();

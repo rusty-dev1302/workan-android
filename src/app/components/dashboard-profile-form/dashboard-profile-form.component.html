@@ -12,7 +12,7 @@
                             <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
                                 src="assets/profile.png">
                             <img *ngIf="profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
-                                [src]="profilePhoto.picByte">
+                                [src]="profilePhoto.thumbnail">
                             <div class="img-overlay" type="button" data-bs-toggle="modal"
                                 data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()">
                                 <button class="btn border btn-primary btn-rounded" data-bs-toggle="modal"

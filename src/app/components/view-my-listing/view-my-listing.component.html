@@ -31,7 +31,7 @@
                         <img *ngIf="!listing.professional.profilePhoto" alt="..." class="img-fluid" width="90%"
                           src="assets/profile.png">
                         <img *ngIf="listing.professional.profilePhoto" alt="..." class="img-fluid profile-photo"
-                          width="90%" [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
+                          width="90%" [src]="'data:image/png;base64,'+listing.professional.profilePhoto.thumbnail">
                       </div>
                       <div class="col-12">
                         <div class="form-group">

@@ -31,6 +31,11 @@ export class UserService {
     return this.httpClient.get<Customer>(getUrl);
   }
 
+  getUserShortByEmail(email: string): Observable<Customer> {
+    const getUrl = `${this.baseUrl}/detail/short?email=${email}`;
+    return this.httpClient.get<Customer>(getUrl);
+  }
+
   getCertificationsByEmail(email: string): Observable<Certification[]> {
     const getUrl = `${this.baseUrl}/certification/all?email=${email}`;
     return this.httpClient.get<Certification[]>(getUrl);
@@ -131,7 +136,7 @@ export class UserService {
       (userProfile) => {
         if(userProfile) {
 
-          const sub2 = this.getUserByEmail(userProfile.email!).subscribe(
+          const sub2 = this.getUserShortByEmail(userProfile.email!).subscribe(
             (user) => {
 
               if(user.state==constants.ERROR_STATE && user.message=='Customer does not exist') {

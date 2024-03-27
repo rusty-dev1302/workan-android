@@ -5,7 +5,7 @@
       <li *ngIf="!profilePhoto" class="py-3"><img alt="..." class="img-fluid" width="40%" src="assets/profile.png"
           type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
       <li *ngIf="profilePhoto" class="py-2"><img alt="..." class="img-fluid profile-photo" width="40%"
-          [src]="profilePhoto.picByte" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
+          [src]="profilePhoto.thumbnail" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain"></li>
       <li type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">
         {{currentUser.firstName}} {{currentUser.lastName}}</li>

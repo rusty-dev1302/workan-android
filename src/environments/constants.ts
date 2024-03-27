@@ -79,6 +79,7 @@ export const constants = {
         id: 0,
         customerId: 0,
         picByte: [],
+        thumbnail: [],
         state: "",
         message: ""
       },
