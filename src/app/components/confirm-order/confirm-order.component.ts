@@ -64,11 +64,11 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSlotsForDay(new Date(), 0);
+    this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-mm-dd", "+0000")!), 0);
   }
 
   slotDate(index: number): Date {
-    let date: Date = new Date();
+    let date: Date = new Date(this.datePipe.transform(new Date(), "yyyy-mm-dd", "+0000")!);
     date.setDate(date.getDate() + index);
 
     return date;
