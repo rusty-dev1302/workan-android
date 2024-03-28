@@ -365,6 +365,11 @@ export class DashboardListingsFormComponent implements OnInit {
     this.isServicePriceSelect = true;
   }
 
+  // methods alter date availability 
+  removeUnavailableDate(slotTemplateId: number) {
+    this.dialogSlotTemplateId = slotTemplateId;
+  }
+
   // methods to add values to slot dialog start 
   addSlotTemplateItemToDialog(slotTemplateId: number) {
     this.dialogSlotTemplateId = slotTemplateId;

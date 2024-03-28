@@ -59,7 +59,8 @@
                         <div class="form-group">
                             <label>Charges</label>
                             <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{displayListing.minCharge
-                                | number : '1.2-2'}} - <i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{displayListing.maxCharge | number : '1.2-2'}}</h5>
+                                | number : '1.2-2'}} - <i class="fa-solid fa-dollar-sign"
+                                    style="color: green;"></i>{{displayListing.maxCharge | number : '1.2-2'}}</h5>
                         </div>
                     </div>
 
@@ -79,15 +80,17 @@
                     class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.</h6>
+                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.
+                </h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                class="small-text">&bull; Please upload all the <b>relevant certifications/documents</b> from documents section.
+                    class="small-text">&bull; Please upload all the <b>relevant certifications/documents</b> from
+                    documents section.
                 </h6>
             </div>
         </form>
         <!-- User Form Ends -->
     </div>
-    
+
     <div *ngIf="menuItem==0&&listing.id>0" class="row g-5">
         <div class="col-xl-12 col-md-12 ">
             <!-- Ratings panel starts -->
@@ -249,7 +252,8 @@
                                                     type="button" style="font-size: 1rem!important;"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
                                                     from profile':'Show on profile'}}</a>
-                                                <a class="link px-1" *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                <a class="link px-1"
+                                                    *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
                                                     style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</a>
@@ -279,8 +283,6 @@
     </div>
 
     <div *ngIf="menuItem==2" class="form-section p-3 m-3">
-
-        <app-unavailability-calendar></app-unavailability-calendar>
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -352,7 +354,8 @@
                                         <a *ngIf="!copyStartTime" class="link link-disabled"
                                             style="font-size: 0.8rem!important;">Paste</a>
                                     </h4>
-                                    <div *ngIf="!toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm" class="form-check form-switch">
+                                    <div *ngIf="!toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm"
+                                        class="form-check form-switch">
                                         <label type="button" [hidden]="!template.enabled" class="form-check-label"
                                             for="slotSwitch">On</label>
                                         <label type="button" [hidden]="template.enabled" class="form-check-label"
@@ -376,7 +379,8 @@
                                                 (click)="addSlotTemplateItemToDialog(template.templateId)">
                                                 <span *ngIf="template.startTimeHhmm&&template.endTimeHhmm"
                                                     style="margin-right: .4rem;">{{dateTimeService.convertTimeToString(template.startTimeHhmm)}}
-                                                    - {{dateTimeService.convertTimeToString(template.endTimeHhmm)}}</span>
+                                                    -
+                                                    {{dateTimeService.convertTimeToString(template.endTimeHhmm)}}</span>
                                                 <i class="fa-solid fa-pen"></i></span>
                                         </div>
                                     </div>
@@ -393,6 +397,56 @@
                 <h6 class="small-text">&bull; Each slot represents 30min availability time unit for the corresponding
                     day.</h6>
                 <h6 class="small-text">&bull; Remove the time units for the time you will be unavailable for the day.
+                </h6>
+            </div>
+        </form>
+        <!-- User Form Ends -->
+    </div>
+
+    <div *ngIf="menuItem==2" class="form-section p-3 m-3">
+
+        <!-- User Form Starts -->
+        <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+
+            <div class="mb-3">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-group">
+                            <h3><b>Unavailability</b>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <app-unavailability-calendar></app-unavailability-calendar>
+
+                <!-- Slots for the day start  -->
+                <div>
+                    <div *ngFor="let template of availabilityRange" class="row">
+                        <div *ngIf="selectedDay==template.dayName">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label style="margin-bottom: 1rem!important;">Unavailable Dates:</label>
+                                    <div class="row">
+                                        <div class="col py-1">
+                                            <span class="btn btn-rounded btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#addSlotModal" style="margin-left: .2rem;"
+                                                (click)="removeUnavailableDate(template.templateId)">
+                                                <span *ngIf="template.startTimeHhmm&&template.endTimeHhmm"
+                                                    style="margin-right: .4rem;">{{dateTimeService.convertTimeToString(template.startTimeHhmm)}}</span>
+                                                <i class="fa fa-times" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    <hr class="style1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slots for the day end  -->
+                <h6 class="small-text">&bull; Add the dates you are unavailable and do not wish to take orders for.
+                </h6>
+                <h6 class="small-text">&bull; These dates will be unavailable despite the status of the day availability.
                 </h6>
             </div>
         </form>
