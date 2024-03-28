@@ -63,8 +63,8 @@ export class DashboardOrdersTakenComponent {
     );
   }
   
-  toggleTabs() {
-    this.cancelledOrdersSelected = !this.cancelledOrdersSelected;
+  toggleTabs(input: boolean) {
+    this.cancelledOrdersSelected = input;
   }
 
   loadOrders() {

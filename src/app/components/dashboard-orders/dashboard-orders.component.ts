@@ -76,8 +76,8 @@ export class DashboardOrdersComponent implements OnInit {
     );
   }
 
-  toggleTabs() {
-    this.cancelledOrdersSelected = !this.cancelledOrdersSelected;
+  toggleTabs(input: boolean) {
+    this.cancelledOrdersSelected = input;
   }
 
 }
