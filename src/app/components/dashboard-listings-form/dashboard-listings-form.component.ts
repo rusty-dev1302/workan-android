@@ -17,13 +17,14 @@ import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicePricing } from 'src/app/common/service-pricing';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
+import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unavailability-calendar.component';
 
 @Component({
   selector: 'app-dashboard-listings-form',
   templateUrl: './dashboard-listings-form.component.html',
   styleUrls: ['./dashboard-listings-form.component.css'],
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe]
+  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe, UnavailabilityCalendarComponent]
 })
 export class DashboardListingsFormComponent implements OnInit {
 
