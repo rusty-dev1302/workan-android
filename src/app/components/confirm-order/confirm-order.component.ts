@@ -64,21 +64,14 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-mm-dd", "+0000")!), 0);
+    this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd", "+000000")!), 0);
   }
 
   slotDate(index: number): Date {
-    let date: Date = new Date(this.datePipe.transform(new Date(), "yyyy-mm-dd", "+0000")!);
+    let date: Date = new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd", "+000000")!);
     date.setDate(date.getDate() + index);
 
     return date;
-  }
-
-  dateDifference(d1: string, d2: string):any {
-    if(d1<=d2) {
-      return Math.floor((new Date(d2).getTime() - new Date(d2).getTime())/ (1000 * 60 * 60 * 24))
-    }
-    return 0;
   }
 
   getSlotsForDay(date: Date, i: number) {
@@ -86,7 +79,7 @@ export class ConfirmOrderComponent implements OnInit {
     this.dayBoolArray[i] = true;
     if (date) {
       this.selectedDate = date;
-      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)', '+0000')!;
+      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)', '+000000')!;
       const sub = this.listingService.getAvailableSlotsItems(this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
@@ -152,7 +145,7 @@ export class ConfirmOrderComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-       let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, new Date(this.selectedDate), null!);
+       let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, new Date(this.datePipe.transform(this.selectedDate, "yyyy-MM-dd", "+000000")!), null!);
         const subscription = this.orderService.confirmOrderAppointment(this.selectedOrderId, this.selectedSlot.id, createOrderRequest!).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

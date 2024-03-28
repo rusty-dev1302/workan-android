@@ -72,7 +72,7 @@ export class SlotSelectorComponent implements OnInit {
           this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
         });
 
-        this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-mm-dd", "+0000")!), 0);
+        this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd", "+000000")!), 0);
         subscription.unsubscribe();
       }
     );
@@ -184,7 +184,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), new Date(this.selectedDate), this.selectedMenuItems);
+        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), new Date(this.datePipe.transform(this.selectedDate, "yyyy-MM-dd", "+000000")!), this.selectedMenuItems);
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

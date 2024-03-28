@@ -79,7 +79,9 @@
                     class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.
+                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.</h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                class="small-text">&bull; Please upload all the <b>relevant certifications/documents</b> from documents section.
                 </h6>
             </div>
         </form>
