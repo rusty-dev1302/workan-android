@@ -74,6 +74,13 @@ export class ConfirmOrderComponent implements OnInit {
     return date;
   }
 
+  dateDifference(d1: string, d2: string):any {
+    if(d1<=d2) {
+      return Math.floor((new Date(d2).getTime() - new Date(d2).getTime())/ (1000 * 60 * 60 * 24))
+    }
+    return 0;
+  }
+
   getSlotsForDay(date: Date, i: number) {
     this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_CLEAR));
     this.dayBoolArray[i] = true;

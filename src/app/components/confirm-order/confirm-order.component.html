@@ -102,7 +102,7 @@
                       <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
                         <li *ngFor="let e of dayBoolArray; let i = index"><a [ngClass]="e==true?'disabled':''"
                             class="dropdown-item" type="button"
-                            (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)'}}</a>
+                            (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)':'+0000'}}</a>
                         </li>
                       </ul>
                     </div>

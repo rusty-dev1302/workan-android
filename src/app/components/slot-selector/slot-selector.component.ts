@@ -72,7 +72,7 @@ export class SlotSelectorComponent implements OnInit {
           this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
         });
 
-        this.getSlotsForDay(new Date(), 0);
+        this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-mm-dd", "+0000")!), 0);
         subscription.unsubscribe();
       }
     );
