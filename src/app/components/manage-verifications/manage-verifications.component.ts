@@ -1,8 +1,8 @@
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { FileService } from 'src/app/services/file.service';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-manage-verifications',

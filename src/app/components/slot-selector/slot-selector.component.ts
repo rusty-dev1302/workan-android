@@ -1,18 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { DatePipe, NgIf, NgFor, NgClass } from '@angular/common';
-import { ListingService } from 'src/app/services/listing.service';
-import { SlotTemplateItem } from 'src/app/common/slot-template-item';
-import { OrderService } from 'src/app/services/order.service';
-import { CreateOrderRequest } from 'src/app/common/create-order-request';
-import { KeycloakService } from 'keycloak-angular';
-import { UserService } from 'src/app/services/user.service';
-import { Customer } from 'src/app/common/customer';
-import { ToastrService } from 'ngx-toastr';
-import { constants } from 'src/environments/constants';
-import { Router } from '@angular/router';
-import { ContactDetail } from 'src/app/common/contact-detail';
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
+import { ContactDetail } from 'src/app/common/contact-detail';
+import { CreateOrderRequest } from 'src/app/common/create-order-request';
+import { Customer } from 'src/app/common/customer';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
+import { ListingService } from 'src/app/services/listing.service';
+import { OrderService } from 'src/app/services/order.service';
+import { UserService } from 'src/app/services/user.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
   selector: 'app-slot-selector',

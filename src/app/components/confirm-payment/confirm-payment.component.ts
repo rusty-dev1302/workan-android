@@ -1,12 +1,11 @@
+import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { PaymentService } from 'src/app/services/payment.service';
-import { constants } from 'src/environments/constants';
-import { ToastrService } from 'ngx-toastr';
-import { OrderService } from 'src/app/services/order.service';
+import { FormsModule } from '@angular/forms';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { InvoiceService } from 'src/app/services/invoice.service';
-import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { OrderService } from 'src/app/services/order.service';
+import { PaymentService } from 'src/app/services/payment.service';
+import { constants } from 'src/environments/constants';
 
 
 @Component({

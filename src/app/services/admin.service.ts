@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { constants } from 'src/environments/constants';
-import { Customer } from '../common/customer';
-import { ContactDetail } from '../common/contact-detail';
-import { Listing } from '../common/listing';
 import { BaseResponse } from '../common/base-response';
+import { ContactDetail } from '../common/contact-detail';
+import { Customer } from '../common/customer';
+import { Listing } from '../common/listing';
 
 @Injectable({
   providedIn: 'root'

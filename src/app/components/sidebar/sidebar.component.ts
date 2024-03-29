@@ -1,4 +1,6 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { Customer } from 'src/app/common/customer';
@@ -6,8 +8,6 @@ import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
-import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-sidebar',

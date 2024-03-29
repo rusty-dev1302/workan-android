@@ -1,5 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
 

@@ -1,22 +1,21 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { Subscription } from 'rxjs';
-import { Listing } from 'src/app/common/listing';
-import { SlotTemplate } from 'src/app/common/slot-template';
-import { SlotTemplateItem } from 'src/app/common/slot-template-item';
-import { ListingService } from 'src/app/services/listing.service';
-import { constants } from 'src/environments/constants';
-import { ToastrService } from 'ngx-toastr';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
-import { Certification } from 'src/app/common/certification';
-import { UserService } from 'src/app/services/user.service';
-import { FileService } from 'src/app/services/file.service';
-import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
-import { NgIf, NgFor, DecimalPipe, JsonPipe, DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
+import { Certification } from 'src/app/common/certification';
+import { Listing } from 'src/app/common/listing';
 import { ServicePricing } from 'src/app/common/service-pricing';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
+import { SlotTemplateItem } from 'src/app/common/slot-template-item';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { FileService } from 'src/app/services/file.service';
+import { ListingService } from 'src/app/services/listing.service';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { UserService } from 'src/app/services/user.service';
+import { constants } from 'src/environments/constants';
+import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
 import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unavailability-calendar.component';
 
 @Component({

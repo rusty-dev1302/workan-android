@@ -1,50 +1,27 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
-import { AppComponent } from './app/app.component';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { OAuthModule } from 'angular-oauth2-oidc';
-import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { DashboardListingsComponent } from './app/components/dashboard-listings/dashboard-listings.component';
-import { DashboardOrdersTakenDetailsComponent } from './app/components/dashboard-orders-taken-details/dashboard-orders-taken-details.component';
-import { DashboardOrdersTakenComponent } from './app/components/dashboard-orders-taken/dashboard-orders-taken.component';
-import { DashboardOrderDetailsComponent } from './app/components/dashboard-order-details/dashboard-order-details.component';
-import { DashboardAddressDetailsComponent } from './app/components/dashboard-address-details/dashboard-address-details.component';
-import { DashboardOrdersComponent } from './app/components/dashboard-orders/dashboard-orders.component';
-import { CustomerGuard } from './app/utility/customer.guard';
-import { DashboardPaymentsComponent } from './app/components/dashboard-payments/dashboard-payments.component';
-import { DashboardProfileComponent } from './app/components/dashboard-profile/dashboard-profile.component';
-import { DashboardComponent } from './app/components/dashboard/dashboard.component';
-import { ManageVerificationsComponent } from './app/components/manage-verifications/manage-verifications.component';
-import { AdminGuard } from './app/utility/admin.guard';
-import { ManageUsersComponent } from './app/components/manage-users/manage-users.component';
-import { AdminDashboardComponent } from './app/components/admin-dashboard/admin-dashboard.component';
-import { ProfessionalGuard } from './app/utility/professional.guard';
-import { ViewMyListingComponent } from './app/components/view-my-listing/view-my-listing.component';
-import { ListingDetailsComponent } from './app/components/listing-details/listing-details.component';
-import { BrowseListingsComponent } from './app/components/browse-listings/browse-listings.component';
-import { PaymentGatewayComponent } from './app/components/payment-gateway/payment-gateway.component';
-import { AcceptableUsePolicyComponent } from './app/components/acceptable-use-policy/acceptable-use-policy.component';
-import { TermsOfUseComponent } from './app/components/terms-of-use/terms-of-use.component';
-import { PrivacyPolicyComponent } from './app/components/privacy-policy/privacy-policy.component';
-import { DisclaimerComponent } from './app/components/disclaimer/disclaimer.component';
-import { LandingPageComponent } from './app/components/landing-page/landing-page.component';
-import { AuthGuard } from './app/utility/app.guard';
-import { FirstLoginComponent } from './app/components/first-login/first-login.component';
-import { withInMemoryScrolling, provideRouter, Routes } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { Routes, provideRouter, withInMemoryScrolling } from '@angular/router';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { MatDialogModule } from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
-import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
-import { initializeKeycloak } from './app/utility/app.init';
-import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
-import { UserService } from './app/services/user.service';
+import { ToastrModule } from 'ngx-toastr';
+import { AppComponent } from './app/app.component';
 import { ListingService } from './app/services/listing.service';
+import { UserService } from './app/services/user.service';
+import { AdminGuard } from './app/utility/admin.guard';
+import { AuthGuard } from './app/utility/app.guard';
+import { initializeKeycloak } from './app/utility/app.init';
+import { CustomerGuard } from './app/utility/customer.guard';
+import { ProfessionalGuard } from './app/utility/professional.guard';
 
 const routes: Routes = [
   {

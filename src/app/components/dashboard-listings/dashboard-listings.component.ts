@@ -1,8 +1,8 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Listing } from 'src/app/common/listing';
 import { DashboardListingsFormComponent } from '../dashboard-listings-form/dashboard-listings-form.component';
-import { RouterLink } from '@angular/router';
-import { NgClass } from '@angular/common';
 
 
 @Component({

@@ -1,18 +1,18 @@
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { PaymentAccount } from 'src/app/common/payment-account';
-import { Transaction } from 'src/app/common/transaction';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 import "pdfmake/build/pdfmake";
 import "pdfmake/build/vfs_fonts";
-import { FileService } from 'src/app/services/file.service';
 import { Invoice } from 'src/app/common/invoice';
-import { constants } from 'src/environments/constants';
-import { ToastrService } from 'ngx-toastr';
+import { PaymentAccount } from 'src/app/common/payment-account';
+import { Transaction } from 'src/app/common/transaction';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
-import { FormsModule } from '@angular/forms';
-import { NgClass, NgIf, NgFor, DecimalPipe, DatePipe } from '@angular/common';
+import { FileService } from 'src/app/services/file.service';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { UserService } from 'src/app/services/user.service';
+import { constants } from 'src/environments/constants';
 
 @Component({
     selector: 'app-dashboard-payments',

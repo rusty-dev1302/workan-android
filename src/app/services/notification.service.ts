@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { constants } from 'src/environments/constants';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { constants } from 'src/environments/constants';
 import { PushNotification } from '../common/push-notification';
 
 @Injectable({

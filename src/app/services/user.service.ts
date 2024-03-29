@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Customer } from '../common/customer';
-import { BehaviorSubject, Observable, Subject, map } from 'rxjs';
-import { ContactDetail } from '../common/contact-detail';
-import { constants } from 'src/environments/constants';
-import { KeycloakProfile } from 'keycloak-js';
+import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { PaymentAccount } from '../common/payment-account';
-import { Certification } from '../common/certification';
+import { KeycloakProfile } from 'keycloak-js';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { constants } from 'src/environments/constants';
 import { BaseResponse } from '../common/base-response';
+import { Certification } from '../common/certification';
+import { ContactDetail } from '../common/contact-detail';
+import { Customer } from '../common/customer';
+import { PaymentAccount } from '../common/payment-account';
 
 
 

@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot
+  Router
 } from '@angular/router';
-import { UserService } from '../services/user.service';
 import { KeycloakService } from 'keycloak-angular';
 import { Observable, map } from 'rxjs';
 import { constants } from 'src/environments/constants';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'

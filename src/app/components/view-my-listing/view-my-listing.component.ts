@@ -1,4 +1,6 @@
+import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { Listing } from 'src/app/common/listing';
 import { Professional } from 'src/app/common/professional';
@@ -9,8 +11,6 @@ import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
-import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 @Component({
     selector: 'app-view-my-listing',

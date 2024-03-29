@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
-import { GoogleMap } from '@angular/google-maps';
-import Geohash from 'latlon-geohash';
-import { FormsModule } from '@angular/forms';
-import { KeycloakService } from 'keycloak-angular';
-import { UserService } from 'src/app/services/user.service';
 import { NgIf } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { GoogleMap } from '@angular/google-maps';
+import { KeycloakService } from 'keycloak-angular';
+import Geohash from 'latlon-geohash';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({

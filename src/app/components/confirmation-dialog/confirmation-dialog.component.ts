@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
-import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 @Component({
     selector: 'app-confirmation-dialog',

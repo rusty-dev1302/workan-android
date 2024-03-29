@@ -1,8 +1,8 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { DashboardProfileFormComponent } from '../dashboard-profile-form/dashboard-profile-form.component';
 import { PhotoUploaderComponent } from '../photo-uploader/photo-uploader.component';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard-profile',

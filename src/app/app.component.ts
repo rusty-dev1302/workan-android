@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NavigationService } from './services/navigation.service';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { RouterOutlet, RouterLink } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingScreenComponent } from './components/loading-screen/loading-screen.component';
+import { NavigationService } from './services/navigation.service';
 
 @Component({
     selector: 'app-root',

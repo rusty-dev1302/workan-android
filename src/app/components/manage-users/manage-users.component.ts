@@ -1,6 +1,6 @@
+import { DecimalPipe, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
-import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
@@ -8,11 +8,8 @@ import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { AdminService } from 'src/app/services/admin.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
-import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
-import { NgIf, DecimalPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { SearchComponent } from '../search/search.component';
 
 @Component({

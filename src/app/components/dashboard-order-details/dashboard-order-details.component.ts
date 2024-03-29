@@ -1,21 +1,19 @@
+import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription, interval } from 'rxjs';
-import { Order } from 'src/app/common/order';
+import { CustomerOrder } from 'src/app/common/customer-order';
 import { ProcessOrderRequest } from 'src/app/common/process-order-request';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
-import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
-import { ConfirmPaymentComponent } from '../confirm-payment/confirm-payment.component';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
+import { ConfirmPaymentComponent } from '../confirm-payment/confirm-payment.component';
 import { ReviewComponent } from '../review/review.component';
-import { FormsModule } from '@angular/forms';
-import { NgIf, DecimalPipe, DatePipe, NgFor } from '@angular/common';
-import { CustomerOrder } from 'src/app/common/customer-order';
-import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
     selector: 'app-dashboard-order-details',

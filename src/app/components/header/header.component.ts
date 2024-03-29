@@ -1,13 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { KeycloakService} from 'keycloak-angular';
 import { interval } from 'rxjs';
 import { PushNotification } from 'src/app/common/push-notification';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationSidebarComponent } from '../notification-sidebar/notification-sidebar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-header',

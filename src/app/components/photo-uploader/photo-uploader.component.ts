@@ -1,9 +1,9 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ImageCroppedEvent, base64ToFile, ImageCropperModule } from 'ngx-image-cropper';
+import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { constants } from 'src/environments/constants';
-import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-photo-uploader',

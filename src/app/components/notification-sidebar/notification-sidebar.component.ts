@@ -1,8 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { PushNotification } from 'src/app/common/push-notification';
 import { NotificationService } from 'src/app/services/notification.service';
-import { RouterLink } from '@angular/router';
-import { NgIf, NgFor, NgClass, DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-notification-sidebar',

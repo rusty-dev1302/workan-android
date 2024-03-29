@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgFor } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-cancellation-reason',

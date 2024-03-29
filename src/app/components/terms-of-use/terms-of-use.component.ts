@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from 'src/app/services/navigation.service';
 import { RouterLink } from '@angular/router';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
     selector: 'app-terms-of-use',

@@ -1,20 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Listing } from 'src/app/common/listing';
-import { ListingService } from 'src/app/services/listing.service';
+import { DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { NavigationService } from 'src/app/services/navigation.service';
-import { constants } from 'src/environments/constants';
-import { Professional } from 'src/app/common/professional';
-import { Review } from 'src/app/common/review';
-import { OrderService } from 'src/app/services/order.service';
-import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
-import { UserService } from 'src/app/services/user.service';
 import { KeycloakService } from 'keycloak-angular';
 import Geohash from 'latlon-geohash';
+import { Listing } from 'src/app/common/listing';
+import { Professional } from 'src/app/common/professional';
+import { Review } from 'src/app/common/review';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
+import { ListingService } from 'src/app/services/listing.service';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { OrderService } from 'src/app/services/order.service';
+import { UserService } from 'src/app/services/user.service';
+import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
-import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-listing-details',

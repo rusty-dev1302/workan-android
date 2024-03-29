@@ -1,16 +1,16 @@
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { CreateOrderRequest } from 'src/app/common/create-order-request';
 import { Order } from 'src/app/common/order';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { NgFor, NgClass, NgIf, DecimalPipe, DatePipe } from '@angular/common';
-import { DateTimeService } from 'src/app/common/services/date-time.service';
-import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
-import { CreateOrderRequest } from 'src/app/common/create-order-request';
 
 @Component({
   selector: 'app-dashboard-orders',

@@ -1,7 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/common/customer';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';

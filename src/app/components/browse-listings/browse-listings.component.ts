@@ -1,17 +1,15 @@
-import { DatePipe, NgFor, NgIf, SlicePipe, DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
-import { SlotTemplateItem } from 'src/app/common/slot-template-item';
 import { ListingService } from 'src/app/services/listing.service';
 import { NavigationService } from 'src/app/services/navigation.service';
-import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
-import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-browse-listings',

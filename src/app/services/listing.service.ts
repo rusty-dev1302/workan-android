@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Listing } from '../common/listing';
 import { constants } from 'src/environments/constants';
-import { SlotTemplate } from '../common/slot-template';
-import { SlotTemplateItem } from '../common/slot-template-item';
 import { BaseResponse } from '../common/base-response';
-import { Customer } from '../common/customer';
+import { Listing } from '../common/listing';
 import { Professional } from '../common/professional';
 import { ServicePricing } from '../common/service-pricing';
+import { SlotTemplateItem } from '../common/slot-template-item';
 
 @Injectable({
   providedIn: 'root'

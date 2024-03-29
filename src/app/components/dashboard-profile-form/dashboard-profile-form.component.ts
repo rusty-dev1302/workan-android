@@ -1,18 +1,17 @@
-import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
-import { NgForm, FormsModule } from '@angular/forms';
+import { KeyValuePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
 import { Customer } from 'src/app/common/customer';
 import { ProfilePhoto } from 'src/app/common/profile-photo';
-import { ListingService } from 'src/app/services/listing.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
-import { NgIf, NgFor, NgClass, KeyValuePipe } from '@angular/common';
 
 @Component({
     selector: 'app-dashboard-profile-form',

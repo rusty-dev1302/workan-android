@@ -1,15 +1,15 @@
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { Order } from 'src/app/common/order';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
-import { RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { NgFor, NgClass, NgIf, DecimalPipe, DatePipe } from '@angular/common';
-import { DateTimeService } from 'src/app/common/services/date-time.service';
 import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component';
 
 @Component({

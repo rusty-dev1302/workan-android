@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserManager, User } from 'oidc-client';
+import { User, UserManager } from 'oidc-client';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
