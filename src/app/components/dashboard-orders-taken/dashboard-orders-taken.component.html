@@ -14,6 +14,15 @@
   </section>
 </section>
 
+<ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
+  <li class="nav-item">
+      <a type="button" class="nav-link" [ngClass]="!cancelledOrdersSelected?'active':''" (click)="toggleTabs(false)">Orders</a>
+  </li>
+  <li class="nav-item">
+      <a type="button" class="nav-link" [ngClass]="cancelledOrdersSelected?'active':''" (click)="toggleTabs(true)">Cancelled Orders</a>
+  </li>
+</ul>
+
 <!--Divider section end -->
 
 <div class="content-box">
@@ -27,70 +36,151 @@
       <div class="row">
 
         <!-- to be iterated over orders start  -->
-        <div *ngFor="let order of orders" class="col-12">
-          <div class="form-section p-3 m-3">
+        <div *ngIf="!cancelledOrdersSelected">
+          <div *ngFor="let order of allOrders" class="col-12">
+            <div class="form-section p-3 m-3">
 
-            <form>
+              <form>
 
-              <div class="mb-3">
-                <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                           order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
-                <!-- display profile and name  -->
-                <div class="row">
+                <div class="mb-3">
+                  <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
+                             order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                  <!-- display profile and name  -->
+                  <div class="row">
 
-                  <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
-                    <div class="form-group">
-                      <label>Appointment Date</label>
-                      <h5> {{order.appointmentDate|date:'dd-MMM-yyyy'}}</h5>
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Appointment Date</label>
+                        <h5> {{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h5>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
-                    <div class="form-group">
-                      <label>Appointment Time</label>
-                      <h5>{{convertTimeToString(order.startTimeHhmm)}}-{{convertTimeToString(order.endTimeHhmm)}}</h5>
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Appointment Time</label>
+                        <h5>{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                    <div class="form-group">
-                      <label>Customer</label>
-                      <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer</label>
+                        <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                    <div class="form-group">
-                      <label>Customer Phone</label>
-                      <h5>{{order.customer.mobile | phone}}</h5>
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer Phone</label>
+                        <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
+                        <h6 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h6>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                    <div class="form-group">
-                      <label>Total Amount</label>
-                      <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
-                        '1.2-2'}} </h5>
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Total Amount</label>
+                        <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                          '1.2-2'}} </h5>
+                      </div>
                     </div>
-                  </div>
-                  <hr class="style1">
-                  <div class="col-12">
-                    <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
-                      style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
-                    <button class="btn btn-primary btn-rounded col-12" type="button"
-                      [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
-                  </div>
+                    <hr class="style1">
+                    <div class="col-12">
+                      <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
+                        style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
+                      <button class="btn btn-primary btn-rounded col-12" type="button"
+                        [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
+                      <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
+                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                          data-bs-target="#confirmOrderModal" (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        </button>
+                      </div>
+                    </div>
 
+                  </div>
                 </div>
-              </div>
-            </form>
-            <!-- User Form Ends -->
+              </form>
+              <!-- User Form Ends -->
+            </div>
           </div>
         </div>
         <!-- to be iterated over orders end  -->
 
+        <div *ngIf="cancelledOrdersSelected">
+          <!-- to be iterated over orders start  -->
+          <div *ngFor="let order of cancelledOrders" class="col-12">
+            <div class="form-section p-3 m-3">
+
+              <form>
+
+                <div class="mb-3">
+                  <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
+                           order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                  <!-- display profile and name  -->
+                  <div class="row">
+
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Appointment Date</label>
+                        <h5> {{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Appointment Time</label>
+                        <h5>{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer</label>
+                        <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer Phone</label>
+                        <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
+                        <h6 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h6>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Total Amount</label>
+                        <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                          '1.2-2'}} </h5>
+                      </div>
+                    </div>
+                    <hr class="style1">
+                    <div class="col-12">
+                      <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
+                        style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
+                      <button class="btn btn-primary btn-rounded col-12" type="button"
+                        [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
+                      <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
+                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                          data-bs-target="#confirmOrderModal" (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        </button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+              <!-- User Form Ends -->
+            </div>
+          </div>
+          <!-- to be iterated over orders end  -->
+        </div>
+
         <div class="col-12" style="padding-top: 150px;padding-bottom: 150px;">
-          <div *ngIf="!orders||orders?.length == 0" class="alert alert-warning col-12" role="alert">
+          <div *ngIf="!allOrders||allOrders?.length == 0" class="alert alert-warning col-12" role="alert">
             No orders found.
           </div>
         </div>
@@ -105,5 +195,15 @@
 
   <!-- Modal section begins -->
 
+  <!-- Accept Order Modal -->
+  <div class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <app-confirm-order [appointmentDate]="selectedAppointmentDate"
+        [preferredStartTimeHhmm]="selectedPreferredStartTimeHhmm" [preferredEndTimeHhmm]="selectedPreferredEndTimeHhmm"
+        [selectedMenuItems]="selectedMenuItemsForOrder" [selectedOrderId]="selectedOrderId"></app-confirm-order>
+    </div>
+  </div>
+  <!-- Accept Order Modal ends-->
 
   <!-- Modals section ends -->

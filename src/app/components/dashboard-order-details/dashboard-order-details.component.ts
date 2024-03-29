@@ -13,21 +13,23 @@ import { ConfirmPaymentComponent } from '../confirm-payment/confirm-payment.comp
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { ReviewComponent } from '../review/review.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { NgIf, DecimalPipe, DatePipe, NgFor } from '@angular/common';
+import { CustomerOrder } from 'src/app/common/customer-order';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
     selector: 'app-dashboard-order-details',
     templateUrl: './dashboard-order-details.component.html',
     styleUrls: ['./dashboard-order-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, FormsModule, ReviewComponent, CancellationReasonComponent, ConfirmPaymentComponent, DecimalPipe, DatePipe, PhonePipe]
+    imports: [RouterLink, NgIf, NgFor, FormsModule, ReviewComponent, CancellationReasonComponent, ConfirmPaymentComponent, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrderDetailsComponent implements OnInit {
 
   private currentOrderId!: number;
   private autoRefresh!: Subscription;
 
-  order!: Order;
+  order!: CustomerOrder;
   cancellationReason = constants.CANCEL_REASON_CUSTOMER;
 
   constructor(
@@ -36,6 +38,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private navigationService: NavigationService,
     private router: Router,
+    public dateTimeService: DateTimeService
   ) { }
 
   ngOnInit() {
@@ -72,14 +75,6 @@ export class DashboardOrderDetailsComponent implements OnInit {
         subscription.unsubscribe();
       }
     );
-  }
-
-  convertTimeToString(time: number): string {
-    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
-    let min = (time % 100 == 0 ? "00" : time % 100);
-    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
-
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
   }
 
   processOrder(action: string, cancellationReason:string="") {

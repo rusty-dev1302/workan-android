@@ -9,11 +9,27 @@
                 <h1 class=" text-capitalize fw-bolder text-white">
                     Manage Listing
                 </h1>
-                <button routerLink="/viewMyListing" class="btn btn-primary btn-small btn-rounded m-1" [disabled]="!currentListing">View Listing</button>
+                <button routerLink="/viewMyListing" class="btn btn-primary btn-small btn-rounded m-1"
+                    [disabled]="!currentListing">View Listing</button>
             </div>
         </div>
     </section>
 </section>
+
+
+<!--Divider section end -->
+
+<ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
+    <li class="nav-item">
+        <a type="button" class="nav-link" [ngClass]="menuItem==0?'active':''" (click)="setMenu(0)">Listing Details</a>
+    </li>
+    <li class="nav-item">
+        <a type="button" class="nav-link" [ngClass]="[menuItem==1?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(1)">My Documents</a>
+    </li>
+    <li class="nav-item">
+        <a type="button" class="nav-link" [ngClass]="[menuItem==2?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(2)">Time Scheduling</a>
+    </li>
+</ul>
 
 <!--Divider section end -->
 
@@ -27,7 +43,8 @@
                 <!-- Ratings panel starts -->
                 <div class="row g-5">
 
-                    <app-dashboard-listings-form (currentListingEvent)="setCurrentListing($event)"></app-dashboard-listings-form>
+                    <app-dashboard-listings-form [menuItem]="menuItem"
+                        (currentListingEvent)="setCurrentListing($event)"></app-dashboard-listings-form>
 
                 </div>
                 <!-- Ratings panel ends -->

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Listing } from 'src/app/common/listing';
 import { ListingService } from 'src/app/services/listing.service';
 import { ActivatedRoute } from '@angular/router';
@@ -17,15 +17,16 @@ import { FormsModule } from '@angular/forms';
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-listing-details',
-    templateUrl: './listing-details.component.html',
-    styleUrls: ['./listing-details.component.css'],
-    standalone: true,
-    imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
+  selector: 'app-listing-details',
+  templateUrl: './listing-details.component.html',
+  styleUrls: ['./listing-details.component.css'],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
 })
-export class ListingDetailsComponent implements OnInit{
+export class ListingDetailsComponent implements OnInit {
 
   listing!: Listing;
+
   professional!: Professional;
   currentListingId: number = 0;
   currentSlotDay: string = "";
@@ -45,51 +46,29 @@ export class ListingDetailsComponent implements OnInit{
     private dialogService: ConfirmationDialogService,
     private userService: UserService,
     private keycloakService: KeycloakService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.navigation.showLoader();
-    this.route.paramMap.subscribe(()=>{
+    this.route.paramMap.subscribe(() => {
       this.handleListingRouting();
     });
   }
 
   handleListingRouting() {
-    if(this.route.snapshot.paramMap.has("id")) {
+    if (this.route.snapshot.paramMap.has("id")) {
       this.currentListingId = +this.route.snapshot.paramMap.get("id")!;
       this.loadListingDetails();
     }
+
   }
 
   loadListingDetails() {
     const subscription = this.listingService.getListingById(this.currentListingId).subscribe(
       (listing) => {
-        if(listing.state!=constants.ERROR_STATE){
+        if (listing.state != constants.ERROR_STATE) {
           this.listing = listing;
-          console.log("enabled:"+this.listing.enabled)
-          const sub = this.listingService.getProfessionalById(this.listing.professionalId).subscribe(
-            (professional) => {
-              this.professional = professional;
-              let total:number = professional.oneRating+professional.twoRating+professional.threeRating+professional.fourRating+professional.fiveRating;
-              this.totalRatings = total>0?total:1;
-              this.getReviewsForProfessional();
-              sub.unsubscribe();
-            }
-          );
-
-          const sub2 =  this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
-            (contact) => {
-              if(contact.state!=constants.ERROR_STATE) {
-                let userLoc = Geohash.decode(contact.geoHash);
-                let listingLoc = Geohash.decode(this.listing.geoHash);
-
-                let distance = this.distanceBetweenTwoPlace(userLoc.lat, userLoc.lon, listingLoc.lat, listingLoc.lon, "K");
-                this.listingDistance = distance;
-                
-              }
-              sub2.unsubscribe();
-            }
-          );
+          this.assignProfessionalAndLoadData();
         }
         this.navigation.pageLoaded();
         subscription.unsubscribe();
@@ -97,10 +76,31 @@ export class ListingDetailsComponent implements OnInit{
     );
   }
 
+  assignProfessionalAndLoadData() {
+    this.professional = this.listing.professional;
+    let total: number = this.professional.oneRating + this.professional.twoRating + this.professional.threeRating + this.professional.fourRating + this.professional.fiveRating;
+    this.totalRatings = total > 0 ? total : 1;
+    this.getReviewsForProfessional();
+
+    const sub2 = this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
+      (contact) => {
+        if (contact.state != constants.ERROR_STATE) {
+          let userLoc = Geohash.decode(contact.geoHash);
+          let listingLoc = Geohash.decode(this.listing.geoHash);
+
+          let distance = this.distanceBetweenTwoPlace(userLoc.lat, userLoc.lon, listingLoc.lat, listingLoc.lon, "K");
+          this.listingDistance = distance;
+
+        }
+        sub2.unsubscribe();
+      }
+    );
+  }
+
   getReviewsForProfessional() {
     const subscription = this.orderService.getReviewsForProfessional(this.professional.id).subscribe(
       (reviews) => {
-        if(reviews.length>0 && reviews[0].state!=constants.ERROR_STATE) {
+        if (reviews.length > 0 && reviews[0].state != constants.ERROR_STATE) {
           this.reviews = reviews;
         }
         subscription.unsubscribe();
@@ -121,9 +121,9 @@ export class ListingDetailsComponent implements OnInit{
   }
 
   bookError() {
-    if(this.timezoneOffset!=this.listing.timezoneOffset) {
+    if (this.timezoneOffset != this.listing.timezoneOffset) {
       this.dialogService.openDialog("Please change system timezone to listing's timezone.", true);
-    } else if(this.listingDistance>constants.DISTANT_LOCATION) {
+    } else if (this.listingDistance > constants.DISTANT_LOCATION) {
       this.dialogService.openDialog("Please change your address to a nearby location or select a different professional.", true);
     }
   }

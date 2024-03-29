@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { Subscription } from 'rxjs';
 import { Listing } from 'src/app/common/listing';
@@ -13,29 +13,39 @@ import { Certification } from 'src/app/common/certification';
 import { UserService } from 'src/app/services/user.service';
 import { FileService } from 'src/app/services/file.service';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { NgIf, NgFor, DecimalPipe, JsonPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ServicePricing } from 'src/app/common/service-pricing';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
+import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unavailability-calendar.component';
 
 @Component({
-    selector: 'app-dashboard-listings-form',
-    templateUrl: './dashboard-listings-form.component.html',
-    styleUrls: ['./dashboard-listings-form.component.css'],
-    standalone: true,
-    imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe]
+  selector: 'app-dashboard-listings-form',
+  templateUrl: './dashboard-listings-form.component.html',
+  styleUrls: ['./dashboard-listings-form.component.css'],
+  standalone: true,
+  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent]
 })
 export class DashboardListingsFormComponent implements OnInit {
+
+  @Input() menuItem: number = 0;
 
   @Output() currentListingEvent = new EventEmitter<Listing>();
 
   isEditable: boolean = false;
 
+  isServicePriceSelect: boolean = true;
+
   subscription!: Subscription;
 
   listing: Listing = constants.DEFAULT_LISTING;
   displayListing!: Listing;
-  slotTemplates!: SlotTemplate[];
+  availabilityRange!: any[];
+  unavailableDays!: any[];
   emailValue!: string;
 
+  copyStartTime!: string;
+  copyEndTime!: string;
   pasteItems: SlotTemplateItem[] = [];
 
   // Add time slot dialog values
@@ -48,7 +58,13 @@ export class DashboardListingsFormComponent implements OnInit {
 
   addCertName: string = "";
 
+  addServicePriceName: string = "";
+
+  addServicePriceCharges!: number;
+
   certifications: Certification[] = [];
+
+  servicePricings: ServicePricing[] = [];
 
   timeSlots: string[] = constants.TIMESLOTS;
 
@@ -66,7 +82,8 @@ export class DashboardListingsFormComponent implements OnInit {
     private navigation: NavigationService,
     private dialogService: ConfirmationDialogService,
     private userService: UserService,
-    private fileService: FileService
+    private fileService: FileService,
+    public dateTimeService: DateTimeService
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +91,7 @@ export class DashboardListingsFormComponent implements OnInit {
     this.loadFormValues();
     this.loadAllSubcategories();
     this.getCertificationsByEmail();
+    this.getUnavailabilityForProfessional();
   }
 
   selectSlot(day: string) {
@@ -85,7 +103,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.emailValue).subscribe(
       (data) => {
         if (!(data.state == constants.ERROR_STATE)) {
-          console.log(data)
           if (data.mobile != 0) {
             this.allowListing = true;
           } else {
@@ -99,9 +116,9 @@ export class DashboardListingsFormComponent implements OnInit {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.listing = data;
-          console.log("Listing: " + JSON.stringify(this.listing))
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
-          this.loadSlotTemplates(this.listing.id);
+          this.getAvailability(this.listing.id);
+          this.loadServicePricings();
           this.currentListingEvent.emit(this.listing);
         }
 
@@ -111,50 +128,28 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  loadSlotTemplates(listingId: number) {
-    const subscription = this.listingService.getSlotTemplates(listingId).subscribe(
+  getAvailability(listingId: number) {
+    const subscription = this.listingService.getAvailabilityRange(listingId, true).subscribe(
       (data) => {
-        this.slotTemplates = data;
-        for (let i = 0; i < this.slotTemplates.length; i++) {
-          this.slotTemplates[i].items.sort(
-            (a, b) => {
-              return a.startTimeHhmm - b.startTimeHhmm;
-            }
-          );
-        }
-        this.slotTemplates[0].items.sort();
-        this.toggleLoader = false;
+        this.availabilityRange = Object.keys(data).map((key: any) => {
+          return {
+            templateId: key,
+            dayName: (data[key] as unknown as string).split(",")[0],
+            startTimeHhmm: (data[key] as unknown as string).split(",")[1].split("-")[0],
+            endTimeHhmm: (data[key] as unknown as string).split(",")[1].split("-")[1],
+            enabled: JSON.parse((data[key] as unknown as string).split(",")[2])
+          }
+        });
         subscription.unsubscribe();
       }
     );
   }
 
-  copySlotItems(dayName: string, items: SlotTemplateItem[]) {
-    const sub = this.dialogService.openDialog(" copy time slots from " + dayName).subscribe(
-      (result) => {
-        if (result) {
-          this.pasteItems = JSON.parse(JSON.stringify(items));
-        }
+  loadServicePricings() {
+    const sub = this.listingService.getServicePricings(this.listing.id).subscribe(
+      (response) => {
+        this.servicePricings = response;
         sub.unsubscribe();
-      }
-    );
-  }
-
-  pasteSlotItems(dayName: string, templateId: number, templateEnabled: boolean) {
-    const subs = this.dialogService.openDialog("Are you sure you want to paste time slots to " + dayName + "? All of the current day slots will be switched OFF momentarily.", true).subscribe(
-      (result) => {
-        if (result) {
-          if (templateEnabled) {
-            this.toggleSlotTemplate(templateId);
-          }
-          const sub = this.listingService.saveSlotTemplateItems(templateId, this.pasteItems).subscribe(
-            () => {
-              this.loadSlotTemplates(this.listing.id);
-              sub.unsubscribe();
-            }
-          );
-        }
-        subs.unsubscribe();
       }
     );
   }
@@ -170,23 +165,84 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  selectSubCategory(subcategory: string) {
-    this.listing.subCategory.subCategoryName = subcategory;
+  toggleServicePriceSelect(value: boolean) {
+    this.isServicePriceSelect = value;
   }
 
-  selectChargesType(chargesType: string) {
-    this.listing.chargesType = chargesType;
+  selectServicePrice(servicePrice: string) {
+    this.addServicePriceName = servicePrice;
+  }
+
+  addUnavailabilityForProfessional(event: any) {
+    let item = {
+      id: null,
+      date: event
+    }
+    const sub = this.listingService.addUnavailabilityForProfessional(item).subscribe(
+      ()=>{
+        this.getUnavailabilityForProfessional();
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  getUnavailabilityForProfessional() {
+    const sub = this.listingService.getUnavailabilityForProfessional().subscribe(
+      (data)=>{
+        if(data&&data.length>0&&data[0].state!=constants.ERROR_STATE||data) {
+          this.unavailableDays = data;
+          console.log(JSON.parse(JSON.stringify(data)))
+        }
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  selectSubCategory(subcategory: string) {
+    this.listing.subCategory.subCategoryName = subcategory;
   }
 
   selectExperience(experience: string) {
     this.listing.experience = +experience;
   }
 
+  createSlotRange(templateId: number = null!, startTime: string = null!, endTime: string = null!) {
+    this.pasteItems = [];
+
+    let i = startTime != null ? +startTime : this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateStartTime);
+    let j = endTime != null ? +endTime : this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateEndTime);
+
+    if (i < j) {
+      constants.TIME_RANGE.forEach(
+        (range) => {
+          if (range.start >= i && range.start < j) {
+            let id!: number;
+            let startTime: number = range.start;
+            let endTime: number = range.end;
+            let slot: SlotTemplateItem = new SlotTemplateItem(id, templateId ? templateId : this.dialogSlotTemplateId, startTime, endTime, "", "");
+            this.pasteItems.push(slot);
+          }
+        }
+      );
+
+      const sub = this.listingService.saveSlotTemplateItems(templateId ? templateId : this.dialogSlotTemplateId, this.pasteItems).subscribe(
+        () => {
+          this.getAvailability(this.listing.id);
+          this.pasteItems = [];
+          sub.unsubscribe();
+        }
+      );
+
+    } else {
+      this.toastrService.error("StartTime Should be Less Than EndTime");
+    }
+  }
+
   addSlotTemplateItem() {
     let id!: number;
 
-    let startTime: number = this.convertTimeToNumber(this.dialogSlotTemplateStartTime);
-    let endTime: number = this.convertTimeToNumber(this.dialogSlotTemplateEndTime);
+    let startTime: number = this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateStartTime);
+    let endTime: number = this.dateTimeService.convertTimeToNumber(this.dialogSlotTemplateEndTime);
 
     let slot: SlotTemplateItem = new SlotTemplateItem(id, this.dialogSlotTemplateId, startTime, endTime, "", "");
 
@@ -195,7 +251,7 @@ export class DashboardListingsFormComponent implements OnInit {
       const subscription = this.listingService.saveSlotTemplateItem(slot).subscribe(
         (data) => {
           if (data.state == constants.SUCCESS_STATE) {
-            this.loadSlotTemplates(this.listing.id);
+            this.getAvailability(this.listing.id);
           }
           subscription.unsubscribe();
         }
@@ -205,6 +261,29 @@ export class DashboardListingsFormComponent implements OnInit {
     }
     this.resetSlotDialog();
 
+  }
+
+  copySlotItems(dayName: string, startTime: string, endTime: string) {
+    const sub = this.dialogService.openDialog(" copy time slots from " + dayName).subscribe(
+      (result) => {
+        if (result) {
+          this.copyStartTime = startTime;
+          this.copyEndTime = endTime;
+        }
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  pasteSlotItems(dayName: string, templateId: string, templateEnabled: boolean) {
+    const sub = this.dialogService.openDialog("paste schedule to "+dayName).subscribe(
+      (response)=>{
+        if(response) {
+          this.createSlotRange(+templateId, this.copyStartTime, this.copyEndTime);
+        }
+        sub.unsubscribe();
+      }
+    );
   }
 
   addCertificate() {
@@ -218,6 +297,32 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addCertName = '';
   }
 
+  addServicePricing() {
+    let servicePricing = new ServicePricing(null!, this.addServicePriceName, this.addServicePriceCharges, "", "");
+    const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
+      (response) => {
+        this.loadServicePricings();
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  removeServicePricing(id: number) {
+    const subscription = this.dialogService.openDialog("you want to delete current pricing").subscribe(
+      (response) => {
+        if (response) {
+          const sub = this.listingService.removeServicePricing(id).subscribe(
+            (response) => {
+              this.loadServicePricings();
+              sub.unsubscribe();
+            }
+          );
+        }
+        subscription.unsubscribe();
+      }
+    );
+  }
+
   resetCertificationDialog() {
     this.addCertName = '';
   }
@@ -228,7 +333,6 @@ export class DashboardListingsFormComponent implements OnInit {
     let uploadData = new FormData();
 
     uploadData.append('attachment', file);
-    console.log(file)
 
     const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
       () => {
@@ -248,7 +352,6 @@ export class DashboardListingsFormComponent implements OnInit {
 
     if (file.type.includes("image") || file.type.includes("pdf")) {
       this.attachmentChangeEvt = event;
-      console.log(file);
 
       const sub = this.dialogService.openDialog(" upload " + file.name.replaceAll(" ", "_")).subscribe(
         (response) => {
@@ -273,7 +376,6 @@ export class DashboardListingsFormComponent implements OnInit {
   downloadAttachments(attachments: any[]) {
     attachments.map(
       (a) => {
-        console.log(a)
         this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
       }
     );
@@ -282,6 +384,22 @@ export class DashboardListingsFormComponent implements OnInit {
   resetSlotDialog() {
     this.dialogSlotTemplateEndTime = "";
     this.dialogSlotTemplateStartTime = "";
+  }
+
+  resetServicePriceDialog() {
+    this.addServicePriceName = "";
+    this.addServicePriceCharges = null!;
+    this.isServicePriceSelect = true;
+  }
+
+  // methods alter date availability 
+  removeUnavailableDate(unavailableDayId: number) {
+    const sub = this.listingService.removeUnavailabilityForProfessional(unavailableDayId).subscribe(
+      ()=>{
+        this.getUnavailabilityForProfessional();
+        sub.unsubscribe();
+      }
+    );
   }
 
   // methods to add values to slot dialog start 
@@ -299,27 +417,6 @@ export class DashboardListingsFormComponent implements OnInit {
   }
   // methods to add values to slot dialog end 
 
-  removeSlotTemplateItem(slotTemplateItemId: number) {
-    const sub = this.dialogService.openDialog(" remove this time slot").subscribe(
-      (response) => {
-        if (response) {
-          const subscription = this.listingService.removeSlotTemplateItem(slotTemplateItemId).subscribe(
-            (data) => {
-              if (data.state == constants.SUCCESS_STATE) {
-                this.toastrService.success(constants.SUCCESS_STATE);
-              } else {
-                this.toastrService.error(data.message);
-              }
-              this.loadSlotTemplates(this.listing.id);
-              subscription.unsubscribe();
-            }
-          );
-        }
-        sub.unsubscribe();
-      }
-    );
-  }
-
   toggleSlotTemplate(slotTemplateId: number) {
     this.toggleLoader = true;
     const subscription = this.listingService.toggleSlotTemplate(slotTemplateId).subscribe(
@@ -329,7 +426,8 @@ export class DashboardListingsFormComponent implements OnInit {
         } else {
           this.toastrService.error(response.message);
         }
-        this.loadSlotTemplates(this.listing.id);
+        this.toggleLoader = false;
+        this.getAvailability(this.listing.id);
         subscription.unsubscribe();
       }
     );
@@ -408,10 +506,9 @@ export class DashboardListingsFormComponent implements OnInit {
     const subs = this.dialogService.openDialog(" change profile visibility").subscribe(
       (response) => {
         if (response) {
-          console.log(certId)
           const sub = this.userService.certificationVisibility(certId).subscribe(
             (response) => {
-              if(response.state!=constants.ERROR_STATE) {
+              if (response.state != constants.ERROR_STATE) {
                 this.getCertificationsByEmail();
                 sub.unsubscribe();
               }
@@ -428,7 +525,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const subs = this.dialogService.openDialog(" delete the certification").subscribe(
       (response) => {
         if (response) {
-          console.log(certId)
           const sub = this.userService.removeUserCertification(certId).subscribe(
             () => {
               this.getCertificationsByEmail();
@@ -458,29 +554,6 @@ export class DashboardListingsFormComponent implements OnInit {
         sub.unsubscribe();
       }
     );
-  }
-
-  convertTimeToString(time: number): string {
-    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
-    let min = (time % 100 == 0 ? "00" : time % 100);
-    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
-
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
-  }
-
-  convertTimeToNumber(time: string): number {
-    let hour: number = 0;
-    let min: number = 0;
-    hour = +time.split(":")[0];
-
-    if (time.includes("AM")) {
-      min = +time.split(":")[1].split("AM")[0];
-    } else if (time.includes("PM")) {
-      min = +time.split(":")[1].split("PM")[0];
-      hour = hour == 12 ? 12 : (hour + 12) % 24;
-    }
-
-    return hour * 100 + min;
   }
 
 }

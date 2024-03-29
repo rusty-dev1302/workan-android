@@ -8,6 +8,7 @@ import { SlotTemplateItem } from '../common/slot-template-item';
 import { BaseResponse } from '../common/base-response';
 import { Customer } from '../common/customer';
 import { Professional } from '../common/professional';
+import { ServicePricing } from '../common/service-pricing';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,21 @@ export class ListingService {
     return this.httpClient.get<Listing>(getUrl);
   }
 
+  getUnavailabilityForProfessional(): Observable<any[]> {
+    const getUrl = `${this.baseUrl}/unavailability`;
+    return this.httpClient.get<any[]>(getUrl);
+  }
+
+  addUnavailabilityForProfessional(item: any): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/unavailability/add`;
+    return this.httpClient.post<BaseResponse>(postUrl, item);
+  }
+
+  removeUnavailabilityForProfessional(dayUnavailableId: any): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/unavailability/delete?dayUnavailableId=${dayUnavailableId}`;
+    return this.httpClient.delete<BaseResponse>(postUrl);
+  }
+
   getListingSubcategories(): Observable<string[]> {
     const getUrl = `${this.baseUrl}/subcategory`;
     return this.httpClient.get<string[]>(getUrl)
@@ -53,19 +69,34 @@ export class ListingService {
     return this.httpClient.get<string[]>(getUrl)
   }
 
-  getSlotTemplates(listingId: number): Observable<SlotTemplate[]> {
-    const getUrl = `${this.baseUrl}/slotTemplates?listingId=${listingId}`;
-    return this.httpClient.get<SlotTemplate[]>(getUrl)
+  getAvailabilityRange(listingId: number, isProfessional: boolean=false): Observable<Map<string, string>[]> {
+    const getUrl = `${this.baseUrl}/getAvailabilityRange?listingId=${listingId}&&isProfessional=${isProfessional}`;
+    return this.httpClient.get<Map<string, string>[]>(getUrl)
   }
 
-  getAvailableSlotsItems(listingId: number, dayOfWeek: string, date: string): Observable<SlotTemplateItem[]> {
-    const getUrl = `${this.baseUrl}/availableSlotsItems?listingId=${listingId}&&dayOfWeek=${dayOfWeek}&&date=${date}`;
+  getAvailableSlotsItems(dayOfWeek: string, date: string): Observable<SlotTemplateItem[]> {
+    const getUrl = `${this.baseUrl}/availableSlotsItems?dayOfWeek=${dayOfWeek}&&date=${date}`;
     return this.httpClient.get<SlotTemplateItem[]>(getUrl)
   }
 
   saveSlotTemplateItem(slotTemplateItem: SlotTemplateItem): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/slotTemplateItem/save`;
     return this.httpClient.post<BaseResponse>(postUrl, slotTemplateItem);
+  }
+
+  saveServicePricing(servicePricing: ServicePricing, listingId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/servicepricing/add?id=${listingId}`;
+    return this.httpClient.post<BaseResponse>(postUrl, servicePricing);
+  }
+
+  removeServicePricing(spId: number): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/servicepricing/delete?id=${spId}`;
+    return this.httpClient.delete<BaseResponse>(postUrl);
+  }
+
+  getServicePricings(listingId: number): Observable<ServicePricing[]> {
+    const getUrl = `${this.baseUrl}/servicepricing?id=${listingId}`;
+    return this.httpClient.get<ServicePricing[]>(getUrl)
   }
 
   saveSlotTemplateItems(slotTemplateId: number, slotTemplateItems: SlotTemplateItem[]): Observable<BaseResponse> {

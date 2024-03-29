@@ -11,14 +11,15 @@ import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, DecimalPipe, DatePipe } from '@angular/common';
+import { NgIf, DecimalPipe, DatePipe, NgFor } from '@angular/common';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
     selector: 'app-dashboard-orders-taken-details',
     templateUrl: './dashboard-orders-taken-details.component.html',
     styleUrls: ['./dashboard-orders-taken-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe]
+    imports: [RouterLink, NgIf, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
@@ -35,7 +36,8 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private navigationService: NavigationService,
     private paymentService: PaymentService,
-    private router: Router
+    private router: Router,
+    public dateTimeService: DateTimeService
   ) { }
 
   ngOnInit() {
@@ -80,14 +82,6 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
         }  
 }
 
-  convertTimeToString(time: number): string {
-    let hour = Math.floor(time / 100) <= 12 ? Math.floor(time / 100) : Math.floor(time / 100) % 12;
-    let min = (time % 100 == 0 ? "00" : time % 100);
-    let merd = (Math.floor(time / 100) < 12 ? "AM" : "PM");
-
-    return (hour == 0 ? "00" : hour) + ":" + min + merd;
-  }
-
   processOrder(action: string, cancellationReason:string="") {
     let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
     let processOrderRequest = new ProcessOrderRequest(this.order.id, null, this.order.professional.id, action, otp, cancellationReason);
@@ -102,6 +96,10 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  confirmOrder() {
+    
   }
 
   confirmDirectPayment() {

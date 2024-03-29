@@ -12,7 +12,7 @@
                             <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
                                 src="assets/profile.png">
                             <img *ngIf="profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
-                                [src]="profilePhoto.picByte">
+                                [src]="profilePhoto.thumbnail">
                             <div class="img-overlay" type="button" data-bs-toggle="modal"
                                 data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()">
                                 <button class="btn border btn-primary btn-rounded" data-bs-toggle="modal"
@@ -91,12 +91,7 @@
 
                 </div>
                 <div *ngIf="displayContact" class="row">
-
-                    <div class="col-12">
-                        <div class="form-group">
-                            <h5>{{displayContact.addressLine1}} {{displayContact.addressLine2}}</h5>
-                        </div>
-                    </div>
+                    
                     <div class="col-12">
                         <div class="form-group">
                             <h5>{{displayContact.addressLine3}}</h5>
@@ -192,7 +187,7 @@
                                                     Select
                                                 </button>
                                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a class="dropdown-item" (click)="resetLanguages()"
+                                                    <li><a class="dropdown-item" style="color: #0d6efd;" (click)="resetLanguages()"
                                                             type="button">Clear All</a></li>
                                                     <li *ngFor="let language of availableLanguages | keyvalue">
                                                         <a *ngIf="language.key!='dummy'" class="dropdown-item"
@@ -277,34 +272,10 @@
                                 <div class="mb-3">
                                     <div class="row g-4">
 
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="address1">Unit / Apartment *</label>
-                                                <input required [(ngModel)]="contactDetail.addressLine1"
-                                                    placeholder="Unit / Apartment" #address1="ngModel" minlength="3"
-                                                    maxlength="30" name="address1" id="address1" type="text"
-                                                    class="form-control" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <label for="address2">Street *</label>
-                                                <input required [(ngModel)]="contactDetail.addressLine2"
-                                                    placeholder="Street" #address2="ngModel" minlength="3"
-                                                    maxlength="30" name="address2" id="address2" type="text"
-                                                    class="form-control" autocomplete="off">
-                                            </div>
-                                        </div>
-
                                         <div class="col-12">
-                                            <app-select-map-location headline="City / Town / Province *"
+                                            <app-select-map-location headline="Address"
                                                 [initialValue]="contactDetail.addressLine3"
                                                 (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <span style="font-size: .9rem!important;">* Mandatory fields</span>
-                                            <hr class="style1">
                                         </div>
 
                                     </div>
@@ -316,9 +287,7 @@
                                 <!-- Edit buttons -->
                                 <div class="row">
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="!contactDetail.addressLine1||contactDetail.addressLine1==''
-                                                    ||!contactDetail.addressLine2||contactDetail.addressLine2==''
-                                                    ||!contactDetail.addressLine3||contactDetail.addressLine3==''"
+                                        <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="!contactDetail.addressLine3||contactDetail.addressLine3==''"
                                             data-bs-toggle="modal" data-bs-target="#contactDetailsModal">Save</button>
                                     </div>
                                 </div>

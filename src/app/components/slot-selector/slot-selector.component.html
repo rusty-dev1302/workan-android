@@ -27,7 +27,9 @@
                         Select
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                        <li *ngFor="let e of dayBoolArray; let i = index"><a [ngClass]="e==true?'disabled':''" class="dropdown-item" type="button"
+                        <li *ngFor="let e of dayBoolArray; let i = index"><a
+                            [ngClass]="[e==true?'selected':'', availabilityRange&&availabilityRange.get(slotDate(i)|date:'EEEE')?'':'strike-through disabled']"
+                            class="dropdown-item" type="button"
                             (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)'}}</a>
                         </li>
                       </ul>
@@ -35,24 +37,43 @@
                   </div>
                   <div class="col-12">
                     <div class="form-group">
-                      <h5 class="review-count">Available Slots:</h5>
-                      <div class="row">
-                        <!-- Time slot to be iterated  -->
-                        <div *ngFor="let slot of currentSlots" class="col-xxl-6 col-lg-6 col-md-6 col-sm-6 col-12 py-1">
-                          <span class="btn btn-rounded"
-                            [ngClass]="[selectedSlot&&slot.id==selectedSlot.id?'btn-success':'btn-outline-secondary',professionalView==true?'no-hover':'']"
-                            (click)="selectSlot(slot)">{{convertTimeToString(slot.startTimeHhmm)}}-{{convertTimeToString(slot.endTimeHhmm)}}</span>
+                      <div *ngIf="currentTimeRange">
+                        <!-- If professional available for the day  -->
+                        <h5>Please select preferred time range:</h5>
+                        <span style="font-size: .9rem;">(Professional is available from
+                          {{dateTimeService.convertTimeToString(currentTimeRange.startTimeHhmm)}} -
+                          {{dateTimeService.convertTimeToString(currentTimeRange.endTimeHhmm)}})</span>
+                        <div class="col-12 mt-3">
+                          <div class="form-group">
+                            <label for="startTime">From Time</label>
+                          </div>
+                          <select #startTime class="form-select" aria-label="gender"
+                            [value]="selectedTimeRange.startTime" (change)="setDialogStartTime(startTime.value)">
+                            <option default hidden>Select a time</option>
+                            <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                              {{timeSlot}}</option>
+                          </select>
                         </div>
-                        <!-- Time slot to be iterated end -->
-                        <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
-                          Please Select A Day.
+
+                        <div class="col-12 mt-3 mb-3">
+                          <div class="form-group">
+                            <label for="endTime">To Time</label>
+                          </div>
+                          <select #endTime class="form-select" aria-label="gender" [value]="selectedTimeRange.endTime"
+                            (change)="setDialogEndTime(endTime.value)">
+                            <option default hidden>Select a time</option>
+                            <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
+                              {{timeSlot}}</option>
+                          </select>
                         </div>
-                        <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
-                          No Slots Available
-                        </div>
+                        <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be allocated an
+                          appointment within the preferred time range</span>
+                      </div>
+
+                      <div *ngIf="!currentTimeRange" class="alert alert-warning col-md-12" role="alert">
+                        Professional unavailable for the selected date.
                       </div>
                     </div>
-                    <!-- <h6 class="small-text">&bull; Time slots can be booked for today or tomorrow</h6> -->
                   </div>
                 </div>
                 <hr class="style1">
@@ -61,8 +82,9 @@
             <!-- Slots end -->
 
             <div *ngIf="!professionalView" class="d-flex justify-content-end">
-              <button *ngIf="selectedDate&&selectedSlot" type="button" class="btn btn-danger btn-rounded col-12"
-                (click)="nextStep()">Next</button>
+              <button
+                *ngIf="selectedDate&&selectedTimeRange.startTime!=''&&selectedTimeRange.endTime!=''&&dateTimeService.convertTimeToNumber(selectedTimeRange.startTime)<dateTimeService.convertTimeToNumber(selectedTimeRange.endTime)"
+                type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()">Next</button>
             </div>
 
             <!-- Selector card end -->
@@ -86,51 +108,53 @@
               <div class="container p-2">
 
                 <div class="row g-2">
-                  <div class="col-lg-12">
-                    <label>Day</label>
-                    <h5>{{selectedDate|date:'EEEE'}}</h5>
-                  </div>
                   <div class="col-12">
-                    <div class="form-group">
-                      <div class="row">
-                        <label class="review-count">Time Slot</label>
-                        <h5>
-                          {{convertTimeToString(selectedSlot.startTimeHhmm)}}-{{convertTimeToString(selectedSlot.endTimeHhmm)}}
-                        </h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
-                    class="col-12">
-                    <div class="form-group">
-                      <div class="row">
-                        <label class="review-count">Customer Address</label>
-                        <h5 style="margin-bottom: 3px;">
-                          {{customerAddress.addressLine1}},
-                        </h5>
-                        <h5 style="margin-bottom: 3px;">
-                          {{customerAddress.addressLine2}},
-                        </h5>
-                        <h5>
-                          {{customerAddress.addressLine3}}
-                        </h5>
+                    <div class="table-responsive">
+                      <table class="table table-bordered th-sm">
+                        <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                          <tr>
+                            <th scope="col" class="text-center col-8">Service Name</th>
+                            <th scope="col" class="text-center col-2">
+                              Quantity
+                            </th>
+                            <th scope="col" class="text-center col-2">Charges</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let menuItem of availableMenuItems; let i=index">
+                            <td class="text-center">
+                              {{menuItem.serviceName}}
+                            </td>
+                            <td class="text-center">
+                              <i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue"
+                                style="margin-right: .4rem;"
+                                aria-hidden="true"></i>{{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}<i
+                                type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue"
+                                aria-hidden="true" style="margin-left: .4rem;"></i>
+                            </td>
+                            <td class="text-center">
+                              <i class="fa-solid fa-dollar-sign"
+                                style="color: green;margin-right: .1rem;"></i>{{menuItem.charges}}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div style="text-align:end;">
+                        <b>Total: </b> <i class="fa-solid fa-dollar-sign"
+                          style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
                       </div>
                     </div>
                   </div>
                   <hr class="style1">
-                  <h6 *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
-                    class="small-text">&bull; Please confirm the date and slot timings</h6>
-                  <h6 *ngIf="!(customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1)"
-                    class="small-text" style="color: rgb(225, 0, 0);font-weight: bold;">&bull; Please update your address to place the order.</h6>
+                  <h6 class="small-text">&bull; Please select quantity of each service</h6>
                 </div>
 
               </div>
             </div>
             <!-- Slots end -->
-            <div *ngIf="customerAddress&&customerAddress.addressLine1&&customerAddress.addressLine1"
-              class="d-flex justify-content-end">
-              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="bookSlot()"
-                data-bs-dismiss="modal" aria-label="Close">Book</button>
+            <div class="d-flex">
+              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()"
+                [disabled]="totalMenuCharges<=0">Next</button>
             </div>
             <!-- Selector card end -->
           </div>
@@ -139,5 +163,86 @@
     </div>
   </div>
   <!-- step1 modal body ends  -->
+
+  <!-- step2 modal body start  -->
+  <div *ngIf="currentStep==2" class="modal-body">
+    <div class="form-section" style="padding: 0!important;">
+      <div class="row">
+
+        <div class="d-flex justify-content-center align-items-center">
+          <!-- Selector card start -->
+          <div class="px-3">
+            <!-- Slots start -->
+            <div class="mt-1 mb-1">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <label class="review-count" style="font-weight: bold;">Total Charges</label>
+                    <h5>
+                      <i class="fa-solid fa-dollar-sign" style="color: green;margin-right: .1rem;"></i>
+                      {{totalMenuCharges}}
+                    </h5>
+                  </div>
+                  <div class="col-6">
+                    <label style="font-weight: bold;">Day</label>
+                    <h5>{{selectedDate|date:'dd MMM (EEEE)'}}</h5>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <div class="row">
+                        <label class="review-count" style="font-weight: bold;">Preferred Time</label>
+                        <h5>
+                          {{selectedTimeRange.startTime}}-{{selectedTimeRange.endTime}}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label class="review-count" style="font-weight: bold;">Services</label>
+                      <h6 *ngFor="let service of selectedMenuItems; let i=index"
+                        style="margin-top: .2rem;margin-bottom: .2rem;">
+                        <span *ngIf="service.quantity>0" style="font-size: 1rem!important;">{{service.serviceName}}
+                          X{{service.quantity}}</span>
+                      </h6>
+                    </div>
+                  </div>
+                  <div *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
+                    class="col-12" style="margin-top: .5rem;">
+                    <div class="form-group">
+                      <label class="review-count" style="font-weight: bold;">Customer Address</label>
+                      <h5>
+                        {{customerAddress.addressLine3}}
+                      </h5>
+                    </div>
+                  </div>
+                  <hr class="style1">
+                  <h6 *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
+                    class="small-text">&bull; Please confirm the date and slot timings</h6>
+                  <h6 *ngIf="!(customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3)"
+                    class="small-text" style="color: rgb(225, 0, 0);font-weight: bold;">&bull; Please update your
+                    address to place the order.</h6>
+                </div>
+
+              </div>
+            </div>
+            <!-- Slots end -->
+            <div *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
+              class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="previousStep()"
+                style="margin-bottom: .5rem;">Back</button>
+            </div>
+            <div *ngIf="customerAddress&&customerAddress.addressLine3&&customerAddress.addressLine3"
+              class="d-flex justify-content-end">
+              <button type="button" class="btn btn-warning btn-rounded col-12" (click)="bookSlot()"
+                data-bs-dismiss="modal" aria-label="Close">Book Appointment</button>
+            </div>
+            <!-- Selector card end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- step2 modal body ends  -->
 
 </div>

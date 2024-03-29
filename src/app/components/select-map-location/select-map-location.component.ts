@@ -2,6 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter }
 import { GoogleMap } from '@angular/google-maps';
 import Geohash from 'latlon-geohash';
 import { FormsModule } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
+import { UserService } from 'src/app/services/user.service';
+import { NgIf } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -9,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     templateUrl: './select-map-location.component.html',
     styleUrls: ['./select-map-location.component.css'],
     standalone: true,
-    imports: [FormsModule]
+    imports: [FormsModule, NgIf]
 })
 export class SelectMapLocationComponent implements OnInit {
 
@@ -20,6 +24,7 @@ export class SelectMapLocationComponent implements OnInit {
   displayMap!: GoogleMap;
 
   @Input() headline: string = "";
+  @Input() isFilter: boolean = false;
   @Input() initialValue: string = "";
   @Output() outputEvent = new EventEmitter<{ address: string, geoHash: string } | any>();
 
@@ -42,6 +47,12 @@ export class SelectMapLocationComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  constructor(
+    private keycloakService: KeycloakService,
+    private userService: UserService,
+    private toastr: ToastrService
+  ) {}
 
   ngAfterViewInit() {
     this.autoComplete = new google.maps.places.Autocomplete(this.originLocation.nativeElement);
@@ -68,12 +79,19 @@ export class SelectMapLocationComponent implements OnInit {
     }
   }
 
-  search() {
-    this.markerLocation = JSON.parse(JSON.stringify(this.autoComplete?.getPlace().geometry?.location!));
-  }
-
-  centerChanged() {
-    this.markerLocation = this.displayMap.getCenter()!;
+  getMyAddress() {
+    const sub = this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
+    (data)=> {
+      if(data&&data.geoHash) {
+        let output: any = {};
+        output["address"] = data.addressLine3;
+        output["geoHash"] = data.geoHash;
+        this.outputEvent.emit(output);
+      } else {
+        this.toastr.info("Please update your contact.")
+      }
+    }
+    );
   }
 
   distanceBetweenTwoPlace(firstLat: number, firstLon: number, secondLat: number, secondLon: number, unit: string) {

@@ -12,14 +12,16 @@ export class Order extends BaseResponse{
         public appointmentDate: Date,
         public charges: number,
         public listingId: number,
-        public startTimeHhmm: number,
-        public endTimeHhmm: number,
+        public appointmentTimeHhmm: number,
+        public preferredStartTimeHhmm: number,
+        public preferredEndTimeHhmm: number,
         public subCategoryName: string,
         public paymentStatus:string,
         public otp: string,
         public directInitiated: boolean,
         public reviewDone: boolean,
         public cancelReason: string,
+        public menuItems: any[],
         state: string,
         message: string
     ) {

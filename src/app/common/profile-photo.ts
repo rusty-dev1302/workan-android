@@ -6,6 +6,7 @@ export class ProfilePhoto extends BaseResponse{
         public id: number,
         public customerId: number,
         public picByte: any,
+        public thumbnail: any,
         state: string,
         message: string
     ) {

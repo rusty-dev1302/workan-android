@@ -8,7 +8,8 @@ export class Listing extends BaseResponse{
     constructor(
         public id: number,
         public charges: number,
-        public chargesType: string,
+        public minCharge: number,
+        public maxCharge: number,
         public enabled: boolean,
         public professionalEmail: string,
         public location: string,

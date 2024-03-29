@@ -1,5 +1,6 @@
 <div class="form-group maps-autocomplete">
-    <label for="originLocation">{{headline}}</label>
-    <input #originLocation type="text" [(ngModel)]="initialValue" (keyup)="valueChanged()" ((mousedown))="valueChanged()"
-        class="form-control" name="" placeholder="--" id="originLocation">
+    <label for="originLocation"><i class="fa fa-map-marker px-2" aria-hidden="true"></i>{{headline}}</label>
+    <input #originLocation type="text" [(ngModel)]="initialValue" (keyup)="valueChanged()"
+        ((mousedown))="valueChanged()" class="form-control" name="" placeholder="--" id="originLocation">
+        <a *ngIf="isFilter" class="link" (click)="getMyAddress()" type="button" for="originLocation" style="font-size: .8rem!important;"><i class="fa fa-address-card px-2" aria-hidden="true"></i>Use my address</a>
 </div>

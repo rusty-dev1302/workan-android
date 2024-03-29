@@ -48,7 +48,7 @@ export class PhotoUploaderComponent implements OnInit{
 
   //Gets called when the user clicks on retieve image button to get the image from back end
   getImage() {
-    const subscription = this.profilePhotoService.getImageByCustomerId(this.customerId).subscribe(
+    const subscription = this.profilePhotoService.getImageByCustomerId(this.customerId, true).subscribe(
       (image) => {
         if(image&&image.state!=constants.ERROR_STATE){
         this.base64Data = image.picByte;

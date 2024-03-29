@@ -21,28 +21,44 @@
                     <div style="text-align: start;">
                         <div class="row d-flex justify-content-center" style="word-wrap: break-word!important;">
                             <div class="col-6 mb-3 border p-3 m-3" style="padding-right: 2rem!important;width: 20rem;">
-                                <label type="button" (click)="setAccountType('GENERAL')" class="form-check" for="flexRadioDefault1">
+                                <label type="button" (click)="setAccountType('GENERAL')" class="form-check"
+                                    for="flexRadioDefault1">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
                                         id="flexRadioDefault1" checked>
-                                        <h5><b>Customer Account</b></h5>
-                                        Create a customer account and start exploring the available services.
+                                    <h5><b>Customer Account</b></h5>
+                                    Create a customer account and start exploring the available services.
                                 </label>
                             </div>
-                            <div class="col-12 mb-3 border py-2 m-3" style="padding-right: 2rem!important;width: 20rem;">
-                                <label type="button" (click)="setAccountType('PROFESSIONAL')" class="form-check" for="flexRadioDefault2">
+                            <div class="col-12 mb-3 border py-2 m-3"
+                                style="padding-right: 2rem!important;width: 20rem;">
+                                <label type="button" (click)="setAccountType('PROFESSIONAL')" class="form-check"
+                                    for="flexRadioDefault2">
                                     <input class="form-check-input" type="radio" name="flexRadioDefault"
                                         id="flexRadioDefault2">
-                                        <h5><b>Professional Account</b></h5>
-                                        Create professional account to register as a freelance professional and start offering services.
+                                    <h5><b>Professional Account</b></h5>
+                                    Create professional account to register as a freelance professional and start
+                                    offering services.
                                 </label>
                             </div>
                         </div>
-                        <h6 class="small-text text-center" style="color: rgb(176, 40, 40);"><b>&bull; Please Note: Account type CANNOT be changed later.</b>
-                        </h6>
+                        <div class="text-center">
+                            <div *ngIf="isProfessional" class="form-check">
+                                <label class="form-check-label" for="workAuthorized">
+                                    <input class="form-check-input" type="checkbox" [checked]="isWorkAuthorized" id="workAuthorized" (click)="toggleWorkAuthorized()">
+                                    <span class="small-text text-center">
+                                        <b>I am legally authorized to work in Canada.</b>
+                                    </span>
+                                </label>
+                            </div>
+                            <h6 class="small-text text-center" style="color: rgb(176, 40, 40);"><b>&bull; Please Note:
+                                    Account type CANNOT be changed later.</b>
+                            </h6>
+                        </div>
                     </div>
-                    
+
                     <div class="container p-2">
-                        <button type="button" class="btn btn-success btn-rounded col px-3" (click)="submitAccountType()">Create!</button>
+                        <button type="button" class="btn btn-success btn-rounded col px-3" [disabled]="isProfessional&&!isWorkAuthorized"
+                            (click)="submitAccountType()">Create!</button>
                     </div>
 
                 </div>

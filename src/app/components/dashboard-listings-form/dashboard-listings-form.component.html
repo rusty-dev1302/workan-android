@@ -2,7 +2,7 @@
 
 <div class="col-xl-12 col-md-12">
 
-    <div class="form-section p-3 m-3">
+    <div *ngIf="menuItem==0" class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -10,25 +10,21 @@
             <div class="mb-3">
                 <div class="row">
                     <div class="col">
-                        <div *ngIf="!allowListing" class="form-group">
+                        <div class="form-group">
                             <h3><b>Listing Details </b>
-                            </h3>
-                        </div>
-                        <div *ngIf="allowListing" class="form-group">
-                            <h3><b>Listing Details </b>
-                                <i *ngIf="!displayListing" class="fa-regular fa-circle-plus primary-blue"
+                                <i *ngIf="!displayListing&&allowListing" class="fa-regular fa-circle-plus primary-blue"
                                     style="border-radius: 100%!important;" type="button" data-bs-toggle="modal"
                                     data-bs-target="#listingDetailsModal"></i>
-                                <i *ngIf="displayListing" class="fa-regular fa-pen-circle primary-blue"
+                                <i *ngIf="displayListing&&allowListing" class="fa-regular fa-pen-circle primary-blue"
                                     style="border-radius: 100%!important;" type="button" data-bs-toggle="modal"
                                     data-bs-target="#listingDetailsModal"></i>
-                                <i *ngIf="displayListing" class="fa-regular fa-circle-trash primary-cancel"
-                                    style="margin-left: 5px;" type="button"
-                                    (click)="removeListing(displayListing.id)"></i>
+                                <i *ngIf="displayListing&&allowListing"
+                                    class="fa-regular fa-circle-trash primary-cancel" style="margin-left: 5px;"
+                                    type="button" (click)="removeListing(displayListing.id)"></i>
                             </h3>
                             <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;">
-                                <b>Verification Mandatory</b>
+                                <b>Pending Verification</b>
                             </h6>
                         </div>
                     </div>
@@ -61,15 +57,10 @@
 
                     <div class="col-xxl-6 col-lg-6 col-12">
                         <div class="form-group">
-                            <label>Charges Type</label>
-                            <h5>{{displayListing.chargesType}}</h5>
-                        </div>
-                    </div>
-                    <div class="col-xxl-6 col-lg-6 col-12">
-                        <div class="form-group">
                             <label>Charges</label>
-                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{displayListing.charges |
-                                number : '1.2-2'}} </h5>
+                            <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{displayListing.minCharge
+                                | number : '1.2-2'}} - <i class="fa-solid fa-dollar-sign"
+                                    style="color: green;"></i>{{displayListing.maxCharge | number : '1.2-2'}}</h5>
                         </div>
                     </div>
 
@@ -89,13 +80,18 @@
                     class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.</h6>
+                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.
+                </h6>
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                    class="small-text">&bull; Please upload all the <b>relevant certifications/documents</b> from
+                    documents section.
+                </h6>
             </div>
         </form>
         <!-- User Form Ends -->
     </div>
 
-    <div *ngIf="slotTemplates" class="row g-5">
+    <div *ngIf="menuItem==0&&listing.id>0" class="row g-5">
         <div class="col-xl-12 col-md-12 ">
             <!-- Ratings panel starts -->
             <div class="row g-5">
@@ -109,7 +105,74 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <h3><b>Certifications / Documents </b><i type="button" data-bs-toggle="modal"
+                                        <h3><b>Service Pricing Chart </b><i type="button" data-bs-toggle="modal"
+                                                data-bs-target="#addServicePriceModal"
+                                                class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
+                                        <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                            Certifications</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                            <div class="table-responsive">
+                                <table class="table table-bordered th-sm">
+                                    <thead
+                                        style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                        <tr>
+                                            <th scope="col" class="text-center">Service Name</th>
+                                            <th scope="col" class="text-center">Charges (CAD)</th>
+                                            <th scope="col" class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let servicePricing of servicePricings">
+                                            <td class="text-center">
+                                                {{servicePricing.serviceName}}
+                                            </td>
+                                            <td class="text-center">
+                                                <i class="fa-solid fa-dollar-sign"
+                                                    style="color: green;margin-right: .1rem;"></i>{{servicePricing.charges|number
+                                                : '1.2-2'}}
+                                            </td>
+                                            <td class="text-center">
+                                                <i type="button" class="fa-sharp fa-solid fa-trash"
+                                                    (click)="removeServicePricing(servicePricing.id)"></i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr class="style1">
+                            <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the professional.
+                            </h6>
+                            <h6 class="small-text">&bull; The charges should include all the taxes payable by the
+                                professional.
+                            </h6>
+                        </div>
+                        <!-- User Form Ends -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- Ratings panel ends -->
+        </div>
+    </div>
+
+    <div *ngIf="menuItem==1" class="row g-5">
+        <div class="col-xl-12 col-md-12 ">
+            <!-- Ratings panel starts -->
+            <div class="row g-5">
+
+                <div class="col-xl-12 col-md-12">
+
+                    <div class="form-section p-3 m-3">
+
+                        <!-- User Form Starts -->
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <h3><b>Documents / Certifications </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addCertificationModal"
                                                 class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
                                         <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
@@ -121,7 +184,7 @@
                             <h6 *ngIf="displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;"><b>Please add all the relevant documents.</b></h6>
                             <div class="table-responsive">
-                                <table class="table table table-bordered th-sm">
+                                <table class="table table-bordered th-sm">
                                     <thead
                                         style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
                                         <tr>
@@ -187,8 +250,10 @@
                                                     (click)="verifyCertification(certification.id)">Verify</a>
                                                 <a *ngIf="certification.status=='Verified'" class="link px-1"
                                                     type="button" style="font-size: 1rem!important;"
-                                                    (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide from profile':'Show on profile'}}</a>
-                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                    (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
+                                                    from profile':'Show on profile'}}</a>
+                                                <a class="link px-1"
+                                                    *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
                                                     style="font-size: 1rem!important;">/</a>
                                                 <a class="link px-1" type="button" style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</a>
@@ -200,10 +265,12 @@
                             <hr class="style1">
                             <h6 class="small-text">&bull; Please upload <b>relevant documents/certifications</b>.
                             </h6>
-                            <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max size
+                            <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max
+                                size
                                 per attachment is <b>2Mb</b>.
                             </h6>
-                            <h6 class="small-text">&bull; You can allow certifications to be shown on your profile by clicking on <b>show on profile</b>.
+                            <h6 class="small-text">&bull; You can allow certifications to be shown on your profile by
+                                clicking on <b>show on profile</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -215,7 +282,7 @@
         </div>
     </div>
 
-    <div *ngIf="slotTemplates" class="form-section p-3 m-3">
+    <div *ngIf="menuItem==2" class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -224,7 +291,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Day Availability</b>
+                            <h3><b>Day Availability Template</b>
                             </h3>
                         </div>
                     </div>
@@ -269,55 +336,52 @@
 
                 <!-- Slots for the day start  -->
                 <div>
-                    <div *ngFor="let template of slotTemplates" class="row">
+                    <div *ngFor="let template of availabilityRange" class="row">
                         <div *ngIf="selectedDay==template.dayName">
                             <div class="col-12 py-1">
                                 <div class="form-group">
                                     <h4>{{template.dayName}}
-                                        <a *ngIf="template.items.length>0" type="button" class="link"
+                                        <a *ngIf="template.endTimeHhmm" type="button" class="link"
                                             style="font-size: 0.8rem!important;"
-                                            (click)="copySlotItems(template.dayName, template.items)">Copy</a>
-                                        <a *ngIf="template.items.length<=0" class="link link-disabled"
+                                            (click)="copySlotItems(template.dayName, template.startTimeHhmm, template.endTimeHhmm)">Copy</a>
+                                        <a *ngIf="!template.endTimeHhmm" class="link link-disabled"
                                             style="font-size: 0.8rem!important;">Copy</a>
                                         <i class="fa fa-ellipsis-v px-1"
                                             style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
-                                        <a *ngIf="pasteItems.length>0" type="button"
-                                            (click)="pasteSlotItems(template.dayName,template.id, template.enabled)"
+                                        <a *ngIf="template.templateId&&copyStartTime" type="button"
+                                            (click)="pasteSlotItems(template.dayName,template.templateId, template.enabled)"
                                             class="link" style="font-size: 0.8rem!important;">Paste</a>
-                                        <a *ngIf="pasteItems.length<=0" class="link link-disabled"
+                                        <a *ngIf="!copyStartTime" class="link link-disabled"
                                             style="font-size: 0.8rem!important;">Paste</a>
                                     </h4>
-                                    <div *ngIf="!toggleLoader" class="form-check form-switch">
+                                    <div *ngIf="!toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm"
+                                        class="form-check form-switch">
                                         <label type="button" [hidden]="!template.enabled" class="form-check-label"
                                             for="slotSwitch">On</label>
                                         <label type="button" [hidden]="template.enabled" class="form-check-label"
                                             for="slotSwitch">Off</label>
-                                        <input id="slotSwitch" (click)="toggleSlotTemplate(template.id)"
+                                        <input id="slotSwitch" (click)="toggleSlotTemplate(template.templateId)"
                                             class="form-check-input" type="checkbox" [checked]="template.enabled"
                                             role="switch">
                                     </div>
-                                    <div *ngIf="toggleLoader">
+                                    <div *ngIf="toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm">
                                         <i class="fas fa-spinner fa-pulse"></i>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label class="py-2">Slots:</label>
-
+                                    <label class="py-2">Availability Range:</label>
                                     <div class="row">
-                                        <div *ngFor="let item of template.items"
-                                            class="col-xxl-2 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
-                                            <span class="btn btn-rounded btn-primary"
-                                                (click)="removeSlotTemplateItem(item.id)">{{convertTimeToString(item.startTimeHhmm)}}-{{convertTimeToString(item.endTimeHhmm)}}
-                                                <i class="fa-regular fa-circle-xmark"></i></span>
-                                        </div>
-
-                                        <div class="col-xxl-1 col-lg-3 col-md-4 col-sm-6 col-12 py-1">
+                                        <div class="col py-1">
                                             <span class="btn btn-rounded btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#addSlotModal"
-                                                (click)="addSlotTemplateItemToDialog(template.id)"><i
-                                                    class="fa-solid fa-plus"></i></span>
+                                                data-bs-target="#addSlotModal" style="margin-left: .2rem;"
+                                                (click)="addSlotTemplateItemToDialog(template.templateId)">
+                                                <span *ngIf="template.startTimeHhmm&&template.endTimeHhmm"
+                                                    style="margin-right: .4rem;">{{dateTimeService.convertTimeToString(template.startTimeHhmm)}}
+                                                    -
+                                                    {{dateTimeService.convertTimeToString(template.endTimeHhmm)}}</span>
+                                                <i class="fa-solid fa-pen"></i></span>
                                         </div>
                                     </div>
                                     <hr class="style1">
@@ -328,8 +392,59 @@
                 </div>
 
                 <!-- Slots for the day end  -->
-                <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the corresponding day.</h6>
-                <h6 class="small-text">&bull; Each slot represents the availability time for the corresponding day.</h6>
+                <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the
+                    corresponding day.</h6>
+            </div>
+        </form>
+        <!-- User Form Ends -->
+    </div>
+
+    <div *ngIf="menuItem==2" class="form-section p-3 m-3">
+
+        <!-- User Form Starts -->
+        <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+
+            <div class="mb-3">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="form-group">
+                            <h3><b>Unavailability</b>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <app-unavailability-calendar (markUnavailableEvent)="addUnavailabilityForProfessional($event)"></app-unavailability-calendar>
+
+                <!-- Slots for the day start  -->
+                <div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label style="margin-bottom: 1rem!important;"><b>Unavailable Dates:</b></label>
+                                <div class="row">
+                                    <div *ngFor="let day of unavailableDays" class="col py-1">
+                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
+                                            (click)="removeUnavailableDate(day.id)">
+                                            <span style="margin-right: .4rem;">{{day.date|date:'dd MMM (EEEE)':'+0000'}}</span>
+                                            <i class="fa fa-times" aria-hidden="true"></i></span>
+                                    </div>
+                                </div>
+                                <div *ngIf="!unavailableDays||unavailableDays?.length == 0" class="alert alert-warning col-md-12"
+                                    role="alert">
+                                    No dates added to unavailability.
+                                </div>
+                                <hr class="style1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slots for the day end  -->
+                <h6 class="small-text">&bull; Add the dates you are unavailable and do not wish to take orders for.
+                </h6>
+                <h6 class="small-text">&bull; These dates will be unavailable despite the status of the day
+                    availability.
+                </h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -393,31 +508,6 @@
 
                                 <div class="mb-3">
                                     <div class="row">
-                                        <div class="col-xxl-6 col-lg-6 col-6">
-                                            <div class="form-group">
-                                                <label for="chargesType">Charges Type</label>
-                                                <select #chargesType class="form-select" aria-label="gender"
-                                                    [value]="listing.chargesType"
-                                                    (change)="selectChargesType(chargesType.value)">
-                                                    <option value="Per Visit" default>Per Visit</option>
-                                                    <option value="Per Visit+Parts/Material Cost Extra">Per Visit+Parts/Material Cost Extra</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xxl-6 col-lg-6 col-6">
-                                            <div class="form-group">
-                                                <label for="chargesType">CAD</label>
-                                                <div class="input-group mb-3">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" style="color: green;">$</span>
-                                                    </div>
-                                                    <input #charges="ngModel" name="charges" id="charges" required
-                                                        [(ngModel)]="listing.charges" type="number" autocomplete="off"
-                                                        class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
 
                                         <div class="col-4">
                                             <div class="form-group">
@@ -442,16 +532,12 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <a>
-                                                <h6 class="small-text">&bull; <b>Listing location:</b> Preferred address around which the services will be provided (~20km radius).
-                                                </h6>
-                                                <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the professional.
-                                                </h6>
-                                                <h6 class="small-text">&bull; The charges should include all the taxes payable by the professional.
+                                                <h6 class="small-text">&bull; <b>Listing location:</b> Preferred address
+                                                    around which the services will be provided (~20km radius).
                                                 </h6>
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
                                                             ||listing.experience==0
-                                                            ||listing.charges<1
                                                             ||listing.location==''" data-bs-toggle="modal"
                                                 data-bs-target="#listingDetailsModal">Save</button>
                                         </div>
@@ -527,13 +613,113 @@
 </div>
 <!-- Add Certification Modal Ends -->
 
+<!-- Add Service Price Modal -->
+<div class="modal fade" id="addServicePriceModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="addServicePriceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aaddServicePriceModalLabel">Service Price</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="resetServicePriceDialog()"></button>
+            </div>
+            <div class="modal-body">
+                <section class="container">
+                    <div class="row">
+
+                        <div class="form-section">
+
+                            <!-- User Form Starts -->
+                            <form #editServicePricing="ngForm" (ngSubmit)="addServicePricing()">
+
+                                <div class="mb-3">
+                                    <div class="row g-3">
+
+                                        <div class="col-12">
+                                            <label>Service Name:</label>
+                                            <div class="form-group">
+                                                <div class="form-check form-check-inline">
+                                                    <label type="button" class="form-check-label"
+                                                        for="serviceNameRadio1"
+                                                        (click)="toggleServicePriceSelect(true)">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="serviceNameRadioDefault" id="serviceNameRadio1"
+                                                            checked>
+                                                        Select
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <label type="button" class="form-check-label"
+                                                        for="serviceNameRadio2"
+                                                        (click)="toggleServicePriceSelect(false)">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="serviceNameRadioDefault" id="serviceNameRadio2">
+                                                        Custom
+                                                    </label>
+                                                </div>
+                                                <select *ngIf="isServicePriceSelect" #serviceName class="form-select"
+                                                    aria-label="servicePricings" style="margin-top: .3rem;"
+                                                    [value]="addServicePriceName"
+                                                    (change)="selectServicePrice(serviceName.value)">
+                                                    <option value="" default hidden>Select a service name</option>
+                                                    <option
+                                                        *ngFor="let servicePrice of listing.subCategory.servicePricings"
+                                                        [value]="servicePrice">{{servicePrice}}</option>
+                                                </select>
+                                                <input *ngIf="!isServicePriceSelect" #certName="ngModel" required
+                                                    [(ngModel)]="addServicePriceName" style="margin-top: .3rem;"
+                                                    minlength="3" maxlength="50" name="certName" id="certName"
+                                                    type="text" class="form-control" autocomplete="off"
+                                                    placeholder="Enter a custom service name">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="serviceCharges">Charges(CAD):</label>
+                                                <div class="input-group mb-3" style="margin-top: .3rem;">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="color: green;">$</span>
+                                                    </div>
+                                                    <input #charges="ngModel" name="serviceCharges" id="serviceCharges"
+                                                        required [(ngModel)]="addServicePriceCharges" type="number"
+                                                        autocomplete="off" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Edit buttons -->
+                                <div class="row">
+                                    <div class="modal-footer" style="border-top: 0!important;">
+                                        <button type="submit" class="btn btn-danger btn-rounded col-12"
+                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10'
+                                            data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add
+                                            Service</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- User Form Ends -->
+                        </div>
+
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Service Price Modal Ends -->
+
 <!-- Add Slot Modal -->
 <div class="modal fade" id="addSlotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="addSlotModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSlotModalLabel">Add time slot</h5>
+                <h5 class="modal-title" id="addSlotModalLabel">Set availability time</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     (click)="resetSlotDialog()"></button>
             </div>
@@ -544,7 +730,7 @@
                         <div class="form-section" style="padding: 0!important;">
 
                             <!-- User Form Starts -->
-                            <form #editListing="ngForm" (ngSubmit)="addSlotTemplateItem()">
+                            <form #editListing="ngForm" (ngSubmit)="createSlotRange()">
 
                                 <div class="mb-4">
                                     <div class="row g-3">

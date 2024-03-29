@@ -45,7 +45,7 @@
                                     <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
                                         src="assets/profile.png">
                                     <img *ngIf="profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"
-                                        [src]="profilePhoto.picByte">
+                                        [src]="profilePhoto.thumbnail">
                                 </div>
                             </div>
                         </div>
@@ -115,12 +115,7 @@
 
                         </div>
                         <div *ngIf="displayContact" class="row">
-
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <h5>{{displayContact.addressLine1}} {{displayContact.addressLine2}}</h5>
-                                </div>
-                            </div>
+                            
                             <div class="col-12">
                                 <div class="form-group">
                                     <h5>{{displayContact.addressLine3}}</h5>
@@ -182,12 +177,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-xxl-6 col-lg-6 col-12">
-                                <div class="form-group">
-                                    <label>Charges Type</label>
-                                    <h5>{{displayListing.chargesType}}</h5>
-                                </div>
-                            </div>
                             <div class="col-xxl-6 col-lg-6 col-12">
                                 <div class="form-group">
                                     <label>Charges</label>

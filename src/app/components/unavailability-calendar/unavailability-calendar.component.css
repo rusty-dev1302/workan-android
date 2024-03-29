@@ -1,0 +1,19 @@
+::-webkit-datetime-edit-month-field {
+    display: none;
+}
+
+::-webkit-datetime-edit-day-field {
+    display: none;
+}
+
+::-webkit-datetime-edit-year-field {
+    display: none;
+}
+
+::-webkit-datetime-edit-text {
+    display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}

@@ -21,7 +21,7 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="subcategory">Subcategory</label>
+                        <label for="subcategory"><i class="fa fa-sitemap px-1" aria-hidden="true"></i>Subcategory</label>
                       </div>
                       <select #subcategory class="form-select" aria-label="subcategory" [value]="currentSubcategory"
                         (change)="selectSubcategory(subcategory.value)">
@@ -34,7 +34,8 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="sortBy">Sort by</label>
+                        <label for="sortBy"><i class="fa fa-sort px-2" aria-hidden="true"></i>Sort by
+                        </label>
                       </div>
                       <select #sortBy class="form-select" aria-label="sortBy" [value]="sortByValue"
                         (change)="selectSortBy(sortBy.value)">
@@ -47,7 +48,7 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <app-select-map-location headline="Location" [initialValue]="currentLocation"
+                        <app-select-map-location headline="Location" [initialValue]="currentLocation" [isFilter]="true"
                           (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
                       </div>
                     </div>
@@ -137,7 +138,7 @@
             <div class="card list-card py-3" style="width: 25rem;padding-bottom: 0!important;">
               <img *ngIf="!listing.professional.profilePhoto" alt="..." class="card-img-top" src="assets/profile.png">
               <img *ngIf="listing.professional.profilePhoto" alt="..." class="card-img-top"
-                [src]="'data:image/png;base64,'+listing.professional.profilePhoto.picByte">
+                [src]="'data:image/png;base64,'+listing.professional.profilePhoto.thumbnail">
               <div class="card-body">
                 <h4 class="card-title text-center">{{listing.professional.firstName}} {{listing.professional.lastName}}
                 </h4>
@@ -146,9 +147,9 @@
                     [routerLink]="['/listingDetail',listing.id]" type="button">
                     View</a>
                 </div>
-                <h6 *ngIf="listing" style="padding-left: .26rem!important;"><b><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{listing.charges |
-                    number : '1.2-2'}}</b>
-                  ({{listing.chargesType}})</h6>
+                <h6 *ngIf="listing" style="padding-left: .26rem!important;"><b><i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{listing.minCharge |
+                    number : '1.2-2'}} - <i class="fa-solid fa-dollar-sign" style="color: green;"></i>{{listing.maxCharge |
+                    number : '1.2-2'}}</b></h6>
 
                 <h6><i class="fa fa-star rating-color"></i> {{listing.professional.rating | number : '1.1-1'}}</h6>
                 <span>

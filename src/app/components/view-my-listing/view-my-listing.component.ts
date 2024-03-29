@@ -48,7 +48,6 @@ export class ViewMyListingComponent implements OnInit{
     const subscription = this.listingService.getListingByEmail(this.keycloakService.getUsername()).subscribe(
       (listing) => {
         if(listing.state!=constants.ERROR_STATE){
-          console.log(listing)
           this.listing = listing;
           const sub = this.listingService.getProfessionalById(this.listing.professional.id).subscribe(
             (professional) => {

@@ -112,7 +112,7 @@ export class DashboardProfileFormComponent implements OnInit {
         } else {
           this.contactDetail = constants.DEFAULT_CONTACT_DETAIL;
         }
-        if (this.contactDetail.addressLine1 != "" && this.contactDetail.addressLine2 != "" && this.contactDetail.addressLine3 != "") {
+        if (this.contactDetail.addressLine3 != "") {
           this.displayContact = JSON.parse(JSON.stringify(this.contactDetail));
         } else {
           if (!this.displayPersonalDetails) {
@@ -130,6 +130,7 @@ export class DashboardProfileFormComponent implements OnInit {
         if (image && image.state != constants.ERROR_STATE) {
           this.profilePhoto = image;
           this.profilePhoto.picByte = 'data:image/jpeg;base64,' + image.picByte;
+          this.profilePhoto.thumbnail = 'data:image/jpeg;base64,' + image.thumbnail;
         }
 
         this.navigationService.pageLoaded();
@@ -205,8 +206,6 @@ export class DashboardProfileFormComponent implements OnInit {
 
   submitContactDetail() {
     this.contactDetail.customerId = this.user.id;
-    this.contactDetail.addressLine1 = this.contactDetail.addressLine1.trim();
-    this.contactDetail.addressLine2 = this.contactDetail.addressLine2.trim();
     const subscription = this.userService.saveUserContact(this.contactDetail).subscribe(
       (data) => {
         this.loadUserData();

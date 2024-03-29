@@ -1,9 +1,6 @@
 import { DatePipe, NgFor, NgIf, SlicePipe, DecimalPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { KeycloakService } from 'keycloak-angular';
-import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/common/customer';
 import { Listing } from 'src/app/common/listing';
 import { SlotTemplateItem } from 'src/app/common/slot-template-item';
@@ -132,7 +129,6 @@ export class BrowseListingsComponent implements OnInit {
     }
     const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortByValue, this.pageNumber).subscribe(
       data => {
-        console.log(data)
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
             data.forEach(
@@ -172,52 +168,8 @@ export class BrowseListingsComponent implements OnInit {
 
   getAvailabilityForListing(listing: Listing) {
     let today: Date = new Date();  
-    this.getSlotsForDay(today, listing);
     let tomorrow: Date = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    this.getSlotsForDay(tomorrow, listing, true);
   }
 
-  getSlotsForDay(date: Date, listing: Listing, stopLoad:boolean=false) {
-    if (date) {
-      const sub = this.listingService.getAvailableSlotsItems(listing.id, this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
-        (data) => {
-          if (data) {
-
-            let currentSlots:SlotTemplateItem[] = data;
-
-            const todayDate = new Date().getDate();
-
-            if (todayDate == date.getDate()) {
-              const todayTime = this.datePipe.transform(new Date(), 'HHmm');
-              currentSlots = currentSlots.filter(
-                a => a.startTimeHhmm > +todayTime!
-              );
-
-              if(currentSlots.length>0) {
-                listing.availableToday = true;
-              } else {
-                listing.availableToday = false;
-              }
-
-            } else {
-              if(currentSlots.length>0) {
-                console.log(currentSlots)
-                listing.availableTomorrow = true;
-              } else {
-                listing.availableTomorrow = false;
-              }
-
-            }
-
-            if(stopLoad) {
-              listing.availabilityLoaded = true;
-            }
-
-            sub.unsubscribe();
-          }
-        }
-      );
-    }
-  }
 }

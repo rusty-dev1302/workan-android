@@ -25,7 +25,6 @@ export class FileService {
 
   uploadAttachment(uploadData: any, certId: number): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/attachment/save?certId=${certId}`;
-    console.log(uploadData)
     return this.httpClient.post<BaseResponse>(postUrl, uploadData);
   }
 
