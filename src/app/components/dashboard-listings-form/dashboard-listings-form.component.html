@@ -422,10 +422,10 @@
                             <div class="form-group">
                                 <label style="margin-bottom: 1rem!important;"><b>Unavailable Dates:</b></label>
                                 <div class="row">
-                                    <div *ngFor="let day of unavailableDays" class="col py-1">
+                                    <div *ngFor="let day of unavailableDays" class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
                                         <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
                                             (click)="removeUnavailableDate(day.id)">
-                                            <span style="margin-right: .4rem;">{{day.date|date:'dd MMM (EEEE)':'+0000'}}</span>
+                                            <span style="margin-right: .4rem;">{{day.date|date:'dd MMM (EEE)':'+0000'}}</span>
                                             <i class="fa fa-times" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
