@@ -40,7 +40,7 @@
                       <div *ngIf="currentTimeRange">
                         <!-- If professional available for the day  -->
                         <h5>Please select preferred time range:</h5>
-                        <span style="font-size: .9rem;">(Professional is available from
+                        <span style="font-size: .9rem;">(Professional availability is
                           {{dateTimeService.convertTimeToString(currentTimeRange.startTimeHhmm)}} -
                           {{dateTimeService.convertTimeToString(currentTimeRange.endTimeHhmm)}})</span>
                         <div class="col-12 mt-3">
@@ -70,7 +70,7 @@
                           appointment within the preferred time range</span>
                       </div>
 
-                      <div *ngIf="!currentTimeRange" class="alert alert-warning col-md-12" role="alert">
+                      <div *ngIf="currentDate!='Select a day'&&!currentTimeRange" class="alert alert-warning col-md-12" role="alert">
                         Professional unavailable for the selected date.
                       </div>
                     </div>

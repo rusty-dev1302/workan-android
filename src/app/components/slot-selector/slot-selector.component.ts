@@ -26,9 +26,9 @@ export class SlotSelectorComponent implements OnInit {
   @Input()
   professionalView: boolean = false;
 
-  currentDate!: string;
+  currentDate: string = "Select a day";
   currentTimeRange!: any;
-  selectedTimeRange: any = {startTime:'', endTime:''}
+  selectedTimeRange: any = { startTime: '', endTime: '' }
   availableMenuItems!: any[];
   totalMenuCharges: number = 0;
   currentStep: number = 0;
@@ -38,7 +38,7 @@ export class SlotSelectorComponent implements OnInit {
   availabilityRange = new Map();
 
   selectedDate!: Date;
-  selectedSlot: any={};
+  selectedSlot: any = {};
 
   selectedMenuItems: any[] = [];
 
@@ -68,11 +68,45 @@ export class SlotSelectorComponent implements OnInit {
     this.availabilityRange = new Map();
     const subscription = this.listingService.getAvailabilityRange(listingId).subscribe(
       (data) => {
-        Object.keys(data).map((key: any) => {
-          this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
-        });
 
-        this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd", "+000000")!), 0);
+        // See for unavailability for next 7 days
+        let dates: string[] = [];
+
+        for (let i = 0; i < 7; i++) {
+          let date: Date = new Date();
+          date.setDate(new Date().getDate() + i)
+
+          dates.push(this.dateTimeService.truncateTimezoneToString(date));
+        }
+
+        const sub = this.listingService.getUnavailableDatesFromDates(listingId, dates).subscribe(
+          (data1) => {
+
+            // Set of unavailable day names
+            let unavailableDays:Map<string, string> = new Map();
+
+            data1.forEach(
+              (ud) => {
+                let day:string = this.datePipe.transform(new Date(ud), "EEEE", '+0000')!;
+                unavailableDays.set(day, ud);
+              }
+            );
+
+            // Converting range to array with day as key and range as value 
+            Object.keys(data).map((key: any) => {
+              let dd = (data[key] as unknown as string).split(",")[0];
+              if(!unavailableDays.has(dd)) {
+                this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
+              }
+            });
+
+            // method to get the time range for selected date 
+            // this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd", "+000000")!), 0);
+
+            sub.unsubscribe();
+          }
+        );
+
         subscription.unsubscribe();
       }
     );
@@ -109,7 +143,7 @@ export class SlotSelectorComponent implements OnInit {
     this.currentTimeRange = null;
     this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_CLEAR));
     this.dayBoolArray[i] = true;
-    this.currentDate = this.datePipe.transform(date, 'dd MMM (EEEE)')!;
+    this.currentDate = this.datePipe.transform(date, 'dd MMM (EEEE)', '+0000')!;
 
     let day: string = this.datePipe.transform(date, 'EEEE')!;
 
@@ -122,6 +156,16 @@ export class SlotSelectorComponent implements OnInit {
       this.currentTimeRange = null;
     }
 
+  }
+
+  getUnavailableDatesFromDates(dates: string[]) {
+    // let dates:string[] = [];
+    // dates.push(this.dateTimeService.truncateTimezoneToString(new Date()));
+    const sub = this.listingService.getUnavailableDatesFromDates(this.listingId, dates).subscribe(
+      (data) => {
+        console.log(data);
+      }
+    );
   }
 
   calculateTotalMenuCharges() {
@@ -163,7 +207,7 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   closeDialog() {
-    this.selectedTimeRange = {startTime:'', endTime:''};
+    this.selectedTimeRange = { startTime: '', endTime: '' };
     this.currentStep = 0;
   }
 
@@ -202,7 +246,7 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   parseInt(input: string): number {
-    const result:number = +input;
+    const result: number = +input;
     return result;
   }
 

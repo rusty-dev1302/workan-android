@@ -45,4 +45,10 @@ export class DateTimeService {
     return new Date(stringDate);
   }
 
+  truncateTimezoneToString(date: Date):string {
+    let stringDate: string = this.datePipe.transform(date, 'yyyy-MM-dd') + "T00:00:00.000000Z";
+
+    return stringDate;
+  }
+
 }

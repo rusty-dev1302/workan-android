@@ -83,7 +83,8 @@ export class DashboardListingsFormComponent implements OnInit {
     private dialogService: ConfirmationDialogService,
     private userService: UserService,
     private fileService: FileService,
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -174,22 +175,28 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addUnavailabilityForProfessional(event: any) {
-    let item = {
-      id: null,
-      date: event
-    }
-    const sub = this.listingService.addUnavailabilityForProfessional(item).subscribe(
-      ()=>{
-        this.getUnavailabilityForProfessional();
-        sub.unsubscribe();
+    const subscription = this.dialogService.openDialog(" mark " + this.datePipe.transform(event, "dd MMMM (EEEE)", "+0000") + " as unavailable").subscribe(
+      (res) => {
+        if (res) {
+          let item = {
+            id: null,
+            date: event
+          }
+          const sub = this.listingService.addUnavailabilityForProfessional(item).subscribe(
+            () => {
+              this.getUnavailabilityForProfessional();
+              sub.unsubscribe();
+            }
+          );
+        }
       }
     );
   }
 
   getUnavailabilityForProfessional() {
     const sub = this.listingService.getUnavailabilityForProfessional().subscribe(
-      (data)=>{
-        if(data&&data.length>0&&data[0].state!=constants.ERROR_STATE||data) {
+      (data) => {
+        if (data && data.length > 0 && data[0].state != constants.ERROR_STATE || data) {
           this.unavailableDays = data;
           console.log(JSON.parse(JSON.stringify(data)))
         }
@@ -276,9 +283,9 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   pasteSlotItems(dayName: string, templateId: string, templateEnabled: boolean) {
-    const sub = this.dialogService.openDialog("paste schedule to "+dayName).subscribe(
-      (response)=>{
-        if(response) {
+    const sub = this.dialogService.openDialog("paste schedule to " + dayName).subscribe(
+      (response) => {
+        if (response) {
           this.createSlotRange(+templateId, this.copyStartTime, this.copyEndTime);
         }
         sub.unsubscribe();
@@ -394,12 +401,20 @@ export class DashboardListingsFormComponent implements OnInit {
 
   // methods alter date availability 
   removeUnavailableDate(unavailableDayId: number) {
-    const sub = this.listingService.removeUnavailabilityForProfessional(unavailableDayId).subscribe(
-      ()=>{
-        this.getUnavailabilityForProfessional();
-        sub.unsubscribe();
+    const subscription = this.dialogService.openDialog(" remove the selected date from unavailable dates").subscribe(
+      (res) => {
+        if (res) {
+          const sub = this.listingService.removeUnavailabilityForProfessional(unavailableDayId).subscribe(
+            () => {
+              this.getUnavailabilityForProfessional();
+              sub.unsubscribe();
+            }
+          );
+        }
+        subscription.unsubscribe();
       }
     );
+
   }
 
   // methods to add values to slot dialog start 

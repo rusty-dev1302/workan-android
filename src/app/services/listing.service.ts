@@ -79,6 +79,11 @@ export class ListingService {
     return this.httpClient.get<SlotTemplateItem[]>(getUrl)
   }
 
+  getUnavailableDatesFromDates(listingId: number, dates: string[]): Observable<string[]> {
+    const postUrl = `${this.baseUrl}/getUnavailableDatesFromDates?listingId=${listingId}`;
+    return this.httpClient.post<string[]>(postUrl, dates);
+  }
+
   saveSlotTemplateItem(slotTemplateItem: SlotTemplateItem): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/slotTemplateItem/save`;
     return this.httpClient.post<BaseResponse>(postUrl, slotTemplateItem);
