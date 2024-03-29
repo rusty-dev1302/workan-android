@@ -207,28 +207,13 @@
                       ')|slice:0:15)+' ...':listing.professional.languages.join(', ')}}
                     </span>
                   </h6>
-                  <h6><b>Location:</b><span> {{listing.location.length>20?(listing.location|slice:0:20)+'
+                  <h6><b>Location:</b><span> {{listing.location.length>30?(listing.location|slice:0:30)+'
                       ...':listing.location}}</span></h6>
                 </div>
 
                 <hr class="style1" style="margin: 0;">
 
                 <div style="min-height: 3rem;">
-                  <span *ngIf="timezoneOffset==listing.timezoneOffset"
-                    style="font-weight:bold;letter-spacing:1px;color:rgb(69, 69, 69)">
-                    <span *ngIf="!listing.availabilityLoaded"><i class="fas fa-spinner fa-pulse"></i></span>
-                    <span *ngIf="listing.availabilityLoaded&&(listing.availableToday||listing.availableTomorrow)"
-                      style="font-size: 1rem!important;">
-                      <span style="font-size: .8rem!important;">Slots available for </span>
-                      <span *ngIf="listing.availableToday"
-                        style="border-radius: 5px;font-size: .8rem!important;">Today</span>
-                      <span *ngIf="listing.availableToday&&listing.availableTomorrow"
-                        style="font-size: .8rem!important;">
-                        and </span>
-                      <span *ngIf="listing.availableTomorrow" style="border-radius: 5px;"
-                        style="font-size: .8rem!important;">Tomorow</span>
-                    </span>
-                  </span>
                   <span class="primary-cancel"
                     style="font-size: .8rem;font-weight: bold;letter-spacing:.7px">{{timezoneOffset==listing.timezoneOffset?'':'The
                     listing is in different timezone'}}</span>

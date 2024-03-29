@@ -129,13 +129,6 @@ export class BrowseListingsComponent implements OnInit {
       data => {
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
-            data.forEach(
-              (listing) => {
-                if(listing.timezoneOffset==this.timezoneOffset) {
-                  this.getAvailabilityForListing(listing);
-                }
-              }
-            );
             this.listings = this.listings.concat(data);
             this.pageNumber++;
           } else {
@@ -162,12 +155,6 @@ export class BrowseListingsComponent implements OnInit {
     if (this.pageNumber > -1) {
       this.handleListProducts();
     }
-  }
-
-  getAvailabilityForListing(listing: Listing) {
-    let today: Date = new Date();  
-    let tomorrow: Date = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
   }
 
 }
