@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 
 @Component({
   selector: 'app-unavailability-calendar',
@@ -9,5 +10,27 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './unavailability-calendar.component.html',
   styleUrls: ['./unavailability-calendar.component.css']
 })
-export class UnavailabilityCalendarComponent {
+export class UnavailabilityCalendarComponent implements OnInit{
+
+  @Output() markUnavailableEvent = new EventEmitter<Date>();
+
+  value!: string;
+
+  minValue!:string;
+
+  ngOnInit(): void {
+    this.value = this.datePipe.transform(new Date(), "yyyy-MM-dd")!;
+    this.minValue = this.datePipe.transform(new Date(), "yyyy-MM-dd")!;
+  }
+
+  constructor(
+    private datePipe: DatePipe,
+    private dateTimeService: DateTimeService
+  ) {}
+
+  markUnavailable() {
+    console.log(this.value)
+    console.log(this.datePipe.transform(new Date('2024-03-28'), 'yyyy-MM-dd', '+0000'))
+    this.markUnavailableEvent.emit(this.dateTimeService.truncateTimezone(new Date(this.value)));
+  }
 }

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,7 +6,9 @@ import { Injectable } from '@angular/core';
 })
 export class DateTimeService {
 
-  constructor() { }
+  constructor(
+    private datePipe: DatePipe
+  ) { }
 
   convertTimeToNumber(time: string): number {
     let hour: number = 0;
@@ -35,4 +38,11 @@ export class DateTimeService {
 
     return hourStr + ":" + min + merd;
   }
+
+  truncateTimezone(date: Date):Date {
+    let stringDate: string = this.datePipe.transform(date, 'yyyy-MM-dd', '+0000')+"T00:00:00.000Z";
+
+    return new Date(stringDate);
+  }
+
 }

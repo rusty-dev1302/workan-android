@@ -13,7 +13,7 @@ import { Certification } from 'src/app/common/certification';
 import { UserService } from 'src/app/services/user.service';
 import { FileService } from 'src/app/services/file.service';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { NgIf, NgFor, DecimalPipe, JsonPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ServicePricing } from 'src/app/common/service-pricing';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
@@ -24,7 +24,7 @@ import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unav
   templateUrl: './dashboard-listings-form.component.html',
   styleUrls: ['./dashboard-listings-form.component.css'],
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe, UnavailabilityCalendarComponent]
+  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent]
 })
 export class DashboardListingsFormComponent implements OnInit {
 
@@ -41,6 +41,7 @@ export class DashboardListingsFormComponent implements OnInit {
   listing: Listing = constants.DEFAULT_LISTING;
   displayListing!: Listing;
   availabilityRange!: any[];
+  unavailableDays!: any[];
   emailValue!: string;
 
   copyStartTime!: string;
@@ -90,6 +91,7 @@ export class DashboardListingsFormComponent implements OnInit {
     this.loadFormValues();
     this.loadAllSubcategories();
     this.getCertificationsByEmail();
+    this.getUnavailabilityForProfessional();
   }
 
   selectSlot(day: string) {
@@ -169,6 +171,31 @@ export class DashboardListingsFormComponent implements OnInit {
 
   selectServicePrice(servicePrice: string) {
     this.addServicePriceName = servicePrice;
+  }
+
+  addUnavailabilityForProfessional(event: any) {
+    let item = {
+      id: null,
+      date: event
+    }
+    const sub = this.listingService.addUnavailabilityForProfessional(item).subscribe(
+      ()=>{
+        this.getUnavailabilityForProfessional();
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  getUnavailabilityForProfessional() {
+    const sub = this.listingService.getUnavailabilityForProfessional().subscribe(
+      (data)=>{
+        if(data&&data.length>0&&data[0].state!=constants.ERROR_STATE||data) {
+          this.unavailableDays = data;
+          console.log(JSON.parse(JSON.stringify(data)))
+        }
+        sub.unsubscribe();
+      }
+    );
   }
 
   selectSubCategory(subcategory: string) {
@@ -366,8 +393,13 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   // methods alter date availability 
-  removeUnavailableDate(slotTemplateId: number) {
-    this.dialogSlotTemplateId = slotTemplateId;
+  removeUnavailableDate(unavailableDayId: number) {
+    const sub = this.listingService.removeUnavailabilityForProfessional(unavailableDayId).subscribe(
+      ()=>{
+        this.getUnavailabilityForProfessional();
+        sub.unsubscribe();
+      }
+    );
   }
 
   // methods to add values to slot dialog start 

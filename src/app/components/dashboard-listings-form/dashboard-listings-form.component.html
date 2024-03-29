@@ -394,10 +394,6 @@
                 <!-- Slots for the day end  -->
                 <h6 class="small-text">&bull; Switching the schedule on/off will enable/disable the availability for the
                     corresponding day.</h6>
-                <h6 class="small-text">&bull; Each slot represents 30min availability time unit for the corresponding
-                    day.</h6>
-                <h6 class="small-text">&bull; Remove the time units for the time you will be unavailable for the day.
-                </h6>
             </div>
         </form>
         <!-- User Form Ends -->
@@ -417,27 +413,27 @@
                         </div>
                     </div>
                 </div>
-                <app-unavailability-calendar></app-unavailability-calendar>
+                <app-unavailability-calendar (markUnavailableEvent)="addUnavailabilityForProfessional($event)"></app-unavailability-calendar>
 
                 <!-- Slots for the day start  -->
                 <div>
-                    <div *ngFor="let template of availabilityRange" class="row">
-                        <div *ngIf="selectedDay==template.dayName">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label style="margin-bottom: 1rem!important;">Unavailable Dates:</label>
-                                    <div class="row">
-                                        <div class="col py-1">
-                                            <span class="btn btn-rounded btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#addSlotModal" style="margin-left: .2rem;"
-                                                (click)="removeUnavailableDate(template.templateId)">
-                                                <span *ngIf="template.startTimeHhmm&&template.endTimeHhmm"
-                                                    style="margin-right: .4rem;">{{dateTimeService.convertTimeToString(template.startTimeHhmm)}}</span>
-                                                <i class="fa fa-times" aria-hidden="true"></i></span>
-                                        </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label style="margin-bottom: 1rem!important;"><b>Unavailable Dates:</b></label>
+                                <div class="row">
+                                    <div *ngFor="let day of unavailableDays" class="col py-1">
+                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
+                                            (click)="removeUnavailableDate(day.id)">
+                                            <span style="margin-right: .4rem;">{{day.date|date:'dd MMM (EEEE)':'+0000'}}</span>
+                                            <i class="fa fa-times" aria-hidden="true"></i></span>
                                     </div>
-                                    <hr class="style1">
                                 </div>
+                                <div *ngIf="!unavailableDays||unavailableDays?.length == 0" class="alert alert-warning col-md-12"
+                                    role="alert">
+                                    No dates added to unavailability.
+                                </div>
+                                <hr class="style1">
                             </div>
                         </div>
                     </div>
@@ -446,7 +442,8 @@
                 <!-- Slots for the day end  -->
                 <h6 class="small-text">&bull; Add the dates you are unavailable and do not wish to take orders for.
                 </h6>
-                <h6 class="small-text">&bull; These dates will be unavailable despite the status of the day availability.
+                <h6 class="small-text">&bull; These dates will be unavailable despite the status of the day
+                    availability.
                 </h6>
             </div>
         </form>

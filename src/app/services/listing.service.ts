@@ -34,6 +34,21 @@ export class ListingService {
     return this.httpClient.get<Listing>(getUrl);
   }
 
+  getUnavailabilityForProfessional(): Observable<any[]> {
+    const getUrl = `${this.baseUrl}/unavailability`;
+    return this.httpClient.get<any[]>(getUrl);
+  }
+
+  addUnavailabilityForProfessional(item: any): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/unavailability/add`;
+    return this.httpClient.post<BaseResponse>(postUrl, item);
+  }
+
+  removeUnavailabilityForProfessional(dayUnavailableId: any): Observable<BaseResponse> {
+    const postUrl = `${this.baseUrl}/unavailability/delete?dayUnavailableId=${dayUnavailableId}`;
+    return this.httpClient.delete<BaseResponse>(postUrl);
+  }
+
   getListingSubcategories(): Observable<string[]> {
     const getUrl = `${this.baseUrl}/subcategory`;
     return this.httpClient.get<string[]>(getUrl)

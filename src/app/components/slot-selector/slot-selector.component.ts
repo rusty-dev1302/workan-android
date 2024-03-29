@@ -184,7 +184,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), new Date(this.datePipe.transform(this.selectedDate, "yyyy-MM-dd", "+000000")!), this.selectedMenuItems);
+        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), this.dateTimeService.truncateTimezone(this.selectedDate), this.selectedMenuItems);
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

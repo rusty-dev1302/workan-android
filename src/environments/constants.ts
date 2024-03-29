@@ -1,10 +1,10 @@
 export const constants = {
   API_SERVER: "http://localhost:8081",
-  // API_SERVER: "https://www.workan.ca",
+  // API_SERVER: "https://workan.ca",
   NOTIFICATION_SERVER: "http://localhost:8082",
-  // NOTIFICATION_SERVER: "https://www.workan.ca",
+  // NOTIFICATION_SERVER: "https://workan.ca",
   PAYMENT_SERVER: "http://localhost:8083",
-  // PAYMENT_SERVER: "https://www.workan.ca",
+  // PAYMENT_SERVER: "https://workan.ca",
   SUCCESS_STATE: "SUCCESS",
   ERROR_STATE: "ERROR",
   DEFAULT_CUSTOMER: {
