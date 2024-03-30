@@ -12,29 +12,29 @@ import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
 
 @Component({
-    selector: 'app-browse-listings',
-    templateUrl: './browse-listings.component.html',
-    styleUrls: ['./browse-listings.component.css'],
-    standalone: true,
-    imports: [FormsModule, NgFor, SelectMapLocationComponent, NgIf, InfiniteScrollModule, RouterLink, SlicePipe, DecimalPipe, VerifiedCertificatePipe]
+  selector: 'app-browse-listings',
+  templateUrl: './browse-listings.component.html',
+  styleUrls: ['./browse-listings.component.css'],
+  standalone: true,
+  imports: [FormsModule, NgFor, SelectMapLocationComponent, NgIf, InfiniteScrollModule, RouterLink, SlicePipe, DecimalPipe, VerifiedCertificatePipe]
 })
 export class BrowseListingsComponent implements OnInit {
-  options=[
-    {name:'Bangalore',id:1},
-    {name:'Chennai',id:2},
-    {name:'Erode',id:3},
-    {name:'Bangkok',id:4},
-    {name:'Jammu',id:5},
-    {name:'Madurai',id:6},
-    {name:'Goa',id:7},
-    {name:'Mumbai',id:8},
-    {name:'Kolkata',id:9},
-    {name:'Shillong',id:10},
-    {name:'Cochin',id:11},
-    {name:'Mysore',id:12},
+  options = [
+    { name: 'Bangalore', id: 1 },
+    { name: 'Chennai', id: 2 },
+    { name: 'Erode', id: 3 },
+    { name: 'Bangkok', id: 4 },
+    { name: 'Jammu', id: 5 },
+    { name: 'Madurai', id: 6 },
+    { name: 'Goa', id: 7 },
+    { name: 'Mumbai', id: 8 },
+    { name: 'Kolkata', id: 9 },
+    { name: 'Shillong', id: 10 },
+    { name: 'Cochin', id: 11 },
+    { name: 'Mysore', id: 12 },
   ];
   currentSelection = {
-    name:'Chennai'
+    name: 'Chennai'
   };
 
 
@@ -72,17 +72,20 @@ export class BrowseListingsComponent implements OnInit {
   }
 
   handleProductsRouting() {
-    const hasSubcategory: boolean = this.route.snapshot.paramMap.has('subcategory');
-    const hasLocation: boolean = this.route.snapshot.paramMap.has('location');
-
-    this.listings = [];
+    const hasSubcategory: boolean = this.route.snapshot.queryParamMap.has('subcategory');
+    const hasLocation: boolean = this.route.snapshot.queryParamMap.has('geoHash');
+    const hasSortBy: boolean = this.route.snapshot.queryParamMap.has('sortBy');
 
     if (hasSubcategory) {
-      this.currentSubcategory = this.route.snapshot.paramMap.get('subcategory')!;
+      this.currentSubcategory = this.route.snapshot.queryParamMap.get('subcategory') ? this.route.snapshot.queryParamMap.get('subcategory')! : "";
     }
 
     if (hasLocation) {
-      this.geoHash = this.route.snapshot.paramMap.get('location')!;
+      this.geoHash = this.route.snapshot.queryParamMap.get('geoHash') ? this.route.snapshot.queryParamMap.get('geoHash')! : "";
+    }
+
+    if (hasSortBy) {
+      this.sortByValue = this.route.snapshot.queryParamMap.get('sortBy') ? this.route.snapshot.queryParamMap.get('sortBy')! : "";
     }
 
     this.handleListProducts();
@@ -106,8 +109,7 @@ export class BrowseListingsComponent implements OnInit {
     this.currentLocation = ""
     this.sortByValue = "";
     this.geoHash = "";
-
-    this.handleListProducts(true);
+    this.saveFilters();
   }
 
   getListingSubcategories() {
@@ -119,12 +121,25 @@ export class BrowseListingsComponent implements OnInit {
     );
   }
 
-  handleListProducts(resetPage=false) {
+  saveFilters() {
+    let qpMap = new Map();
+    this.currentSubcategory != "" ? qpMap.set("subCategory", this.currentSubcategory) : '';
+    this.geoHash != "" ? qpMap.set("geoHash", this.geoHash) : '';
+    this.sortByValue != "" ? qpMap.set("sortBy", this.sortByValue) : '';
+
+    let qp: any = {};
+    qpMap.forEach((value, key) => {
+      qp[key] = value
+    });
+
+    this.router.navigate(['listings'], { queryParams: qp }).then(() => {
+      window.location.reload();
+    });;
+  }
+
+  handleListProducts() {
     this.listingsLoading = true;
-    if(resetPage) {
-      this.pageNumber = 0;
-      this.listings = [];
-    }
+    console.log("Geohash " + this.geoHash)
     const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortByValue, this.pageNumber).subscribe(
       data => {
         if (data) {
