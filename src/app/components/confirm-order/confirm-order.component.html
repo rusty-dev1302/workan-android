@@ -83,11 +83,11 @@
                 <div class="row g-2">
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 col">
                     <h6 class="review-count" style="font-weight: bold;">Preferred Day</h6>
-                    <span>{{appointmentDate|date:'dd MMM (EE)':'+0000'}}</span>
+                    <span style="font-size: large;">{{appointmentDate|date:'dd MMM (EE)':'+0000'}}</span>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 col">
                     <h6 class="review-count" style="font-weight: bold;">Preferred Time</h6>
-                    <span>{{dateTimeService.convertTimeToString(preferredStartTimeHhmm)}} - {{dateTimeService.convertTimeToString(preferredEndTimeHhmm)}}</span>
+                    <span style="font-size: large;">{{dateTimeService.convertTimeToString(preferredStartTimeHhmm)}} - {{dateTimeService.convertTimeToString(preferredEndTimeHhmm)}}</span>
                   </div>
                   <hr>
                   <div class="col-lg-12">
@@ -102,7 +102,7 @@
                       <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
                         <li *ngFor="let e of dayBoolArray; let i = index"><a [ngClass]="e==true?'disabled':''"
                             class="dropdown-item" type="button"
-                            (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)':'+0000'}}</a>
+                            (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)'}}</a>
                         </li>
                       </ul>
                     </div>
@@ -120,7 +120,7 @@
                         </div>
                         <!-- Time slot to be iterated end -->
                         <div *ngIf="!currentSlots" class="alert alert-warning col-md-12" role="alert">
-                          Please Select A Day.
+                          No Date Selected.
                         </div>
                         <div *ngIf="currentSlots?.length == 0" class="alert alert-warning col-md-12" role="alert">
                           No Slots Available
@@ -172,7 +172,7 @@
                   </div>
                   <div class="col-6">
                     <label style="font-weight: bold;">Date</label>
-                    <h5>{{selectedDate|date:'dd MMM EEEE':'+0000'}}</h5>
+                    <h5>{{selectedDate|date:'dd MMM EEEE'}}</h5>
                   </div>
                   <div class="col-6">
                     <div class="form-group">

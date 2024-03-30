@@ -1,5 +1,5 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
@@ -20,7 +20,7 @@ import { constants } from 'src/environments/constants';
   templateUrl: './confirm-order.component.html',
   styleUrls: ['./confirm-order.component.css']
 })
-export class ConfirmOrderComponent implements OnInit {
+export class ConfirmOrderComponent implements OnInit{
 
   @Input()
   professionalView:boolean = false;
@@ -42,7 +42,7 @@ export class ConfirmOrderComponent implements OnInit {
 
   totalMenuCharges: number = 0
 
-  currentDate!: string;
+  currentDate: string="Select a date";
   currentSlots!: any[];
   currentStep: number = 0;
 
@@ -64,12 +64,11 @@ export class ConfirmOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getSlotsForDay(this.dateTimeService.truncateTimezone(new Date()), 0);
   }
 
   slotDate(index: number): Date {
     let date: Date = this.dateTimeService.truncateTimezone(new Date());
-    date.setDate(date.getDate() + index);
+    date.setDate(date.getDate() + (index+1));
 
     return date;
   }
@@ -79,7 +78,7 @@ export class ConfirmOrderComponent implements OnInit {
     this.dayBoolArray[i] = true;
     if (date) {
       this.selectedDate = date;
-      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)', '+0000')!;
+      this.currentDate = this.datePipe.transform(date, 'd MMM (EE)')!;
       const sub = this.listingService.getAvailableSlotsItems(this.datePipe.transform(date, 'EEEE')!, this.datePipe.transform(date, 'yyyy-MM-dd')! + "T00:00:00.000000Z").subscribe(
         (data) => {
           if (data) {
@@ -145,7 +144,9 @@ export class ConfirmOrderComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-       let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, this.dateTimeService.truncateTimezone(new Date()), null!);
+      this.selectedDate = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!))
+       let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, this.dateTimeService.truncateTimezone(this.selectedDate), null!);
+       console.log()
         const subscription = this.orderService.confirmOrderAppointment(this.selectedOrderId, this.selectedSlot.id, createOrderRequest!).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {
