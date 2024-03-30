@@ -1,9 +1,9 @@
 export const environment = {
     production: false,
     keycloak : {
-        // url: 'https://www.workan.ca/auth',
-        // issuer: "https://www.workan.ca/auth/realms/workan",
-        // redirectUri: "https://www.workan.ca/",
+        // url: 'https://workan.ca/auth',
+        // issuer: "https://workan.ca/auth/realms/workan",
+        // redirectUri: "https://workan.ca/",
         url: 'http://localhost:8080/auth',
         issuer: "http://localhost:8080/auth/realms/workan",
         redirectUri: "http://localhost:4200/",
