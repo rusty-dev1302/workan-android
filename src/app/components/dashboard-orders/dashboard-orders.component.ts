@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
 import { CreateOrderRequest } from 'src/app/common/create-order-request';
 import { Order } from 'src/app/common/order';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
@@ -32,7 +33,8 @@ export class DashboardOrdersComponent implements OnInit {
     private keycloakService: KeycloakService,
     private navigationService: NavigationService,
     public dateTimeService: DateTimeService,
-    private dialogService: ConfirmationDialogService
+    private dialogService: ConfirmationDialogService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -45,7 +47,10 @@ export class DashboardOrdersComponent implements OnInit {
       (res) => {
         if (res) {
           const sub = this.orderService.confirmOrderAppointment(orderId, 0, new CreateOrderRequest(null!, null!, null!, null!, null!, null!)).subscribe(
-            () => {
+            (response) => {
+              if(response.state==constants.ERROR_STATE) {
+                this.toastr.error(response.message);
+              }
               this.loadOrders();
               sub.unsubscribe();
             }

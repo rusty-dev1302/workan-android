@@ -15,6 +15,7 @@ export const constants = {
     lastName: "",
     email: "",
     languages: [],
+    account: null,
     rating:0.0,
     state: "",
     message: "",
