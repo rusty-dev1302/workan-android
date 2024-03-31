@@ -136,11 +136,11 @@
 
                                         <div class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button">Add Money to Wallet</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button" (click)="initiateAddToWallet()">Add Money to Wallet</button>
                                         </div>
 
                                         <div class="col-12 mt-2">
-                                            <button class="btn btn-warning btn-rounded col-12" type="button">Transfer Money to Paypal</button>
+                                            <button class="btn btn-warning btn-rounded col-12" type="button">Transfer Money: Wallet to Paypal</button>
                                         </div>
 
                                     </div>
@@ -209,7 +209,7 @@
                                                         <span *ngIf="!paymentAccount.paypalAccount.verified"><a class="link"> / </a></span>
                                                         <span *ngIf="paymentAccount.paypalAccount.verified"><a class="link">(</a></span>
                                                         <span><a class="link" type="button"
-                                                                (click)="removePaypalEmail()">Remove email)</a></span>
+                                                                (click)="removePaypalEmail()">Remove)</a></span>
                                                     </div>
                                                 </h5>
                                             </div>

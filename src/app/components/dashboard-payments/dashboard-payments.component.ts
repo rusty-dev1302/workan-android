@@ -11,6 +11,7 @@ import { Transaction } from 'src/app/common/transaction';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { FileService } from 'src/app/services/file.service';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 
@@ -46,6 +47,7 @@ export class DashboardPaymentsComponent implements OnInit {
     private keycloakService: KeycloakService,
     private pdfService: FileService,
     private toastrService: ToastrService,
+    private paymentService: PaymentService
   ) {
 
   }
@@ -134,6 +136,17 @@ export class DashboardPaymentsComponent implements OnInit {
           );
         }
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  initiateAddToWallet(amount: number=10) {
+    const sub = this.paymentService.addMoneyWalletStart(amount+"", this.paymentAccount.id+"", this.isProfessional).subscribe(
+      (response) => {
+        if (response.state == constants.SUCCESS_STATE) {
+          window.location.href = response.message;
+        }
+        sub.unsubscribe();
       }
     );
   }

@@ -25,6 +25,16 @@ export class PaymentService {
     return this.httpClient.post<any>(postUrl, {});
   }
 
+  addMoneyWalletStart(amount: string, paymentAccountId: string, isProfessional: boolean):Observable<any> {
+    const postUrl = `${this.baseUrl}/wallet/make/payment?sum=${amount}&paymentAccountId=${paymentAccountId}&isProfessional=${isProfessional}`;
+    return this.httpClient.post<any>(postUrl, {});
+  }
+
+  addMoneyWalletComplete(paymentId: string, payerId: string, paymentAccountId: string):Observable<any> {
+    const postUrl = `${this.baseUrl}/wallet/complete/payment?paymentId=${paymentId}&PayerID=${payerId}&paymentAccountId=${paymentAccountId}`;
+    return this.httpClient.post<any>(postUrl, {});
+  }
+
   confirmDirectPayment(orderId: number): Observable<BaseResponse> {
     const getUrl = `${this.baseUrl}/direct/complete/payment?orderId=${orderId}`;
     return this.httpClient.post<BaseResponse>(getUrl, {});

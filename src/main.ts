@@ -51,6 +51,10 @@ const routes: Routes = [
   },
   // end of common pages 
   {
+    path: 'processAddToWallet/:paymentAccountId', loadComponent: () => import('./app/components/process-add-to-wallet/process-add-to-wallet.component')
+      .then(c => c.ProcessAddToWalletComponent), canActivate: [AuthGuard]
+  },
+  {
     path: 'completePayment/:orderId', loadComponent: () => import('./app/components/payment-gateway/payment-gateway.component')
       .then(c => c.PaymentGatewayComponent), canActivate: [AuthGuard]
   },
