@@ -193,7 +193,7 @@ export class SlotSelectorComponent implements OnInit {
     if (this.selectedMenuItems[i].quantity == null) {
       this.selectedMenuItems[i].quantity = 0;
     }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity + 1;
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity>4? this.selectedMenuItems[i].quantity : this.selectedMenuItems[i].quantity + 1;
     this.calculateTotalMenuCharges();
   }
 

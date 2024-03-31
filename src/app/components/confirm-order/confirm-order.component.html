@@ -87,7 +87,8 @@
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 col">
                     <h6 class="review-count" style="font-weight: bold;">Preferred Time</h6>
-                    <span style="font-size: large;">{{dateTimeService.convertTimeToString(preferredStartTimeHhmm)}} - {{dateTimeService.convertTimeToString(preferredEndTimeHhmm)}}</span>
+                    <span style="font-size: large;">{{dateTimeService.convertTimeToString(preferredStartTimeHhmm)}} -
+                      {{dateTimeService.convertTimeToString(preferredEndTimeHhmm)}}</span>
                   </div>
                   <hr>
                   <div class="col-lg-12">
@@ -171,8 +172,28 @@
                     </h5>
                   </div>
                   <div class="col-6">
-                    <label style="font-weight: bold;">Date</label>
-                    <h5>{{selectedDate|date:'dd MMM EEEE'}}</h5>
+                    <div class="form-group">
+                      <div class="row">
+                        <label class="review-count">Preferred Date</label>
+                        <h6>
+                          {{appointmentDate|date:'dd MMM (EEEE)':'+0000'}}
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <div class="row">
+                        <label class="review-count">Preferred Time</label>
+                        <h6>
+                          {{dateTimeService.convertTimeToString(preferredStartTimeHhmm)}} -
+                          {{dateTimeService.convertTimeToString(preferredEndTimeHhmm)}} </h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <label style="font-weight: bold;">Appointment Date</label>
+                    <h5>{{selectedDate|date:'dd MMM (EEEE)'}}</h5>
                   </div>
                   <div class="col-6">
                     <div class="form-group">
@@ -196,6 +217,18 @@
                   </div>
                 </div>
               </div>
+              <hr class="style1">
+              <h6 class="small-text" style="font-weight: bold;">Terms and Conditions:</h6>
+              <h6 class="small-text">&bull; Professional can accept order only when wallet balance is above -10CAD.
+              </h6>
+              <h6 class="small-text">&bull; If assigned appointment time is not in the customer's preferred time, order will be confirmed on customer acceptance.
+              </h6>
+              <h6 class="small-text">&bull; If assigned appointment time is in the customer's preferred time, order will be confirmed.
+              </h6>
+              <h6 class="small-text">&bull; Once order is confirmed customer details will be shared with the professional.
+              </h6>
+              <h6 class="small-text">&bull; Once order is confirmed a <b>service fee of 2CAD + 3% of total order charges</b> will be deducted from the wallet balance.
+              </h6>
               <hr class="style1">
             </div>
             <!-- Slots end -->
