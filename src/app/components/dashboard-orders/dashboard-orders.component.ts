@@ -63,7 +63,7 @@ export class DashboardOrdersComponent implements OnInit {
 
   loadOrders() {
 
-    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
+    this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if (user.state == constants.SUCCESS_STATE) {
           const subscription = this.orderService.getOrdersForCustomer(user.id).subscribe(

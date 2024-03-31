@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-dashboard-orders-taken',
@@ -25,6 +26,7 @@ export class DashboardOrdersTakenComponent {
   allOrders!: Order[];
   cancelledOrders!: Order[];
   subscription: any;
+  lowBalance:boolean = false;
 
   selectedMenuItemsForOrder: any[]=[];
   selectedOrderId: number = 0;
@@ -40,7 +42,8 @@ export class DashboardOrdersTakenComponent {
     private userService: UserService,
     private keycloakService: KeycloakService,
     private navigationService: NavigationService,
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -49,6 +52,10 @@ export class DashboardOrdersTakenComponent {
   }
 
   prepareDataForConfirm(order: Order) {
+    if(this.lowBalance) {
+      this.toastr.warning("Please add money to wallet to accept more orders")
+      return;
+    }
     this.selectedAppointmentDate = order.appointmentDate;
     this.selectedPreferredStartTimeHhmm = order.preferredStartTimeHhmm;
     this.selectedPreferredEndTimeHhmm = order.preferredEndTimeHhmm;
@@ -69,9 +76,12 @@ export class DashboardOrdersTakenComponent {
 
   loadOrders() {
 
-    this.subscription = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
+    this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
+          if(user.account.balance<-10) {
+            this.lowBalance = true;
+          }
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
             (data) => {
               console.log(this.allOrders)

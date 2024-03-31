@@ -16,10 +16,12 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
   <li class="nav-item">
-      <a type="button" class="nav-link" [ngClass]="!cancelledOrdersSelected?'active':''" (click)="toggleTabs(false)">Orders</a>
+    <a type="button" class="nav-link" [ngClass]="!cancelledOrdersSelected?'active':''"
+      (click)="toggleTabs(false)">Orders</a>
   </li>
   <li class="nav-item">
-      <a type="button" class="nav-link" [ngClass]="cancelledOrdersSelected?'active':''" (click)="toggleTabs(true)">Cancelled Orders</a>
+    <a type="button" class="nav-link" [ngClass]="cancelledOrdersSelected?'active':''"
+      (click)="toggleTabs(true)">Cancelled Orders</a>
   </li>
 </ul>
 
@@ -92,8 +94,12 @@
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
                       <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#confirmOrderModal" (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        <button *ngIf="!lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
+                          data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
+                          (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        </button>
+                        <button *ngIf="lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
+                          (click)="prepareDataForConfirm(order)">Confirm Appointment
                         </button>
                       </div>
                     </div>

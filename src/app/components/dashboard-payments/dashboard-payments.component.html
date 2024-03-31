@@ -110,6 +110,10 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <h3><b>Wallet </b></h3>
+                                                <h6 *ngIf="paymentAccount&&paymentAccount.balance<-10"
+                                                style="color: rgb(209, 51, 51);">
+                                                <b>Low Wallet Balance</b>
+                                            </h6>
                                             </div>
                                         </div>
                                     </div>
