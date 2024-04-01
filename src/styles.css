@@ -13,6 +13,15 @@ i {
     font-family: FontAwesome !important;
 }
 
+.no-cursor {
+    -webkit-user-select: none;
+    /* Safari */
+    -ms-user-select: none;
+    /* IE 10 and IE 11 */
+    user-select: none;
+    /* Standard syntax */
+}
+
 .dropdown-menu {
     max-height: 200px;
     overflow-y: scroll;
@@ -548,7 +557,7 @@ hr.style1 {
 }
 
 .main-footer {
-    bottom: 0!important;
+    bottom: 0 !important;
     width: 100%;
 }
 
@@ -689,8 +698,8 @@ hr.style1 {
 }
 
 .svg-container svg {
-    width: 1.4rem!important;
-    height: 1.4rem!important;
+    width: 1.4rem !important;
+    height: 1.4rem !important;
 }
 
 
@@ -784,7 +793,7 @@ input[type=number] {
     margin-left: 2px;
 }
 
-.noHover{
+.noHover {
     pointer-events: none;
 }
 
@@ -793,5 +802,13 @@ input[type=number] {
     top: 5% !important;
     right: 5% !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
