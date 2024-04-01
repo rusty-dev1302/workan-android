@@ -88,7 +88,7 @@ export class SelectMapLocationComponent implements OnInit {
         output["geoHash"] = data.geoHash;
         this.outputEvent.emit(output);
       } else {
-        this.toastr.info("Please update your contact.")
+        this.toastr.info("Please update your address.")
       }
     }
     );

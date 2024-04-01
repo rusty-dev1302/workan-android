@@ -13,13 +13,14 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
+import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
 
 @Component({
     selector: 'app-dashboard-orders-taken-details',
     templateUrl: './dashboard-orders-taken-details.component.html',
     styleUrls: ['./dashboard-orders-taken-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe]
+    imports: [RouterLink, NgIf, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, EnterOtpModalComponent]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
@@ -27,7 +28,6 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   private autoRefresh!: Subscription;
 
   order!: Order;
-  otpValue:string[] = ["","","","","",""];
   cancellationReason: any[] = constants.CANCEL_REASON_PROFESSIONAL;
 
   constructor(
@@ -75,15 +75,13 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     );
   }
 
-  moveToNext(i:number) {
-    let nextElementSiblingId = 'otp_'+ i;
-        if (i<7) {
-         document.getElementById(nextElementSiblingId)!.focus();
-        }  
-}
+  handleOtp(otp: string) {
+    if(this.order.status=='STARTING') {
+      this.processOrder('START', otp);
+    }
+  }
 
-  processOrder(action: string, cancellationReason:string="") {
-    let otp = this.otpValue[0]+this.otpValue[1]+this.otpValue[2]+this.otpValue[3]+this.otpValue[4]+this.otpValue[5];
+  processOrder(action: string, otp: string, cancellationReason:string="") {
     let processOrderRequest = new ProcessOrderRequest(this.order.id, null, this.order.professional.id, action, otp, cancellationReason);
     const sub = this.orderService.processOrder(processOrderRequest).subscribe(
       (response) => {
@@ -117,7 +115,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   }
 
   cancelOrder(cancellationReason:any) {
-    this.processOrder("CANCEL", cancellationReason.reason);
+    this.processOrder("CANCEL","", cancellationReason.reason);
   }
 
 }

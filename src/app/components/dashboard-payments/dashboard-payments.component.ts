@@ -14,13 +14,14 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
 
 @Component({
     selector: 'app-dashboard-payments',
     templateUrl: './dashboard-payments.component.html',
     styleUrls: ['./dashboard-payments.component.css'],
     standalone: true,
-    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe]
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent]
 })
 export class DashboardPaymentsComponent implements OnInit {
 
@@ -34,8 +35,6 @@ export class DashboardPaymentsComponent implements OnInit {
   emailSpinner: boolean = false;
 
   isProfessional: boolean = false;
-
-  otpValue: string[] = ["", "", "", "", "", ""];
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -94,9 +93,7 @@ export class DashboardPaymentsComponent implements OnInit {
     );
   }
 
-  closeOtpModal() {
-    this.otpValue = ["", "", "", "", "", ""];
-  }
+
 
   removePaypalEmail() {
     const sub = this.userService.removePaypalAccount().subscribe(
@@ -109,8 +106,7 @@ export class DashboardPaymentsComponent implements OnInit {
     );
   }
 
-  verifyOtp() {
-    let otp = this.otpValue[0] + this.otpValue[1] + this.otpValue[2] + this.otpValue[3] + this.otpValue[4] + this.otpValue[5];
+  verifyOtp(otp: string) {
     const sub = this.userService.verifyPaypalOtp(otp).subscribe(
       (response) => {
         if (!(response.state == constants.ERROR_STATE)) {
@@ -129,6 +125,9 @@ export class DashboardPaymentsComponent implements OnInit {
       (user) => {
         if (user.state!=constants.ERROR_STATE) {
           this.isProfessional = user.professional;
+          if(!this.isProfessional) {
+            this.showWallet = false;
+          }
           const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
             (account) => {
               this.paymentAccount = account;
@@ -191,15 +190,8 @@ export class DashboardPaymentsComponent implements OnInit {
     return stringDate.substring(0, stringDate.indexOf("T"));
   }
 
-  toggleTabs() {
-    this.showWallet = !this.showWallet;
-  }
-
-  moveToNext(i: number) {
-    let nextElementSiblingId = 'otp_' + i;
-    if (i < 7) {
-      document.getElementById(nextElementSiblingId)!.focus();
-    }
+  toggleTabs(status: boolean) {
+    this.showWallet = status;
   }
 
 }
