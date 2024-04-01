@@ -1,1 +1,61 @@
-<p>add-to-wallet works!</p>
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addSlotModalLabel">Add Money to Wallet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="resetDialog()"></button>
+    </div>
+    <div class="modal-body">
+        <section class="container">
+            <div class="row">
+
+                <div class="form-section" style="padding: 0!important;">
+
+                    <!-- User Form Starts -->
+                    <form #editListing="ngForm" (ngSubmit)="addMoney()">
+
+                        <div class="mb-4">
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <div class="form-group text-center">
+                                        <label for="startTime">Select an amount to add to your workan wallet.</label>
+                                        <div class="input-group mb-3" style="margin-top: .3rem;">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="color: green;">$</span>
+                                            </div>
+                                            <input #charges="ngModel" name="serviceCharges" id="serviceCharges" required
+                                                [(ngModel)]="addAmount" type="number" autocomplete="off"
+                                                class="form-control" onfocus="this.value=''">
+                                        </div>
+                                        <h5 style="font-size: 1.1rem;"><b>Balance:</b><i class="fa-solid fa-dollar-sign"
+                                                style="color: green;margin-left: .8rem;margin-right: .2rem;"></i>{{accountBalance|number: '1.2-2'}}
+                                        </h5>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Edit buttons -->
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="modal-footer">
+                                    <button *ngIf="!spinner" type="submit" class="btn btn-primary btn-rounded col-12"
+                                        [disabled]="addAmount<=0" data-bs-toggle="modal"
+                                        data-bs-target="#addSlotModal">Next</button>
+                                    <button *ngIf="spinner" type="submit" class="btn btn-primary btn-rounded col-12"
+                                        disabled data-bs-toggle="modal"
+                                        data-bs-target="#addSlotModal"><i class="fas fa-spinner fa-pulse" style="font-size: 1rem"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- User Form Ends -->
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</div>

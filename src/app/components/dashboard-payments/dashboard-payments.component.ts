@@ -15,13 +15,15 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
+import { AddToWalletComponent } from '../add-to-wallet/add-to-wallet.component';
+import { RedeemWalletComponent } from '../redeem-wallet/redeem-wallet.component';
 
 @Component({
     selector: 'app-dashboard-payments',
     templateUrl: './dashboard-payments.component.html',
     styleUrls: ['./dashboard-payments.component.css'],
     standalone: true,
-    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent]
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent]
 })
 export class DashboardPaymentsComponent implements OnInit {
 
@@ -149,7 +151,7 @@ export class DashboardPaymentsComponent implements OnInit {
     );
   }
 
-  initiateAddToWallet(amount: number=10) {
+  initiateAddToWallet(amount: number) {
     const sub = this.paymentService.addMoneyWalletStart(amount+"", this.paymentAccount.id+"", this.isProfessional).subscribe(
       (response) => {
         if (response.state == constants.SUCCESS_STATE) {

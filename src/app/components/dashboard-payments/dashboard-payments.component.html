@@ -128,21 +128,15 @@
                                             </div>
                                         </div>
 
-                                        <!-- <div *ngIf="paymentAccount.balance>0" class="col-12">
-                                            <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button">Credit To
-                                                Paypal</button>
-                                        </div> -->
-
                                         <div class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button"
-                                                (click)="initiateAddToWallet()">Add Money to Wallet</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#addToWalletModal">Add Money to Wallet</button>
                                         </div>
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
-                                            <button class="btn btn-warning btn-rounded col-12" type="button"
-                                                (click)="redeemWalletStart()">Transfer Money: Wallet to Paypal</button>
+                                            <button class="btn btn-warning btn-rounded col-12" type="button"data-bs-toggle="modal"
+                                            data-bs-target="#redeemWalletModal">Transfer Money: Wallet to Paypal</button>
                                         </div>
 
                                     </div>
@@ -309,21 +303,21 @@
 
 
   <!-- addToWalletModal begins  -->
-  <div class="modal fade" id="addToWalletModal" data-bs-backdrop="static" data-bs-keyboard="false"
+  <div *ngIf="paymentAccount&&paymentAccount" class="modal fade" id="addToWalletModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="addToWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <!-- <app-confirm-payment [orderId]="order.id" [amount]="order.charges"></app-confirm-payment> -->
+        <app-add-to-wallet [accountBalance]="paymentAccount.balance" (addAmountEmmiter)="initiateAddToWallet($event)"></app-add-to-wallet>
     </div>
   </div>
   <!-- addToWalletModal ends  -->
 
-    <!-- addToWalletModal begins  -->
-    <div class="modal fade" id="addToWalletModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="addToWalletModalLabel" aria-hidden="true">
+    <!-- redeemWalletModal begins  -->
+    <div class="modal fade" id="redeemWalletModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="redeemWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <!-- <app-confirm-payment [orderId]="order.id" [amount]="order.charges"></app-confirm-payment> -->
+        <app-redeem-wallet></app-redeem-wallet>
     </div>
   </div>
-  <!-- addToWalletModal ends  -->
+  <!-- redeemWalletModal ends  -->
 
 <!-- Modals section ends -->
