@@ -111,9 +111,9 @@
                                             <div class="form-group">
                                                 <h3><b>Wallet </b></h3>
                                                 <h6 *ngIf="paymentAccount&&paymentAccount.balance<-10"
-                                                style="color: rgb(209, 51, 51);">
-                                                <b>Low Wallet Balance</b>
-                                            </h6>
+                                                    style="color: rgb(209, 51, 51);">
+                                                    <b>Low Wallet Balance</b>
+                                                </h6>
                                             </div>
                                         </div>
                                     </div>
@@ -136,11 +136,13 @@
 
                                         <div class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button" (click)="initiateAddToWallet()">Add Money to Wallet</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button"
+                                                (click)="initiateAddToWallet()">Add Money to Wallet</button>
                                         </div>
 
                                         <div class="col-12 mt-2">
-                                            <button class="btn btn-warning btn-rounded col-12" type="button">Transfer Money: Wallet to Paypal</button>
+                                            <button class="btn btn-warning btn-rounded col-12" type="button"
+                                                (click)="redeemWalletStart()">Transfer Money: Wallet to Paypal</button>
                                         </div>
 
                                     </div>
@@ -172,8 +174,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h6 class="small-text" style="font-weight: bold;color: rgb(45, 45, 45);">&bull; Please link your paypal email.</h6>
-                                    <h6 class="small-text" style="font-weight: bold;color: rgb(45, 45, 45);">&bull; You can directly transfer money from wallet to your paypal email.</h6>
+                                    <h6 class="small-text" style="font-weight: bold;color: rgb(45, 45, 45);">&bull;
+                                        Please link your paypal email.</h6>
+                                    <h6 class="small-text" style="font-weight: bold;color: rgb(45, 45, 45);">&bull; You
+                                        can directly transfer money from wallet to your paypal email.</h6>
                                     <hr class="style1">
                                     <div class="row">
                                         <h5 *ngIf="!paymentAccount.paypalAccount.email">Email:
@@ -185,10 +189,11 @@
                                                     aria-hidden="true"></i>
                                             </a>
                                             <span *ngIf="emailSpinner"><i class="fas fa-spinner fa-pulse"></i></span>
-                                            <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
-                                                class="primary-success px-1" type="button" (click)="addPaypalEmail()"><i
-                                                    class="fa fa-check-circle" aria-hidden="true"></i>
-                                            </span>
+                                            <a *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
+                                                class="primary-success px-1" type="button"
+                                                (click)="addPaypalEmail()"><i class="fa fa-check-circle"
+                                                    aria-hidden="true"></i>
+                                            </a>
                                             <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
                                                 class="primary-cancel" type="button" (click)="toggleEditEmail()"><i
                                                     class="fa fa-times-circle" aria-hidden="true"></i>
@@ -204,12 +209,11 @@
                                                             aria-hidden="true"></i>)
                                                     </span>
                                                     <div style="font-size: .1rem!important;margin-top: .6rem;">
-                                                        <span *ngIf="!paymentAccount.paypalAccount.verified"><a class="link" type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#enterOtpModal">(Verify</a></span>
-                                                        <span *ngIf="!paymentAccount.paypalAccount.verified"><a class="link"> / </a></span>
-                                                        <span *ngIf="paymentAccount.paypalAccount.verified"><a class="link">(</a></span>
-                                                        <span><a class="link" type="button"
-                                                                (click)="removePaypalEmail()">Remove)</a></span>
+                                                        <button *ngIf="!paymentAccount.paypalAccount.verified"
+                                                                class="btn btn-small btn-warning btn btn-rounded m-1" type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#enterOtpModal">Verify OTP</button>
+                                                        <button class="btn btn-small btn-danger btn-rounded m-1" type="button"
+                                                                (click)="removePaypalEmail()">Remove</button>
                                                     </div>
                                                 </h5>
                                             </div>
@@ -303,7 +307,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="enterOtpModalLabel" style="font-weight: bold;">Enter OTP</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeOtpModal()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="closeOtpModal()"></button>
             </div>
 
             <!-- modal body start  -->

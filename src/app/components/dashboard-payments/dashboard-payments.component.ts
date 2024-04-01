@@ -63,6 +63,16 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   addPaypalEmail() {
+    if(this.inputEmail==null||this.inputEmail=='') {
+      return
+    }
+    let regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+    if(!regexp.test(this.inputEmail)) {
+      this.toastrService.warning("Enter a valid email")
+      return
+    }
+
     this.emailSpinner = true;
     const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true).subscribe(
       (response)=> {
@@ -149,6 +159,14 @@ export class DashboardPaymentsComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  redeemWalletStart() {
+    this.paymentService.redeemWalletStart(2+"", this.paymentAccount.id+"").subscribe(
+      (res)=>{
+        console.log(res)
+      }
+    )
   }
 
   prepareInvoiceForProfessional(fileName: string, invoice: Invoice) {
