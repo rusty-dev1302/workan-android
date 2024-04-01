@@ -180,7 +180,8 @@
                                         can directly transfer money from wallet to your paypal email.</h6>
                                     <hr class="style1">
                                     <div class="row">
-                                        <h5 *ngIf="!paymentAccount.paypalAccount.email">Email:
+                                        <h5 *ngIf="!paymentAccount.paypalAccount.email">
+                                            <h6 class="px-1" style="font-weight: bold;letter-spacing: .05rem!important;">Email:</h6>
                                             <input type="email" *ngIf="!paymentAccount.paypalAccount.email&&editEmail"
                                                 required [(ngModel)]="inputEmail" class="col-3"
                                                 style="text-align: center;margin-left: 5px;margin-right: 5px;">
