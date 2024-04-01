@@ -1,5 +1,5 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
@@ -151,7 +151,7 @@ export class ConfirmOrderComponent implements OnInit{
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {
               this.toastr.success(data.state)
-              this.router.navigateByUrl(`/dashboard/orders`);
+              this.router.navigateByUrl(`/dashboard/myorders`);
             } else {
               this.toastr.error(data.message)
             }
