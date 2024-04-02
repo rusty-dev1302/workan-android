@@ -18,6 +18,7 @@ export class AddToWalletComponent {
   
   addAmount: number = 0;
   spinner: boolean = false;
+  invalidInput: boolean = false;
 
   addMoney() {
     this.spinner = true;
@@ -27,5 +28,13 @@ export class AddToWalletComponent {
   resetDialog() {
     this.spinner = false;
     this.addAmount = 0;
+  }
+
+  roundUp(input: number) {
+    if (!Number.isInteger(input)) {
+      this.invalidInput = true;
+    } else {
+      this.invalidInput = false
+    }
   }
 }

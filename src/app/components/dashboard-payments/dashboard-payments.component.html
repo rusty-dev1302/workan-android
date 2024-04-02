@@ -22,7 +22,8 @@
         <a type="button" class="nav-link" [ngClass]="showWallet?'active':''" (click)="toggleTabs(true)">Wallet</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link" [ngClass]="!showWallet?'active':''" (click)="toggleTabs(false)">Order History</a>
+        <a type="button" class="nav-link" [ngClass]="!showWallet?'active':''" (click)="toggleTabs(false)">Order
+            History</a>
     </li>
 </ul>
 
@@ -130,13 +131,16 @@
 
                                         <div class="col-12">
                                             <hr class="style1">
-                                            <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#addToWalletModal">Add Money to Wallet</button>
+                                            <button class="btn btn-success btn-rounded col-12" type="button"
+                                                data-bs-toggle="modal" data-bs-target="#addToWalletModal" data-bs-toggle="modal">
+                                                Add Money to Wallet</button>
                                         </div>
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
-                                            <button class="btn btn-warning btn-rounded col-12" type="button"data-bs-toggle="modal"
-                                            data-bs-target="#redeemWalletModal">Transfer Money: Wallet to Paypal</button>
+                                            <button class="btn btn-warning btn-rounded col-12" type="button"
+                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified)"
+                                                data-bs-toggle="modal" data-bs-target="#redeemWalletModal" data-bs-toggle="modal">
+                                                Transfer Money: Wallet to Paypal</button>
                                         </div>
 
                                     </div>
@@ -175,7 +179,8 @@
                                     <hr class="style1">
                                     <div class="row">
                                         <h5 *ngIf="!paymentAccount.paypalAccount.email">
-                                            <h6 class="px-1" style="font-weight: bold;letter-spacing: .05rem!important;">Email:</h6>
+                                            <h6 class="px-1"
+                                                style="font-weight: bold;letter-spacing: .05rem!important;">Email:</h6>
                                             <input type="email" *ngIf="!paymentAccount.paypalAccount.email&&editEmail"
                                                 required [(ngModel)]="inputEmail" class="col-3"
                                                 style="text-align: center;margin-left: 5px;margin-right: 5px;">
@@ -185,9 +190,8 @@
                                             </a>
                                             <span *ngIf="emailSpinner"><i class="fas fa-spinner fa-pulse"></i></span>
                                             <a *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
-                                                class="primary-success px-1" type="button"
-                                                (click)="addPaypalEmail()"><i class="fa fa-check-circle"
-                                                    aria-hidden="true"></i>
+                                                class="primary-success px-1" type="button" (click)="addPaypalEmail()"><i
+                                                    class="fa fa-check-circle" aria-hidden="true"></i>
                                             </a>
                                             <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
                                                 class="primary-cancel" type="button" (click)="toggleEditEmail()"><i
@@ -197,18 +201,24 @@
                                         <div *ngIf="paymentAccount.paypalAccount.email"
                                             class="col-xxl-6 col-lg-6 col-12">
                                             <div class="form-group">
-                                                <h5>Email: {{paymentAccount.paypalAccount.email}}
+                                                <h6 class="px-1"
+                                                    style="font-weight: bold;letter-spacing: .05rem!important;">Email
                                                     <span *ngIf="paymentAccount.paypalAccount.verified"
-                                                        style="font-size: large;">(Verified <i
-                                                            class="fa fa-check-circle" style="color: green;"
-                                                            aria-hidden="true"></i>)
+                                                        style="font-size: 1rem;"><i class="fa fa-ellipsis-v"
+                                                            aria-hidden="true" style="color: grey;"></i>
+                                                        Verified <i class="fa fa-check-circle" style="color: green;"
+                                                            aria-hidden="true"></i>:
                                                     </span>
+                                                </h6>
+                                                <h5>{{paymentAccount.paypalAccount.email}}
+
                                                     <div style="font-size: .1rem!important;margin-top: .6rem;">
                                                         <button *ngIf="!paymentAccount.paypalAccount.verified"
-                                                                class="btn btn-small btn-warning btn btn-rounded m-1" type="button" data-bs-toggle="modal"
-                                                                data-bs-target="#enterOtpModal">Verify OTP</button>
-                                                        <button class="btn btn-small btn-danger btn-rounded m-1" type="button"
-                                                                (click)="removePaypalEmail()">Remove</button>
+                                                            class="btn btn-small btn-warning btn btn-rounded m-1"
+                                                            type="button" data-bs-toggle="modal"
+                                                            data-bs-target="#enterOtpModal">Verify OTP</button>
+                                                        <button class="btn btn-small btn-danger btn-rounded m-1"
+                                                            type="button" (click)="removePaypalEmail()">Remove</button>
                                                     </div>
                                                 </h5>
                                             </div>
@@ -302,22 +312,24 @@
 </div>
 
 
-  <!-- addToWalletModal begins  -->
-  <div *ngIf="paymentAccount&&paymentAccount" class="modal fade" id="addToWalletModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="addToWalletModalLabel" aria-hidden="true">
+<!-- addToWalletModal begins  -->
+<div *ngIf="paymentAccount&&paymentAccount" class="modal fade" id="addToWalletModal" data-bs-backdrop="static"
+    data-bs-keyboard="false" tabindex="-1" aria-labelledby="addToWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <app-add-to-wallet [accountBalance]="paymentAccount.balance" (addAmountEmmiter)="initiateAddToWallet($event)"></app-add-to-wallet>
+        <app-add-to-wallet [accountBalance]="paymentAccount.balance"
+            (addAmountEmmiter)="initiateAddToWallet($event)"></app-add-to-wallet>
     </div>
-  </div>
-  <!-- addToWalletModal ends  -->
+</div>
+<!-- addToWalletModal ends  -->
 
-    <!-- redeemWalletModal begins  -->
-    <div class="modal fade" id="redeemWalletModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="redeemWalletModalLabel" aria-hidden="true">
+<!-- redeemWalletModal begins  -->
+<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified"
+    class="modal fade" id="redeemWalletModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="redeemWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <app-redeem-wallet></app-redeem-wallet>
     </div>
-  </div>
-  <!-- redeemWalletModal ends  -->
+</div>
+<!-- redeemWalletModal ends  -->
 
 <!-- Modals section ends -->
