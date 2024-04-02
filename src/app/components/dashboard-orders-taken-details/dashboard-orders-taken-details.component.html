@@ -176,6 +176,10 @@
 
   <div class="modal fade" id="enterOtpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="enterOtpModalLabel" aria-hidden="true">
-    <app-enter-otp-modal (OtpValueEvent)="handleOtp($event)"></app-enter-otp-modal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <app-enter-otp-modal (OtpValueEvent)="handleOtp($event)"></app-enter-otp-modal>
+      </div>
+    </div>
   </div>
   <!-- Modals section ends -->

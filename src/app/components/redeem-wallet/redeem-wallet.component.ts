@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
 
 @Component({
   selector: 'app-redeem-wallet',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, EnterOtpModalComponent],
   templateUrl: './redeem-wallet.component.html',
   styleUrls: ['./redeem-wallet.component.css']
 })
@@ -14,20 +15,26 @@ export class RedeemWalletComponent {
   accountBalance:number = 0;
 
   @Output()
-  addAmountEmmiter = new EventEmitter<number>();
+  redeemAmountEmmiter = new EventEmitter<number>();
+
+  @Output()
+  confirmOtpEmmiter = new EventEmitter<string>();
   
-  addAmount: number = 0;
+  redeemAmount: number = 0;
   spinner: boolean = false;
   invalidInput: boolean = false;
+  minBalanceValid: boolean = true;
+  enterOtp: boolean = false;
 
-  addMoney() {
+  redeemMoney() {
     this.spinner = true;
-    this.addAmountEmmiter.emit(this.addAmount);
+    this.enterOtp = true;
+    this.redeemAmountEmmiter.emit(this.redeemAmount);
   }
 
   resetDialog() {
     this.spinner = false;
-    this.addAmount = 0;
+    this.redeemAmount = 0;
   }
 
   roundUp(input: number) {
@@ -35,6 +42,15 @@ export class RedeemWalletComponent {
       this.invalidInput = true;
     } else {
       this.invalidInput = false
+      if(Math.floor(this.accountBalance-input)<10) {
+        this.minBalanceValid = false;
+      } else {
+        this.minBalanceValid = true;
+      }
     }
+  }
+
+  handleOtp(otp: string) {
+
   }
 }

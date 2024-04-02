@@ -35,6 +35,7 @@ export class DashboardPaymentsComponent implements OnInit {
   inputEmail!: string;
   editEmail: boolean = false;
   emailSpinner: boolean = false;
+  isRedeemFlow: boolean = true;
 
   isProfessional: boolean = false;
 
@@ -74,6 +75,9 @@ export class DashboardPaymentsComponent implements OnInit {
       return
     }
 
+    // so otp model is linked with paypal flow
+    this.setRedeemFlow(false);
+
     this.emailSpinner = true;
     const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true).subscribe(
       (response)=> {
@@ -109,6 +113,20 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   verifyOtp(otp: string) {
+    if(this.isRedeemFlow) {
+      this.redeemWalletConfirmOtp(otp);
+    } else {
+      this.verifyPaypalOtp(otp);
+    }
+  }
+
+  setRedeemFlow(redeemFlow: boolean) {
+    this.isRedeemFlow = redeemFlow;
+    console.log("Set redeem "+this.isRedeemFlow)
+  }
+
+
+  verifyPaypalOtp(otp: string) {
     const sub = this.userService.verifyPaypalOtp(otp).subscribe(
       (response) => {
         if (!(response.state == constants.ERROR_STATE)) {
@@ -162,10 +180,28 @@ export class DashboardPaymentsComponent implements OnInit {
     );
   }
 
-  redeemWalletStart() {
-    this.paymentService.redeemWalletStart(2+"", this.paymentAccount.id+"").subscribe(
+  redeemWalletStart(amount: number) {
+    this.paymentService.redeemWalletStart(amount+"", this.paymentAccount.id+"").subscribe(
       (res)=>{
-        console.log(res)
+        if(res.state!=constants.ERROR_STATE) {
+          this.toastrService.info("Otp sent to your email")
+        } else {
+          this.toastrService.error(res.message);
+        }
+      }
+    )
+  }
+
+  redeemWalletConfirmOtp(otp: string) {
+    console.log("redeem wallet")
+    this.paymentService.redeemWalletConfirmOtp(otp, this.paymentAccount.id+"").subscribe(
+      (res)=>{
+        if(res.state!=constants.ERROR_STATE) {
+          this.toastrService.info(res.state)
+        } else {
+          this.toastrService.error(res.message);
+        }
+        window.location.reload();
       }
     )
   }

@@ -40,6 +40,11 @@ export class PaymentService {
     return this.httpClient.post<any>(postUrl, {});
   }
 
+  redeemWalletConfirmOtp(otp: string, paymentAccountId: string):Observable<any> {
+    const postUrl = `${this.baseUrl}/wallet/redeem/complete?otp=${otp}&paymentAccountId=${paymentAccountId}`;
+    return this.httpClient.post<any>(postUrl, {});
+  }
+
   confirmDirectPayment(orderId: number): Observable<BaseResponse> {
     const getUrl = `${this.baseUrl}/direct/complete/payment?orderId=${orderId}`;
     return this.httpClient.post<BaseResponse>(getUrl, {});

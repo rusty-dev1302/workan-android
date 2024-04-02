@@ -132,14 +132,16 @@
                                         <div class="col-12">
                                             <hr class="style1">
                                             <button class="btn btn-success btn-rounded col-12" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#addToWalletModal" data-bs-toggle="modal">
+                                                data-bs-toggle="modal" data-bs-target="#addToWalletModal"
+                                                data-bs-toggle="modal">
                                                 Add Money to Wallet</button>
                                         </div>
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
-                                            <button class="btn btn-warning btn-rounded col-12" type="button"
+                                            <button class="btn btn-warning btn-rounded col-12" type="button" (click)="setRedeemFlow(true)"
                                                 [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified)"
-                                                data-bs-toggle="modal" data-bs-target="#redeemWalletModal" data-bs-toggle="modal">
+                                                data-bs-toggle="modal" data-bs-target="#redeemWalletModal"
+                                                data-bs-toggle="modal">
                                                 Redeem Wallet Balance</button>
                                         </div>
 
@@ -308,7 +310,11 @@
 
 <div class="modal fade" id="enterOtpModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="enterOtpModalLabel" aria-hidden="true">
-    <app-enter-otp-modal (OtpValueEvent)="verifyOtp($event)"></app-enter-otp-modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <app-enter-otp-modal (OtpValueEvent)="verifyOtp($event)"></app-enter-otp-modal>
+        </div>
+    </div>
 </div>
 
 
@@ -323,11 +329,15 @@
 <!-- addToWalletModal ends  -->
 
 <!-- redeemWalletModal begins  -->
-<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified"
+<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>10"
     class="modal fade" id="redeemWalletModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="redeemWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <app-redeem-wallet></app-redeem-wallet>
+        <div class="modal-content">
+            <app-redeem-wallet [accountBalance]="paymentAccount.balance"
+                (redeemAmountEmmiter)="redeemWalletStart($event)"
+                (confirmOtpEmmiter)="redeemWalletConfirmOtp($event)"></app-redeem-wallet>
+        </div>
     </div>
 </div>
 <!-- redeemWalletModal ends  -->

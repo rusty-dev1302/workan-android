@@ -27,7 +27,6 @@
                                                 [(ngModel)]="addAmount" type="number" autocomplete="off" (ngModelChange)="roundUp($event)"
                                                 class="form-control" onfocus="this.value=''">
                                         </div>
-                                        <h5 *ngIf="invalidInput" style="letter-spacing: .08;color: rgb(184, 0, 0);font-weight: bold;" class="small-text">Decimal values are not accepted</h5>
                                         <h5 style="font-size: 1.1rem;"><b>Balance:</b><i class="fa-solid fa-dollar-sign"
                                                 style="color: green;margin-left: .8rem;margin-right: .2rem;"></i>{{accountBalance|number:
                                             '1.2-2'}}
@@ -41,6 +40,7 @@
                         <!-- Edit buttons -->
                         <div class="mb-3">
                             <div class="row">
+                                <h5 *ngIf="invalidInput" style="letter-spacing: .08;color: rgb(184, 0, 0);font-weight: bold;" class="small-text">*Decimal values are not accepted</h5>
                                 <div class="modal-footer">
                                     <button *ngIf="!spinner" type="submit" class="btn btn-primary btn-rounded col-12"
                                         [disabled]="addAmount<=0||invalidInput" data-bs-toggle="modal"
