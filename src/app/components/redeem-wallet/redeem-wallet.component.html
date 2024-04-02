@@ -1,6 +1,6 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="addSlotModalLabel">Set availability time</h5>
+        <h5 class="modal-title" id="addSlotModalLabel">Redeem Wallet Balance</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
             (click)="resetDialog()"></button>
     </div>
@@ -17,8 +17,21 @@
                             <div class="row g-3">
 
                                 <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="startTime">Start Time</label>
+                                    <div class="form-group text-center">
+                                        <label for="startTime">Enter the amount to redeem from your wallet.</label>
+                                        <div class="input-group mb-3" style="margin-top: .3rem;">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="color: green;">$</span>
+                                            </div>
+                                            <input #charges="ngModel" name="addAmount" id="addAmount" required
+                                                [(ngModel)]="addAmount" type="number" autocomplete="off" (ngModelChange)="roundUp($event)"
+                                                class="form-control" onfocus="this.value=''">
+                                        </div>
+                                        <h5 *ngIf="invalidInput" style="letter-spacing: .08;color: rgb(184, 0, 0);font-weight: bold;" class="small-text">Decimal values are not accepted</h5>
+                                        <h5 style="font-size: 1.1rem;"><b>Balance:</b><i class="fa-solid fa-dollar-sign"
+                                                style="color: green;margin-left: .8rem;margin-right: .2rem;"></i>{{accountBalance|number:
+                                            '1.2-2'}}
+                                        </h5>
                                     </div>
                                 </div>
 
@@ -29,8 +42,12 @@
                         <div class="mb-3">
                             <div class="row">
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                        data-bs-toggle="modal" data-bs-target="#addSlotModal">Save</button>
+                                    <button *ngIf="!spinner" type="submit" class="btn btn-primary btn-rounded col-12"
+                                        [disabled]="addAmount<=0||invalidInput" data-bs-toggle="modal"
+                                        data-bs-target="#addSlotModal">Next</button>
+                                    <button *ngIf="spinner" type="submit" class="btn btn-primary btn-rounded col-12"
+                                        disabled data-bs-toggle="modal" data-bs-target="#addSlotModal"><i
+                                            class="fas fa-spinner fa-pulse" style="font-size: 1rem"></i></button>
                                 </div>
                             </div>
                         </div>

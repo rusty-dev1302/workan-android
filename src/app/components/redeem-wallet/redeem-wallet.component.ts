@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -10,11 +10,31 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./redeem-wallet.component.css']
 })
 export class RedeemWalletComponent {
-  addMoney() {
+  @Input()
+  accountBalance:number = 0;
 
+  @Output()
+  addAmountEmmiter = new EventEmitter<number>();
+  
+  addAmount: number = 0;
+  spinner: boolean = false;
+  invalidInput: boolean = false;
+
+  addMoney() {
+    this.spinner = true;
+    this.addAmountEmmiter.emit(this.addAmount);
   }
 
   resetDialog() {
+    this.spinner = false;
+    this.addAmount = 0;
+  }
 
+  roundUp(input: number) {
+    if (!Number.isInteger(input)) {
+      this.invalidInput = true;
+    } else {
+      this.invalidInput = false
+    }
   }
 }
