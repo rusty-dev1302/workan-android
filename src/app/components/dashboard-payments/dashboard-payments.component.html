@@ -132,16 +132,14 @@
                                         <div class="col-12">
                                             <hr class="style1">
                                             <button class="btn btn-success btn-rounded col-12" type="button"
-                                                data-bs-toggle="modal" data-bs-target="#addToWalletModal"
-                                                data-bs-toggle="modal">
+                                                data-bs-toggle="modal" data-bs-target="#addToWalletModal">
                                                 Add Money to Wallet</button>
                                         </div>
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
                                             <button class="btn btn-warning btn-rounded col-12" type="button" (click)="setRedeemFlow(true)"
-                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified)"
-                                                data-bs-toggle="modal" data-bs-target="#redeemWalletModal"
-                                                data-bs-toggle="modal">
+                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>10)"
+                                                data-bs-toggle="modal" data-bs-target="#redeemWalletModal">
                                                 Redeem Wallet Balance</button>
                                         </div>
 
@@ -218,7 +216,7 @@
                                                         <button *ngIf="!paymentAccount.paypalAccount.verified"
                                                             class="btn btn-small btn-warning btn btn-rounded m-1"
                                                             type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#enterOtpModal">Verify OTP</button>
+                                                            data-bs-target="#enterOtpModal" (click)="setRedeemFlow(false)">Verify OTP</button>
                                                         <button class="btn btn-small btn-danger btn-rounded m-1"
                                                             type="button" (click)="removePaypalEmail()">Remove</button>
                                                     </div>
