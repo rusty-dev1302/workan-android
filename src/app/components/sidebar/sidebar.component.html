@@ -2,21 +2,23 @@
   aria-labelledby="sidebarMainLabel">
   <div class="offcanvas-header" style="font-size: large;color: white;">
     <ul *ngIf="currentUser" class="list-unstyled">
-      <li *ngIf="!profilePhoto" class="py-3"><img alt="..." class="img-fluid" width="40%" src="assets/profile.png"
+      <li *ngIf="!profilePhoto" class="py-2"><img alt="..." class="img-fluid" width="40%" src="assets/profile.png"
           type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"></li>
-      <li *ngIf="profilePhoto" class="py-2"><img alt="..." class="img-fluid profile-photo" width="40%"
+      <li *ngIf="profilePhoto" class="py-2"><img alt="..." class="img-fluid profile-photo" width="58%"
           [src]="profilePhoto.thumbnail" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain"></li>
-      <li type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">
+      <li type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain" style="margin-top: .3rem;margin-bottom: .3rem;">
         {{currentUser.firstName}} {{currentUser.lastName}}</li>
       <li style="font-size: medium;" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
         data-bs-target="#sidebarMain">View Profile</li>
+      <li><span type="button" style="font-size: .8rem;" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
       <li>
-        <hr class="style1" style="margin-bottom: 0rem;">
+        <hr class="style1" style="margin-bottom: 0rem;margin-top: .5rem;">
       </li>
     </ul>
   </div>
-  <div *ngIf="currentUser&&!currentUser.admin" class="offcanvas-body justify-content-center" style="padding-top: 7px;padding-left: 20px;font-size: large;">
+  <div *ngIf="currentUser&&!currentUser.admin" class="offcanvas-body justify-content-center"
+    style="padding-top: 7px;padding-left: 20px;font-size: large;">
 
     <ul *ngIf="currentUser&&!currentUser.professional" class="list-unstyled">
       <li><span class="p-2 border rounded">A C C O U N T</span><br><br></li>
@@ -51,17 +53,9 @@
       <!-- <li><span type="button"  data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">Browse Categories</span></li> -->
     </ul>
 
-    <!-- Footer Starts  -->
-
-    <ul class="list-unstyled sidebar-footer py-4">
-      <!-- next release  -->
-      <!-- <li class="py-2"><span>Help Desk</span></li> -->
-
-      <li><span type="button" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
-    </ul>
-
   </div>
-  <div *ngIf="currentUser&&currentUser.admin" class="offcanvas-body justify-content-center" style="padding-top: 7px;padding-left: 20px;font-size: large;">
+  <div *ngIf="currentUser&&currentUser.admin" class="offcanvas-body justify-content-center"
+    style="padding-top: 7px;padding-left: 20px;font-size: large;">
 
     <!-- admin section starts -->
     <ul class="list-unstyled">
@@ -72,15 +66,5 @@
           data-bs-target="#sidebarMain">Manage Verifications</span></li>
     </ul>
     <!-- admin section ends -->
-
-    <!-- Footer Starts  -->
-
-    <ul class="list-unstyled sidebar-footer py-4">
-      <!-- next release  -->
-      <!-- <li class="py-2"><span>Help Desk</span></li> -->
-
-      <li><span type="button" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
-    </ul>
-
   </div>
 </div>
