@@ -282,7 +282,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   pasteSlotItems(dayName: string, templateId: string, templateEnabled: boolean) {
-    const sub = this.dialogService.openDialog("paste schedule to " + dayName).subscribe(
+    const sub = this.dialogService.openDialog(" paste schedule to " + dayName).subscribe(
       (response) => {
         if (response) {
           this.createSlotRange(+templateId, this.copyStartTime, this.copyEndTime);

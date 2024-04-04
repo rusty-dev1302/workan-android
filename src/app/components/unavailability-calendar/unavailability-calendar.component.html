@@ -1,7 +1,6 @@
 <span class="px-2 py-3 text-center"><span class="py-2 px-3"
         style="margin-right: .3rem;min-width: 100rem!important;background-color: rgb(238, 238, 238);border-radius: 2rem;">{{value|date:'dd MMM (EEEE)'}}</span>
     <input type="date" [value]="value" [(ngModel)]="value" [min]="minValue" style="border: none!important;width: 1.5rem!important;padding-right: .1rem!important;">
-    <i class="fa fa-ellipsis-v px-2" style="font-size: 0.8rem!important;color: grey;" aria-hidden="true"></i>
-    <a class="link py-2" type="button" style="font-size: 1rem!important;" (click)="markUnavailable()">Mark Unavailable</a>
 </span>
+<h5 style="margin-left: .9rem;margin-top: 1rem;"><span class="border p-2" type="button" style="font-size: 1rem!important;border-radius: 1rem;background-color: rgb(57, 115, 198);color: white;" (click)="markUnavailable()">Mark Unavailable</span></h5>
 <hr style="margin-top: 1.5rem!important;">
