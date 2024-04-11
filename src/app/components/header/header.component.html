@@ -20,11 +20,11 @@
 
   <div *ngIf="!isAuthenticated" class="container-fluid d-flex justify-content-between g-3">
     <a class="navbar-brand"><img style="padding-bottom: 3px;" src="assets/workan.png" type="button" routerLink=""></a>
-    <button class="btn btn-primary btn-rounded btn-small" routerLink="/listings" style="margin-left: 10px;"
+    <button class="btn btn-primary btn-rounded btn-small" routerLink="/dashboard/profile" style="margin-left: 10px;"
             data-bs-title="Get Best Services" data-bs-toggle="tooltip">Dashboard / Login
     </button>
   </div>
 </nav>
 
 <app-sidebar *ngIf="isAuthenticated"></app-sidebar>
-<app-notification-sidebar *ngIf="isAuthenticated" [notifications]="notifications" (readMessageEvent)="messageRead()" [showLoader]="showLoader"></app-notification-sidebar>
+<app-notification-sidebar [unreadCount]="+notificationCount" *ngIf="isAuthenticated" [notifications]="notifications" (readAllEvent)="readAllMessages()" (readMessageEvent)="messageRead()" [showLoader]="showLoader"></app-notification-sidebar>

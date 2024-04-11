@@ -80,21 +80,16 @@ export class BrowseListingsComponent implements OnInit {
     if (hasSubcategory) {
       this.currentSubcategory = this.route.snapshot.queryParamMap.get('subCategory') ? this.route.snapshot.queryParamMap.get('subCategory')! : "";
       this.currentSubcategory = "Haircare"
-      console.log(this.currentSubcategory)
     }
 
     if (hasLocation) {
       this.geoHash = this.route.snapshot.queryParamMap.get('geoHash') ? this.route.snapshot.queryParamMap.get('geoHash')! : "";
       this.currentLocation = this.route.snapshot.queryParamMap.get('currentLocation') ? this.route.snapshot.queryParamMap.get('currentLocation')! : "";
-      console.log(this.geoHash)
     }
 
     if (hasSortBy) {
       this.sortByValue = this.route.snapshot.queryParamMap.get('sortBy') ? this.route.snapshot.queryParamMap.get('sortBy')! : "";
-      console.log(this.sortByValue)
     }
-
-    console.log(this.currentSubcategory)
 
     this.handleListProducts();
   }

@@ -4,6 +4,8 @@
         <ul class="list-unstyled">
             <li data-bs-toggle="offcanvas" data-bs-target="#notificationSidebar">
                 Notifications<i *ngIf="showLoader" class="fas fa-spinner fa-pulse px-3" style="font-size: 1.3rem!important;"></i>
+                <br>
+                <h6 type="button" class="btn mb-0 px-0" [ngClass]="unreadCount>0?'':'disabled disabled-notification'" (click)="markAllRead()"><a class="link" style="font-size: 1rem!important;">Read All</a></h6>
             </li>
         </ul>
     </div>

@@ -91,7 +91,6 @@ export class DashboardListingsFormComponent implements OnInit {
     this.loadFormValues();
     this.loadAllSubcategories();
     this.getCertificationsByEmail();
-    this.getUnavailabilityForProfessional();
   }
 
   selectSlot(day: string) {
@@ -118,6 +117,7 @@ export class DashboardListingsFormComponent implements OnInit {
           this.listing = data;
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.getAvailability(this.listing.id);
+          this.getUnavailabilityForProfessional();
           this.loadServicePricings();
           this.currentListingEvent.emit(this.listing);
         }
@@ -197,7 +197,6 @@ export class DashboardListingsFormComponent implements OnInit {
       (data) => {
         if (data && data.length > 0 && data[0].state != constants.ERROR_STATE || data) {
           this.unavailableDays = data;
-          console.log(JSON.parse(JSON.stringify(data)))
         }
         sub.unsubscribe();
       }
@@ -344,6 +343,11 @@ export class DashboardListingsFormComponent implements OnInit {
       () => {
         this.getCertificationsByEmail();
         this.attachmentChangeEvt = null;
+
+        //reset the file input after file upload
+        const fileInput = <HTMLFormElement> document.getElementById("files");
+        fileInput.value = "";
+
         sub.unsubscribe();
       }
     );

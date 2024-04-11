@@ -49,7 +49,6 @@ export class SidebarComponent implements OnInit {
   }
 
   lowWalletWarning() {
-    console.log(JSON.stringify(this.currentUser))
     if (this.currentUser.account.balance < -10) {
       this.toastr.warning("Low Wallet Balance",);
       interval(30000)

@@ -146,7 +146,6 @@ export class ConfirmOrderComponent implements OnInit{
         customer = data;
       this.selectedDate = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!))
        let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, this.dateTimeService.truncateTimezone(this.selectedDate), null!);
-       console.log()
         const subscription = this.orderService.confirmOrderAppointment(this.selectedOrderId, this.selectedSlot.id, createOrderRequest!).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

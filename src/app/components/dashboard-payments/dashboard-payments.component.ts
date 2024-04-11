@@ -122,7 +122,6 @@ export class DashboardPaymentsComponent implements OnInit {
 
   setRedeemFlow(redeemFlow: boolean) {
     this.isRedeemFlow = redeemFlow;
-    console.log("Set redeem "+this.isRedeemFlow)
   }
 
 
@@ -193,7 +192,6 @@ export class DashboardPaymentsComponent implements OnInit {
   }
 
   redeemWalletConfirmOtp(otp: string) {
-    console.log("redeem wallet")
     this.paymentService.redeemWalletConfirmOtp(otp, this.paymentAccount.id+"").subscribe(
       (res)=>{
         if(res.state!=constants.ERROR_STATE) {

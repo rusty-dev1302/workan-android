@@ -84,6 +84,16 @@ export class HeaderComponent implements OnInit{
     this.notificationCount = (+this.notificationCount - 1)+"";
   }
 
+  readAllMessages() {
+    this.notificationService.readAllMessages().subscribe(
+      (res)=>{
+        if(res) {
+          this.notificationCount = "0";
+        }
+      }
+    );
+  }
+
   parseInt(input: string): number {
     const result:number = +input;
     return result;

@@ -84,7 +84,6 @@ export class DashboardOrdersTakenComponent {
           }
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
             (data) => {
-              console.log(this.allOrders)
               this.allOrders = data.filter((order)=>order.status!='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
               this.cancelledOrders = data.filter((order)=>order.status=='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
               

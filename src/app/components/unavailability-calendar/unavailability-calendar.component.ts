@@ -15,7 +15,6 @@ export class UnavailabilityCalendarComponent implements OnInit{
   @Output() markUnavailableEvent = new EventEmitter<Date>();
 
   value!: string;
-
   minValue!:string;
 
   ngOnInit(): void {
@@ -29,8 +28,7 @@ export class UnavailabilityCalendarComponent implements OnInit{
   ) {}
 
   markUnavailable() {
-    console.log(this.value)
-    console.log(this.datePipe.transform(new Date('2024-03-28'), 'yyyy-MM-dd', '+0000'))
+    console.log("Sending date");
     this.markUnavailableEvent.emit(this.dateTimeService.truncateTimezone(new Date(this.value)));
   }
 }
