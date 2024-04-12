@@ -42,7 +42,8 @@ export class ConfirmOrderComponent implements OnInit{
 
   totalMenuCharges: number = 0
 
-  currentDate: string="Select a date";
+  currentDate: any="Select a date";
+
   currentSlots!: any[];
   currentStep: number = 0;
 
@@ -59,7 +60,7 @@ export class ConfirmOrderComponent implements OnInit{
     private userService: UserService,
     private toastr: ToastrService,
     private router: Router,
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
   ) {
   }
 
@@ -127,6 +128,10 @@ export class ConfirmOrderComponent implements OnInit{
 
   closeDialog() {
     this.selectedSlot = null!;
+    this.selectedDate = null!;
+    this.currentDate = "Select a date";
+    this.currentSlots = null!;
+    this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
     this.currentStep = 0;
   }
 

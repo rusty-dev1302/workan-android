@@ -142,7 +142,7 @@ export class SlotSelectorComponent implements OnInit {
     this.currentTimeRange = null;
     this.dayBoolArray = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_CLEAR));
     this.dayBoolArray[i] = true;
-    this.currentDate = this.datePipe.transform(date, 'dd MMM (EEEE)', '+0000')!;
+    this.currentDate = this.datePipe.transform(date, 'dd MMM (EEEE)')!;
 
     let day: string = this.datePipe.transform(date, 'EEEE')!;
 
@@ -151,6 +151,12 @@ export class SlotSelectorComponent implements OnInit {
         startTimeHhmm: this.availabilityRange.get(day).split("-")[0],
         endTimeHhmm: this.availabilityRange.get(day).split("-")[1]
       };
+      this.selectedTimeRange = {
+        startTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[0]),
+        endTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[1])
+      };
+      console.log(this.selectedTimeRange.endTime)
+
     } else {
       this.currentTimeRange = null;
     }
@@ -206,7 +212,6 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   closeDialog() {
-    this.selectedTimeRange = { startTime: '', endTime: '' };
     this.currentStep = 0;
   }
 
@@ -227,7 +232,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), this.dateTimeService.truncateTimezone(this.selectedDate), this.selectedMenuItems);
+        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!)), this.selectedMenuItems);
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

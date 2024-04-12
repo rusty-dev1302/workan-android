@@ -94,7 +94,7 @@
                   <div class="col-lg-12">
                     <h6 class="review-count" style="font-weight: bold;">Selected Day</h6>
                     <div class="input-group mb-3 dropdown">
-                      <input [ngModel]="currentDate" type="text" class="form-control" name="slotDay" readonly
+                      <input [(ngModel)]="currentDate" type="text" class="form-control" name="slotDay" readonly
                         style="background-color: white;">
                       <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="slotDayButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -219,15 +219,15 @@
               </div>
               <hr class="style1">
               <h6 class="small-text" style="font-weight: bold;">Terms and Conditions:</h6>
-              <h6 class="small-text">&bull; Once order is <b>confirmed, customer details will be shared</b> with the professional.
+              <h6 class="small-text">&bull; Upon <b>confirmation, customer details will be shared</b> with the professional.
               </h6>
               <h6 class="small-text">&bull; Once order is confirmed, a <b>service fee of 2CAD + 3% of total order charges</b> will be deducted from the wallet balance.
-              </h6>
-              <h6 class="small-text">&bull; A professional can <b>accept new orders</b> only when <b>wallet balance is above -10CAD</b>.
               </h6>
               <h6 class="small-text">&bull; If assigned appointment time is <b>not in the customer's preferred time</b>, order will be <b>confirmed on customer acceptance</b>.
               </h6>
               <h6 class="small-text">&bull; If assigned appointment time <b>is in the customer's preferred time</b>, order will be <b>confirmed</b>.
+              </h6>
+              <h6 class="small-text">&bull; A professional can <b>accept new orders</b> only when <b>wallet balance is above -10CAD</b>.
               </h6>
               <hr class="style1">
             </div>

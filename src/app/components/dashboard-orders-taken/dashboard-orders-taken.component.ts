@@ -44,11 +44,17 @@ export class DashboardOrdersTakenComponent {
     private navigationService: NavigationService,
     public dateTimeService: DateTimeService,
     private toastr: ToastrService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
     this.loadOrders();
+  }
+
+  preparePreferredDay(date: Date) {
+    const strDate = this.datePipe.transform(date, 'dd MMM (EEE)', '+0000');
+    return strDate;
   }
 
   prepareDataForConfirm(order: Order) {
