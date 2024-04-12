@@ -405,23 +405,17 @@
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
 
             <div class="mb-3">
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col">
-                        <div class="form-group">
-                            <h3><b>Unavailability</b>
-                            </h3>
-                        </div>
+                        <h3><b>Unavailability</b>
+                        </h3>
+                        <label style="margin-bottom: 1rem!important;">Unavailable Dates:</label>
                     </div>
                 </div>
-                <app-unavailability-calendar
-                    (markUnavailableEvent)="addUnavailabilityForProfessional($event)"></app-unavailability-calendar>
 
                 <!-- Slots for the day start  -->
                 <div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label style="margin-bottom: 1rem!important;"><b>Unavailable Dates:</b></label>
+                    <div class="form-group">
                                 <div class="row">
                                     <div *ngFor="let day of unavailableDays"
                                         class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
@@ -433,14 +427,13 @@
                                             <i class="fa fa-times" aria-hidden="true"></i></span>
                                     </div>
                                     <div class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
-                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;">
+                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
+                                            data-bs-toggle="modal" data-bs-target="#markUnavailableModal">
                                             <i class="fa fa-plus" aria-hidden="true"></i></span>
                                     </div>
                                 </div>
                                 <hr class="style1">
                             </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Slots for the day end  -->
@@ -790,6 +783,16 @@
     </div>
 </div>
 <!-- Add Slot Modal Ends -->
+
+<!-- Mark Unavailable Modal -->
+<div class="modal fade" id="markUnavailableModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="markUnavailableModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <app-unavailability-calendar
+            (markUnavailableEvent)="addUnavailabilityForProfessional($event)"></app-unavailability-calendar>
+    </div>
+</div>
+<!-- Mark Unavailable Ends -->
 
 <!-- hidden file input starts -->
 <input id="files" type="file" (change)="handleAttachment($event)" style="visibility:hidden;">

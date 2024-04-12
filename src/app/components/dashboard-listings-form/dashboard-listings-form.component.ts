@@ -177,7 +177,7 @@ export class DashboardListingsFormComponent implements OnInit {
     const subscription = this.dialogService.openDialog(" mark " + this.datePipe.transform(event, "dd MMMM (EEEE)", "+0000") + " as unavailable").subscribe(
       (res) => {
         if (res) {
-          let item = {
+          const item = {
             id: null,
             date: event
           }
@@ -188,6 +188,7 @@ export class DashboardListingsFormComponent implements OnInit {
             }
           );
         }
+        subscription.unsubscribe();
       }
     );
   }
