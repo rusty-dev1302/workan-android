@@ -22,6 +22,7 @@ import { AuthGuard } from './app/utility/app.guard';
 import { initializeKeycloak } from './app/utility/app.init';
 import { CustomerGuard } from './app/utility/customer.guard';
 import { ProfessionalGuard } from './app/utility/professional.guard';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 const routes: Routes = [
   {
@@ -145,7 +146,7 @@ bootstrapApplication(AppComponent, {
             resourceServer: {
                 sendAccessToken: true
             }
-        }), KeycloakAngularModule, ToastrModule.forRoot()),
+        }), KeycloakAngularModule, ToastrModule.forRoot(), NgxDaterangepickerMd.forRoot()),
         ListingService,
         UserService,
         {
