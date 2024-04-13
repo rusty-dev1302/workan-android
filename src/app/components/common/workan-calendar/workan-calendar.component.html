@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="col-12 text-center" style="position: absolute;top: 55%;">
-        <ngx-daterangepicker-material [hidden]="!viewCalendar" [closeOnAutoApply]="true" (datesUpdated)="onchange($event)" name="datePicker"
+        <ngx-daterangepicker-material [minDate]="minDate" [hidden]="!viewCalendar" [closeOnAutoApply]="true" (datesUpdated)="onchange($event)" name="datePicker"
             [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}">
         </ngx-daterangepicker-material>
     </div>

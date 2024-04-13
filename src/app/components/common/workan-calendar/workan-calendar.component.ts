@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { Dayjs } from 'dayjs';
 
 @Component({
   selector: 'app-workan-calendar',
@@ -14,6 +15,7 @@ export class WorkanCalendarComponent implements AfterViewInit, OnInit {
   viewCalendar: boolean = false;
   singleDate: boolean = true;
 
+  minDate: any = new Date().toISOString();
   selectedStartDate:string = "";
   selectedEndDate:string = "";
 
