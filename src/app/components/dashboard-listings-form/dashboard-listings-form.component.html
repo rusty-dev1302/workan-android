@@ -405,38 +405,35 @@
         <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
 
             <div class="mb-3">
-                <div class="row mb-3">
+                <div class="row">
                     <div class="col">
-                        <div class="form-group">
-                            <h3><b>Unavailability</b>
-                            </h3>
-                        </div>
+                        <h3><b>Unavailability</b>
+                        </h3>
+                        <label style="margin-bottom: 1rem!important;">Unavailable Dates:</label>
                     </div>
                 </div>
-                <app-unavailability-calendar (markUnavailableEvent)="addUnavailabilityForProfessional($event)"></app-unavailability-calendar>
 
                 <!-- Slots for the day start  -->
                 <div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label style="margin-bottom: 1rem!important;"><b>Unavailable Dates:</b></label>
+                    <div class="form-group">
                                 <div class="row">
-                                    <div *ngFor="let day of unavailableDays" class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
-                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
+                                    <div *ngFor="let day of unavailableDays"
+                                        class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
+                                        <span class="btn btn-rounded btn-danger"
+                                            style="margin-left: .2rem;min-width: 9.9rem!important;"
                                             (click)="removeUnavailableDate(day.id)">
-                                            <span style="margin-right: .4rem;">{{day.date|date:'dd MMM (EEE)':'+0000'}}</span>
+                                            <span style="margin-right: 1rem;">{{day.date|date:'dd MMM
+                                                (EEE)':'+0000'}}</span>
                                             <i class="fa fa-times" aria-hidden="true"></i></span>
                                     </div>
-                                </div>
-                                <div *ngIf="!unavailableDays||unavailableDays?.length == 0" class="alert alert-warning col-md-12"
-                                    role="alert">
-                                    No dates added to unavailability.
+                                    <div class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
+                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
+                                            data-bs-toggle="modal" data-bs-target="#markUnavailableModal">
+                                            <i class="fa fa-plus" aria-hidden="true"></i></span>
+                                    </div>
                                 </div>
                                 <hr class="style1">
                             </div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Slots for the day end  -->
@@ -468,7 +465,7 @@
                 <section class="container">
                     <div class="row">
 
-                        <div class="form-section">
+                        <div style="padding-top:1rem;">
 
                             <!-- User Form Starts -->
                             <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
@@ -497,7 +494,7 @@
 
                                         <div class="col-xxl-12 col-lg-12 col-12">
                                             <div class="form-group">
-                                                <app-select-map-location headline="Listing Location"
+                                                <app-select-map-location headline="Listing Address"
                                                     [initialValue]="listing.location"
                                                     (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
                                             </div>
@@ -528,11 +525,11 @@
                                 </div>
 
                                 <!-- Edit buttons -->
-                                <div class="mb-3">
+                                <div style="padding-top: 1rem;">
                                     <div class="row">
                                         <div class="modal-footer">
                                             <a>
-                                                <h6 class="small-text">&bull; <b>Listing location:</b> Preferred address
+                                                <h6 class="small-text">&bull; <b>Listing Address:</b> Preferred address
                                                     around which the services will be provided (~20km radius).
                                                 </h6>
                                             </a>
@@ -786,6 +783,16 @@
     </div>
 </div>
 <!-- Add Slot Modal Ends -->
+
+<!-- Mark Unavailable Modal -->
+<div class="modal fade" id="markUnavailableModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="markUnavailableModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <app-unavailability-calendar
+            (markUnavailableEvent)="addUnavailabilityForProfessional($event)"></app-unavailability-calendar>
+    </div>
+</div>
+<!-- Mark Unavailable Ends -->
 
 <!-- hidden file input starts -->
 <input id="files" type="file" (change)="handleAttachment($event)" style="visibility:hidden;">

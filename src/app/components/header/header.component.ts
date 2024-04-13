@@ -7,13 +7,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user.service';
 import { NotificationSidebarComponent } from '../notification-sidebar/notification-sidebar.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { FeedbackSupportComponent } from '../common/feedback-support/feedback-support.component';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
     standalone: true,
-    imports: [NgIf, RouterLink, SidebarComponent, NotificationSidebarComponent]
+    imports: [NgIf, RouterLink, SidebarComponent, NotificationSidebarComponent, FeedbackSupportComponent]
 })
 export class HeaderComponent implements OnInit{
 
@@ -51,6 +52,8 @@ export class HeaderComponent implements OnInit{
     this.userService.updateFirstLogin();
   }
 
+
+
   getNotificationsForUser() {
     this.showLoader = true;
     this.checkForNewNotification(true);
@@ -82,6 +85,16 @@ export class HeaderComponent implements OnInit{
 
   messageRead() {
     this.notificationCount = (+this.notificationCount - 1)+"";
+  }
+
+  readAllMessages() {
+    this.notificationService.readAllMessages().subscribe(
+      (res)=>{
+        if(res) {
+          this.notificationCount = "0";
+        }
+      }
+    );
   }
 
   parseInt(input: string): number {

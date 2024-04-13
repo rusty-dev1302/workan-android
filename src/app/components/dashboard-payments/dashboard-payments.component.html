@@ -123,8 +123,8 @@
 
                                         <div class="col-xxl-6 col-lg-6 col-12 py-2">
                                             <div class="form-group">
-                                                <h4><i class="fa-solid fa-dollar-sign" style="color: green;"></i><span
-                                                        style="color: brown;"> {{paymentAccount.balance | number :
+                                                <h4 class="px-2"><span [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{paymentAccount.balance<0?'-':''}}</span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .2rem;"></i><span
+                                                        [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{paymentAccount.balance | number :
                                                         '1.2-2'}}</span> </h4>
                                             </div>
                                         </div>
@@ -154,10 +154,10 @@
                 </div>
             </div>
 
-            <div *ngIf="isProfessional" class="row g-5">
+            <div *ngIf="isProfessional" class="row">
                 <div class="col-xl-12 col-md-12 ">
                     <!-- Ratings panel starts -->
-                    <div class="row g-5">
+                    <div class="row">
 
                         <div class="col-xl-12 col-md-12">
 
@@ -178,58 +178,58 @@
                                         can directly transfer money from wallet to your paypal email.</h6>
                                     <hr class="style1">
                                     <div class="row">
-                                        <h5 *ngIf="!paymentAccount.paypalAccount.email">
-                                            <h6 class="px-1"
-                                                style="font-weight: bold;letter-spacing: .05rem!important;">Email:</h6>
-                                            <input type="email" *ngIf="!paymentAccount.paypalAccount.email&&editEmail"
-                                                required [(ngModel)]="inputEmail" class="col-3"
-                                                style="text-align: center;margin-left: 5px;margin-right: 5px;">
-                                            <a *ngIf="!paymentAccount.paypalAccount.email&&!editEmail" class="link"
-                                                type="button" (click)="toggleEditEmail()"><i class="fa fa-plus-circle"
-                                                    aria-hidden="true"></i>
-                                            </a>
-                                            <span *ngIf="emailSpinner"><i class="fas fa-spinner fa-pulse"></i></span>
-                                            <a *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
-                                                class="primary-success px-1" type="button" (click)="addPaypalEmail()"><i
-                                                    class="fa fa-check-circle" aria-hidden="true"></i>
-                                            </a>
-                                            <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
-                                                class="primary-cancel" type="button" (click)="toggleEditEmail()"><i
-                                                    class="fa fa-times-circle" aria-hidden="true"></i>
-                                            </span>
-                                        </h5>
-                                        <div *ngIf="paymentAccount.paypalAccount.email"
-                                            class="col-xxl-6 col-lg-6 col-12">
-                                            <div class="form-group">
+                                        <div class="col-12">
+                                            <div *ngIf="!paymentAccount.paypalAccount.email">
                                                 <h6 class="px-1"
-                                                    style="font-weight: bold;letter-spacing: .05rem!important;">Email
-                                                    <span *ngIf="paymentAccount.paypalAccount.verified"
-                                                        style="font-size: 1rem;"><i class="fa fa-ellipsis-v"
-                                                            aria-hidden="true" style="color: grey;"></i>
-                                                        Verified <i class="fa fa-check-circle" style="color: green;"
-                                                            aria-hidden="true"></i>:
-                                                    </span>
-                                                </h6>
-                                                <h5>{{paymentAccount.paypalAccount.email}}
-
-                                                    <div style="font-size: .1rem!important;margin-top: .6rem;">
-                                                        <button *ngIf="!paymentAccount.paypalAccount.verified"
-                                                            class="btn btn-small btn-warning btn btn-rounded m-1"
-                                                            type="button" data-bs-toggle="modal"
-                                                            data-bs-target="#enterOtpModal" (click)="setRedeemFlow(false)">Verify OTP</button>
-                                                        <button class="btn btn-small btn-danger btn-rounded m-1"
-                                                            type="button" (click)="removePaypalEmail()">Remove</button>
-                                                    </div>
-                                                </h5>
+                                                    style="font-weight: bold;letter-spacing: .05rem!important;">Email:</h6>
+                                                <input type="email" *ngIf="!paymentAccount.paypalAccount.email&&editEmail"
+                                                    required [(ngModel)]="inputEmail" class="col-3"
+                                                    style="text-align: center;margin-left: 5px;margin-right: 5px;min-width: 12rem;">
+                                                <a *ngIf="!paymentAccount.paypalAccount.email&&!editEmail" class="link"
+                                                    type="button" (click)="toggleEditEmail()"><i class="fa fa-plus-circle"
+                                                        aria-hidden="true"></i>
+                                                </a>
+                                                <span *ngIf="emailSpinner"><i class="fas fa-spinner fa-pulse"></i></span>
+                                                <a *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
+                                                    class="primary-success px-1" type="button" (click)="addPaypalEmail()"><i
+                                                        class="fa fa-check-circle" aria-hidden="true"></i>
+                                                </a>
+                                                <span *ngIf="!paymentAccount.paypalAccount.email&&editEmail&&!emailSpinner"
+                                                    class="primary-cancel" type="button" (click)="toggleEditEmail()"><i
+                                                        class="fa fa-times-circle" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            <div *ngIf="paymentAccount.paypalAccount.email"
+                                                class="col-xxl-6 col-lg-6 col-12">
+                                                <div class="form-group">
+                                                    <h6 class="px-1"
+                                                        style="font-weight: bold;letter-spacing: .05rem!important;">Email
+                                                        <span *ngIf="paymentAccount.paypalAccount.verified"
+                                                            style="font-size: 1rem;"><i class="fa fa-ellipsis-v"
+                                                                aria-hidden="true" style="color: grey;"></i>
+                                                            Verified <i class="fa fa-check-circle" style="color: green;"
+                                                                aria-hidden="true"></i>:
+                                                        </span>
+                                                    </h6>
+                                                    <h5>{{paymentAccount.paypalAccount.email}}
+    
+                                                        <div style="font-size: .1rem!important;margin-top: .6rem;">
+                                                            <button *ngIf="!paymentAccount.paypalAccount.verified"
+                                                                class="btn btn-small btn-warning btn btn-rounded m-1"
+                                                                type="button" data-bs-toggle="modal"
+                                                                data-bs-target="#enterOtpModal" (click)="setRedeemFlow(false)">Verify OTP</button>
+                                                            <button class="btn btn-small btn-danger btn-rounded m-1"
+                                                                type="button" (click)="removePaypalEmail()">Remove</button>
+                                                        </div>
+                                                    </h5>
+                                                </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                                 <!-- User Form Ends -->
                             </div>
                         </div>
-
                     </div>
                     <!-- Ratings panel ends -->
                 </div>

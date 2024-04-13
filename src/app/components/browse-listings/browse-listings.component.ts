@@ -10,7 +10,6 @@ import { NavigationService } from 'src/app/services/navigation.service';
 import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
-import Geohash from 'latlon-geohash';
 
 @Component({
   selector: 'app-browse-listings',
@@ -61,7 +60,6 @@ export class BrowseListingsComponent implements OnInit {
 
 
   constructor(private listingService: ListingService,
-    private datePipe: DatePipe,
     private navigationService: NavigationService,
     private route: ActivatedRoute,
     private router: Router,
@@ -80,21 +78,16 @@ export class BrowseListingsComponent implements OnInit {
     if (hasSubcategory) {
       this.currentSubcategory = this.route.snapshot.queryParamMap.get('subCategory') ? this.route.snapshot.queryParamMap.get('subCategory')! : "";
       this.currentSubcategory = "Haircare"
-      console.log(this.currentSubcategory)
     }
 
     if (hasLocation) {
       this.geoHash = this.route.snapshot.queryParamMap.get('geoHash') ? this.route.snapshot.queryParamMap.get('geoHash')! : "";
       this.currentLocation = this.route.snapshot.queryParamMap.get('currentLocation') ? this.route.snapshot.queryParamMap.get('currentLocation')! : "";
-      console.log(this.geoHash)
     }
 
     if (hasSortBy) {
       this.sortByValue = this.route.snapshot.queryParamMap.get('sortBy') ? this.route.snapshot.queryParamMap.get('sortBy')! : "";
-      console.log(this.sortByValue)
     }
-
-    console.log(this.currentSubcategory)
 
     this.handleListProducts();
   }

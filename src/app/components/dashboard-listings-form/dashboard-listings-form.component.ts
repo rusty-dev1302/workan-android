@@ -91,7 +91,6 @@ export class DashboardListingsFormComponent implements OnInit {
     this.loadFormValues();
     this.loadAllSubcategories();
     this.getCertificationsByEmail();
-    this.getUnavailabilityForProfessional();
   }
 
   selectSlot(day: string) {
@@ -118,6 +117,7 @@ export class DashboardListingsFormComponent implements OnInit {
           this.listing = data;
           this.displayListing = JSON.parse(JSON.stringify(this.listing));
           this.getAvailability(this.listing.id);
+          this.getUnavailabilityForProfessional();
           this.loadServicePricings();
           this.currentListingEvent.emit(this.listing);
         }
@@ -173,21 +173,27 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addServicePriceName = servicePrice;
   }
 
-  addUnavailabilityForProfessional(event: any) {
-    const subscription = this.dialogService.openDialog(" mark " + this.datePipe.transform(event, "dd MMMM (EEEE)", "+0000") + " as unavailable").subscribe(
+  addUnavailabilityForProfessional(dates: Date[]) {
+    const subscription = this.dialogService.openDialog(" mark selected date/s as unavailable").subscribe(
       (res) => {
         if (res) {
-          let item = {
-            id: null,
-            date: event
-          }
-          const sub = this.listingService.addUnavailabilityForProfessional(item).subscribe(
+          let items: any[] = [];
+          dates.forEach((i: any) => {
+            const item = {
+              id: null,
+              date: i
+            }
+            items.push(item);
+          });
+
+          const sub = this.listingService.addUnavailabilityForProfessional(items).subscribe(
             () => {
               this.getUnavailabilityForProfessional();
               sub.unsubscribe();
             }
           );
         }
+        subscription.unsubscribe();
       }
     );
   }
@@ -197,7 +203,6 @@ export class DashboardListingsFormComponent implements OnInit {
       (data) => {
         if (data && data.length > 0 && data[0].state != constants.ERROR_STATE || data) {
           this.unavailableDays = data;
-          console.log(JSON.parse(JSON.stringify(data)))
         }
         sub.unsubscribe();
       }
@@ -344,6 +349,11 @@ export class DashboardListingsFormComponent implements OnInit {
       () => {
         this.getCertificationsByEmail();
         this.attachmentChangeEvt = null;
+
+        //reset the file input after file upload
+        const fileInput = <HTMLFormElement>document.getElementById("files");
+        fileInput.value = "";
+
         sub.unsubscribe();
       }
     );
@@ -470,6 +480,20 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   onClickSubmit() {
+    if (this.listing.id != 0 && this.listing.subCategory.subCategoryName != this.displayListing.subCategory.subCategoryName) {
+      this.dialogService.openDialog("Changing the speciality will deactivate the current listing! Are you sure you want to continue?", true)
+        .subscribe((res) => {
+          if (res) {
+            this.updateListing();
+          }
+        });
+    } else {
+      this.updateListing();
+    }
+
+  }
+
+  updateListing() {
     this.listing.professionalEmail = this.emailValue;
     this.listing.timezoneOffset = new Date().getTimezoneOffset();
     const sub = this.listingService.saveListing(this.listing).subscribe(

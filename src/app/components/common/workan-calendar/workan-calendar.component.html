@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-12 text-center" style="margin-bottom: 2rem;">
+        <h6 style="font-weight: bold;color: rgb(69, 69, 69);font-size: 1.1rem;margin-bottom: 1.5rem;">Select a Date/Range:</h6>
+        <div class="col-12" style="padding-left: 1.7rem;">
+            <span class="border px-3 py-2"
+                style="display: inline-block;width: 10rem;margin-right: .8rem;border-radius: .5rem;background-color: rgb(247, 247, 247);font-weight: bold;color: rgb(69, 69, 69);">{{selectedStartDate==''?'--':selectedStartDate}}</span><i (click)="toggleCalendar()" type="button" style="font-size: 1.5rem;color: rgb(99, 99, 99);" class="fa-solid fa-calendar px-1"></i><br>
+        </div>
+        <div *ngIf="!singleDate" class="col-12 mt-2">
+            <span>To</span>
+        </div>
+        <div *ngIf="!singleDate" class="col-12 mt-2">
+            <span class="border px-3 py-2"
+                style="display: inline-block;width: 10rem;margin-right: .5rem;border-radius: .5rem;background-color: rgb(247, 247, 247);font-weight: bold;color: rgb(69, 69, 69);">{{selectedEndDate}}</span>
+        </div>
+    </div>
+    <div class="col-12 text-center" style="position: absolute;top: 55%;">
+        <ngx-daterangepicker-material [minDate]="minDate" [hidden]="!viewCalendar" [closeOnAutoApply]="true" (datesUpdated)="onchange($event)" name="datePicker"
+            [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}">
+        </ngx-daterangepicker-material>
+    </div>
+</div>

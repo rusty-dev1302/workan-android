@@ -44,11 +44,17 @@ export class DashboardOrdersTakenComponent {
     private navigationService: NavigationService,
     public dateTimeService: DateTimeService,
     private toastr: ToastrService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
     this.loadOrders();
+  }
+
+  preparePreferredDay(date: Date) {
+    const strDate = this.datePipe.transform(date, 'dd MMM (EEE)', '+0000');
+    return strDate;
   }
 
   prepareDataForConfirm(order: Order) {
@@ -84,7 +90,6 @@ export class DashboardOrdersTakenComponent {
           }
           const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
             (data) => {
-              console.log(this.allOrders)
               this.allOrders = data.filter((order)=>order.status!='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
               this.cancelledOrders = data.filter((order)=>order.status=='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
               

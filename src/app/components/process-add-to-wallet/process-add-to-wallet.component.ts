@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -15,10 +15,12 @@ import { KeycloakService } from 'keycloak-angular';
   templateUrl: './process-add-to-wallet.component.html',
   styleUrls: ['./process-add-to-wallet.component.css']
 })
-export class ProcessAddToWalletComponent implements OnInit {
+export class ProcessAddToWalletComponent implements OnInit, OnDestroy {
 
   redirectLink: string = "/dashboard/";
   paymentAccountId!: string;
+
+  subscription!:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,10 +37,15 @@ export class ProcessAddToWalletComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.loadAccountInfo();
     });
-    const subs = this.route.queryParamMap.subscribe(() => {
+    this.subscription = this.route.queryParamMap.subscribe(() => {
       this.processPayment();
-      subs.unsubscribe();
     });
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   processPayment() {

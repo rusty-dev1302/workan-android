@@ -14,12 +14,23 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class NotificationSidebarComponent {
 
   @Input() notifications: PushNotification[] = [];
+  @Input() unreadCount: number = 0;
   @Output() readMessageEvent = new EventEmitter<boolean>();
+  @Output() readAllEvent = new EventEmitter<boolean>();
 
   @Input() showLoader: boolean = false;
 
   constructor(private notificationService: NotificationService) {
 
+  }
+
+  markAllRead() {
+    this.notifications.forEach(
+      (notification)=>{
+        notification.messageRead = true;
+      }
+    );
+    this.readAllEvent.emit(true);
   }
 
   markRead(notification: PushNotification) {

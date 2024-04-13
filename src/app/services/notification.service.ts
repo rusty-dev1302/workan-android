@@ -25,10 +25,19 @@ export class NotificationService {
     return this.httpClient.get<boolean>(getUrl)
   }
 
+  readAllMessages(): Observable<boolean> {
+    const getUrl = `${this.baseUrl}/readAll`;
+    return this.httpClient.get<boolean>(getUrl)
+  }
+
   getNotificationsForUser(): Observable<PushNotification[]> {
     const getUrl = `${this.baseUrl}/all`;
     return this.httpClient.get<PushNotification[]>(getUrl)
   }
 
-  
+  sendFeedbackQuery(subject:string, body: string): Observable<any> {
+    let message = {subject:subject, content: body}
+    const postUrl = `${this.baseUrl}/sendFeedbackQuery`;
+    return this.httpClient.post<any>(postUrl, message);
+  }
 }

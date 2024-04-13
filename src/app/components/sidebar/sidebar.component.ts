@@ -10,13 +10,14 @@ import { ProfilePhoto } from 'src/app/common/profile-photo';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
+import { FeedbackSupportComponent } from '../common/feedback-support/feedback-support.component';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   standalone: true,
-  imports: [NgIf, RouterLink]
+  imports: [NgIf, RouterLink, FeedbackSupportComponent]
 })
 export class SidebarComponent implements OnInit {
 
@@ -49,7 +50,6 @@ export class SidebarComponent implements OnInit {
   }
 
   lowWalletWarning() {
-    console.log(JSON.stringify(this.currentUser))
     if (this.currentUser.account.balance < -10) {
       this.toastr.warning("Low Wallet Balance",);
       interval(30000)
@@ -83,6 +83,11 @@ export class SidebarComponent implements OnInit {
         subscription.unsubscribe();
       }
     );
+  }
+
+  openFeedback() {
+    let element: HTMLElement = document.getElementById('feedbackSupportModalButton') as HTMLElement;
+    element.click();
   }
 
   logout() {

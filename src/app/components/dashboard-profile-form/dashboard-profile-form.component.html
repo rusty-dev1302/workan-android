@@ -6,7 +6,7 @@
         <form>
             <div class="mb-3">
                 <!-- display profile and name  -->
-                <div *ngIf="displayUser.professional" class="row py-3 px-2">
+                <div *ngIf="displayUser&&displayUser.professional" class="row py-3 px-2">
                     <div class="col-xl-4 xol-lg-4 col-md-12 col-12 img-section">
                         <div class="img-wrapper">
                             <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="50%"

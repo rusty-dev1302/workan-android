@@ -1,6 +1,39 @@
-<span class="px-2 py-3 text-center border" style="border-radius: .2rem;border-color: grey;"><span class="py-2 px-3"
-        style="margin-right: .3rem;min-width: 100rem!important;background-color: rgb(238, 238, 238);border-radius: .4rem;">{{value|date:'dd MMM (EEEE)'}}</span>
-    <input type="date" [value]="value" [(ngModel)]="value" [min]="minValue" style="border: none!important;width: 1.5rem!important;padding-right: .1rem!important;">
-</span>
-<h5 style="margin-left: .9rem;margin-top: 1.5rem;"><span class="border p-2" type="button" style="font-size: 1rem!important;border-radius: .4rem;background-color: rgb(65, 110, 173);color: white;" (click)="markUnavailable()">Mark Unavailable</span></h5>
-<hr style="margin-top: 1.5rem!important;">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="markUnavailableModalLabel">Add Unavailability</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            (click)="closeDialog()"></button>
+    </div>
+    <div class="modal-body p-2">
+        <section class="container" style="padding-left: 1rem;padding-right: 1rem;">
+            <div class="row">
+
+                <div class="form-section" style="padding: 0!important;">
+
+                    <!-- User Form Starts -->
+                    <form #markUnavailableForm="ngForm" (ngSubmit)="markUnavailable()">
+
+                        <div class="mb-2 mt-3">
+                            <div class="row g-3">
+                                <app-workan-calendar (datesSelected)="handleDates($event)"></app-workan-calendar>
+                            </div>
+                        </div>
+
+                        <!-- Edit buttons -->
+                        <div class="row">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger btn-rounded col-12" data-bs-toggle="modal"
+                                    data-bs-target="#markUnavailableModal">Mark
+                                    Unavailable</button>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- User Form Ends -->
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</div>
