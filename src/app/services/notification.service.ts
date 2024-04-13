@@ -36,8 +36,8 @@ export class NotificationService {
   }
 
   sendFeedbackQuery(subject:string, body: string): Observable<any> {
-    let message = {subject:subject, body: body}
-    const postUrl = `${this.baseUrl}/readAll`;
+    let message = {subject:subject, content: body}
+    const postUrl = `${this.baseUrl}/sendFeedbackQuery`;
     return this.httpClient.post<any>(postUrl, message);
   }
 }
