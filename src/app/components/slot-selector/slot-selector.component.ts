@@ -80,7 +80,7 @@ export class SlotSelectorComponent implements OnInit {
 
         const sub = this.listingService.getUnavailableDatesFromDates(listingId, dates).subscribe(
           (data1) => {
-
+            console.log("unavailable days"+data1)
             // Set of unavailable day names
             let unavailableDays:Map<string, string> = new Map();
 

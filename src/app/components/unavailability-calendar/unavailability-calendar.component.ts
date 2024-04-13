@@ -1,5 +1,5 @@
-import { CommonModule, DatePipe } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
 import { WorkanCalendarComponent } from '../common/workan-calendar/workan-calendar.component';
@@ -13,7 +13,7 @@ import { WorkanCalendarComponent } from '../common/workan-calendar/workan-calend
 })
 export class UnavailabilityCalendarComponent implements OnInit{
 
-  @Output() markUnavailableEvent = new EventEmitter<Date>();
+  @Output() markUnavailableEvent = new EventEmitter<Date[]>();
 
   values: string[] = [];
   minValue!:string;  
@@ -22,7 +22,6 @@ export class UnavailabilityCalendarComponent implements OnInit{
   }
 
   constructor(
-    private datePipe: DatePipe,
     private dateTimeService: DateTimeService
   ) {}
 
@@ -32,11 +31,14 @@ export class UnavailabilityCalendarComponent implements OnInit{
 
   markUnavailable() {
     console.log("Sending date");
+    let result:Date[] = [];
     this.values.forEach(
       (date)=>{
-        this.markUnavailableEvent.emit(this.dateTimeService.truncateTimezone(new Date(date)));
+        console.log(date);
+        result.push(this.dateTimeService.truncateTimezone(new Date(date)));
       }
     );
+    this.markUnavailableEvent.emit(result);
   }
 
   closeDialog() {

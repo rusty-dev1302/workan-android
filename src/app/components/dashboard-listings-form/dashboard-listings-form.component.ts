@@ -173,15 +173,20 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addServicePriceName = servicePrice;
   }
 
-  addUnavailabilityForProfessional(event: any) {
-    const subscription = this.dialogService.openDialog(" mark " + this.datePipe.transform(event, "dd MMMM (EEEE)", "+0000") + " as unavailable").subscribe(
+  addUnavailabilityForProfessional(dates: Date[]) {
+    const subscription = this.dialogService.openDialog(" mark selected date/s as unavailable").subscribe(
       (res) => {
         if (res) {
-          const item = {
-            id: null,
-            date: event
-          }
-          const sub = this.listingService.addUnavailabilityForProfessional(item).subscribe(
+          let items:any[] = [];
+          dates.forEach((i:any)=>{
+            const item = {
+              id: null,
+              date: i
+            }
+            items.push(item);
+          });
+          
+          const sub = this.listingService.addUnavailabilityForProfessional(items).subscribe(
             () => {
               this.getUnavailabilityForProfessional();
               sub.unsubscribe();

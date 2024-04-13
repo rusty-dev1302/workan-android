@@ -31,13 +31,13 @@ export class WorkanCalendarComponent implements AfterViewInit, OnInit {
     this.selectedEndDate = this.datePipe.transform(event.endDate.toDate(),'dd MMM (EEE)','+0000')!;
 
     const datesSeleted:string[] = [];
-    datesSeleted.push(this.selectedStartDate);
+    datesSeleted.push(this.datePipe.transform(event.startDate.toDate(),'yyyy-MM-dd','+0000')!);
 
     if(this.selectedStartDate==this.selectedEndDate) {
       this.singleDate = true;
     } else {
       this.singleDate = false;
-      datesSeleted.push(this.selectedEndDate);
+      datesSeleted.push(this.datePipe.transform(event.endDate.toDate(),'yyyy-MM-dd','+0000')!);
     }
     
     this.datesSelected.emit(datesSeleted);

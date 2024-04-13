@@ -37,7 +37,7 @@ export class ListingService {
     return this.httpClient.get<any[]>(getUrl);
   }
 
-  addUnavailabilityForProfessional(item: any): Observable<BaseResponse> {
+  addUnavailabilityForProfessional(item: any[]): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/unavailability/add`;
     return this.httpClient.post<BaseResponse>(postUrl, item);
   }
