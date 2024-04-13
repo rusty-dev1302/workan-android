@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -11,10 +11,12 @@ import { constants } from 'src/environments/constants';
     styleUrls: ['./payment-gateway.component.css'],
     standalone: true
 })
-export class PaymentGatewayComponent implements OnInit {
+export class PaymentGatewayComponent implements OnInit, OnDestroy {
 
   redirectLink:string = "/dashboard/orderDetail/";
   orderId!: string;
+
+  subscription!:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,10 +31,15 @@ export class PaymentGatewayComponent implements OnInit {
     this.route.paramMap.subscribe(()=>{
       this.loadOrderId();
     });
-    const subs = this.route.queryParamMap.subscribe(()=>{
+    this.subscription = this.route.queryParamMap.subscribe(()=>{
       this.processPayment();
-      subs.unsubscribe();
     });
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   processPayment() {

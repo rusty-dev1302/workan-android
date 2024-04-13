@@ -80,7 +80,6 @@ export class SlotSelectorComponent implements OnInit {
 
         const sub = this.listingService.getUnavailableDatesFromDates(listingId, dates).subscribe(
           (data1) => {
-            console.log("unavailable days"+data1)
             // Set of unavailable day names
             let unavailableDays:Map<string, string> = new Map();
 
@@ -155,22 +154,11 @@ export class SlotSelectorComponent implements OnInit {
         startTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[0]),
         endTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[1])
       };
-      console.log(this.selectedTimeRange.endTime)
 
     } else {
       this.currentTimeRange = null;
     }
 
-  }
-
-  getUnavailableDatesFromDates(dates: string[]) {
-    // let dates:string[] = [];
-    // dates.push(this.dateTimeService.truncateTimezoneToString(new Date()));
-    const sub = this.listingService.getUnavailableDatesFromDates(this.listingId, dates).subscribe(
-      (data) => {
-        console.log(data);
-      }
-    );
   }
 
   calculateTotalMenuCharges() {

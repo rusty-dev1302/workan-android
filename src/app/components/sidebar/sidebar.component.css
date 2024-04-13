@@ -1,0 +1,4 @@
+.md-backdrop {
+    --color-highlight: 0, 0, 0;
+    background-color:  rgba(var(--color-highlight), 0.5);;
+}

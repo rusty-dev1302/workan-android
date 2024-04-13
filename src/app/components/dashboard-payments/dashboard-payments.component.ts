@@ -151,11 +151,11 @@ export class DashboardPaymentsComponent implements OnInit {
             (account) => {
               this.paymentAccount = account;
               this.orderTransactions = this.paymentAccount.transactions.filter(
-                t => !t.mode.includes("wallet")
+                t => !t.mode.toLowerCase().includes("wallet")
               ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
               this.walletTransactions = this.paymentAccount.transactions.filter(
-                t => t.mode.includes("wallet")
+                t => t.mode.toLowerCase().includes("wallet")
               ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
               this.navigationService.pageLoaded();

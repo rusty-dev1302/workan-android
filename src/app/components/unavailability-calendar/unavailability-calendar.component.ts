@@ -30,11 +30,9 @@ export class UnavailabilityCalendarComponent implements OnInit{
   }
 
   markUnavailable() {
-    console.log("Sending date");
     let result:Date[] = [];
     this.values.forEach(
       (date)=>{
-        console.log(date);
         result.push(this.dateTimeService.truncateTimezone(new Date(date)));
       }
     );

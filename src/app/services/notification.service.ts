@@ -35,5 +35,9 @@ export class NotificationService {
     return this.httpClient.get<PushNotification[]>(getUrl)
   }
 
-  
+  sendFeedbackQuery(subject:string, body: string): Observable<any> {
+    let message = {subject:subject, body: body}
+    const postUrl = `${this.baseUrl}/readAll`;
+    return this.httpClient.post<any>(postUrl, message);
+  }
 }

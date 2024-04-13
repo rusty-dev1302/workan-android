@@ -177,15 +177,15 @@ export class DashboardListingsFormComponent implements OnInit {
     const subscription = this.dialogService.openDialog(" mark selected date/s as unavailable").subscribe(
       (res) => {
         if (res) {
-          let items:any[] = [];
-          dates.forEach((i:any)=>{
+          let items: any[] = [];
+          dates.forEach((i: any) => {
             const item = {
               id: null,
               date: i
             }
             items.push(item);
           });
-          
+
           const sub = this.listingService.addUnavailabilityForProfessional(items).subscribe(
             () => {
               this.getUnavailabilityForProfessional();
@@ -351,7 +351,7 @@ export class DashboardListingsFormComponent implements OnInit {
         this.attachmentChangeEvt = null;
 
         //reset the file input after file upload
-        const fileInput = <HTMLFormElement> document.getElementById("files");
+        const fileInput = <HTMLFormElement>document.getElementById("files");
         fileInput.value = "";
 
         sub.unsubscribe();
@@ -480,6 +480,20 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   onClickSubmit() {
+    if (this.listing.id != 0 && this.listing.subCategory.subCategoryName != this.displayListing.subCategory.subCategoryName) {
+      this.dialogService.openDialog("Changing the speciality will deactivate the current listing! Are you sure you want to continue?", true)
+        .subscribe((res) => {
+          if (res) {
+            this.updateListing();
+          }
+        });
+    } else {
+      this.updateListing();
+    }
+
+  }
+
+  updateListing() {
     this.listing.professionalEmail = this.emailValue;
     this.listing.timezoneOffset = new Date().getTimezoneOffset();
     const sub = this.listingService.saveListing(this.listing).subscribe(
