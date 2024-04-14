@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-loading-screen',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
     styleUrls: ['./loading-screen.component.css'],
     standalone: true
 })
-export class LoadingScreenComponent {
+export class LoadingScreenComponent implements OnInit{
 
+    ngOnInit(): void {
+    }
 }

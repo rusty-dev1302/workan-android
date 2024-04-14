@@ -70,6 +70,7 @@ export class DashboardOrdersTakenComponent {
     this.selectedMenuItemsForOrder = [];
     const sub = this.orderService.getMenuItemsForOrder(order.id).subscribe(
       (data)=>{
+        console.log(JSON.stringify(data))
         this.selectedMenuItemsForOrder = data;
         sub.unsubscribe();
       }

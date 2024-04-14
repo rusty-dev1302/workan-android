@@ -26,6 +26,7 @@ export class ProfessionalGuard {
                 return true;   
             }
           }
+          this.router.navigateByUrl(`/dashboard/profile`);
           return false;
         })
       );  

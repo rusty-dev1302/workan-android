@@ -18,9 +18,9 @@
                                 <i *ngIf="displayListing&&allowListing" class="fa-regular fa-pen-circle primary-blue"
                                     style="border-radius: 100%!important;" type="button" data-bs-toggle="modal"
                                     data-bs-target="#listingDetailsModal"></i>
-                                <i *ngIf="displayListing&&allowListing"
+                                <!-- <i *ngIf="displayListing&&allowListing"
                                     class="fa-regular fa-circle-trash primary-cancel" style="margin-left: 5px;"
-                                    type="button" (click)="removeListing(displayListing.id)"></i>
+                                    type="button" (click)="removeListing(displayListing.id)"></i> -->
                             </h3>
                             <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;">
@@ -437,9 +437,9 @@
                 </div>
 
                 <!-- Slots for the day end  -->
-                <h6 class="small-text">&bull; Add the dates you are unavailable and do not wish to take orders for.
+                <h6 class="small-text">&bull; Add the date(s) you are unavailable and do not wish to take orders for.
                 </h6>
-                <h6 class="small-text">&bull; These dates will be unavailable despite the status of the day
+                <h6 class="small-text">&bull; These date(s) will be unavailable despite the status of the day
                     availability.
                 </h6>
             </div>

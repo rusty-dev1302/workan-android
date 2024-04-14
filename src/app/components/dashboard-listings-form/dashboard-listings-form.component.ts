@@ -174,7 +174,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addUnavailabilityForProfessional(dates: Date[]) {
-    const subscription = this.dialogService.openDialog(" mark selected date/s as unavailable").subscribe(
+    const subscription = this.dialogService.openDialog(" mark selected date(s) as unavailable").subscribe(
       (res) => {
         if (res) {
           let items: any[] = [];
@@ -312,19 +312,19 @@ export class DashboardListingsFormComponent implements OnInit {
     let servicePricing = new ServicePricing(null!, this.addServicePriceName, this.addServicePriceCharges, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
       (response) => {
-        this.loadServicePricings();
+        this.loadFormValues();
         sub.unsubscribe();
       }
     );
   }
 
   removeServicePricing(id: number) {
-    const subscription = this.dialogService.openDialog("you want to delete current pricing").subscribe(
+    const subscription = this.dialogService.openDialog(" delete current pricing").subscribe(
       (response) => {
         if (response) {
           const sub = this.listingService.removeServicePricing(id).subscribe(
             (response) => {
-              this.loadServicePricings();
+              this.loadFormValues();
               sub.unsubscribe();
             }
           );
@@ -580,15 +580,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.userService.removeAllCertAttachments(certId).subscribe(
       () => {
         this.getCertificationsByEmail();
-        sub.unsubscribe();
-      }
-    );
-  }
-
-  removeListing(listingId: number) {
-    const sub = this.listingService.removeListing(listingId).subscribe(
-      () => {
-        window.location.reload();
         sub.unsubscribe();
       }
     );

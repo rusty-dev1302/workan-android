@@ -26,6 +26,7 @@ export class AdminGuard {
                 return true;   
             }
           }
+          this.router.navigateByUrl(`/dashboard/profile`);
           return false;
         })
       );  
