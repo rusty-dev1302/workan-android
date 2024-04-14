@@ -4,74 +4,72 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDialog()"></button>
   </div>
 
-    <!-- step1 modal body start  -->
-    <div *ngIf="currentStep==0" class="modal-body">
-      <div class="form-section" style="padding: 0!important;">
-        <div class="row">
-  
-          <div class="d-flex justify-content-center align-items-center">
-            <!-- Selector card start -->
-            <div class="px-3">
-              <!-- Slots start -->
-              <div class="mt-3 mb-3">
-                <div class="container p-2">
-  
-                  <div class="row g-2">
-                    <div class="col-12">
-                      <div class="table-responsive">
-                        <table class="table table-bordered th-sm">
-                          <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
-                            <tr>
-                              <th scope="col" class="text-center col-8">Service Name</th>
-                              <th scope="col" class="text-center col-2">
-                                Quantity
-                              </th>
-                              <th scope="col" class="text-center col-2">Charges</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr *ngFor="let menuItem of availableMenuItems; let i=index">
-                              <td class="text-center">
-                                {{menuItem.serviceName}}
-                              </td>
-                              <td class="text-center">
-                                <i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue"
-                                  style="margin-right: .4rem;"
-                                  aria-hidden="true"></i>{{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}<i
-                                  type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue"
-                                  aria-hidden="true" style="margin-left: .4rem;"></i>
-                              </td>
-                              <td class="text-center">
-                                <i class="fa-solid fa-dollar-sign"
-                                  style="color: green;margin-right: .1rem;"></i>{{menuItem.charges}}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <div style="text-align:end;">
-                          <b>Total: </b> <i class="fa-solid fa-dollar-sign"
-                            style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
-                        </div>
+  <!-- step1 modal body start  -->
+  <div *ngIf="currentStep==0" class="modal-body">
+    <div class="form-section" style="padding: 0!important;">
+      <div class="row">
+
+        <div class="d-flex justify-content-center align-items-center">
+          <!-- Selector card start -->
+          <div class="px-3">
+            <!-- Slots start -->
+            <div class="mt-3 mb-3">
+              <div class="container p-2">
+
+                <div class="row g-2">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table class="table table-bordered th-sm">
+                        <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                          <tr>
+                            <th scope="col" class="text-center col-8">Service Name</th>
+                            <th scope="col" class="text-center col-2">Charges</th>
+                            <th scope="col" class="text-center col-2">Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let menuItem of availableMenuItems; let i=index">
+                            <td class="text-center">
+                              {{menuItem.serviceName}}
+                            </td>
+                            <td class="text-center">
+                              <i class="fa-solid fa-dollar-sign"
+                                style="color: green;margin-right: .1rem;"></i>{{menuItem.charges}}
+                            </td>
+                            <td class="text-center">
+                              <i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue"
+                                style="margin-right: .4rem;"
+                                aria-hidden="true"></i>{{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}<i
+                                type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue"
+                                aria-hidden="true" style="margin-left: .4rem;"></i>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div style="text-align:end;">
+                        <b>Total: </b> <i class="fa-solid fa-dollar-sign"
+                          style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
                       </div>
                     </div>
-                    <hr class="style1">
-                    <h6 class="small-text">&bull; Please select quantity of each service</h6>
                   </div>
-  
+                  <hr class="style1">
+                  <h6 class="small-text">&bull; Please select quantity of each service</h6>
                 </div>
+
               </div>
-              <!-- Slots end -->
-              <div class="d-flex">
-                <button type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()"
-                  [disabled]="totalMenuCharges<=0">Next</button>
-              </div>
-              <!-- Selector card end -->
             </div>
+            <!-- Slots end -->
+            <div class="d-flex">
+              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()"
+                [disabled]="totalMenuCharges<=0">Next</button>
+            </div>
+            <!-- Selector card end -->
           </div>
         </div>
       </div>
     </div>
-    <!-- step1 modal body ends  -->
+  </div>
+  <!-- step1 modal body ends  -->
 
   <!-- step0 modal body start  -->
   <div *ngIf="currentStep==1" class="modal-body">
@@ -129,19 +127,21 @@
                           <div class="form-group">
                             <label for="endTime">To Time</label>
                           </div>
-                          <select #endTime class="form-select" aria-label="toTime" [(ngModel)]="selectedTimeRange.endTime"
-                            (change)="setDialogEndTime(endTime.value)">
+                          <select #endTime class="form-select" aria-label="toTime"
+                            [(ngModel)]="selectedTimeRange.endTime" (change)="setDialogEndTime(endTime.value)">
                             <option default hidden>Select a time</option>
                             <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
                               {{timeSlot}}</option>
                           </select>
                         </div>
-                        <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; Select the <b>preferred time range</b> in which you want the professional to arrive</span><br>
+                        <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; Select the <b>preferred time
+                            range</b> in which you want the professional to arrive</span><br>
                         <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be <b>allocated an
-                          appointment</b> within the preferred time range</span>
+                            appointment</b> within the preferred time range</span>
                       </div>
 
-                      <div *ngIf="currentDate!='Select a day'&&!currentTimeRange" class="alert alert-warning col-md-12" role="alert">
+                      <div *ngIf="currentDate!='Select a day'&&!currentTimeRange" class="alert alert-warning col-md-12"
+                        role="alert">
                         Professional unavailable for the selected date.
                       </div>
                     </div>

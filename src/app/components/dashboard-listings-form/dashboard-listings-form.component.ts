@@ -17,6 +17,7 @@ import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
 import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unavailability-calendar.component';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -83,7 +84,7 @@ export class DashboardListingsFormComponent implements OnInit {
     private userService: UserService,
     private fileService: FileService,
     public dateTimeService: DateTimeService,
-    private datePipe: DatePipe
+    public notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -583,6 +584,25 @@ export class DashboardListingsFormComponent implements OnInit {
         sub.unsubscribe();
       }
     );
+  }
+
+  requestVerification() {
+    const subs = this.dialogService.openDialog("Please make sure all the relevant documents have been attached and sent for verification / verified", true)
+      .subscribe((resp) => {
+        if (resp) {
+          const subject = "Verification Request";
+          const body = "Please verify listing for: " + this.keycloakService.getUsername() + ".";
+          const sub = this.notificationService.sendFeedbackQuery(subject, body).subscribe(
+            (res) => {
+              if (res) {
+                this.toastrService.success("Verification Request Sent")
+              }
+              sub.unsubscribe();
+            }
+          );
+        }
+        subs.unsubscribe();
+      });
   }
 
 }
