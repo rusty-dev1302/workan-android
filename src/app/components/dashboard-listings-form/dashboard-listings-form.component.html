@@ -360,9 +360,9 @@
                                     <div *ngIf="!toggleLoader&&template.startTimeHhmm&&template.endTimeHhmm"
                                         class="form-check form-switch">
                                         <label type="button" [hidden]="!template.enabled" class="form-check-label"
-                                            for="slotSwitch">On</label>
+                                            for="slotSwitch" style="color: rgb(0, 165, 0);">On</label>
                                         <label type="button" [hidden]="template.enabled" class="form-check-label"
-                                            for="slotSwitch">Off</label>
+                                            for="slotSwitch" style="color: rgb(177, 0, 0);">Off</label>
                                         <input id="slotSwitch" (click)="toggleSlotTemplate(template.templateId)"
                                             class="form-check-input" type="checkbox" [checked]="template.enabled"
                                             role="switch">
