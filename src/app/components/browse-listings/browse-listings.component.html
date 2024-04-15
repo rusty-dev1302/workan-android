@@ -26,7 +26,6 @@
                       <select #subcategory class="form-select" aria-label="subcategory" [value]="currentSubcategory"
                         (change)="selectSubcategory(subcategory.value)">
                         <option default hidden>{{currentSubcategory}}</option>
-                        <option value="" hidden>--</option>
                         <option *ngFor="let subCategory of subCategories" [value]="subCategory">
                           {{subCategory}}</option>
                       </select>
@@ -40,7 +39,6 @@
                       <select #sortBy class="form-select" aria-label="sortBy" [value]="sortByValue"
                         (change)="selectSortBy(sortBy.value)">
                         <option default hidden>{{sortByValue}}</option>
-                        <option value="" hidden>--</option>
                         <option *ngFor="let sortElement of sortByArray" [value]="sortElement">
                           {{sortElement}}</option>
                       </select>
