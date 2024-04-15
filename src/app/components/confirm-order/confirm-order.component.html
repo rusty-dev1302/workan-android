@@ -23,10 +23,8 @@
                         <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
                           <tr>
                             <th scope="col" class="text-center col-8">Service Name</th>
-                            <th scope="col" class="text-center col-2">
-                              Quantity
-                            </th>
                             <th scope="col" class="text-center col-2">Charges</th>
+                            <th scope="col" class="text-center col-2">Quantity</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -35,11 +33,11 @@
                               {{menuItem.serviceName}}
                             </td>
                             <td class="text-center">
-                              {{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}
-                            </td>
-                            <td class="text-center">
                               <i class="fa-solid fa-dollar-sign"
                                 style="color: green;margin-right: .1rem;"></i>{{menuItem.charges}}
+                            </td>
+                            <td class="text-center">
+                              {{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}
                             </td>
                           </tr>
                         </tbody>
@@ -211,7 +209,7 @@
                       <h6 *ngFor="let service of selectedMenuItems; let i=index"
                         style="margin-top: .2rem;margin-bottom: .2rem;">
                         <span *ngIf="service.quantity>0" style="font-size: 1rem!important;">{{service.serviceName}}
-                          X({{service.quantity}})</span>
+                          x({{service.quantity}})</span>
                       </h6>
                     </div>
                   </div>
@@ -219,15 +217,19 @@
               </div>
               <hr class="style1">
               <h6 class="small-text" style="font-weight: bold;">Terms and Conditions:</h6>
-              <h6 class="small-text">&bull; Upon <b>confirmation, customer details will be shared</b> with the professional.
+              <h6 class="small-text">&bull; Upon <b>confirmation, customer details will be shared</b> with the
+                professional.
               </h6>
-              <h6 class="small-text">&bull; Once order is confirmed, a <b>service fee of 2CAD + 3% of total order charges</b> will be deducted from the wallet balance.
+              <h6 class="small-text">&bull; Once order is confirmed, a <b>service fee of 2CAD + 3% of total order
+                  charges</b> will be deducted from the wallet balance.
               </h6>
-              <h6 class="small-text">&bull; If assigned appointment time is <b>not in the customer's preferred time</b>, order will be <b>confirmed on customer acceptance</b>.
+              <h6 class="small-text">&bull; If assigned appointment time is <b>not in the customer's preferred time</b>,
+                order will be <b>confirmed on customer acceptance</b>.
               </h6>
-              <h6 class="small-text">&bull; If assigned appointment time <b>is in the customer's preferred time</b>, order will be <b>confirmed</b>.
+              <h6 class="small-text">&bull; If assigned appointment time <b>is in the customer's preferred time</b>,
+                order will be <b>confirmed</b>.
               </h6>
-              <h6 class="small-text">&bull; A professional can <b>accept new orders</b> only when <b>wallet balance is above -10CAD</b>.
+              <h6 class="small-text">&bull; A professional can <b>accept new orders</b> only when <b>wallet balance is above 0 CAD</b>.
               </h6>
               <hr class="style1">
             </div>

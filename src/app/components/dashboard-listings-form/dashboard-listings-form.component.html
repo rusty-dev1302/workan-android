@@ -5,7 +5,7 @@
     <div *ngIf="menuItem==0" class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
-        <form #editListing="ngForm" (ngSubmit)="onClickSubmit()">
+        <form #editListing="ngForm">
 
             <div class="mb-3">
                 <div class="row">
@@ -18,14 +18,15 @@
                                 <i *ngIf="displayListing&&allowListing" class="fa-regular fa-pen-circle primary-blue"
                                     style="border-radius: 100%!important;" type="button" data-bs-toggle="modal"
                                     data-bs-target="#listingDetailsModal"></i>
-                                <i *ngIf="displayListing&&allowListing"
+                                <!-- <i *ngIf="displayListing&&allowListing"
                                     class="fa-regular fa-circle-trash primary-cancel" style="margin-left: 5px;"
-                                    type="button" (click)="removeListing(displayListing.id)"></i>
+                                    type="button" (click)="removeListing(displayListing.id)"></i> -->
                             </h3>
                             <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;">
                                 <b>Pending Verification</b>
                             </h6>
+                            <button (click)="requestVerification()" *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled" class="btn btn-primary btn-rounded btn-small mt-1">Request Verification</button>
                         </div>
                     </div>
                 </div>
@@ -80,11 +81,11 @@
                     class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Listing will become active once <b>all the documents get verified</b>.
+                    class="small-text">&bull; Please upload all the relevant <b>certifications/documents</b> from
+                    'My Documents' tab.
                 </h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Please upload all the <b>relevant certifications/documents</b> from
-                    documents section.
+                    class="small-text">&bull; Click on 'Request Verification' once all the relevant documents get <b>verified/sent</b> for verification.
                 </h6>
             </div>
         </form>
@@ -245,18 +246,20 @@
                                                 {{certification.profileVisibility?'Visible':'Hidden'}}
                                             </td>
                                             <td class="text-center">
-                                                <a *ngIf="certification.status=='Unverified'" class="link px-1"
-                                                    type="button" style="font-size: 1rem!important;"
-                                                    (click)="verifyCertification(certification.id)">Verify</a>
-                                                <a *ngIf="certification.status=='Verified'" class="link px-1"
-                                                    type="button" style="font-size: 1rem!important;"
+                                                <button *ngIf="certification.status=='Unverified'"
+                                                    class="btn btn-primary btn-rounded btn-small m-1" type="button"
+                                                    style="font-size: 1rem!important;"
+                                                    (click)="verifyCertification(certification.id)">Verify Cert</button>
+                                                <button *ngIf="certification.status=='Verified'"
+                                                    class="btn btn-primary btn-rounded btn-small m-1" type="button"
+                                                    style="font-size: 1rem!important;"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
-                                                    from profile':'Show on profile'}}</a>
-                                                <a class="link px-1"
-                                                    *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
-                                                    style="font-size: 1rem!important;">/</a>
-                                                <a class="link px-1" type="button" style="font-size: 1rem!important;"
-                                                    (click)="removeCertification(certification.id)">Remove</a>
+                                                    from profile':'Show on profile'}}</button>
+                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'" class="px-1"
+                                                    style="font-size: 1rem!important;color:rgb(105, 105, 105);"><i class="fa-light fa-ellipsis-vertical"></i></a>
+                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
+                                                    style="font-size: 1rem!important;"
+                                                    (click)="removeCertification(certification.id)">Remove</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -416,30 +419,29 @@
                 <!-- Slots for the day start  -->
                 <div>
                     <div class="form-group">
-                                <div class="row">
-                                    <div *ngFor="let day of unavailableDays"
-                                        class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
-                                        <span class="btn btn-rounded btn-danger"
-                                            style="margin-left: .2rem;min-width: 9.9rem!important;"
-                                            (click)="removeUnavailableDate(day.id)">
-                                            <span style="margin-right: 1rem;">{{day.date|date:'dd MMM
-                                                (EEE)':'+0000'}}</span>
-                                            <i class="fa fa-times" aria-hidden="true"></i></span>
-                                    </div>
-                                    <div class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
-                                        <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
-                                            data-bs-toggle="modal" data-bs-target="#markUnavailableModal">
-                                            <i class="fa fa-plus" aria-hidden="true"></i></span>
-                                    </div>
-                                </div>
-                                <hr class="style1">
+                        <div class="row">
+                            <div *ngFor="let day of unavailableDays" class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
+                                <span class="btn btn-rounded btn-danger"
+                                    style="margin-left: .2rem;min-width: 9.9rem!important;"
+                                    (click)="removeUnavailableDate(day.id)">
+                                    <span style="margin-right: 1rem;">{{day.date|date:'dd MMM
+                                        (EEE)':'+0000'}}</span>
+                                    <i class="fa fa-times" aria-hidden="true"></i></span>
                             </div>
+                            <div class="col-xl-2 col-md-3 col-sm-6 col-xs-6 py-1">
+                                <span class="btn btn-rounded btn-danger" style="margin-left: .2rem;"
+                                    data-bs-toggle="modal" data-bs-target="#markUnavailableModal">
+                                    <i class="fa fa-plus" aria-hidden="true"></i></span>
+                            </div>
+                        </div>
+                        <hr class="style1">
+                    </div>
                 </div>
 
                 <!-- Slots for the day end  -->
-                <h6 class="small-text">&bull; Add the dates you are unavailable and do not wish to take orders for.
+                <h6 class="small-text">&bull; Add the date(s) you are unavailable and do not wish to take orders for.
                 </h6>
-                <h6 class="small-text">&bull; These dates will be unavailable despite the status of the day
+                <h6 class="small-text">&bull; These date(s) will be unavailable despite the status of the day
                     availability.
                 </h6>
             </div>

@@ -68,7 +68,7 @@ export class ConfirmOrderComponent implements OnInit{
   }
 
   slotDate(index: number): Date {
-    let date: Date = this.dateTimeService.truncateTimezone(new Date());
+    let date: Date = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")!));
     date.setDate(date.getDate() + (index+1));
 
     return date;

@@ -112,11 +112,6 @@ export class ListingService {
     return this.httpClient.delete<BaseResponse>(postUrl);
   }
 
-  removeListing(listingId: number): Observable<BaseResponse> {
-    const deleteUrl = `${this.baseUrl}/remove?listingId=${listingId}`;
-    return this.httpClient.delete<BaseResponse>(deleteUrl);
-  }
-
   toggleSlotTemplate(slotTemplateId: number): Observable<BaseResponse> {
     const postUrl = `${this.baseUrl}/slotTemplate/toggle?slotTemplateId=${slotTemplateId}`;
     return this.httpClient.get<BaseResponse>(postUrl);

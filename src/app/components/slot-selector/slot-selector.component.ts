@@ -60,6 +60,7 @@ export class SlotSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAvailability(this.listingId);
+    this.loadServicePricings();
     this.loadCustomer();
   }
 
@@ -205,9 +206,6 @@ export class SlotSelectorComponent implements OnInit {
 
   nextStep() {
     this.currentStep++;
-    if (this.currentStep == 1) {
-      this.loadServicePricings();
-    }
   }
 
   previousStep() {

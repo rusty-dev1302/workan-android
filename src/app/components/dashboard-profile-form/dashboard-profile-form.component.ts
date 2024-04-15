@@ -65,6 +65,10 @@ export class DashboardProfileFormComponent implements OnInit {
     this.profileFormDirty = true;
   }
 
+  formatAddress(address: string) {
+    return address.replace(",",",<br>")
+  }
+
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
     this.loadUserData();

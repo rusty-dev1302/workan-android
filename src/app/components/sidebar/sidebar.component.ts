@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
   }
 
   lowWalletWarning() {
-    if (this.currentUser.account.balance < -10) {
+    if (this.currentUser.account.balance < 0) {
       this.toastr.warning("Low Wallet Balance",);
       interval(30000)
         .subscribe(() => {

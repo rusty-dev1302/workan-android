@@ -17,6 +17,7 @@ import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
 import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unavailability-calendar.component';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
@@ -83,7 +84,7 @@ export class DashboardListingsFormComponent implements OnInit {
     private userService: UserService,
     private fileService: FileService,
     public dateTimeService: DateTimeService,
-    private datePipe: DatePipe
+    public notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -174,7 +175,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   addUnavailabilityForProfessional(dates: Date[]) {
-    const subscription = this.dialogService.openDialog(" mark selected date/s as unavailable").subscribe(
+    const subscription = this.dialogService.openDialog(" mark selected date(s) as unavailable").subscribe(
       (res) => {
         if (res) {
           let items: any[] = [];
@@ -312,19 +313,19 @@ export class DashboardListingsFormComponent implements OnInit {
     let servicePricing = new ServicePricing(null!, this.addServicePriceName, this.addServicePriceCharges, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
       (response) => {
-        this.loadServicePricings();
+        this.loadFormValues();
         sub.unsubscribe();
       }
     );
   }
 
   removeServicePricing(id: number) {
-    const subscription = this.dialogService.openDialog("you want to delete current pricing").subscribe(
+    const subscription = this.dialogService.openDialog(" delete current pricing").subscribe(
       (response) => {
         if (response) {
           const sub = this.listingService.removeServicePricing(id).subscribe(
             (response) => {
-              this.loadServicePricings();
+              this.loadFormValues();
               sub.unsubscribe();
             }
           );
@@ -585,13 +586,23 @@ export class DashboardListingsFormComponent implements OnInit {
     );
   }
 
-  removeListing(listingId: number) {
-    const sub = this.listingService.removeListing(listingId).subscribe(
-      () => {
-        window.location.reload();
-        sub.unsubscribe();
-      }
-    );
+  requestVerification() {
+    const subs = this.dialogService.openDialog("Please make sure all the relevant documents have been attached and sent for verification / verified", true)
+      .subscribe((resp) => {
+        if (resp) {
+          const subject = "Verification Request";
+          const body = "Please verify listing for: " + this.keycloakService.getUsername() + ".";
+          const sub = this.notificationService.sendFeedbackQuery(subject, body).subscribe(
+            (res) => {
+              if (res) {
+                this.toastrService.success("Verification Request Sent")
+              }
+              sub.unsubscribe();
+            }
+          );
+        }
+        subs.unsubscribe();
+      });
   }
 
 }
