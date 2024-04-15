@@ -77,7 +77,6 @@ export class BrowseListingsComponent implements OnInit {
 
     if (hasSubcategory) {
       this.currentSubcategory = this.route.snapshot.queryParamMap.get('subCategory') ? this.route.snapshot.queryParamMap.get('subCategory')! : "";
-      this.currentSubcategory = "Haircare"
     }
 
     if (hasLocation) {
@@ -117,6 +116,7 @@ export class BrowseListingsComponent implements OnInit {
     const sub = this.listingService.getListingSubcategories().subscribe(
       (data) => {
         this.subCategories = data;
+        console.log("available subcats"+data)
         sub.unsubscribe();
       }
     );
