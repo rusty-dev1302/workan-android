@@ -11,3 +11,7 @@
 .strike-through {
     text-decoration: line-through;
 }
+
+h5 {
+    font-size: 110%;
+}
