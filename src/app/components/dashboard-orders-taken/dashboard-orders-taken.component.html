@@ -175,7 +175,7 @@
         </div>
 
         <div class="col-12" style="padding-top: 150px;padding-bottom: 150px;">
-          <div *ngIf="!allOrders||allOrders?.length == 0" class="alert alert-warning col-12" role="alert">
+          <div *ngIf="!cancelledOrdersSelected&&(!allOrders||allOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
             No orders found.
           </div>
         </div>
