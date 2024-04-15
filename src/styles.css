@@ -65,9 +65,15 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Lexend Deca', sans-serif;
     color: var(--bs-dark-color);
     word-wrap: break-word;
+}
+
+label {
+    font-size: 95%;
+    letter-spacing: .002rem;
+    font-weight: bold!important;
+    color: rgb(56, 56, 56);
 }
 
 h1 {

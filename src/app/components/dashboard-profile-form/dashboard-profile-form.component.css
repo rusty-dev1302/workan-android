@@ -6,3 +6,14 @@ html {
 .mobile-input {
   color: white;
 }
+
+h5 {
+  font-size: 110%;
+}
+
+label {
+  font-size: 95%;
+  letter-spacing: .002rem;
+  font-weight: bold!important;
+  color: rgb(56, 56, 56);
+}
