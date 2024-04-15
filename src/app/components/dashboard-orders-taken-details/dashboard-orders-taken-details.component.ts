@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -14,20 +14,28 @@ import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
+import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component';
 
 @Component({
     selector: 'app-dashboard-orders-taken-details',
     templateUrl: './dashboard-orders-taken-details.component.html',
     styleUrls: ['./dashboard-orders-taken-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, EnterOtpModalComponent]
+    imports: [RouterLink, NgIf, NgClass, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, EnterOtpModalComponent, ConfirmOrderComponent]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   private currentOrderId!: number;
   private autoRefresh!: Subscription;
+  lowBalance:boolean = false;
 
-  order!: Order;
+  selectedMenuItemsForOrder: any[]=[];
+  selectedOrderId: number = 0;
+  selectedAppointmentDate!: Date;
+  selectedPreferredStartTimeHhmm!: number;
+  selectedPreferredEndTimeHhmm!: number;
+
+  order!: any;
   cancellationReason: any[] = constants.CANCEL_REASON_PROFESSIONAL;
 
   constructor(
@@ -65,6 +73,11 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
+
+          if(this.order.professionalBalance<=0) {
+            this.lowBalance = true;
+          }
+
         } else {
           this.router.navigateByUrl(`/dashboard/orders`);
         }
@@ -79,6 +92,25 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     if(this.order.status=='STARTING') {
       this.processOrder('START', otp);
     }
+  }
+
+  prepareDataForConfirm(order: Order) {
+    if(this.lowBalance) {
+      this.toastr.warning("Please add money to wallet to accept more orders")
+      return;
+    }
+    this.selectedAppointmentDate = order.appointmentDate;
+    this.selectedPreferredStartTimeHhmm = order.preferredStartTimeHhmm;
+    this.selectedPreferredEndTimeHhmm = order.preferredEndTimeHhmm;
+
+    this.selectedOrderId = order.id;
+    this.selectedMenuItemsForOrder = [];
+    const sub = this.orderService.getMenuItemsForOrder(order.id).subscribe(
+      (data)=>{
+        this.selectedMenuItemsForOrder = data;
+        sub.unsubscribe();
+      }
+    );
   }
 
   processOrder(action: string, otp: string, cancellationReason:string="") {

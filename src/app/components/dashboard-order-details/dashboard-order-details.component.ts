@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -20,7 +20,7 @@ import { ReviewComponent } from '../review/review.component';
     templateUrl: './dashboard-order-details.component.html',
     styleUrls: ['./dashboard-order-details.component.css'],
     standalone: true,
-    imports: [RouterLink, NgIf, NgFor, FormsModule, ReviewComponent, CancellationReasonComponent, ConfirmPaymentComponent, DecimalPipe, DatePipe, PhonePipe]
+    imports: [RouterLink, NgClass, NgIf, NgFor, FormsModule, ReviewComponent, CancellationReasonComponent, ConfirmPaymentComponent, DecimalPipe, DatePipe, PhonePipe]
 })
 export class DashboardOrderDetailsComponent implements OnInit {
 

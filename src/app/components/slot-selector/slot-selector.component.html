@@ -5,7 +5,7 @@
   </div>
 
   <!-- step1 modal body start  -->
-  <div *ngIf="currentStep==0" class="modal-body">
+  <div *ngIf="currentStep==0&&!professionalView" class="modal-body">
     <div class="form-section" style="padding: 0!important;">
       <div class="row">
 
@@ -72,7 +72,7 @@
   <!-- step1 modal body ends  -->
 
   <!-- step0 modal body start  -->
-  <div *ngIf="currentStep==1" class="modal-body">
+  <div *ngIf="currentStep==1||professionalView" class="modal-body">
     <div class="form-section" style="padding: 0!important;">
       <div class="row">
 
@@ -115,7 +115,7 @@
                           <div class="form-group">
                             <label for="startTime">From Time</label>
                           </div>
-                          <select #startTime class="form-select" aria-label="fromtime"
+                          <select #startTime class="form-select" aria-label="fromtime" [disabled]="professionalView"
                             [(ngModel)]="selectedTimeRange.startTime" (change)="setDialogStartTime(startTime.value)">
                             <option default hidden>Select a time</option>
                             <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">
@@ -127,7 +127,7 @@
                           <div class="form-group">
                             <label for="endTime">To Time</label>
                           </div>
-                          <select #endTime class="form-select" aria-label="toTime"
+                          <select #endTime class="form-select" aria-label="toTime" [disabled]="professionalView"
                             [(ngModel)]="selectedTimeRange.endTime" (change)="setDialogEndTime(endTime.value)">
                             <option default hidden>Select a time</option>
                             <option *ngFor="let timeSlot of timeSlots" [value]="timeSlot">

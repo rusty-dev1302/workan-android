@@ -226,6 +226,10 @@ export class DashboardPaymentsComponent implements OnInit {
     return stringDate.substring(0, stringDate.indexOf("T"));
   }
 
+  findAbsolute(num: number) {
+    return Math.abs(num);
+  }
+
   toggleTabs(status: boolean) {
     this.showWallet = status;
   }

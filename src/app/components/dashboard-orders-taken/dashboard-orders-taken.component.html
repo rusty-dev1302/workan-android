@@ -48,7 +48,7 @@
                   <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
                              order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
                   <!-- display profile and name  -->
-                  <div class="row">
+                  <div class="row px-1 mt-1">
 
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
@@ -56,27 +56,11 @@
                         <h5> {{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h5>
                       </div>
                     </div>
-
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
                         <label>Appointment Time</label>
                         <h5>{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
-                      </div>
-                    </div>
-
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Customer</label>
-                        <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
-                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
-                      </div>
-                    </div>
-
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Customer Phone</label>
-                        <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
-                        <h6 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h6>
                       </div>
                     </div>
 
@@ -87,6 +71,23 @@
                           '1.2-2'}} </h5>
                       </div>
                     </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer Phone</label>
+                        <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
+                        <h6 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h6>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer Name</label>
+                        <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
+                      </div>
+                    </div>
+
                     <hr class="style1">
                     <div class="col-12">
                       <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
@@ -94,13 +95,6 @@
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
                       <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
-                        <button *ngIf="!lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
-                          data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
-                          (click)="prepareDataForConfirm(order)">Confirm Appointment
-                        </button>
-                        <button *ngIf="lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
-                          (click)="prepareDataForConfirm(order)">Confirm Appointment
-                        </button>
                       </div>
                     </div>
 
@@ -124,7 +118,7 @@
                   <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
                            order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
                   <!-- display profile and name  -->
-                  <div class="row">
+                  <div class="row px-1">
 
                     <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
@@ -169,11 +163,6 @@
                         style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/takenOrderDetail', order.id]">View Order</button>
-                      <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#confirmOrderModal" (click)="prepareDataForConfirm(order)">Confirm Appointment
-                        </button>
-                      </div>
                     </div>
 
                   </div>
@@ -196,20 +185,3 @@
   </section>
 
   <!-- main section ends  -->
-
-
-
-  <!-- Modal section begins -->
-
-  <!-- Accept Order Modal -->
-  <div class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <app-confirm-order [appointmentDate]="selectedAppointmentDate"
-        [preferredStartTimeHhmm]="selectedPreferredStartTimeHhmm" [preferredEndTimeHhmm]="selectedPreferredEndTimeHhmm"
-        [selectedMenuItems]="selectedMenuItemsForOrder" [selectedOrderId]="selectedOrderId"></app-confirm-order>
-    </div>
-  </div>
-  <!-- Accept Order Modal ends-->
-
-  <!-- Modals section ends -->

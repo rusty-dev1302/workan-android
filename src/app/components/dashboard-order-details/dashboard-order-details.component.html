@@ -37,9 +37,10 @@
             <form>
 
               <div class="mb-3">
-
+                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
+                order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
                 <!-- display profile and name  -->
-                <div class="row">
+                <div class="row px-1 mt-1">
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
@@ -55,6 +56,13 @@
                     </div>
                   </div>
 
+                  <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Preferred Time</label>
+                      <h5>{{dateTimeService.convertTimeToString(order.preferredStartTimeHhmm)}} - {{dateTimeService.convertTimeToString(order.preferredEndTimeHhmm)}}</h5>
+                    </div>
+                  </div>
+
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Total Amount</label>
@@ -62,14 +70,7 @@
                         '1.2-2'}} </h5>
                     </div>
                   </div>
-
-                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                    <div class="form-group">
-                      <label>OTP</label>
-                      <h5><b>{{order.otp!=""?order.otp:"--"}}</b></h5>
-                    </div>
-                  </div>
-
+                  
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Payment Status</label>
@@ -79,8 +80,8 @@
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
-                      <label>Order Status</label>
-                      <h5><b>{{order.status}}</b></h5>
+                      <label>OTP</label>
+                      <h5><b>{{order.otp!=""?order.otp:"--"}}</b></h5>
                     </div>
                   </div>
 
