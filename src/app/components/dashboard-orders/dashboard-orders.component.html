@@ -80,12 +80,19 @@
                       </div>
                     </div>
 
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
                         <label>Professional</label>
                         <h5><a class="link" type="button"
                             [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}}
                             {{order.professional.lastName}}</a></h5>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Customer Name</label>
+                        <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
                       </div>
                     </div>
 
@@ -127,17 +134,32 @@
                   <!-- display profile and name  -->
                   <div class="row px-1">
 
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
                         <label>Appointment Date</label>
                         <h5> {{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h5>
                       </div>
                     </div>
 
-                    <div class="col-xl-3 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
                         <label>Appointment Time</label>
                         <h5>{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Total Amount</label>
+                        <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                          '1.2-2'}} </h5>
+                      </div>
+                    </div>
+                    
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                      <div class="form-group">
+                        <label>Specialization</label>
+                        <h5>{{order.subCategoryName}}</h5>
                       </div>
                     </div>
 
@@ -152,18 +174,11 @@
 
                     <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                       <div class="form-group">
-                        <label>Specialization</label>
-                        <h5>{{order.subCategoryName}}</h5>
+                        <label>Customer Name</label>
+                        <h5>{{order.customer.firstName}} {{order.customer.lastName}}</h5>
                       </div>
                     </div>
 
-                    <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
-                      <div class="form-group">
-                        <label>Total Amount</label>
-                        <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
-                          '1.2-2'}} </h5>
-                      </div>
-                    </div>
                     <hr class="style1">
                     <div class="col-12">
                       <h6 *ngIf="order.cancelReason&&order.cancelReason!=''" class="small-text"
@@ -189,6 +204,9 @@
 
         <div class="col-12" style="padding-top: 150px;padding-bottom: 150px;">
           <div *ngIf="!cancelledOrdersSelected&&(!allOrders||allOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
+            No orders found.
+          </div>
+          <div *ngIf="cancelledOrdersSelected&&(!cancelledOrders||cancelledOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
             No orders found.
           </div>
         </div>

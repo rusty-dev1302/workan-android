@@ -11,7 +11,7 @@
         </h1>
       </div>
       <nav class="nav navbar ms-auto nav-underline navbar-dark bg-color">
-        <i class="nav-link-custom nav-link fa fa-arrow-left" routerLink="/dashboard/myorders" type="button"></i>
+        <i class="nav-link-custom nav-link fa fa-arrow-left" (click)="navigateBack()" type="button"></i>
       </nav>
 
     </div>
@@ -124,7 +124,7 @@
                       </div>
                     </div>
                   </div>
-                  <h6 *ngIf="order.listingDistance" style="font-weight: bold;color: rgb(183, 25, 25);">Customer is at a distance of {{order.listingDistance|number:'1.2-2'}}kms from the listing address</h6>
+                  <h6 *ngIf="order.listingDistance" style="font-weight: bold;color: rgb(183, 25, 25);">Customer is at a distance of {{order.listingDistance|number:'1.2-2'}}km from the listing address</h6>
 
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">

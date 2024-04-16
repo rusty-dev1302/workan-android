@@ -9,11 +9,11 @@ import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
-    selector: 'app-select-map-location',
-    templateUrl: './select-map-location.component.html',
-    styleUrls: ['./select-map-location.component.css'],
-    standalone: true,
-    imports: [FormsModule, NgIf]
+  selector: 'app-select-map-location',
+  templateUrl: './select-map-location.component.html',
+  styleUrls: ['./select-map-location.component.css'],
+  standalone: true,
+  imports: [FormsModule, NgIf]
 })
 export class SelectMapLocationComponent implements OnInit {
 
@@ -26,8 +26,17 @@ export class SelectMapLocationComponent implements OnInit {
   @Input() headline: string = "";
   @Input() isFilter: boolean = false;
   @Input() initialValue: string = "";
-  @Output() outputEvent = new EventEmitter<{ address: string, geoHash: string } | any>();
+  @Output() outputEvent = new EventEmitter<{ address: string, geoHash: string, latitude: number, longitude: number } | any>();
+  @Output() averageDistanceEvent = new EventEmitter<{ distance: number } | any>();
 
+
+  @Input()
+  distance: number = 10;
+
+  distanceString(distance: number) {
+    this.averageDistanceEvent.emit(distance);
+    return distance + "km";
+  }
 
   myOptions = {
     mapTypeControlOptions: {
@@ -52,7 +61,7 @@ export class SelectMapLocationComponent implements OnInit {
     private keycloakService: KeycloakService,
     private userService: UserService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     this.autoComplete = new google.maps.places.Autocomplete(this.originLocation.nativeElement);
@@ -64,6 +73,10 @@ export class SelectMapLocationComponent implements OnInit {
 
         output["address"] = this.autoComplete?.getPlace().formatted_address;
         output["geoHash"] = Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8);
+        output["latitude"] = this.currentLocationLatLng.lat();
+        output["longitude"] = this.currentLocationLatLng.lng();
+
+        console.log(Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8));
 
         this.outputEvent.emit(output);
       }
@@ -81,33 +94,17 @@ export class SelectMapLocationComponent implements OnInit {
 
   getMyAddress() {
     const sub = this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
-    (data)=> {
-      if(data&&data.geoHash) {
-        let output: any = {};
-        output["address"] = data.addressLine3;
-        output["geoHash"] = data.geoHash;
-        this.outputEvent.emit(output);
-      } else {
-        this.toastr.info("Please update your address.")
+      (data) => {
+        if (data && data.geoHash) {
+          let output: any = {};
+          output["address"] = data.addressLine3;
+          output["geoHash"] = data.geoHash;
+          this.outputEvent.emit(output);
+          sub.unsubscribe();
+        } else {
+          this.toastr.info("Please update your address.")
+        }
       }
-    }
     );
-  }
-
-  distanceBetweenTwoPlace(firstLat: number, firstLon: number, secondLat: number, secondLon: number, unit: string) {
-    var firstRadlat = Math.PI * firstLat / 180
-    var secondRadlat = Math.PI * secondLat / 180
-    var theta = firstLon - secondLon;
-    var radtheta = Math.PI * theta / 180
-    var distance = Math.sin(firstRadlat) * Math.sin(secondRadlat) + Math.cos(firstRadlat) * Math.cos(secondRadlat) * Math.cos(radtheta);
-    if (distance > 1) {
-      distance = 1;
-    }
-    distance = Math.acos(distance)
-    distance = distance * 180 / Math.PI
-    distance = distance * 60 * 1.1515
-    if (unit == "K") { distance = distance * 1.609344 }
-    if (unit == "N") { distance = distance * 0.8684 }
-    return distance
   }
 }

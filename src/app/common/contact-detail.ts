@@ -7,6 +7,8 @@ export class ContactDetail extends BaseResponse{
         public mobile: number,
         public addressLine3: string,
         public geoHash: string,
+        public latitude: number,
+        public longitude: number,
         state: string,
         message: string,
     ) {

@@ -45,7 +45,8 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     private navigationService: NavigationService,
     private paymentService: PaymentService,
     private router: Router,
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
+    private navigation: NavigationService
   ) { }
 
   ngOnInit() {
@@ -148,6 +149,10 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   cancelOrder(cancellationReason:any) {
     this.processOrder("CANCEL","", cancellationReason.reason);
+  }
+
+  navigateBack(): void {
+    this.navigation.back()
   }
 
 }

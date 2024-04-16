@@ -22,8 +22,8 @@ export class ListingService {
     return this.httpClient.get<Listing>(getUrl);
   }
 
-  getListingsByFilters(subcategory: string, geoHash: string, sortBy: string, pageNumber: number): Observable<Listing[]> {
-    const getUrl = `${this.baseUrl}/search?subcategory=${subcategory}&&geoHash=${geoHash}&&sortBy=${sortBy}&&pageNumber=${pageNumber}`;
+  getListingsByFilters(subcategory: string, geoHash: string, sortBy: string, latitude: number, longitude: number, averageDistance: number, pageNumber: number): Observable<Listing[]> {
+    const getUrl = `${this.baseUrl}/search?subcategory=${subcategory}&&geoHash=${geoHash}&&sortBy=${sortBy}&&latitude=${latitude}&&longitude=${longitude}&&distanceInKm=${averageDistance}&&pageNumber=${pageNumber}`;
     return this.httpClient.get<Listing[]>(getUrl)
   }
 

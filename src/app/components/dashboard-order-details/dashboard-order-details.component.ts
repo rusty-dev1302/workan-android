@@ -36,6 +36,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private navigationService: NavigationService,
     private router: Router,
+    private navigation: NavigationService,
     public dateTimeService: DateTimeService
   ) { }
 
@@ -92,6 +93,10 @@ export class DashboardOrderDetailsComponent implements OnInit {
 
   cancelOrder(cancellationReason:any) {
     this.processOrder("CANCEL", cancellationReason.reason);
+  }
+
+  navigateBack(): void {
+    this.navigation.back()
   }
 
 }

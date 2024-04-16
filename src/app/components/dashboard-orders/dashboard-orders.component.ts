@@ -1,7 +1,7 @@
 import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { CreateOrderRequest } from 'src/app/common/create-order-request';
@@ -35,10 +35,15 @@ export class DashboardOrdersComponent implements OnInit {
     public dateTimeService: DateTimeService,
     private dialogService: ConfirmationDialogService,
     private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
+    if(this.route.snapshot.queryParamMap.has('cancelledSelected')) {
+      this.cancelledOrdersSelected = this.route.snapshot.queryParamMap.get('cancelledSelected') ? this.route.snapshot.queryParamMap.get('cancelledSelected')=='true'! : false;
+    }
     this.loadOrders();
   }
 
@@ -82,7 +87,9 @@ export class DashboardOrdersComponent implements OnInit {
   }
 
   toggleTabs(input: boolean) {
-    this.cancelledOrdersSelected = input;
+    this.router.navigate(['/dashboard/orders'], { queryParams: {cancelledSelected:input} }).then(() => {
+      window.location.reload();
+    });;
   }
 
 }
