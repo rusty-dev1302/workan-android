@@ -9,11 +9,11 @@ import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
-    selector: 'app-select-map-location',
-    templateUrl: './select-map-location.component.html',
-    styleUrls: ['./select-map-location.component.css'],
-    standalone: true,
-    imports: [FormsModule, NgIf]
+  selector: 'app-select-map-location',
+  templateUrl: './select-map-location.component.html',
+  styleUrls: ['./select-map-location.component.css'],
+  standalone: true,
+  imports: [FormsModule, NgIf]
 })
 export class SelectMapLocationComponent implements OnInit {
 
@@ -31,11 +31,11 @@ export class SelectMapLocationComponent implements OnInit {
 
 
   @Input()
-  distance:number = 10;
+  distance: number = 10;
 
   distanceString(distance: number) {
     this.averageDistanceEvent.emit(distance);
-    return distance+"km";
+    return distance + "km";
   }
 
   myOptions = {
@@ -55,13 +55,16 @@ export class SelectMapLocationComponent implements OnInit {
   markerLocation!: google.maps.LatLng;
 
   ngOnInit(): void {
+    if (this.isFilter) {
+      this.getMyAddress();
+    }
   }
 
   constructor(
     private keycloakService: KeycloakService,
     private userService: UserService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngAfterViewInit() {
     this.autoComplete = new google.maps.places.Autocomplete(this.originLocation.nativeElement);
@@ -79,9 +82,6 @@ export class SelectMapLocationComponent implements OnInit {
         this.outputEvent.emit(output);
       }
     );
-    if(this.isFilter) {
-      this.getMyAddress();
-    }
   }
 
   valueChanged() {
@@ -95,14 +95,15 @@ export class SelectMapLocationComponent implements OnInit {
 
   getMyAddress() {
     const sub = this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
-    (data)=> {
-      if(data&&data.geoHash) {
-        let output: any = {};
-        output["address"] = data.addressLine3;
-        output["geoHash"] = data.geoHash;
-        this.outputEvent.emit(output);
+      (data) => {
+        if (data && data.geoHash) {
+          let output: any = {};
+          output["address"] = data.addressLine3;
+          output["geoHash"] = data.geoHash;
+          this.outputEvent.emit(output);
+          sub.unsubscribe();
+        }
       }
-    }
     );
   }
 
