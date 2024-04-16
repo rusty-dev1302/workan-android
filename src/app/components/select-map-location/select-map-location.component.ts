@@ -88,6 +88,8 @@ export class SelectMapLocationComponent implements OnInit {
       let output: any = {};
       output["address"] = "";
       output["geoHash"] = "";
+      output["latitude"] = 0;
+      output["longitude"] = 0;
       this.outputEvent.emit(output);
     }
   }
@@ -99,6 +101,8 @@ export class SelectMapLocationComponent implements OnInit {
           let output: any = {};
           output["address"] = data.addressLine3;
           output["geoHash"] = data.geoHash;
+          output["latitude"] = data.latitude;
+          output["longitude"] = data.longitude;
           this.outputEvent.emit(output);
           sub.unsubscribe();
         } else {
