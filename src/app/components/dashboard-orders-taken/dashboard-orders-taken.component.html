@@ -187,6 +187,9 @@
           <div *ngIf="!cancelledOrdersSelected&&(!allOrders||allOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
             No orders found.
           </div>
+          <div *ngIf="cancelledOrdersSelected&&(!cancelledOrders||cancelledOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
+            No orders found.
+          </div>
         </div>
       </div>
     </div>

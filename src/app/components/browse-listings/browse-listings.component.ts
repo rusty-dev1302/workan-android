@@ -55,7 +55,9 @@ export class BrowseListingsComponent implements OnInit {
 
   subCategories: string[] = [];
   sortByArray: string[] = ["Rating", "Charges low to high", "Charges high to low"];
-  averageDistance: number = 10;
+  distanceInKm: number = 10;
+  latitude: number = 0;
+  longitude: number = 0;
 
   timezoneOffset = new Date().getTimezoneOffset();
 
@@ -83,7 +85,9 @@ export class BrowseListingsComponent implements OnInit {
     if (hasLocation) {
       this.geoHash = this.route.snapshot.queryParamMap.get('geoHash') ? this.route.snapshot.queryParamMap.get('geoHash')! : "";
       this.currentLocation = this.route.snapshot.queryParamMap.get('currentLocation') ? this.route.snapshot.queryParamMap.get('currentLocation')! : "";
-      this.averageDistance = this.route.snapshot.queryParamMap.get('averageDistance') ? +this.route.snapshot.queryParamMap.get('averageDistance')! : 10;
+      this.distanceInKm = this.route.snapshot.queryParamMap.get('distanceInKm') ? +this.route.snapshot.queryParamMap.get('distanceInKm')! : 10;
+      this.latitude = this.route.snapshot.queryParamMap.get('latitude') ? +this.route.snapshot.queryParamMap.get('latitude')! : 0;
+      this.longitude = this.route.snapshot.queryParamMap.get('longitude') ? +this.route.snapshot.queryParamMap.get('longitude')! : 0;
     }
 
     if (hasSortBy) {
@@ -104,10 +108,12 @@ export class BrowseListingsComponent implements OnInit {
   locationSelectorOutput(data: any) {
     this.currentLocation = data.address;
     this.geoHash = data.geoHash;
+    this.latitude = data.latitude;
+    this.longitude = data.longitude;
   }
 
   setAverageDistance(distance: number) {
-    this.averageDistance = distance;
+    this.distanceInKm = distance;
   }
 
   clearAllFilters() {
@@ -134,7 +140,10 @@ export class BrowseListingsComponent implements OnInit {
     this.geoHash != "" ? qpMap.set("geoHash", this.geoHash) : '';
     this.sortByValue != "" ? qpMap.set("sortBy", this.sortByValue) : '';
     this.currentLocation != "" ? qpMap.set("currentLocation", this.currentLocation) : '';
-    this.currentLocation != "" ? qpMap.set("averageDistance", this.averageDistance) : '';
+    this.geoHash != "" ? qpMap.set("distanceInKm", this.distanceInKm) : '';
+    this.geoHash != "" ? qpMap.set("latitude", this.latitude) : '';
+    this.geoHash != "" ? qpMap.set("longitude", this.longitude) : '';
+    
 
     let qp: any = {};
     qpMap.forEach((value, key) => {
@@ -148,7 +157,7 @@ export class BrowseListingsComponent implements OnInit {
 
   handleListProducts() {
     this.listingsLoading = true;
-    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortByValue, this.averageDistance, this.pageNumber).subscribe(
+    const sub = this.listingService.getListingsByFilters(this.currentSubcategory, this.geoHash, this.sortByValue, this.latitude, this.longitude, this.distanceInKm, this.pageNumber).subscribe(
       data => {
         if (data) {
           if (data[0] && data[0].state != constants.ERROR_STATE) {
