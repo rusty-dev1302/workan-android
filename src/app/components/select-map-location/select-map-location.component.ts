@@ -33,8 +33,6 @@ export class SelectMapLocationComponent implements OnInit {
   @Input()
   distance:number = 10;
 
-
-
   distanceString(distance: number) {
     this.averageDistanceEvent.emit(distance);
     return distance+"km";
@@ -81,6 +79,9 @@ export class SelectMapLocationComponent implements OnInit {
         this.outputEvent.emit(output);
       }
     );
+    if(this.isFilter) {
+      this.getMyAddress();
+    }
   }
 
   valueChanged() {
@@ -100,8 +101,6 @@ export class SelectMapLocationComponent implements OnInit {
         output["address"] = data.addressLine3;
         output["geoHash"] = data.geoHash;
         this.outputEvent.emit(output);
-      } else {
-        this.toastr.info("Please update your address.")
       }
     }
     );
