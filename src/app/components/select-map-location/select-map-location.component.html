@@ -2,5 +2,11 @@
     <label for="originLocation"><i class="fa fa-map-marker px-2" aria-hidden="true"></i>{{headline}}</label>
     <input #originLocation type="text" [(ngModel)]="initialValue" (keyup)="valueChanged()"
         ((mousedown))="valueChanged()" class="form-control" name="" placeholder="" id="originLocation">
-        <a *ngIf="isFilter" class="link" (click)="getMyAddress()" type="button" for="originLocation" style="font-size: .8rem!important;"><i class="fa fa-address-card px-2" aria-hidden="true"></i>Use my address</a>
+    <a *ngIf="isFilter" class="link py-2" (click)="getMyAddress()" type="button" for="originLocation"
+        style="font-size: .8rem!important;"><i class="fa fa-address-card px-2" aria-hidden="true"></i>Use my address</a>
+    <div *ngIf="isFilter&&initialValue&&initialValue!=''" class="py-1 px-3 border mt-2 mb-3" style="border-radius: .3rem;background-color: rgb(254, 254, 254);"><label for="distanceRange" class="form-label">{{distanceString(distance)}}</label>
+        <input name="approxDistance" [(ngModel)]="distance" type="range" class="form-range" min="10" step="10" max="60" id="distanceRange">
+    </div>
+
+
 </div>

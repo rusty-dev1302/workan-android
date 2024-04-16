@@ -21,7 +21,7 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="subcategory"><i class="fa fa-sitemap px-1" aria-hidden="true"></i>Subcategory</label>
+                        <label for="subcategory"><i class="fa fa-star px-1" aria-hidden="true" style="color: rgb(69, 69, 69);"></i>Specialization</label>
                       </div>
                       <select #subcategory class="form-select" aria-label="subcategory" [value]="currentSubcategory"
                         (change)="selectSubcategory(subcategory.value)">
@@ -47,7 +47,7 @@
                     <div class="col-12">
                       <div class="form-group">
                         <app-select-map-location headline="Location" [initialValue]="currentLocation" [isFilter]="true"
-                          (outputEvent)="locationSelectorOutput($event)"></app-select-map-location>
+                          (outputEvent)="locationSelectorOutput($event)" (averageDistanceEvent)="setAverageDistance($event)" [distance]="averageDistance"></app-select-map-location>
                       </div>
                     </div>
 
