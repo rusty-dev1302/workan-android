@@ -47,25 +47,6 @@ export class DashboardOrdersComponent implements OnInit {
     this.loadOrders();
   }
 
-  confirmOrderAppointment(orderId: number) {
-    const subs = this.dialogService.openDialog(" confirm appointment for the date and time").subscribe(
-      (res) => {
-        if (res) {
-          const sub = this.orderService.confirmOrderAppointment(orderId, 0, new CreateOrderRequest(null!, null!, null!, null!, null!, null!)).subscribe(
-            (response) => {
-              if(response.state==constants.ERROR_STATE) {
-                this.toastr.error(response.message);
-              }
-              this.loadOrders();
-              sub.unsubscribe();
-            }
-          );
-        }
-        subs.unsubscribe();
-      }
-    );
-  }
-
   loadOrders() {
 
     this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(

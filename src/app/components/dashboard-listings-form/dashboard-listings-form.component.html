@@ -106,7 +106,7 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <h3><b>Service Pricing Chart </b><i type="button" data-bs-toggle="modal"
+                                        <h3><b>Service Price Chart </b><i type="button" data-bs-toggle="modal"
                                                 data-bs-target="#addServicePriceModal"
                                                 class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
                                         <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
@@ -302,36 +302,36 @@
                 <div class="row table-responsive border py-3 px-1">
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
                         <input (click)="selectSlot('Monday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio1" autocomplete="off" checked>
+                            id="btnradio1" autocomplete="off" [checked]="selectedDay=='Monday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
                             for="btnradio1">MON</label>
 
                         <input (click)="selectSlot('Tuesday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio2" autocomplete="off">
+                            id="btnradio2" autocomplete="off" [checked]="selectedDay=='Tuesday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio2">TUE</label>
 
                         <input (click)="selectSlot('Wednesday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio3" autocomplete="off">
+                            id="btnradio3" autocomplete="off" [checked]="selectedDay=='Wednesday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio3">WED</label>
 
                         <input (click)="selectSlot('Thursday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio4" autocomplete="off">
+                            id="btnradio4" autocomplete="off" [checked]="selectedDay=='Thursday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
                             for="btnradio4">THU</label>
                     </div>
                     <div class="btn-group py-2" role="group" aria-label="Basic radio toggle button group">
 
                         <input (click)="selectSlot('Friday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio5" autocomplete="off">
+                            id="btnradio5" autocomplete="off" [checked]="selectedDay=='Friday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
                             for="btnradio5">FRI</label>
 
                         <input (click)="selectSlot('Saturday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio6" autocomplete="off">
+                            id="btnradio6" autocomplete="off" [checked]="selectedDay=='Saturday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio6">SAT</label>
 
                         <input (click)="selectSlot('Sunday')" type="radio" class="btn-check" name="btnradio"
-                            id="btnradio7" autocomplete="off">
+                            id="btnradio7" autocomplete="off" [checked]="selectedDay=='Sunday'">
                         <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
                             for="btnradio7">SUN</label>
                     </div>

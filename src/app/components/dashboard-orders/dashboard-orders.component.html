@@ -7,7 +7,7 @@
       <div
         class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
         <h1 class=" text-capitalize fw-bolder text-white">
-          Your Orders
+          My Orders
         </h1>
       </div>
     </div>
@@ -102,12 +102,6 @@
                         style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
-                      <div *ngIf="order.status=='Awaiting Customer\'s Confirmation'" class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#confirmOrderModal" (click)="confirmOrderAppointment(order.id)">Confirm
-                          Appointment
-                        </button>
-                      </div>
                     </div>
 
                   </div>
@@ -185,12 +179,6 @@
                         style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
-                      <div *ngIf="order.status=='Awaiting Customer\'s Confirmation'" class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#confirmOrderModal" (click)="confirmOrderAppointment(order.id)">Confirm
-                          Appointment
-                        </button>
-                      </div>
                     </div>
 
                   </div>

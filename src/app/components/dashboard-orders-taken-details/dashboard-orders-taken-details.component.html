@@ -147,7 +147,7 @@
                       </button>
                     </div>
                     <div
-                      *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='Awaiting Customer\'s Confirmation'||order.status=='CONFIRMED'||order.status=='STARTING'"
+                      *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='SCHEDULED'||order.status=='ACCEPTED'||order.status=='STARTING'"
                       class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#cancellationReasonModal">Cancel Order</button>
