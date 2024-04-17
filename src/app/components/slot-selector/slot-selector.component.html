@@ -105,10 +105,10 @@
                     <div class="form-group">
                       <div *ngIf="currentTimeRange">
                         <!-- If professional available for the day  -->
-                        <h5>Please select preferred time range:</h5>
-                        <span style="font-size: .9rem;">(Professional availability is
+                        <label>Preferred Time Range:</label>
+                        <h6 style="font-size: .9rem;">(Professional availability is
                           {{dateTimeService.convertTimeToString(currentTimeRange.startTimeHhmm)}} -
-                          {{dateTimeService.convertTimeToString(currentTimeRange.endTimeHhmm)}})</span>
+                          {{dateTimeService.convertTimeToString(currentTimeRange.endTimeHhmm)}})</h6>
                         <div class="col-12 mt-3">
                           <div class="form-group">
                             <label for="startTime">From Time</label>

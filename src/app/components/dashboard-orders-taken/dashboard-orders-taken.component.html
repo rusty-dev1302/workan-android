@@ -39,14 +39,15 @@
 
         <!-- to be iterated over orders start  -->
         <div *ngIf="!cancelledOrdersSelected">
-          <div *ngFor="let order of allOrders" class="col-12">
+          <div *ngFor="let order of allOrders; let i=index;let f=first" class="col-12">
+            <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
             <div class="form-section p-3 m-3">
 
               <form>
 
                 <div class="mb-3">
-                  <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                             order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                  <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                             order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                   <!-- display profile and name  -->
                   <div class="row px-3 mt-1">
 
@@ -118,14 +119,15 @@
 
         <div *ngIf="cancelledOrdersSelected">
           <!-- to be iterated over orders start  -->
-          <div *ngFor="let order of cancelledOrders" class="col-12">
+          <div *ngFor="let order of cancelledOrders;let i=index;let f=first" class="col-12">
+            <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
             <div class="form-section p-3 m-3">
 
               <form>
 
                 <div class="mb-3">
-                  <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                           order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                  <button class="btn btn-small btn-rounded disabled" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                           order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                   <!-- display profile and name  -->
                   <div class="row px-1">
 
