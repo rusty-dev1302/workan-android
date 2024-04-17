@@ -382,7 +382,7 @@ export class DashboardListingsFormComponent implements OnInit {
         }
       );
     } else {
-      const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachments.", true).subscribe(
+      const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachment(s).", true).subscribe(
         () => {
           sub.unsubscribe();
         }
@@ -484,7 +484,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   onClickSubmit() {
     if (this.listing.id != 0 && this.listing.subCategory.subCategoryName != this.displayListing.subCategory.subCategoryName) {
-      this.dialogService.openDialog("Changing the speciality will deactivate the current listing! Are you sure you want to continue?", true)
+      this.dialogService.openDialog("Changing the speciality will deactivate the current listing and require reverification! Are you sure you want to continue?", true)
         .subscribe((res) => {
           if (res) {
             this.updateListing();
@@ -527,7 +527,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   verifyCertification(certId: number) {
     const subs = this.dialogService
-      .openDialog("You are sending the certification for verification, you will not be able to add/change its attachments.", true).subscribe(
+      .openDialog("You are sending the certification for verification, you will not be able to add/change its attachment(s).", true).subscribe(
         (response) => {
           if (response) {
             const sub = this.userService.sendCertForVerification(certId).subscribe(

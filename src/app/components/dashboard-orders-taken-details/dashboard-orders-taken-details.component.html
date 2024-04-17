@@ -140,10 +140,10 @@
                     <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
                       <button *ngIf="!lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
                         data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
-                        (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        (click)="prepareDataForConfirm(order)">Review Appointment
                       </button>
                       <button *ngIf="lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
-                        (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        (click)="prepareDataForConfirm(order)">Review Appointment
                       </button>
                     </div>
                     <div
