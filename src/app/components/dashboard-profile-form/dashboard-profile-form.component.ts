@@ -1,4 +1,4 @@
-import { KeyValuePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, KeyValuePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
@@ -12,13 +12,16 @@ import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
+import { OrderService } from 'src/app/services/order.service';
+import { Review } from 'src/app/common/review';
+import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
-    selector: 'app-dashboard-profile-form',
-    templateUrl: './dashboard-profile-form.component.html',
-    styleUrls: ['./dashboard-profile-form.component.css'],
-    standalone: true,
-    imports: [NgIf, FormsModule, NgFor, NgClass, SelectMapLocationComponent, KeyValuePipe, PhonePipe]
+  selector: 'app-dashboard-profile-form',
+  templateUrl: './dashboard-profile-form.component.html',
+  styleUrls: ['./dashboard-profile-form.component.css'],
+  standalone: true,
+  imports: [NgIf, FormsModule, CommonModule, NgFor, NgClass, SelectMapLocationComponent, KeyValuePipe, PhonePipe]
 })
 export class DashboardProfileFormComponent implements OnInit {
 
@@ -27,6 +30,8 @@ export class DashboardProfileFormComponent implements OnInit {
   @Output() customerIdEvent = new EventEmitter<number>();
 
   user: Customer = constants.DEFAULT_CUSTOMER;
+  professional!: any;
+  totalRatings: number = 1;
   displayUser!: Customer;
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
   displayContact!: ContactDetail;
@@ -36,6 +41,7 @@ export class DashboardProfileFormComponent implements OnInit {
   mobileValue: string = "";
   emailValue: string = "";
   languagesValue: string[] = [];
+  reviews: Review[] = [];
   availableLanguages: any = new Map([
     ["English", 0],
     ["French", 0],
@@ -52,8 +58,10 @@ export class DashboardProfileFormComponent implements OnInit {
     private keycloakService: KeycloakService,
     private profilePhotoService: ProfilePhotoService,
     private userService: UserService,
+    private orderService: OrderService,
     private toastr: ToastrService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private listingService: ListingService
   ) { }
 
   ngOnInit(): void {
@@ -66,12 +74,34 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   formatAddress(address: string) {
-    return address.replace(",",",<br>")
+    return address.replace(",", ",<br>")
   }
 
   loadFormValues() {
     this.emailValue = this.keycloakService.getUsername();
     this.loadUserData();
+  }
+
+  loadReviews() {
+
+    const sub = this.listingService.getProfessionalById(this.user.id).subscribe(
+      (professional) => {
+        this.professional = professional;
+        const subscription = this.orderService.getReviewsForProfessional(this.user.id).subscribe(
+          (reviews) => {
+            if (reviews.length > 0 && reviews[0].state != constants.ERROR_STATE) {
+              this.reviews = reviews;
+            }
+
+            let total: number = this.professional.oneRating + this.professional.twoRating + this.professional.threeRating + this.professional.fourRating + this.professional.fiveRating;
+            this.totalRatings = total > 0 ? total : 1;
+
+            subscription.unsubscribe();
+          }
+        );
+        sub.unsubscribe();
+      }
+    );
   }
 
   loadUserData() {
@@ -80,15 +110,19 @@ export class DashboardProfileFormComponent implements OnInit {
         if (data.state != constants.ERROR_STATE) {
           // Populate form from data
           this.user = data;
-
           if (this.user.languages[0] == "") {
             this.user.languages = [];
           }
+
+          console.log(JSON.stringify(this.user))
 
           this.customerIdEvent.emit(this.user.id);
           this.loadAvailableLanguages();
           this.loadContactDetails();
           this.loadProfilePhoto();
+          if (this.user.professional) {
+            this.loadReviews();
+          }
 
         } else {
           // Set Default Values
@@ -97,7 +131,7 @@ export class DashboardProfileFormComponent implements OnInit {
         }
         this.user.email = this.emailValue;
         this.displayUser = JSON.parse(JSON.stringify(this.user));
-        if (this.displayUser.firstName!=""&&this.displayUser.gender == "") {
+        if (this.displayUser.firstName != "" && this.displayUser.gender == "") {
           if (this.displayPersonalDetails) {
             this.toastr.info("Please complete your profile.");
           }
@@ -154,7 +188,7 @@ export class DashboardProfileFormComponent implements OnInit {
   }
 
   resetMobile() {
-    this.user.mobile=null!;
+    this.user.mobile = null!;
   }
 
   loadAvailableLanguages() {
