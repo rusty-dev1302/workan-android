@@ -216,11 +216,11 @@
                                                         *ngIf="certification.status=='Unverified'"
                                                         (click)="setClickCertId(certification.id)">
                                                         <label type="button" for="files" class="col-12"><i
-                                                                class="fa fa-plus-circle"></i></label>
+                                                                class="fa fa-plus-circle" style="color: #0d6efd;"></i></label>
                                                     </a>
                                                     <a *ngIf="certification.attachments.length>0" class=" px-1"
                                                         type="button"
-                                                        (click)="downloadAttachments(certification.attachments)"><i
+                                                        (click)="downloadAttachments(certification.id)"><i
                                                             class="fa fa-download" aria-hidden="true"></i></a>
                                                     <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
                                                         class="link px-1" type="button"

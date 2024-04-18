@@ -35,7 +35,7 @@ export class FileService {
   }
 
   formatBreakdown(breakdown: any): any {
-    var item:any;
+    var item: any;
     var breakdownList = [
       [
         {
@@ -57,7 +57,7 @@ export class FileService {
     ];
 
     for (let i = 0; i < breakdown.length; i++) {
-      if(breakdown[i].detail==constants.AMOUNT_COLLECTED_CUSTOMER) {
+      if (breakdown[i].detail == constants.AMOUNT_COLLECTED_CUSTOMER) {
         item = [
           {
             text: breakdown[i].detail,
@@ -91,7 +91,7 @@ export class FileService {
           },
         ];
       }
-      
+
       breakdownList.push(item);
     }
 
@@ -254,7 +254,7 @@ export class FileService {
         {
           width: '100%',
           alignment: 'center',
-          text: 'Invoice No. '+invoice.id,
+          text: 'Invoice No. ' + invoice.id,
           bold: true,
           margin: [0, 10, 0, 10],
           fontSize: 15,
@@ -428,28 +428,33 @@ export class FileService {
     return invoiceDefinition;
   }
 
-  paymentComplete(status: boolean): String{
-    if(status) {
+  paymentComplete(status: boolean): String {
+    if (status) {
       return "PAID"
     } else {
       return "UNPAID"
     }
   }
 
-  paymentCompleteColor(status: boolean): string{
-    if(status) {
+  paymentCompleteColor(status: boolean): string {
+    if (status) {
       return "green"
     } else {
       return "red"
     }
   }
 
-  amountToString(amount: any):string {
-    if(amount<0) {
-      return "- $"+(-1*amount);
+  amountToString(amount: any): string {
+    if (amount < 0) {
+      return "- $" + (-1 * amount);
     } else {
-      return "$"+(amount);
+      return "$" + (amount);
     }
+  }
+
+  getAttachmentsForCertificate(certId: number): Observable<any[]> {
+    const getUrl = `${this.baseUrl}/attachments?certId=${certId}`;
+    return this.httpClient.get<any[]>(getUrl)
   }
 
   downloadAttachment(attachmentByte: any, fileName: string, type: string) {

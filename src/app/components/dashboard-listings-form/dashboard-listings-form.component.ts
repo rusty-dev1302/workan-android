@@ -390,10 +390,15 @@ export class DashboardListingsFormComponent implements OnInit {
     }
   }
 
-  downloadAttachments(attachments: any[]) {
-    attachments.map(
-      (a) => {
-        this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
+  downloadAttachments(certificationId: number) {
+    const sub = this.fileService.getAttachmentsForCertificate(certificationId).subscribe(
+      (attachments) => {
+        attachments.map(
+          (a:any) => {
+            this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
+          }
+        );
+        sub.unsubscribe();
       }
     );
   }
