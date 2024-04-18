@@ -95,11 +95,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     }
   }
 
-  prepareDataForConfirm(order: Order) {
-    if(this.lowBalance) {
-      this.toastr.warning("Please add money to wallet to accept more orders")
-      return;
-    }
+  scheduleOrder(order: Order) {
     this.selectedAppointmentDate = order.appointmentDate;
     this.selectedPreferredStartTimeHhmm = order.preferredStartTimeHhmm;
     this.selectedPreferredEndTimeHhmm = order.preferredEndTimeHhmm;
@@ -110,6 +106,18 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
       (data)=>{
         this.selectedMenuItemsForOrder = data;
         sub.unsubscribe();
+      }
+    );
+  }
+
+  confirmOrder() {
+    if(this.lowBalance) {
+      this.toastr.warning("Please add money to wallet to accept more orders")
+      return;
+    }
+    this.orderService.acceptOrder(this.order.id).subscribe(
+      (data)=>{
+        console.log(data);
       }
     );
   }
@@ -127,10 +135,6 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
         sub.unsubscribe();
       }
     );
-  }
-
-  confirmOrder() {
-    
   }
 
   confirmDirectPayment() {

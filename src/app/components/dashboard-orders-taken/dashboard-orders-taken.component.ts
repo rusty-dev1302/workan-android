@@ -10,8 +10,6 @@ import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
-import { ToastrService } from 'ngx-toastr';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-dashboard-orders-taken',
@@ -38,7 +36,6 @@ export class DashboardOrdersTakenComponent {
     public datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router,
-    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {

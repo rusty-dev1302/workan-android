@@ -132,7 +132,7 @@
 
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
-                    <div *ngIf="order.status=='ACCEPTED'" class="col-12 py-2">
+                    <div *ngIf="order.status=='SCHEDULED'" class="col-12 py-2">
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" (click)="processOrder('START')">Start Order</button>
                     </div>
