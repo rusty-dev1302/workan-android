@@ -553,21 +553,21 @@ hr.style1 {
 }
 
 .btn-prime {
-    background: #16325a!important;
+    background: rgb(197, 82, 0)!important;
     color: white!important;
     border: none;
     outline: none;
 }
 
 .btn.btn-accepted {
-    background-color: #0413b7!important;
+    background-color: #ff0000!important;
     color: white!important;
     border: none;
     outline: none;
 }
 
 .btn.btn-scheduled {
-    background-color: rgb(238, 255, 0)!important;
+    background-color: rgb(255, 221, 0)!important;
     color: black!important;
     border: none;
     outline: none;
