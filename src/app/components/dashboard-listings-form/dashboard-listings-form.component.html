@@ -654,7 +654,7 @@
                                                         (click)="toggleServicePriceSelect(true)">
                                                         <input class="form-check-input" type="radio"
                                                             name="serviceNameRadioDefault" id="serviceNameRadio1"
-                                                            checked>
+                                                            [checked]="isServicePriceSelect">
                                                         Select
                                                     </label>
                                                 </div>
@@ -663,7 +663,7 @@
                                                         for="serviceNameRadio2"
                                                         (click)="toggleServicePriceSelect(false)">
                                                         <input class="form-check-input" type="radio"
-                                                            name="serviceNameRadioDefault" id="serviceNameRadio2">
+                                                            name="serviceNameRadioDefault" id="serviceNameRadio2" [checked]="!isServicePriceSelect">
                                                         Custom
                                                     </label>
                                                 </div>
