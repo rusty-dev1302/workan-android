@@ -26,7 +26,9 @@
                                 style="color: red;">
                                 <b>Pending Verification</b>
                             </h6>
-                            <button (click)="requestVerification()" *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled" class="btn btn-primary btn-rounded btn-small mt-1">Request Verification</button>
+                            <button (click)="requestVerification()"
+                                *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                                class="btn btn-primary btn-rounded btn-small mt-1">Request Verification</button>
                         </div>
                     </div>
                 </div>
@@ -85,7 +87,8 @@
                     'My Documents' tab.
                 </h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                    class="small-text">&bull; Click on 'Request Verification' once all the relevant documents get <b>verified/sent</b> for verification.
+                    class="small-text">&bull; Click on 'Request Verification' once all the relevant documents get
+                    <b>verified/sent</b> for verification.
                 </h6>
             </div>
         </form>
@@ -136,6 +139,8 @@
                                                 : '1.2-2'}}
                                             </td>
                                             <td class="text-center">
+                                                <i type="button" class="fa-sharp fa-pen-to-square" style="margin-right: 1rem;"data-bs-toggle="modal"
+                                                data-bs-target="#addServicePriceModal" (click)="setEditServicePricing(servicePricing.id, servicePricing.serviceName, servicePricing.charges)"></i>
                                                 <i type="button" class="fa-sharp fa-solid fa-trash"
                                                     (click)="removeServicePricing(servicePricing.id)"></i>
                                             </td>
@@ -216,11 +221,11 @@
                                                         *ngIf="certification.status=='Unverified'"
                                                         (click)="setClickCertId(certification.id)">
                                                         <label type="button" for="files" class="col-12"><i
-                                                                class="fa fa-plus-circle" style="color: #0d6efd;"></i></label>
+                                                                class="fa fa-plus-circle"
+                                                                style="color: #0d6efd;"></i></label>
                                                     </a>
                                                     <a *ngIf="certification.attachments.length>0" class=" px-1"
-                                                        type="button"
-                                                        (click)="downloadAttachments(certification.id)"><i
+                                                        type="button" (click)="downloadAttachments(certification.id)"><i
                                                             class="fa fa-download" aria-hidden="true"></i></a>
                                                     <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
                                                         class="link px-1" type="button"
@@ -249,14 +254,17 @@
                                                 <button *ngIf="certification.status=='Unverified'"
                                                     class="btn btn-primary btn-rounded btn-small m-1" type="button"
                                                     style="font-size: 1rem!important;"
-                                                    (click)="verifyCertification(certification.id)">Verify Cert.</button>
+                                                    (click)="verifyCertification(certification.id)">Verify
+                                                    Cert.</button>
                                                 <button *ngIf="certification.status=='Verified'"
                                                     class="btn btn-primary btn-rounded btn-small m-1" type="button"
                                                     style="font-size: 1rem!important;"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
                                                     from profile':'Show on profile'}}</button>
-                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'" class="px-1"
-                                                    style="font-size: 1rem!important;color:rgb(105, 105, 105);"><i class="fa-light fa-ellipsis-vertical"></i></a>
+                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                    class="px-1"
+                                                    style="font-size: 1rem!important;color:rgb(105, 105, 105);"><i
+                                                        class="fa-light fa-ellipsis-vertical"></i></a>
                                                 <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
                                                     style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</button>
@@ -308,11 +316,13 @@
 
                         <input (click)="selectSlot('Tuesday')" type="radio" class="btn-check" name="btnradio"
                             id="btnradio2" autocomplete="off" [checked]="selectedDay=='Tuesday'">
-                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio2">TUE</label>
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
+                            for="btnradio2">TUE</label>
 
                         <input (click)="selectSlot('Wednesday')" type="radio" class="btn-check" name="btnradio"
                             id="btnradio3" autocomplete="off" [checked]="selectedDay=='Wednesday'">
-                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio3">WED</label>
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
+                            for="btnradio3">WED</label>
 
                         <input (click)="selectSlot('Thursday')" type="radio" class="btn-check" name="btnradio"
                             id="btnradio4" autocomplete="off" [checked]="selectedDay=='Thursday'">
@@ -328,7 +338,8 @@
 
                         <input (click)="selectSlot('Saturday')" type="radio" class="btn-check" name="btnradio"
                             id="btnradio6" autocomplete="off" [checked]="selectedDay=='Saturday'">
-                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary" for="btnradio6">SAT</label>
+                        <label class="btn slot-btn shadow-none btn-rounded btn-outline-primary"
+                            for="btnradio6">SAT</label>
 
                         <input (click)="selectSlot('Sunday')" type="radio" class="btn-check" name="btnradio"
                             id="btnradio7" autocomplete="off" [checked]="selectedDay=='Sunday'">
@@ -531,7 +542,8 @@
                                     <div class="row">
                                         <div class="modal-footer">
                                             <a>
-                                                <h6 class="small-text">&bull; <b>Listing Address:</b> Used for letting customers get an idea of how far you are from them.
+                                                <h6 class="small-text">&bull; <b>Listing Address:</b> Used for letting
+                                                    customers get an idea of how far you are from them.
                                                 </h6>
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
@@ -628,7 +640,7 @@
                         <div class="form-section">
 
                             <!-- User Form Starts -->
-                            <form #editServicePricing="ngForm" (ngSubmit)="addServicePricing()">
+                            <form #editServicePricing="ngForm" (ngSubmit)="saveServicePricing()">
 
                                 <div class="mb-3">
                                     <div class="row g-3">

@@ -60,6 +60,8 @@ export class DashboardListingsFormComponent implements OnInit {
 
   addServicePriceName: string = "";
 
+  editServicePricingId!: number;
+
   addServicePriceCharges!: number;
 
   certifications: Certification[] = [];
@@ -309,10 +311,19 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addCertName = '';
   }
 
-  addServicePricing() {
-    let servicePricing = new ServicePricing(null!, this.addServicePriceName, this.addServicePriceCharges, "", "");
+  setEditServicePricing(id: number, serviceName: string, charges: number){
+    this.editServicePricingId = id;
+    this.addServicePriceName = serviceName;
+    this.addServicePriceCharges = charges;
+  }
+
+  saveServicePricing() {
+    let servicePricing = new ServicePricing(this.editServicePricingId, this.addServicePriceName, this.addServicePriceCharges, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
       (response) => {
+        this.editServicePricingId = null!;
+        this.addServicePriceName = "";
+        this.addServicePriceCharges = null!;
         this.loadFormValues();
         sub.unsubscribe();
       }
