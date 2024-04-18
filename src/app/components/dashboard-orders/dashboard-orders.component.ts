@@ -3,11 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
-import { ToastrService } from 'ngx-toastr';
-import { CreateOrderRequest } from 'src/app/common/create-order-request';
 import { Order } from 'src/app/common/order';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
-import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
@@ -33,8 +30,7 @@ export class DashboardOrdersComponent implements OnInit {
     private keycloakService: KeycloakService,
     private navigationService: NavigationService,
     public dateTimeService: DateTimeService,
-    private dialogService: ConfirmationDialogService,
-    private toastr: ToastrService,
+    public datePipe: DatePipe,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -45,25 +41,6 @@ export class DashboardOrdersComponent implements OnInit {
       this.cancelledOrdersSelected = this.route.snapshot.queryParamMap.get('cancelledSelected') ? this.route.snapshot.queryParamMap.get('cancelledSelected')=='true'! : false;
     }
     this.loadOrders();
-  }
-
-  confirmOrderAppointment(orderId: number) {
-    const subs = this.dialogService.openDialog(" confirm appointment for the date and time").subscribe(
-      (res) => {
-        if (res) {
-          const sub = this.orderService.confirmOrderAppointment(orderId, 0, new CreateOrderRequest(null!, null!, null!, null!, null!, null!)).subscribe(
-            (response) => {
-              if(response.state==constants.ERROR_STATE) {
-                this.toastr.error(response.message);
-              }
-              this.loadOrders();
-              sub.unsubscribe();
-            }
-          );
-        }
-        subs.unsubscribe();
-      }
-    );
   }
 
   loadOrders() {

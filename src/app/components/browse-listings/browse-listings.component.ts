@@ -54,7 +54,7 @@ export class BrowseListingsComponent implements OnInit {
   listingsLoading: boolean = false;
 
   subCategories: string[] = [];
-  sortByArray: string[] = ["Rating", "Charges low to high", "Charges high to low"];
+  sortByArray: string[] = ["Rating", "Charges: low to high", "Charges: high to low"];
   distanceInKm: number = 10;
   latitude: number = 0;
   longitude: number = 0;

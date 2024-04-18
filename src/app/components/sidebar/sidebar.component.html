@@ -22,10 +22,10 @@
 
     <ul *ngIf="currentUser&&!currentUser.professional" class="list-unstyled">
       <li><span class="p-2 border rounded">A C C O U N T</span><br><br></li>
-      <li><span type="button" routerLink="/dashboard/orders" data-bs-toggle="offcanvas"
-          data-bs-target="#sidebarMain">Orders</span></li>
       <li><span type="button" routerLink="/dashboard/addressDetails" data-bs-toggle="offcanvas"
-          data-bs-target="#sidebarMain">Contact Details</span></li>
+        data-bs-target="#sidebarMain">Contact Details</span></li>
+      <li><span type="button" routerLink="/dashboard/orders" data-bs-toggle="offcanvas"
+          data-bs-target="#sidebarMain">My Orders</span></li>
       <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
           routerLink="/dashboard/payments">Payments</span></li>
     </ul>
@@ -37,7 +37,7 @@
       <li><span type="button" routerLink="/dashboard/managelisting" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain">Manage Listing</span></li>
       <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
-          routerLink="/dashboard/myorders">Orders</span></li>
+          routerLink="/dashboard/myorders">My Orders</span></li>
       <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
           routerLink="/dashboard/professionalPayments">Payments</span></li>
     </ul>

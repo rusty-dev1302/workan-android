@@ -7,7 +7,7 @@
       <div
         class="d-flex flex-column align-items-start justify-content-end col-xl-8 xol-lg-8 col-md-12 col-12 order-1 order-lg-0 text-md-start text-center">
         <h1 class=" text-capitalize fw-bolder text-white">
-          Your Orders
+          My Orders
         </h1>
       </div>
     </div>
@@ -38,14 +38,15 @@
 
         <div *ngIf="!cancelledOrdersSelected">
           <!-- to be iterated over orders start  -->
-          <div *ngFor="let order of allOrders" class="col-12">
+          <div *ngFor="let order of allOrders;let i=index;let f=first" class="col-12">
+            <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
             <div class="form-section p-3 m-3">
 
               <form>
 
                 <div class="mb-3">
-                  <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                         order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                  <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                         order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                   <button *ngIf="order.reviewDone" class="btn btn-warning btn-small btn-rounded disabled mb-2"
                     style="margin-left: 3px;">REVIEW SUBMITTED</button>
                   <!-- display profile and name  -->
@@ -102,12 +103,6 @@
                         style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
-                      <div *ngIf="order.status=='Awaiting Customer\'s Confirmation'" class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#confirmOrderModal" (click)="confirmOrderAppointment(order.id)">Confirm
-                          Appointment
-                        </button>
-                      </div>
                     </div>
 
                   </div>
@@ -121,14 +116,15 @@
 
         <div *ngIf="cancelledOrdersSelected">
           <!-- to be iterated over orders start  -->
-          <div *ngFor="let order of cancelledOrders" class="col-12">
+          <div *ngFor="let order of cancelledOrders;let i=index;let f=first" class="col-12">
+            <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
             <div class="form-section p-3 m-3">
 
               <form>
 
                 <div class="mb-3">
-                  <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                         order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                  <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                         order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                   <button *ngIf="order.reviewDone" class="btn btn-warning btn-small btn-rounded disabled mb-2"
                     style="margin-left: 3px;">REVIEW SUBMITTED</button>
                   <!-- display profile and name  -->
@@ -185,12 +181,6 @@
                         style="font-style: italic;">Cancellation Reason: {{order.cancelReason}}</h6>
                       <button class="btn btn-primary btn-rounded col-12" type="button"
                         [routerLink]="['/dashboard/orderDetail', order.id]">View Order</button>
-                      <div *ngIf="order.status=='Awaiting Customer\'s Confirmation'" class="col-12 py-2">
-                        <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#confirmOrderModal" (click)="confirmOrderAppointment(order.id)">Confirm
-                          Appointment
-                        </button>
-                      </div>
                     </div>
 
                   </div>

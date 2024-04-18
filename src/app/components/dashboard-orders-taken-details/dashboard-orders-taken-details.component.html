@@ -36,8 +36,8 @@
 
             <form>
               <div class="mb-3">
-                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                 <!-- display profile and name  -->
                 <div class="row px-1 mt-1">
 
@@ -124,7 +124,7 @@
                       </div>
                     </div>
                   </div>
-                  <h6 *ngIf="order.listingDistance" style="font-weight: bold;color: rgb(183, 25, 25);">Customer is at a distance of {{order.listingDistance|number:'1.2-2'}}km from the listing address</h6>
+                  <label class="py-2" *ngIf="order.listingDistance" style="color: rgb(183, 25, 25);">Customer is at a distance of {{order.listingDistance|number:'1.2-2'}}km from the listing address</label>
 
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
@@ -139,15 +139,20 @@
                     </div>
                     <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'" class="col-12 py-2">
                       <button *ngIf="!lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
-                        data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
-                        (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        (click)="confirmOrder()">Accept Order
                       </button>
                       <button *ngIf="lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
-                        (click)="prepareDataForConfirm(order)">Confirm Appointment
+                        (click)="confirmOrder()">Accept Order
+                      </button>
+                    </div>
+                    <div *ngIf="order.status=='ACCEPTED'||order.status=='SCHEDULED'" class="col-12 py-2">
+                      <button *ngIf="!lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
+                        data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
+                        (click)="scheduleOrder(order)">Schedule Appointment
                       </button>
                     </div>
                     <div
-                      *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='Awaiting Customer\'s Confirmation'||order.status=='CONFIRMED'||order.status=='STARTING'"
+                      *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='SCHEDULED'||order.status=='ACCEPTED'||order.status=='STARTING'"
                       class="col-12 py-1">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#cancellationReasonModal">Cancel Order</button>

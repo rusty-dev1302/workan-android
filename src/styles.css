@@ -13,6 +13,8 @@ i {
     font-family: FontAwesome !important;
 }
 
+
+
 .no-cursor {
     -webkit-user-select: none;
     /* Safari */
@@ -328,12 +330,6 @@ a {
     padding-top: 3rem;
 }
 
-.btn-primary {
-    background: #1089ff;
-    border: none;
-    outline: none;
-}
-
 .para-width {
     width: 55ch;
 }
@@ -554,6 +550,61 @@ hr.style1 {
 .btn.btn-small {
     height: fit-content !important;
     font-size: .9rem !important;
+}
+
+.btn-prime {
+    background: rgb(197, 82, 0)!important;
+    color: white!important;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-accepted {
+    background-color: #ff0000!important;
+    color: white!important;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-scheduled {
+    background-color: rgb(255, 221, 0)!important;
+    color: black!important;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-starting {
+    background-color: rgb(0, 4, 87)!important;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-started {
+    background-color: rgb(0, 4, 87)!important;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-completed {
+    background-color: #008600!important;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-cancelled {
+    background-color: red!important;
+    border: none;
+    outline: none;
+}
+
+.btn.btn-marker {
+    background-color: rgb(23, 23, 23)!important;
+    padding-right: 3rem!important;
+    color: rgb(255, 255, 255);
+    clip-path: polygon(100% 0, 88% 49%, 100% 100%, 0% 100%, 0 50%, 0% 0%)!important;
+    border: 0;
+    outline: none;
 }
 
 .sidebar-footer {

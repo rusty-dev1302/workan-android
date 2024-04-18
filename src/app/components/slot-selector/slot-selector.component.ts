@@ -2,6 +2,7 @@ import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { end } from '@popperjs/core';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
 import { ContactDetail } from 'src/app/common/contact-detail';
@@ -64,6 +65,26 @@ export class SlotSelectorComponent implements OnInit {
     this.loadCustomer();
   }
 
+  filterTimeRange() {
+    let startBool = false;
+    let endBool = false;
+    this.timeSlots = this.timeSlots.filter(
+      (ts) => {
+        if (ts == this.dateTimeService.convertTimeToString(this.currentTimeRange.startTimeHhmm)) {
+          startBool = true;
+        }
+        if (endBool) {
+          endBool = false;
+          startBool = false;
+        }
+        if (ts == this.dateTimeService.convertTimeToString(this.currentTimeRange.endTimeHhmm)) {
+          endBool = true;
+        }
+        return startBool;
+      }
+    );
+  }
+
   getAvailability(listingId: number) {
     this.availabilityRange = new Map();
     const subscription = this.listingService.getAvailabilityRange(listingId).subscribe(
@@ -82,11 +103,11 @@ export class SlotSelectorComponent implements OnInit {
         const sub = this.listingService.getUnavailableDatesFromDates(listingId, dates).subscribe(
           (data1) => {
             // Set of unavailable day names
-            let unavailableDays:Map<string, string> = new Map();
+            let unavailableDays: Map<string, string> = new Map();
 
             data1.forEach(
               (ud) => {
-                let day:string = this.datePipe.transform(new Date(ud), "EEEE", '+0000')!;
+                let day: string = this.datePipe.transform(new Date(ud), "EEEE", '+0000')!;
                 unavailableDays.set(day, ud);
               }
             );
@@ -94,7 +115,7 @@ export class SlotSelectorComponent implements OnInit {
             // Converting range to array with day as key and range as value 
             Object.keys(data).map((key: any) => {
               let dd = (data[key] as unknown as string).split(",")[0];
-              if(!unavailableDays.has(dd)) {
+              if (!unavailableDays.has(dd)) {
                 this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
               }
             });
@@ -156,6 +177,7 @@ export class SlotSelectorComponent implements OnInit {
         endTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[1])
       };
 
+      this.filterTimeRange();
     } else {
       this.currentTimeRange = null;
     }
@@ -188,7 +210,7 @@ export class SlotSelectorComponent implements OnInit {
     if (this.selectedMenuItems[i].quantity == null) {
       this.selectedMenuItems[i].quantity = 0;
     }
-    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity>4? this.selectedMenuItems[i].quantity : this.selectedMenuItems[i].quantity + 1;
+    this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity > 4 ? this.selectedMenuItems[i].quantity : this.selectedMenuItems[i].quantity + 1;
     this.calculateTotalMenuCharges();
   }
 

@@ -37,8 +37,8 @@
             <form>
 
               <div class="mb-3">
-                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-danger':'',
-                order.status=='COMPLETED'?'btn-success':'btn-primary']">{{order.status}}</button>
+                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                 <!-- display profile and name  -->
                 <div class="row px-1 mt-1">
 
@@ -132,7 +132,7 @@
 
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
-                    <div *ngIf="order.status=='CONFIRMED'" class="col-12 py-2">
+                    <div *ngIf="order.status=='SCHEDULED'" class="col-12 py-2">
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" (click)="processOrder('START')">Start Order</button>
                     </div>
@@ -145,7 +145,7 @@
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#slotSelectorModal" (click)="processOrder('COMPLETE')">Complete Order</button>
                     </div>
-                    <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='Awaiting Customer\'s Confirmation'||order.status=='CONFIRMED'||order.status=='STARTING'" class="col-12 py-2">
+                    <div *ngIf="order.status=='Awaiting Professional\'s Confirmation'||order.status=='SCHEDULED'||order.status=='ACCEPTED'||order.status=='STARTING'" class="col-12 py-2">
                       <button class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
                         data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>

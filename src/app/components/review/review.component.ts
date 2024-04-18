@@ -32,10 +32,11 @@ export class ReviewComponent {
   }
 
   submitReview() {
-    let customerName = this.isAnonymous?"ANONYMOUS":"";
+    let customerName = this.isAnonymous?"A Workan Customer":"";
     const subscription = this.orderService.writeReview(new Review(customerName, this.content, this.rating, this.professional, this.orderId, "", "")).subscribe(
       (response) => {
         if(response.state!=constants.ERROR_STATE) {
+          window.location.reload();
           this.toastrService.success("Review Submitted Successfully.");
         } else {
           this.toastrService.error(response.message);
