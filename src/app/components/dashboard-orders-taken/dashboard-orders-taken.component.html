@@ -16,11 +16,11 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
   <li class="nav-item">
-    <a type="button" class="nav-link" [ngClass]="!cancelledOrdersSelected?'active':''"
+    <a type="button" class="nav-link nav-tab" [ngClass]="!cancelledOrdersSelected?'active':''"
       (click)="toggleTabs(false)">Orders</a>
   </li>
   <li class="nav-item">
-    <a type="button" class="nav-link" [ngClass]="cancelledOrdersSelected?'active':''"
+    <a type="button" class="nav-link nav-tab" [ngClass]="cancelledOrdersSelected?'active':''"
       (click)="toggleTabs(true)">Cancelled Orders</a>
   </li>
 </ul>
