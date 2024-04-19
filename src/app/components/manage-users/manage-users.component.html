@@ -19,7 +19,7 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-between">
     <li class="nav-item">
-        <app-search (searchByEmailEvent)="loadUserData($event)"></app-search>
+        <app-search (searchByEmailEvent)="prepareUrl($event)"></app-search>
     </li>
 </ul>
 
@@ -32,9 +32,9 @@
         <!-- dashboard-profile-form panel starts -->
 
         <!-- Edit Section starts -->
-        <div class="col-xl-12 col-md-12">
+        <div class="col-xl-12 col-md-12" style="min-height: 30rem;">
 
-            <div class="form-section p-3 m-3 card-cover">
+            <div *ngIf="displayListing&&displayListing.id>0" class="form-section p-3 m-3 card-cover">
 
                 <form>
                     <div class="mb-3">
@@ -146,10 +146,10 @@
                             <div class="col">
                                 <div class="form-group">
                                     <h3><b>Listing Details</b><br>
-                                        <a type="button" *ngIf="!displayListing.enabled" class="link"
-                                            (click)="activateDeactivateListing()">Activate</a>
-                                        <a type="button" *ngIf="displayListing.enabled" class="link"
-                                            (click)="activateDeactivateListing()">Deactivate</a>
+                                        <button *ngIf="displayListing&&!displayListing.enabled" class="btn btn-primary btn-small btn-rounded mt-2"
+                                            (click)="activateDeactivateListing()">Activate</button>
+                                        <button *ngIf="displayListing&&displayListing.enabled" class="btn btn-danger btn-small btn-rounded mt-2"
+                                            (click)="activateDeactivateListing()">Deactivate</button>
                                     </h3>
                                 </div>
                             </div>
@@ -201,16 +201,12 @@
                             </div>
 
                         </div>
-                        <hr>
-                        <h6 class="small-text">&bull; This specialization <b>requires</b> professional certifications to
-                            post
-                            listing.</h6>
                     </div>
                 </form>
                 <!-- User Form Ends -->
             </div>
 
-            <div *ngIf="displayListing.id>0" class="row g-5">
+            <div *ngIf="displayListing&&displayListing.id>0" class="row g-5">
                 <div class="col-xl-12 col-md-12 ">
                     <!-- Ratings panel starts -->
                     <div class="row g-5">
@@ -260,14 +256,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <hr class="style1">
-                                    <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the
-                                        professional.
-                                    </h6>
-                                    <h6 class="small-text">&bull; The charges should include all the taxes payable by
-                                        the
-                                        professional.
-                                    </h6>
                                 </div>
                                 <!-- User Form Ends -->
                             </div>
@@ -276,6 +264,93 @@
                     </div>
                     <!-- Ratings panel ends -->
                 </div>
+            </div>
+
+            <!-- Documents panel starts -->
+            <div *ngIf="displayListing&&displayListing.id>0" class="row g-5">
+
+                <div class="col-xl-12 col-md-12">
+
+                    <div class="form-section p-3 m-3">
+
+                        <!-- documents Form Starts -->
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <h3><b>Documents / Certifications </b></h3>
+                                        <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                            Certifications</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                            <h6 *ngIf="displayListing&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                                style="color: red;"><b>Please add all the relevant documents.</b></h6>
+                            <div class="table-responsive">
+                                <table class="table table-bordered th-sm">
+                                    <thead
+                                        style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                        <tr>
+                                            <th scope="col" class="text-center">Name</th>
+                                            <th scope="col" class="text-center">Attachments</th>
+                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Profile Visibility</th>
+                                            <th scope="col" class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let certification of certifications">
+                                            <td class="text-center">
+                                                {{certification.name}}
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="col">
+                                                    <a *ngFor="let attachment of certification.attachments; let first=first"
+                                                        style="font-size: .9rem!important;"><a *ngIf="!first">,
+                                                        </a>{{attachment.name}}</a>
+                                                    <a *ngIf="certification.attachments.length<=0"
+                                                        style="font-size: .9rem!important;color: grey;">
+                                                        No Attachments
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a *ngIf="certification.attachments.length>0" class=" px-1"
+                                                        type="button" (click)="downloadAttachments(certification.id)"><i
+                                                            class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-download px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                {{certification.status}}
+                                                <i *ngIf="certification.status=='Rejected'" class="fa fa-times-circle"
+                                                    aria-hidden="true" style="color: rgb(255, 71, 71);"></i>
+                                                <i *ngIf="certification.status=='Verified'" class="fa fa-check-circle"
+                                                    aria-hidden="true" style="color: green;"></i>
+                                            </td>
+                                            <td class="text-center">
+                                                {{certification.profileVisibility?'Visible':'Hidden'}}
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-primary btn-rounded btn-small m-1" type="button"
+                                                    (click)="verifyCertificationById(certification.id)">Verify</button>
+                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
+                                                    (click)="rejectCertificationById(certification.id)">Reject</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- User Form Ends -->
+                    </div>
+                </div>
+
             </div>
         </div>
         <!-- Edit Section ends -->

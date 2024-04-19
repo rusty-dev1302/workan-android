@@ -13,13 +13,17 @@ import { PhonePipe } from '../../pipes/phone-pipe';
 import { SearchComponent } from '../search/search.component';
 import { ServicePricing } from 'src/app/common/service-pricing';
 import { ListingService } from 'src/app/services/listing.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Certification } from 'src/app/common/certification';
+import { FileService } from 'src/app/services/file.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-    selector: 'app-manage-users',
-    templateUrl: './manage-users.component.html',
-    styleUrls: ['./manage-users.component.css'],
-    standalone: true,
-    imports: [SearchComponent, FormsModule, NgIf, NgFor,DecimalPipe, PhonePipe]
+  selector: 'app-manage-users',
+  templateUrl: './manage-users.component.html',
+  styleUrls: ['./manage-users.component.css'],
+  standalone: true,
+  imports: [SearchComponent, FormsModule, NgIf, NgFor, DecimalPipe, PhonePipe]
 })
 export class ManageUsersComponent implements OnInit {
 
@@ -38,6 +42,7 @@ export class ManageUsersComponent implements OnInit {
   genderValue: string = "";
   mobileValue: string = "";
   languagesValue: string[] = [];
+  certifications: Certification[] = [];
   availableLanguages: any = new Map([
     ["English", 0],
     ["French", 0],
@@ -55,12 +60,28 @@ export class ManageUsersComponent implements OnInit {
     private profilePhotoService: ProfilePhotoService,
     private adminService: AdminService,
     private navigationService: NavigationService,
-    private listingService: ListingService
+    private listingService: ListingService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fileService: FileService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     this.navigationService.pageLoaded();
+    const hasUser: boolean = this.route.snapshot.queryParamMap.has('userEmail');
+
+    if (hasUser) {
+      this.loadUserData(this.route.snapshot.queryParamMap.get('userEmail')!);
+    }
   }
+
+  prepareUrl(email: string) {
+    this.router.navigate(['admin/manageUsers'], { queryParams: { 'userEmail': email } }).then(() => {
+      window.location.reload();
+    });;
+  }
+
 
   loadUserData(email: string) {
     const subscription = this.adminService.getUserByEmail(email).subscribe(
@@ -79,7 +100,7 @@ export class ManageUsersComponent implements OnInit {
           this.loadContactDetails();
           this.loadListingDetails();
           this.loadProfilePhoto();
-
+          this.getCertificationsByEmail();
         } else {
           // Set Default Values
           this.user.languages = [];
@@ -156,8 +177,48 @@ export class ManageUsersComponent implements OnInit {
     window.location.reload();
   }
 
+  verifyCertificationById(certificationId: number) {
+    const sub = this.adminService.verifyCertificationById(certificationId).subscribe(
+      () => {
+        this.getCertificationsByEmail();
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  rejectCertificationById(certificationId: number) {
+    const sub = this.adminService.rejectCertificationById(certificationId).subscribe(
+      () => {
+        this.getCertificationsByEmail();
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  downloadAttachments(certificationId: number) {
+    const sub = this.fileService.getAttachmentsForCertificate(certificationId).subscribe(
+      (attachments) => {
+        attachments.map(
+          (a:any) => {
+            this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
+          }
+        );
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  getCertificationsByEmail() {
+    const sub = this.userService.getCertificationsByEmail(this.user.email).subscribe(
+      (certifications) => {
+        this.certifications = certifications;
+        sub.unsubscribe();
+      }
+    );
+  }
+
   activateDeactivateListing() {
-    if(this.displayListing) {
+    if (this.displayListing) {
       const sub = this.adminService.activateInactivateListing(this.displayListing.id).subscribe(
         () => {
           this.loadListingDetails();
