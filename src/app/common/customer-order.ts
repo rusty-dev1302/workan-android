@@ -22,6 +22,7 @@ export class CustomerOrder extends BaseResponse{
         public directInitiated: boolean,
         public menuItems: any[],
         public otp: string,
+        public duration: string,
         state: string,
         message: string
     ) {

@@ -340,7 +340,10 @@ export class DashboardListingsFormComponent implements OnInit {
     this.isServicePriceSelect = false;
   }
 
-  saveServicePricing() {
+  saveServicePricing(createDup: boolean = false) {
+    if(createDup) {
+      this.editServicePricingId = null!;
+    }
     let servicePricing = new ServicePricing(this.editServicePricingId, this.addServicePriceName, this.addServicePriceCharges, this.addServiceTimeHh, this.addServiceTimeMm, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
       (response) => {

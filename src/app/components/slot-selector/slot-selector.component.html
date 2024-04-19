@@ -22,8 +22,9 @@
                       <table class="table table-bordered th-sm">
                         <thead style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
                           <tr>
-                            <th scope="col" class="text-center col-8">Service Name</th>
+                            <th scope="col" class="text-center col-5">Service Name</th>
                             <th scope="col" class="text-center col-2">Charges</th>
+                            <th scope="col" class="text-center col-3">Duration</th>
                             <th scope="col" class="text-center col-2">Quantity</th>
                           </tr>
                         </thead>
@@ -36,6 +37,9 @@
                               <i class="fa-solid fa-dollar-sign"
                                 style="color: green;margin-right: .1rem;"></i>{{menuItem.charges}}
                             </td>
+                            <td class="text-center">
+                              {{menuItem.serviceTimeHh>0?menuItem.serviceTimeHh+'hr':''}} {{menuItem.serviceTimeMm>0?menuItem.serviceTimeMm+'min':''}}
+                            </td>
                             <td class="text-center"><i type="button" (click)="removeMenuItem(i)" class="fa fa-minus-circle primary-blue"
                               aria-hidden="true" style="margin-right: .4rem;"></i>{{selectedMenuItems[i].quantity==null?'0':selectedMenuItems[i].quantity}}<i type="button" (click)="addMenuItem(i)" class="fa fa-plus-circle primary-blue"
                               style="margin-left: .4rem;"
@@ -44,6 +48,9 @@
                           </tr>
                         </tbody>
                       </table>
+                      <div style="text-align:end;">
+                        <label>Avg. Duration: {{avgDuration}}</label>
+                      </div>
                       <div style="text-align:end;">
                         <b>Total: </b> <i class="fa-solid fa-dollar-sign"
                           style="color: green;margin-right: .1rem;"></i>{{totalMenuCharges}}
@@ -151,6 +158,9 @@
             <!-- Slots end -->
 
             <div *ngIf="!professionalView" class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger btn-rounded col-12" (click)="previousStep()">Back</button>
+            </div>
+            <div *ngIf="!professionalView" class="d-flex justify-content-end mt-2">
               <button
                 *ngIf="selectedDate&&selectedTimeRange.startTime!=''&&selectedTimeRange.endTime!=''&&dateTimeService.convertTimeToNumber(selectedTimeRange.startTime)<dateTimeService.convertTimeToNumber(selectedTimeRange.endTime)"
                 type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()">Next</button>
@@ -176,11 +186,17 @@
             <div class="mt-1 mb-1">
               <div class="container">
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-6">
                     <label class="review-count" style="font-weight: bold;">Total Charges</label>
                     <h5>
                       <i class="fa-solid fa-dollar-sign" style="color: green;margin-right: .1rem;"></i>
                       {{totalMenuCharges}}
+                    </h5>
+                  </div>
+                  <div class="col-6">
+                    <label class="review-count" style="font-weight: bold;">Avg. Duration</label>
+                    <h5>
+                      {{avgDuration}}
                     </h5>
                   </div>
                   <div class="col-6">

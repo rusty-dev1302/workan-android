@@ -44,14 +44,14 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Appointment Date</label>
-                      <h5>{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h5>
+                      <h5 class="px-2">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h5>
                     </div>
                   </div>
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Appointment Time</label>
-                      <h5>{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
+                      <h5 class="px-2">{{dateTimeService.convertTimeToString(order.appointmentTimeHhmm)}}</h5>
                     </div>
                   </div>
 
@@ -65,7 +65,7 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Total Amount</label>
-                      <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                      <h5 class="px-2"><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
                         '1.2-2'}} </h5>
                     </div>
                   </div>
@@ -73,7 +73,14 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Payment Status</label>
-                      <h5>{{order.paymentStatus}}</h5>
+                      <h5 class="px-2">{{order.paymentStatus}}</h5>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
+                    <div class="form-group">
+                      <label>Avg. Duration</label>
+                      <h5 class="px-2">{{order.duration}}</h5>
                     </div>
                   </div>
 
@@ -86,22 +93,22 @@
                     <div class="form-group">
                       <label class="py-1" style="font-weight: bold;">Customer Name</label>
                       <div class="col-12">
-                        <h5 *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
-                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
+                        <h5 class="px-2" *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 class="px-2" *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="py-1" style="font-weight: bold;">Customer Phone</label>
                       <div class="col-12">
-                        <h5 *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
-                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
+                        <h5 class="px-2" *ngIf="order.customer">{{order.customer.mobile | phone}}</h5>
+                        <h5 class="px-2" *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="py-1" style="font-weight: bold;">Customer Address</label>
                       <div class="col-12">
-                        <h5 *ngIf="order.customer">{{order.customer.contact.addressLine3}}</h5>
-                        <h5 *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
+                        <h5 class="px-2" *ngIf="order.customer">{{order.customer.contact.addressLine3}}</h5>
+                        <h5 class="px-2" *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
                   </div>
@@ -110,17 +117,17 @@
                     <div class="form-group">
                       <div class="form-group">
                         <label class="py-1" style="font-weight: bold;">Professional</label>
-                        <h5><a class="link" type="button"
+                        <h5 class="px-2"><a class="link" type="button"
                             [routerLink]='["/listingDetail", order.listingId]'>{{order.professional.firstName}}
                             {{order.professional.lastName}}</a></h5>
                       </div>
                       <div class="form-group">
                         <label class="py-1" style="font-weight: bold;">Professional Specialization</label>
-                        <h5>{{order.subCategoryName}}</h5>
+                        <h5 class="px-2">{{order.subCategoryName}}</h5>
                       </div>
                       <div class="form-group">
                         <label class="py-1" style="font-weight: bold;">Service Items</label>
-                        <h5 *ngFor="let item of order.menuItems">&bull; {{item.serviceName}} x({{item.quantity}})</h5>
+                        <h5 class="px-2" *ngFor="let item of order.menuItems">&bull; {{item.serviceName}} x({{item.quantity}})</h5>
                       </div>
                     </div>
                   </div>
