@@ -1,7 +1,6 @@
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
-import { FileService } from 'src/app/services/file.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -20,7 +19,6 @@ export class ManageVerificationsComponent implements OnInit {
   constructor(
     private navigationService: NavigationService,
     private adminService: AdminService,
-    private fileService: FileService
   ) {
 
   }
@@ -34,43 +32,6 @@ export class ManageVerificationsComponent implements OnInit {
     const sub = this.adminService.getAllCertificationsToVerify().subscribe(
       (response) => {
         this.verificationRequests = response;
-        sub.unsubscribe();
-      }
-    );
-  }
-
-  downloadAttachments(attachments: any[]) {
-    attachments.map(
-      (a) => {
-        this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
-      }
-    );
-  }
-
-  activateDeactivateListing(listingId: number) {
-    const sub = this.adminService.activateInactivateListing(listingId).subscribe(
-      () => {
-        this.getAllCertificationsToVerify();
-        sub.unsubscribe();
-      }
-    );
-  }
-
-  verifyCertificationById(certificationId: number) {
-    const sub = this.adminService.verifyCertificationById(certificationId).subscribe(
-      () => {
-        this.verifyPressed = true;
-        this.rejectPressed = false;
-        sub.unsubscribe();
-      }
-    );
-  }
-
-  rejectCertificationById(certificationId: number) {
-    const sub = this.adminService.rejectCertificationById(certificationId).subscribe(
-      () => {
-        this.verifyPressed = false;
-        this.rejectPressed = true;
         sub.unsubscribe();
       }
     );
