@@ -140,11 +140,13 @@
                                                 : '1.2-2'}}
                                             </td>
                                             <td class="text-center">
-                                                1hr 42min
+                                                {{servicePricing.serviceTimeHh>0?servicePricing.serviceTimeHh+'hr':''}} {{servicePricing.serviceTimeMm>0?servicePricing.serviceTimeMm+'min':''}}
                                             </td>
                                             <td class="text-center">
-                                                <i type="button" class="fa-sharp fa-pen-to-square" style="margin-right: 1rem;"data-bs-toggle="modal"
-                                                data-bs-target="#addServicePriceModal" (click)="setEditServicePricing(servicePricing.id, servicePricing.serviceName, servicePricing.charges)"></i>
+                                                <i type="button" class="fa-sharp fa-pen-to-square"
+                                                    style="margin-right: 1rem;" data-bs-toggle="modal"
+                                                    data-bs-target="#addServicePriceModal"
+                                                    (click)="setEditServicePricing(servicePricing.id, servicePricing.serviceName, servicePricing.charges, servicePricing.serviceTimeHh, servicePricing.serviceTimeMm)"></i>
                                                 <i type="button" class="fa-sharp fa-solid fa-trash"
                                                     (click)="removeServicePricing(servicePricing.id)"></i>
                                             </td>
@@ -664,7 +666,8 @@
                                                         for="serviceNameRadio2"
                                                         (click)="toggleServicePriceSelect(false)">
                                                         <input class="form-check-input" type="radio"
-                                                            name="serviceNameRadioDefault" id="serviceNameRadio2" [checked]="!isServicePriceSelect">
+                                                            name="serviceNameRadioDefault" id="serviceNameRadio2"
+                                                            [checked]="!isServicePriceSelect">
                                                         Custom
                                                     </label>
                                                 </div>
@@ -698,6 +701,26 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="serviceCharges">Average Duration:</label>
+                                                <div class="input-group mb-3" style="margin-top: .3rem;">
+                                                    <span class="m-2 py-1 border col-6" style="border-radius: .3rem;width: 8.3rem;padding-left: .55rem">Hours: <i type="button" class="fa fa-angle-down primary-blue"
+                                                            aria-hidden="true" style="margin-right: .4rem;" (click)="addSubHours(false)"></i>
+                                                            <span class="p-1" style="background-color: rgb(240, 240, 240);border-radius: .3rem">{{addServiceTimeHh}}</span>
+                                                            <i type="button" class="fa fa-angle-up primary-blue" (click)="addSubHours(true)"
+                                                            style="margin-left: .4rem;" aria-hidden="true"></i>
+                                                    </span>
+                                                    <span class="m-2 py-1 border col-6" style="border-radius: .3rem;width: 8.3rem;padding-left: .8rem">Mins: <i type="button" class="fa fa-angle-down primary-blue"
+                                                            aria-hidden="true" style="margin-right: .4rem;" (click)="addSubMins(false)"></i>
+                                                            <span class="p-1" style="background-color: rgb(240, 240, 240);border-radius: .3rem">{{addServiceTimeMm}}</span>
+                                                            <i type="button" class="fa fa-angle-up primary-blue" 
+                                                            style="margin-left: .4rem;" aria-hidden="true" (click)="addSubMins(true)"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -705,7 +728,7 @@
                                 <div class="row">
                                     <div class="modal-footer" style="border-top: 0!important;">
                                         <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10'
+                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
                                             data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add
                                             Service</button>
                                     </div>

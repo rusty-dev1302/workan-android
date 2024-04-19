@@ -114,8 +114,6 @@ export class DashboardProfileFormComponent implements OnInit {
             this.user.languages = [];
           }
 
-          console.log(JSON.stringify(this.user))
-
           this.customerIdEvent.emit(this.user.id);
           this.loadAvailableLanguages();
           this.loadContactDetails();
