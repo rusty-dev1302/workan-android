@@ -1,4 +1,4 @@
-import { DecimalPipe, NgIf } from '@angular/common';
+import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ContactDetail } from 'src/app/common/contact-detail';
@@ -11,13 +11,15 @@ import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
 import { SearchComponent } from '../search/search.component';
+import { ServicePricing } from 'src/app/common/service-pricing';
+import { ListingService } from 'src/app/services/listing.service';
 
 @Component({
     selector: 'app-manage-users',
     templateUrl: './manage-users.component.html',
     styleUrls: ['./manage-users.component.css'],
     standalone: true,
-    imports: [SearchComponent, FormsModule, NgIf, DecimalPipe, PhonePipe]
+    imports: [SearchComponent, FormsModule, NgIf, NgFor,DecimalPipe, PhonePipe]
 })
 export class ManageUsersComponent implements OnInit {
 
@@ -44,6 +46,7 @@ export class ManageUsersComponent implements OnInit {
     ["Punjabi", 0],
     ["Hindi", 0],
   ]);
+  servicePricings: ServicePricing[] = [];
 
   profileFormDirty: boolean = false;
   profileFormValid: boolean = false;
@@ -51,7 +54,8 @@ export class ManageUsersComponent implements OnInit {
   constructor(
     private profilePhotoService: ProfilePhotoService,
     private adminService: AdminService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private listingService: ListingService
   ) { }
 
   ngOnInit(): void {
@@ -122,9 +126,19 @@ export class ManageUsersComponent implements OnInit {
         if (data.state == constants.SUCCESS_STATE) {
           // Populate form from data
           this.displayListing = data;
+          this.loadServicePricings();
         }
 
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  loadServicePricings() {
+    const sub = this.listingService.getServicePricings(this.displayListing.id).subscribe(
+      (response) => {
+        this.servicePricings = response;
+        sub.unsubscribe();
       }
     );
   }
