@@ -98,7 +98,8 @@
                 <!-- User Form Ends -->
             </div>
 
-            <div *ngIf="displayUser&&!displayUser.professional&&!displayUser.admin" class="form-section  p-3 m-3" id="address_section">
+            <div *ngIf="displayUser&&!displayUser.professional&&!displayUser.admin" class="form-section  p-3 m-3"
+                id="address_section">
 
                 <!-- Contact Form Starts -->
                 <form>
@@ -115,7 +116,7 @@
 
                         </div>
                         <div *ngIf="displayContact" class="row">
-                            
+
                             <div class="col-12">
                                 <div class="form-group">
                                     <h5>{{displayContact.addressLine3}}</h5>
@@ -145,9 +146,11 @@
                             <div class="col">
                                 <div class="form-group">
                                     <h3><b>Listing Details</b><br>
-                                        <a type="button" *ngIf="!displayListing.enabled" class="link" (click)="activateDeactivateListing()">Activate</a>
-                                        <a type="button" *ngIf="displayListing.enabled" class="link" (click)="activateDeactivateListing()">Deactivate</a>
-                                        </h3>
+                                        <a type="button" *ngIf="!displayListing.enabled" class="link"
+                                            (click)="activateDeactivateListing()">Activate</a>
+                                        <a type="button" *ngIf="displayListing.enabled" class="link"
+                                            (click)="activateDeactivateListing()">Deactivate</a>
+                                    </h3>
                                 </div>
                             </div>
                         </div>
@@ -180,9 +183,11 @@
                             <div class="col-xxl-6 col-lg-6 col-12">
                                 <div class="form-group">
                                     <label>Charges</label>
-                                    <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i>
-                                        {{displayListing.charges |
-                                        number : '1.2-2'}} </h5>
+                                    <h5><i class="fa-solid fa-dollar-sign"
+                                            style="color: green;"></i>{{displayListing.minCharge
+                                        | number : '1.2-2'}} - <i class="fa-solid fa-dollar-sign"
+                                            style="color: green;"></i>{{displayListing.maxCharge | number : '1.2-2'}}
+                                    </h5>
                                 </div>
                             </div>
 
@@ -203,6 +208,74 @@
                     </div>
                 </form>
                 <!-- User Form Ends -->
+            </div>
+
+            <div *ngIf="displayListing.id>0" class="row g-5">
+                <div class="col-xl-12 col-md-12 ">
+                    <!-- Ratings panel starts -->
+                    <div class="row g-5">
+
+                        <div class="col-xl-12 col-md-12">
+
+                            <div class="form-section p-3 m-3">
+
+                                <!-- User Form Starts -->
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <h3><b>Service Price Chart </b>
+                                                </h3>
+                                                <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                            Certifications</a> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered th-sm">
+                                            <thead
+                                                style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                                <tr>
+                                                    <th scope="col" class="text-center">Service Name</th>
+                                                    <th scope="col" class="text-center">Charges (CAD)</th>
+                                                    <th scope="col" class="text-center">Average Duration</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let servicePricing of servicePricings">
+                                                    <td class="text-center">
+                                                        {{servicePricing.serviceName}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="fa-solid fa-dollar-sign"
+                                                            style="color: green;margin-right: .1rem;"></i>{{servicePricing.charges|number
+                                                        : '1.2-2'}}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        {{servicePricing.serviceTimeHh>0?servicePricing.serviceTimeHh+'hr':''}}
+                                                        {{servicePricing.serviceTimeMm>0?servicePricing.serviceTimeMm+'min':''}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <hr class="style1">
+                                    <h6 class="small-text">&bull; Parts/Material Cost to be directly paid to the
+                                        professional.
+                                    </h6>
+                                    <h6 class="small-text">&bull; The charges should include all the taxes payable by
+                                        the
+                                        professional.
+                                    </h6>
+                                </div>
+                                <!-- User Form Ends -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Ratings panel ends -->
+                </div>
             </div>
         </div>
         <!-- Edit Section ends -->
