@@ -548,8 +548,8 @@ hr.style1 {
 }
 
 .btn.btn-small {
-    height: fit-content !important;
-    font-size: .9rem !important;
+    height: fit-content!important;
+    font-size: .9rem!important;
 }
 
 .btn-prime {

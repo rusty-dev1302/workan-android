@@ -253,20 +253,17 @@
                                             <td class="text-center">
                                                 <button *ngIf="certification.status=='Unverified'"
                                                     class="btn btn-primary btn-rounded btn-small m-1" type="button"
-                                                    style="font-size: 1rem!important;"
                                                     (click)="verifyCertification(certification.id)">Verify
                                                     Cert.</button>
                                                 <button *ngIf="certification.status=='Verified'"
                                                     class="btn btn-primary btn-rounded btn-small m-1" type="button"
-                                                    style="font-size: 1rem!important;"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
                                                     from profile':'Show on profile'}}</button>
                                                 <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
                                                     class="px-1"
-                                                    style="font-size: 1rem!important;color:rgb(105, 105, 105);"><i
+                                                    style="font-size: .8rem!important;color:rgb(105, 105, 105);"><i
                                                         class="fa-light fa-ellipsis-vertical"></i></a>
                                                 <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
-                                                    style="font-size: 1rem!important;"
                                                     (click)="removeCertification(certification.id)">Remove</button>
                                             </td>
                                         </tr>
