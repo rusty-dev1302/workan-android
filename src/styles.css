@@ -130,6 +130,11 @@ a {
     font-weight: bold;
 }
 
+.nav-tab {
+    font-size: 1rem!important;
+    margin: .1rem!important;
+}
+
 .nav-link {
     color: var(--bs-main-color) !important;
     font-weight: bold;
@@ -548,8 +553,8 @@ hr.style1 {
 }
 
 .btn.btn-small {
-    height: fit-content !important;
-    font-size: .9rem !important;
+    height: fit-content!important;
+    font-size: .9rem!important;
 }
 
 .btn-prime {
@@ -560,7 +565,7 @@ hr.style1 {
 }
 
 .btn.btn-accepted {
-    background-color: #ff0000!important;
+    background-color: #0044ff!important;
     color: white!important;
     border: none;
     outline: none;

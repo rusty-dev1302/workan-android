@@ -16,11 +16,11 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
   <li class="nav-item">
-    <a type="button" class="nav-link" [ngClass]="!cancelledOrdersSelected?'active':''"
+    <a type="button" class="nav-link nav-tab" [ngClass]="!cancelledOrdersSelected?'active':''"
       (click)="toggleTabs(false)">Orders</a>
   </li>
   <li class="nav-item">
-    <a type="button" class="nav-link" [ngClass]="cancelledOrdersSelected?'active':''"
+    <a type="button" class="nav-link nav-tab" [ngClass]="cancelledOrdersSelected?'active':''"
       (click)="toggleTabs(true)">Cancelled Orders</a>
   </li>
 </ul>
@@ -120,9 +120,9 @@
         <div *ngIf="cancelledOrdersSelected">
           <!-- to be iterated over orders start  -->
           <div *ngFor="let order of cancelledOrders;let i=index;let f=first" class="col-12">
-            <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
+            <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(cancelledOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(cancelledOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
             <div class="form-section p-3 m-3">
-
+              
               <form>
 
                 <div class="mb-3">

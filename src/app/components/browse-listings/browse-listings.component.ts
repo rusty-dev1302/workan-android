@@ -128,7 +128,6 @@ export class BrowseListingsComponent implements OnInit {
     const sub = this.listingService.getListingSubcategories().subscribe(
       (data) => {
         this.subCategories = data;
-        console.log("available subcats"+data)
         sub.unsubscribe();
       }
     );

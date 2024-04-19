@@ -8,6 +8,7 @@ export class CreateOrderRequest {
         public preferredEndTimeHhmm: number,
         public appointmentDate: Date,
         public menuItems: any[],
+        public duration: string
     ) {
     }
 }

@@ -32,6 +32,7 @@ export class SlotSelectorComponent implements OnInit {
   availableMenuItems!: any[];
   totalMenuCharges: number = 0;
   currentStep: number = 0;
+  avgDuration: string = "--"
 
   timeSlots: string[] = constants.TIMESLOTS;
 
@@ -196,6 +197,26 @@ export class SlotSelectorComponent implements OnInit {
     );
   }
 
+  calculateTotalDuration() {
+    let totalHours = 0;
+    let totalMins = 0;
+    this.selectedMenuItems.forEach(
+      (mi) => {
+        if (mi.quantity == null) {
+          mi.quantity = 0;
+        }
+        totalHours += mi.quantity * mi.serviceTimeHh;
+        totalMins += mi.quantity * mi.serviceTimeMm;
+      }
+    );
+    totalHours += Math.floor(totalMins/60);
+    totalMins = totalMins%60;
+    this.avgDuration = (totalHours>0?totalHours+"hr ":'')+(totalMins>0?totalMins+"min":'');
+    if(totalHours==0&&totalMins==0) {
+      this.avgDuration = "--";
+    }
+  }
+
   loadServicePricings() {
     const sub = this.listingService.getServicePricings(this.listingId).subscribe(
       (response) => {
@@ -212,6 +233,7 @@ export class SlotSelectorComponent implements OnInit {
     }
     this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity > 4 ? this.selectedMenuItems[i].quantity : this.selectedMenuItems[i].quantity + 1;
     this.calculateTotalMenuCharges();
+    this.calculateTotalDuration();
   }
 
   removeMenuItem(i: number) {
@@ -220,6 +242,7 @@ export class SlotSelectorComponent implements OnInit {
     }
     this.selectedMenuItems[i].quantity = this.selectedMenuItems[i].quantity == 0 ? 0 : (this.selectedMenuItems[i].quantity - 1);
     this.calculateTotalMenuCharges();
+    this.calculateTotalDuration();
   }
 
   closeDialog() {
@@ -240,7 +263,7 @@ export class SlotSelectorComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!)), this.selectedMenuItems);
+        let createOrderRequest = new CreateOrderRequest(customer, this.listingId, this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.startTime), this.dateTimeService.convertTimeToNumber(this.selectedTimeRange.endTime), this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!)), this.selectedMenuItems, this.avgDuration);
         const subscription = this.orderService.createOrder(createOrderRequest).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

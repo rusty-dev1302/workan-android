@@ -21,13 +21,13 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
     <li class="nav-item">
-        <a type="button" class="nav-link" [ngClass]="menuItem==0?'active':''" (click)="setMenu(0)">Listing Details</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="menuItem==0?'active':''" (click)="setMenu(0)">Listing Details</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link" [ngClass]="[menuItem==1?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(1)">My Documents</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==1?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(1)">My Documents</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link" [ngClass]="[menuItem==2?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(2)">Time Scheduling</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==2?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(2)">Time Scheduling</a>
     </li>
 </ul>
 

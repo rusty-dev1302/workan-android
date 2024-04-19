@@ -23,6 +23,7 @@ export class Order extends BaseResponse{
         public reviewDone: boolean,
         public cancelReason: string,
         public menuItems: any[],
+        public duration: string,
         state: string,
         message: string
     ) {

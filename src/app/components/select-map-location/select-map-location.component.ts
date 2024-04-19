@@ -76,8 +76,6 @@ export class SelectMapLocationComponent implements OnInit {
         output["latitude"] = this.currentLocationLatLng.lat();
         output["longitude"] = this.currentLocationLatLng.lng();
 
-        console.log(Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8));
-
         this.outputEvent.emit(output);
       }
     );

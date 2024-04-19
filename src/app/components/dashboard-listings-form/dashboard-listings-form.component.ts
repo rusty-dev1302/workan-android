@@ -60,6 +60,12 @@ export class DashboardListingsFormComponent implements OnInit {
 
   addServicePriceName: string = "";
 
+  addServiceTimeHh: number = 0;
+
+  addServiceTimeMm: number = 0;
+
+  editServicePricingId!: number;
+
   addServicePriceCharges!: number;
 
   certifications: Certification[] = [];
@@ -96,6 +102,22 @@ export class DashboardListingsFormComponent implements OnInit {
 
   selectSlot(day: string) {
     this.selectedDay = day;
+  }
+
+  addSubHours(add:boolean) {
+    if(add) {
+      this.addServiceTimeHh  = (this.addServiceTimeHh+1)%13
+    } else {
+      this.addServiceTimeHh = (this.addServiceTimeHh-1)<0?12:(this.addServiceTimeHh-1);
+    }
+  }
+
+  addSubMins(add:boolean) {
+    if(add) {
+      this.addServiceTimeMm  = (this.addServiceTimeMm+15)%75
+    } else {
+      this.addServiceTimeMm = (this.addServiceTimeMm-15)<0?60:(this.addServiceTimeMm-15);
+    }
   }
 
   loadFormValues() {
@@ -309,14 +331,36 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addCertName = '';
   }
 
-  addServicePricing() {
-    let servicePricing = new ServicePricing(null!, this.addServicePriceName, this.addServicePriceCharges, "", "");
+  setEditServicePricing(id: number, serviceName: string, charges: number, addServiceTimeHh: number, addServiceTimeMm: number){
+    this.editServicePricingId = id;
+    this.addServicePriceName = serviceName;
+    this.addServicePriceCharges = charges;
+    this.addServiceTimeHh = addServiceTimeHh;
+    this.addServiceTimeMm = addServiceTimeMm;
+    this.isServicePriceSelect = false;
+  }
+
+  saveServicePricing(createDup: boolean = false) {
+    if(createDup) {
+      this.editServicePricingId = null!;
+    }
+    let servicePricing = new ServicePricing(this.editServicePricingId, this.addServicePriceName, this.addServicePriceCharges, this.addServiceTimeHh, this.addServiceTimeMm, "", "");
     const sub = this.listingService.saveServicePricing(servicePricing, this.listing.id).subscribe(
       (response) => {
         this.loadFormValues();
         sub.unsubscribe();
       }
     );
+    this.resetServicePriceDialog();
+  }
+
+  resetServicePriceDialog() {
+    this.editServicePricingId = null!;
+    this.addServicePriceName = "";
+    this.addServicePriceCharges = null!;
+    this.addServiceTimeHh = 0;
+    this.addServiceTimeMm = 0;
+    this.isServicePriceSelect = true;
   }
 
   removeServicePricing(id: number) {
@@ -406,12 +450,6 @@ export class DashboardListingsFormComponent implements OnInit {
   resetSlotDialog() {
     this.dialogSlotTemplateEndTime = "";
     this.dialogSlotTemplateStartTime = "";
-  }
-
-  resetServicePriceDialog() {
-    this.addServicePriceName = "";
-    this.addServicePriceCharges = null!;
-    this.isServicePriceSelect = true;
   }
 
   // methods alter date availability 

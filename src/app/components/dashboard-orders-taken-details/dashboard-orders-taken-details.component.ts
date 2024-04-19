@@ -117,7 +117,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     }
     this.orderService.acceptOrder(this.order.id).subscribe(
       (data)=>{
-        console.log(data);
+        
       }
     );
   }
