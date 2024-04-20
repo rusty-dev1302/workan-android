@@ -4,5 +4,14 @@ td {
 
 .stamp-inactive {
     border-width: 1px !important;
+    color: grey!important;
     border-style: dashed;
+}
+
+.stamp-active {
+    border-width: 2px !important;
+    border-color: black!important;
+    color: rgb(66, 66, 66)!important;
+    border-style: dashed;
+    background-color: rgb(170, 208, 170)!important;
 }
