@@ -35,8 +35,8 @@ export class OrderService {
     return this.httpClient.post<BaseResponse>(postUrl, {});
   }
 
-  getOrdersForCustomer(customerId: number): Observable<Order[]> {
-    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}`;
+  getOrdersForCustomer(customerId: number, cancelledOrders: boolean): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}&&cancelledOrders=${cancelledOrders}`;
     return this.httpClient.get<Order[]>(getUrl)
   }
 
@@ -45,8 +45,8 @@ export class OrderService {
     return this.httpClient.get<any[]>(getUrl)
   }
 
-  getOrdersForProfessional(professionalId: number): Observable<Order[]> {
-    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}`;
+  getOrdersForProfessional(professionalId: number, cancelledOrders: boolean): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}&&cancelledOrders=${cancelledOrders}`;
     return this.httpClient.get<Order[]>(getUrl)
   }
 
