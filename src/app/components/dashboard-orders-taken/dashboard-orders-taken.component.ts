@@ -21,7 +21,6 @@ import { PhonePipe } from '../../pipes/phone-pipe';
 export class DashboardOrdersTakenComponent {
 
   allOrders!: Order[];
-  cancelledOrders!: Order[];
   subscription: any;
 
   cancelledOrdersSelected: boolean = false;
@@ -62,11 +61,9 @@ export class DashboardOrdersTakenComponent {
     this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
-          const subscription = this.orderService.getOrdersForProfessional(user.id).subscribe(
+          const subscription = this.orderService.getOrdersForProfessional(user.id, this.cancelledOrdersSelected).subscribe(
             (data) => {
-              this.allOrders = data.filter((order)=>order.status!='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
-              this.cancelledOrders = data.filter((order)=>order.status=='CANCELLED').sort((a, b)=>b.appointmentDate > a.appointmentDate?1:-1);
-              
+              this.allOrders = data;
               this.navigationService.pageLoaded();
               subscription.unsubscribe();
             }
