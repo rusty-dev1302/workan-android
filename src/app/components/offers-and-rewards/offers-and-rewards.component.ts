@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-offers-and-rewards',
@@ -8,6 +9,14 @@ import { CommonModule } from '@angular/common';
   templateUrl: './offers-and-rewards.component.html',
   styleUrls: ['./offers-and-rewards.component.css']
 })
-export class OffersAndRewardsComponent {
+export class OffersAndRewardsComponent implements OnInit{
+
+  constructor(private navigationService: NavigationService) {
+
+  }
+
+  ngOnInit(): void {
+    this.navigationService.pageLoaded();
+  }
 
 }

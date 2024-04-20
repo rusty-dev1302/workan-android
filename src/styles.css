@@ -576,7 +576,7 @@ hr.style1 {
 }
 
 .dialog-start {
-    text-align: center!important;
+    text-align: start!important;
 }
 
 .btn.btn-scheduled {
