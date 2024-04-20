@@ -29,6 +29,7 @@ export class SelectMapLocationComponent implements OnInit {
   @Output() outputEvent = new EventEmitter<{ address: string, geoHash: string, latitude: number, longitude: number } | any>();
   @Output() averageDistanceEvent = new EventEmitter<{ distance: number } | any>();
 
+  isProfessional: boolean = false;
 
   @Input()
   distance: number = 10;
@@ -55,6 +56,20 @@ export class SelectMapLocationComponent implements OnInit {
   markerLocation!: google.maps.LatLng;
 
   ngOnInit(): void {
+    this.getProfessionalInfo();
+  }
+
+  getProfessionalInfo() {
+    if(this.isFilter) {
+      const sub1 = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
+        (user)=> {
+          if(user) {
+            this.isProfessional = user.professional;
+            sub1.unsubscribe();
+          }
+        }
+      );
+    }
   }
 
   constructor(

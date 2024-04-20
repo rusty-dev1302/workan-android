@@ -2,7 +2,7 @@
     <label for="originLocation" class="py-1" style="margin-right: .5rem;"><i class="fa fa-map-marker px-2"
             aria-hidden="true"></i>{{headline}}</label>
 
-    <a *ngIf="isFilter" class="link py-2" for="originLocation" style="font-size: .8rem!important;"><i
+    <a *ngIf="isFilter&&!isProfessional" class="link py-2" for="originLocation" style="font-size: .8rem!important;"><i
             class="fa fa-ellipsis-v" aria-hidden="true" style="color: grey;"></i>
         <span (click)="getMyAddress()" type="button">
             <i class="fa fa-address-card px-2" aria-hidden="true"></i>Use My Address
