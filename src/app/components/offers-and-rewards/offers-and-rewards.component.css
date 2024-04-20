@@ -1,0 +1,8 @@
+td {
+    border-style: hidden !important;
+}
+
+.stamp-inactive {
+    border-width: 1px !important;
+    border-style: dashed;
+}
