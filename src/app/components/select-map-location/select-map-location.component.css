@@ -1,14 +1,16 @@
 .google-map {
     width: 100px;
     height: 100px;
-    position:relative;
+    position: relative;
 }
 
 
-.form-range::-webkit-slider-runnable-track { 
-    background-color: rgba(196, 196, 196, 0.877); 
+.form-range::-webkit-slider-runnable-track {
+    background-color: rgba(196, 196, 196, 0.877);
 }
 
-.form-range::-webkit-slider-thumb { 
-background-color: rgb(59, 124, 222);
-} 
+.form-range::-webkit-slider-thumb {
+    height: 1.19rem!important;
+    width: 1.19rem!important;
+    background-color: rgb(59, 124, 222);
+}
