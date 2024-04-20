@@ -48,7 +48,6 @@ export class BrowseListingsComponent implements OnInit {
   geoHash: string = "";
   currentLocation!: string;
   searchKeyword: string = "";
-  currentUser!: Customer;
   subscription: any;
   pageNumber: number = 0;
   listingsLoading: boolean = false;
@@ -171,15 +170,6 @@ export class BrowseListingsComponent implements OnInit {
         sub.unsubscribe();
       }
     );
-  }
-
-  updateAddress() {
-
-    if (this.currentUser.professional) {
-      this.router.navigateByUrl(`/dashboard/managelisting`);
-    } else {
-      this.router.navigateByUrl(`/dashboard/addressDetails`);
-    }
   }
 
   onScroll() {
