@@ -183,4 +183,5 @@ DAY_BOOL_ARRAY_INIT: [
 DAY_BOOL_ARRAY_CLEAR: [
   false, false, false, false, false, false, false
 ],
+ACCEPT_ORDER_TERMS: "Accepting the order will reveal the customer's details.<br><b>Terms and Conditions<b>:"
 };

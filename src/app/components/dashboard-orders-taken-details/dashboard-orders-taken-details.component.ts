@@ -15,21 +15,22 @@ import { PhonePipe } from '../../pipes/phone-pipe';
 import { CancellationReasonComponent } from '../cancellation-reason/cancellation-reason.component';
 import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
 import { ConfirmOrderComponent } from '../confirm-order/confirm-order.component';
+import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
 
 @Component({
-    selector: 'app-dashboard-orders-taken-details',
-    templateUrl: './dashboard-orders-taken-details.component.html',
-    styleUrls: ['./dashboard-orders-taken-details.component.css'],
-    standalone: true,
-    imports: [RouterLink, NgIf, NgClass, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, EnterOtpModalComponent, ConfirmOrderComponent]
+  selector: 'app-dashboard-orders-taken-details',
+  templateUrl: './dashboard-orders-taken-details.component.html',
+  styleUrls: ['./dashboard-orders-taken-details.component.css'],
+  standalone: true,
+  imports: [RouterLink, NgIf, NgClass, NgFor, FormsModule, CancellationReasonComponent, DecimalPipe, DatePipe, PhonePipe, EnterOtpModalComponent, ConfirmOrderComponent]
 })
 export class DashboardOrdersTakenDetailsComponent implements OnInit {
 
   private currentOrderId!: number;
   private autoRefresh!: Subscription;
-  lowBalance:boolean = false;
+  lowBalance: boolean = false;
 
-  selectedMenuItemsForOrder: any[]=[];
+  selectedMenuItemsForOrder: any[] = [];
   selectedOrderId: number = 0;
   selectedAppointmentDate!: Date;
   selectedPreferredStartTimeHhmm!: number;
@@ -46,24 +47,25 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     private paymentService: PaymentService,
     private router: Router,
     public dateTimeService: DateTimeService,
-    private navigation: NavigationService
+    private navigation: NavigationService,
+    private dialogService: ConfirmationDialogService
   ) { }
 
   ngOnInit() {
     this.navigationService.showLoader();
-    this.route.paramMap.subscribe(()=>{
+    this.route.paramMap.subscribe(() => {
       this.handleOrderRouting();
     });
     this.autoRefresh = interval(5000).subscribe(
-      (val) => { 
-        if(this.order&&this.order.status!="CANCELLED"&&this.order.status!="COMPLETED") {
+      (val) => {
+        if (this.order && this.order.status != "CANCELLED" && this.order.status != "COMPLETED") {
           this.loadOrderDetails();
         }
       });
   }
 
   handleOrderRouting() {
-    if(this.route.snapshot.paramMap.has("id")) {
+    if (this.route.snapshot.paramMap.has("id")) {
       this.currentOrderId = +this.route.snapshot.paramMap.get("id")!;
       this.loadOrderDetails();
     }
@@ -72,10 +74,10 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   loadOrderDetails() {
     const subscription = this.orderService.getOrderDetailForProfessional(this.currentOrderId).subscribe(
       (order) => {
-        if(order.state!=constants.ERROR_STATE){
+        if (order.state != constants.ERROR_STATE) {
           this.order = order;
 
-          if(this.order.professionalBalance<=0) {
+          if (this.order.professionalBalance <= 0) {
             this.lowBalance = true;
           }
 
@@ -90,7 +92,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   }
 
   handleOtp(otp: string) {
-    if(this.order.status=='STARTING') {
+    if (this.order.status == 'STARTING') {
       this.processOrder('START', otp);
     }
   }
@@ -103,7 +105,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     this.selectedOrderId = order.id;
     this.selectedMenuItemsForOrder = [];
     const sub = this.orderService.getMenuItemsForOrder(order.id).subscribe(
-      (data)=>{
+      (data) => {
         this.selectedMenuItemsForOrder = data;
         sub.unsubscribe();
       }
@@ -111,22 +113,29 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   }
 
   confirmOrder() {
-    if(this.lowBalance) {
-      this.toastr.warning("Please add money to wallet to accept more orders")
-      return;
-    }
-    this.orderService.acceptOrder(this.order.id).subscribe(
-      (data)=>{
-        
+    const sub1 = this.dialogService.openDialog(constants.ACCEPT_ORDER_TERMS, false, true).subscribe(
+      (res) => {
+        if (res) {
+          if (this.lowBalance) {
+            this.toastr.warning("Please add money to wallet to accept more orders")
+            return;
+          }
+          const sub2 = this.orderService.acceptOrder(this.order.id).subscribe(
+            (data) => {
+              sub2.unsubscribe();
+            }
+          );
+        }
+        sub1.unsubscribe();
       }
     );
   }
 
-  processOrder(action: string, otp: string, cancellationReason:string="") {
+  processOrder(action: string, otp: string, cancellationReason: string = "") {
     let processOrderRequest = new ProcessOrderRequest(this.order.id, null, this.order.professional.id, action, otp, cancellationReason);
     const sub = this.orderService.processOrder(processOrderRequest).subscribe(
       (response) => {
-        if(response.state!=constants.ERROR_STATE) {
+        if (response.state != constants.ERROR_STATE) {
           this.toastr.success(response.state);
           window.location.reload();
         } else {
@@ -140,7 +149,7 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
   confirmDirectPayment() {
     const sub = this.paymentService.confirmDirectPayment(this.order.id).subscribe(
       (response) => {
-        if(response.state==constants.SUCCESS_STATE) {
+        if (response.state == constants.SUCCESS_STATE) {
           this.toastr.success("Payment Successful");
         } else {
           this.toastr.error(response.message);
@@ -151,8 +160,8 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
     );
   }
 
-  cancelOrder(cancellationReason:any) {
-    this.processOrder("CANCEL","", cancellationReason.reason);
+  cancelOrder(cancellationReason: any) {
+    this.processOrder("CANCEL", "", cancellationReason.reason);
   }
 
   navigateBack(): void {

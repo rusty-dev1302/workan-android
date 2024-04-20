@@ -59,7 +59,7 @@ export class FirstLoginComponent implements OnInit {
   }
 
   submitAccountType() {
-    const sub = this.dialogService.openDialog("Please read the ", true, "/acceptableUsePolicy", "Acceptable Use Policy", " before continuing.").subscribe(
+    const sub = this.dialogService.openDialog("Please read the ", true, true, "/acceptableUsePolicy", "Acceptable Use Policy", " before continuing.").subscribe(
       (response) => {
         if (response) {
 

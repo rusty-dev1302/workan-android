@@ -130,9 +130,9 @@ export class ListingDetailsComponent implements OnInit {
 
   bookError() {
     if (this.timezoneOffset != this.listing.timezoneOffset) {
-      this.dialogService.openDialog("Please change system timezone to listing's timezone.", true);
+      this.dialogService.openDialog("Please change system timezone to listing's timezone.", true, true);
     } else if (this.listingDistance > constants.DISTANT_LOCATION) {
-      this.dialogService.openDialog("Please change your address to a nearby location or select a different professional.", true);
+      this.dialogService.openDialog("Please change your address to a nearby location or select a different professional.", true, true);
     }
   }
 
