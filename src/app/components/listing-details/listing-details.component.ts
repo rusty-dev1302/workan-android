@@ -28,6 +28,7 @@ export class ListingDetailsComponent implements OnInit {
   listing!: Listing;
 
   professional!: Professional;
+  isProfessional: boolean = false;
   currentListingId: number = 0;
   currentSlotDay: string = "";
   currentSlotTime: string = "";
@@ -82,19 +83,26 @@ export class ListingDetailsComponent implements OnInit {
     this.totalRatings = total > 0 ? total : 1;
     this.getReviewsForProfessional();
 
-    const sub2 = this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
-      (contact) => {
-        if (contact.state != constants.ERROR_STATE) {
-          let userLoc = Geohash.decode(contact.geoHash);
-          let listingLoc = Geohash.decode(this.listing.geoHash);
+    const sub1 = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
+      (user) => {
+        this.isProfessional = user.professional;
+        const sub2 = this.userService.getContactDetailByEmail(this.keycloakService.getUsername()).subscribe(
+          (contact) => {
+            if (contact.state != constants.ERROR_STATE) {
+              let userLoc = Geohash.decode(contact.geoHash);
+              let listingLoc = Geohash.decode(this.listing.geoHash);
 
-          let distance = this.distanceBetweenTwoPlace(userLoc.lat, userLoc.lon, listingLoc.lat, listingLoc.lon, "K");
-          this.listingDistance = distance;
+              let distance = this.distanceBetweenTwoPlace(userLoc.lat, userLoc.lon, listingLoc.lat, listingLoc.lon, "K");
+              this.listingDistance = distance;
 
-        }
-        sub2.unsubscribe();
+            }
+            sub2.unsubscribe();
+          }
+        );
+        sub1.unsubscribe();
       }
     );
+
   }
 
   getReviewsForProfessional() {
