@@ -5,13 +5,28 @@ td {
 .stamp-inactive {
     border-width: 1px !important;
     color: grey!important;
-    border-style: dashed;
+    border-style: dotted;
 }
 
 .stamp-active {
     border-width: 2px !important;
     border-color: black!important;
     color: rgb(66, 66, 66)!important;
-    border-style: dashed;
+    border-style: dotted;
+    background-color: rgb(170, 208, 170)!important;
+}
+
+.stamp-achieve-inactive {
+    border-width: 2px !important;
+    border-color: black!important;
+    color: grey!important;
+    border-style:dashed;
+}
+
+.stamp-achieve-active {
+    border-width: 2px !important;
+    border-color: black!important;
+    color: rgb(66, 66, 66)!important;
+    border-style:dashed;
     background-color: rgb(170, 208, 170)!important;
 }

@@ -25,11 +25,11 @@ export class OffersAndRewardsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.navigationService.pageLoaded();
     const sub = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         this.user = user;
-
+        
+        this.navigationService.pageLoaded();
         sub.unsubscribe();
       }
     );
