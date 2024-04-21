@@ -357,7 +357,7 @@ export class FileService {
                 },
                 {
                   border: [false, true, false, true],
-                  text: 'CAD $' + invoice.totalAmount.toFixed(2),
+                  text: 'CA$' + invoice.totalAmount.toFixed(2),
                   alignment: 'right',
                   fillColor: '#f5f5f5',
                   margin: [0, 5, 0, 5],
@@ -388,7 +388,7 @@ export class FileService {
                   margin: [0, 5, 0, 5],
                 },
                 {
-                  text: 'CAD $' + invoice.totalAmount.toFixed(2),
+                  text: 'CA$' + invoice.totalAmount.toFixed(2),
                   bold: true,
                   fontSize: 15,
                   alignment: 'right',
