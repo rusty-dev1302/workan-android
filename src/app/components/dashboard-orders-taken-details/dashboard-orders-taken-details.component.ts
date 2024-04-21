@@ -122,6 +122,9 @@ export class DashboardOrdersTakenDetailsComponent implements OnInit {
           }
           const sub2 = this.orderService.acceptOrder(this.order.id).subscribe(
             (data) => {
+              if (data.state!=constants.ERROR_STATE) {
+                this.toastr.success(data.state);
+              }
               sub2.unsubscribe();
             }
           );
