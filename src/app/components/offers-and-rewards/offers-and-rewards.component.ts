@@ -6,18 +6,22 @@ import { KeycloakService } from 'keycloak-angular';
 import { constants } from 'src/environments/constants';
 import { Customer } from 'src/app/common/customer';
 import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-offers-and-rewards',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './offers-and-rewards.component.html',
   styleUrls: ['./offers-and-rewards.component.css']
 })
 export class OffersAndRewardsComponent implements OnInit{
 
-  user!: Customer;
+  user!: any;
   referralCode!: any;
+  inputCode: string = "";
+
+  codeVisible: boolean = false;
 
   constructor(
     private navigationService: NavigationService,
@@ -36,10 +40,30 @@ export class OffersAndRewardsComponent implements OnInit{
         if(!this.user.professional) {
           this.getReferralCodeInfo();
         }
+        console.log(JSON.stringify(user))
         sub.unsubscribe();
       }
     );
   
+  }
+
+  viewEditCode(input: boolean) {
+    this.codeVisible = input;
+  }
+
+  applyCode() {
+    console.log("hello")
+    const sub = this.userService.linkUserToReferralCode(this.inputCode).subscribe(
+      (res) => {
+        if(res.state==constants.ERROR_STATE) {
+          this.toastr.warning(res.message);
+        } else {
+          this.toastr.success(res.state);
+        }
+        sub.unsubscribe();
+      }
+    );
+    this.viewEditCode(false);
   }
 
   copyCode() {

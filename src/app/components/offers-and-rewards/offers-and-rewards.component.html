@@ -9,6 +9,13 @@
                 <h1 class=" text-capitalize fw-bolder text-white">
                     Offers & Rewards
                 </h1>
+                <div>
+                    <a *ngIf="user&&!user.professional&&user.newCustomer&&!codeVisible" (click)="viewEditCode(true)" type="button" class="nav-link nav-tab border" style="border-radius: .3rem;margin-left: .2rem;margin-top: .2rem;border-color: rgb(57, 57, 57)!important;background-color: rgb(31, 31, 31);">Apply Code</a>
+                    <a *ngIf="user&&!user.professional&&user.newCustomer&&codeVisible" class="nav-link nav-tab border p-1" style="border-radius: .3rem;margin-left: .2rem;margin-bottom: .4rem;border-color: rgb(57, 57, 57)!important;background-color: rgb(31, 31, 31);"><input type="text" [(ngModel)]="inputCode" id="referralInput" name="referralInput" required minlength="4" maxlength="20" size="10" autocomplete="off"/></a>    
+                </div>
+                <div>
+                    <button *ngIf="user?.newCustomer&&codeVisible" (click)="applyCode()" class="nav-link nav-tab border" style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(57, 57, 57)!important;background-color: rgb(31, 31, 31);padding-left: 1.15rem;padding-right: 1.15rem;">Save Code</button>
+                </div>
             </div>
 
         </div>
@@ -17,19 +24,19 @@
 
 <!--Divider section end -->
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-center">
-    <li *ngIf="user&&!user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;border-color: rgb(45, 45, 45)!important;">
+    <li *ngIf="user&&!user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(45, 45, 45)!important;">
         <a class="nav-link nav-tab">My Code: <span class="px-2 py-1"
                 style="background-color: rgb(55, 55, 55);border-radius: .3rem;">{{referralCode?.code}}</span><i type="button" (click)="copyCode()" class="fa-regular fa-copy" style="margin-left: .6rem;font-size: 1.2rem;"></i></a>
     </li>
-    <li *ngIf="user&&!user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;border-color: rgb(45, 45, 45)!important;">
+    <li *ngIf="user&&!user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(45, 45, 45)!important;">
         <a class="nav-link nav-tab">Completed Referrals: <span class="px-2 py-1"
                 style="background-color: rgb(55, 55, 55);border-radius: .3rem;">{{referralCode?.totalCompletedReferrals}}</span></a>
     </li>
-    <li *ngIf="user&&user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;border-color: rgb(45, 45, 45)!important;">
+    <li *ngIf="user&&user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(45, 45, 45)!important;">
         <a class="nav-link nav-tab">Current Month: <span class="px-2 py-1"
                 style="background-color: rgb(55, 55, 55);border-radius: .3rem;">April</span></a>
     </li>
-    <li *ngIf="user&&user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;border-color: rgb(45, 45, 45)!important;">
+    <li *ngIf="user&&user.professional" class="nav-item border" style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(45, 45, 45)!important;">
         <a class="nav-link nav-tab">Completed Orders: <span class="px-2 py-1"
                 style="background-color: rgb(55, 55, 55);border-radius: .3rem;">100</span></a>
     </li>

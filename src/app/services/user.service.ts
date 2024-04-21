@@ -48,6 +48,11 @@ export class UserService {
     return this.httpClient.get<any>(getUrl);
   }
 
+  linkUserToReferralCode(code: string): Observable<BaseResponse> {
+    const postUrl = `${this.rewardsBaseUrl}/customer/referralCode/apply?code=${code}`;
+    return this.httpClient.post<BaseResponse>(postUrl, {});
+  }
+
   getPaymentAccountByEmail(email: string) {
     const getUrl = `${this.baseUrl}/paymentAccount/detail?email=${email}`;
     return this.httpClient.get<PaymentAccount>(getUrl);
