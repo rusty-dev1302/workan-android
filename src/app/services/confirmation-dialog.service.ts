@@ -13,13 +13,14 @@ export class ConfirmationDialogService {
 
   constructor(private dialogRef: MatDialog) { }
 
-  openDialog(message: string, overrideDefaultMessage: boolean=false, link: any=null, linkText: any=null, postMessage: any=null): Observable<boolean> {
+  openDialog(message: string, textCenter:boolean=true, overrideDefaultMessage: boolean=false, link: any=null, linkText: any=null, postMessage: any=null): Observable<boolean> {
 
     let response: any = {};
     response.message = overrideDefaultMessage?message:constants.CONFIRMATION_DIALOG_MESSAGE+message+"?";
     response.link = link;
     response.linkText = linkText;
     response.postMessage = postMessage;
+    response.textCenter = textCenter;
 
     this.dialogMessage$.next(response);
 

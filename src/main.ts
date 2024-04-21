@@ -131,7 +131,11 @@ const routes: Routes = [
     {
       path: '', loadComponent: () => import('./app/components/dashboard-profile/dashboard-profile.component')
         .then(c => c.DashboardProfileComponent)
-    }
+    },
+    {
+      path: 'offersRewards', loadComponent: () => import('./app/components/offers-and-rewards/offers-and-rewards.component')
+        .then(c => c.OffersAndRewardsComponent)
+    },
     ]
   },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }

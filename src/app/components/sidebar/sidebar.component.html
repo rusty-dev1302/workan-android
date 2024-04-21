@@ -7,11 +7,13 @@
       <li *ngIf="profilePhoto" class="py-2"><img alt="..." class="img-fluid profile-photo" width="58%"
           [src]="profilePhoto.thumbnail" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarMain"></li>
-      <li type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain" style="margin-top: .3rem;">
+      <li type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
+        style="margin-top: .3rem;">
         {{currentUser.firstName}} {{currentUser.lastName}}</li>
       <!-- <li style="font-size: medium;" type="button" routerLink="/dashboard/profile" data-bs-toggle="offcanvas"
         data-bs-target="#sidebarMain">View Profile</li> -->
-      <li><span type="button" style="font-size: .9rem;" (click)="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></span></li>
+      <li><span type="button" style="font-size: .9rem;" (click)="logout()">Logout <i
+            class="fa-solid fa-right-from-bracket"></i></span></li>
       <li>
         <hr class="style1" style="margin-bottom: 0rem;margin-top: .5rem;">
       </li>
@@ -23,11 +25,13 @@
     <ul *ngIf="currentUser&&!currentUser.professional" class="list-unstyled">
       <li><span class="p-2 border rounded">A C C O U N T</span><br><br></li>
       <li><span type="button" routerLink="/dashboard/addressDetails" data-bs-toggle="offcanvas"
-        data-bs-target="#sidebarMain">Contact Details</span></li>
-      <li><span type="button" routerLink="/dashboard/orders" data-bs-toggle="offcanvas"
-          data-bs-target="#sidebarMain">My Orders</span></li>
+          data-bs-target="#sidebarMain">Contact Details</span></li>
+      <li><span type="button" routerLink="/dashboard/orders" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain">My
+          Orders</span></li>
       <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
           routerLink="/dashboard/payments">Payments</span></li>
+      <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
+          routerLink="/dashboard/offersRewards">Offers & Rewards</span></li>
     </ul>
 
     <!-- professional section starts -->
@@ -40,6 +44,8 @@
           routerLink="/dashboard/myorders">My Orders</span></li>
       <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
           routerLink="/dashboard/professionalPayments">Payments</span></li>
+      <li><span type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMain"
+          routerLink="/dashboard/offersRewards">Offers & Rewards</span></li>
     </ul>
     <!-- professional section ends -->
 
@@ -70,17 +76,19 @@
   <div class="offcanvas-body justify-content-center">
     <ul class="list-unstyled sidebar-footer py-4">
       <!-- next release  -->
-      <li><span data-bs-toggle="offcanvas" data-bs-target="#sidebarMain" type="button" style="font-size: .9rem;" (click)="openFeedback()"><i class="fa-solid fa-book px-2"></i>Feedback & Support</span></li>
+      <li><span data-bs-toggle="offcanvas" data-bs-target="#sidebarMain" type="button" style="font-size: .9rem;"
+          (click)="openFeedback()"><i class="fa-solid fa-book px-2"></i>Feedback & Support</span></li>
     </ul>
   </div>
 </div>
 
 <!-- Feedback modal comes here  -->
 <div class="modal fade md-backdrop" id="feedbackSupportModal" data-bs-backdrop="false" data-bs-keyboard="false"
- aria-labelledby="feedbackSupportModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-  <app-feedback-support></app-feedback-support>
-</div>
+  aria-labelledby="feedbackSupportModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <app-feedback-support></app-feedback-support>
+  </div>
 </div>
 
-<button hidden id="feedbackSupportModalButton" data-bs-toggle="modal" data-bs-target="#feedbackSupportModal" type="button">Hidden Button</button>
+<button hidden id="feedbackSupportModalButton" data-bs-toggle="modal" data-bs-target="#feedbackSupportModal"
+  type="button">Hidden Button</button>

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
@@ -8,7 +8,7 @@ import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.
     templateUrl: './confirmation-dialog.component.html',
     styleUrls: ['./confirmation-dialog.component.css'],
     standalone: true,
-    imports: [NgIf, RouterLink]
+    imports: [NgIf, RouterLink, NgClass]
 })
 export class ConfirmationDialogComponent implements OnInit {
 
@@ -16,6 +16,7 @@ export class ConfirmationDialogComponent implements OnInit {
   link:any;
   linkText:any;
   postMessage:any;
+  textCenter: boolean = true;
 
   constructor(
     private dialogService: ConfirmationDialogService
@@ -25,6 +26,8 @@ export class ConfirmationDialogComponent implements OnInit {
     this.dialogService.getDialogMessage().subscribe(
       (response)=>{
         this.dialogMessage = response.message;
+        this.textCenter = response.textCenter;
+        console.log("txtCenter: "+this.textCenter)
         this.link = response.link;
         this.linkText = response.linkText;
         this.postMessage = response.postMessage;

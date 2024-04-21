@@ -571,6 +571,14 @@ hr.style1 {
     outline: none;
 }
 
+.dialog-center {
+    text-align: center!important;
+}
+
+.dialog-start {
+    text-align: start!important;
+}
+
 .btn.btn-scheduled {
     background-color: rgb(255, 221, 0)!important;
     color: black!important;

@@ -12,8 +12,8 @@
             <div class="modal-body">
                 <div class="form-section p-3">
                     <div class="row g-5">
-                        <div class="col text-center" style="white-space: pre-line">
-                            <span>{{dialogMessage}}</span><a class="link" *ngIf="link" [routerLink]="link" target="_blank" style="font-size: 1rem!important;word-spacing: 0rem!important;">{{linkText}}</a><span>{{postMessage?postMessage:''}}</span>
+                        <div class="col" [ngClass]="textCenter?'dialog-center':'dialog-start'" style="white-space: pre-line">
+                            <span [innerHTML]="dialogMessage"></span><a class="link" *ngIf="link" [routerLink]="link" target="_blank" style="font-size: 1rem!important;word-spacing: 0rem!important;">{{linkText}}</a><span>{{postMessage?postMessage:''}}</span>
                         </div>
                     </div>
                 </div>

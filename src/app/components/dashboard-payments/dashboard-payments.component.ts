@@ -79,7 +79,7 @@ export class DashboardPaymentsComponent implements OnInit {
     this.setRedeemFlow(false);
 
     this.emailSpinner = true;
-    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true).subscribe(
+    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true, true).subscribe(
       (response)=> {
         if(response) {
           const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(

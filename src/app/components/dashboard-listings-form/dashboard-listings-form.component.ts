@@ -426,7 +426,7 @@ export class DashboardListingsFormComponent implements OnInit {
         }
       );
     } else {
-      const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachment(s).", true).subscribe(
+      const sub = this.dialogService.openDialog("Only PDF and Image files allowed as attachment(s).", true, true).subscribe(
         () => {
           sub.unsubscribe();
         }
@@ -527,7 +527,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   onClickSubmit() {
     if (this.listing.id != 0 && this.listing.subCategory.subCategoryName != this.displayListing.subCategory.subCategoryName) {
-      this.dialogService.openDialog("Changing the speciality will deactivate the current listing and require reverification! Are you sure you want to continue?", true)
+      this.dialogService.openDialog("Changing the speciality will deactivate the current listing and require reverification! Are you sure you want to continue?", true, true)
         .subscribe((res) => {
           if (res) {
             this.updateListing();
@@ -632,7 +632,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   requestVerification() {
-    const subs = this.dialogService.openDialog("Please make sure all the relevant documents have been attached and sent for verification / verified", true)
+    const subs = this.dialogService.openDialog("Please make sure all the relevant documents have been attached and sent for verification / verified", true, true)
       .subscribe((resp) => {
         if (resp) {
           const subject = "Verification Request";

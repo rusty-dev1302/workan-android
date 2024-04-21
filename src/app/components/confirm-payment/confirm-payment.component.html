@@ -17,7 +17,7 @@
             </div>
             <hr class="style1">
             <div class="col-lg-12 d-flex justify-content-between">
-                <h4 style="color: brown;"><b>Total (CAD):</b></h4>
+                <h4 style="color: brown;"><b>Total (CA$):</b></h4>
                 <h5><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{invoice.totalAmount | number : '1.2-2'}}</h5>
             </div>
             <hr class="style1">
@@ -42,7 +42,7 @@
                         [(ngModel)]="paymentMode">
                     <label class="form-check-label" for="payMethodPaypal" type="button" (click)="getInvoice('paypal')">
                         Pay Using <img alt="GIF Image" class="img-fluid" src="assets/paypal.png" width="20%">
-                        <br><a style="font-size: .9rem!important;">(Additional charge of 5% + 1CAD on paypal transactions)</a>
+                        <br><a style="font-size: .9rem!important;">(Additional charge of CA$1 + 5% of total charges on paypal transactions)</a>
                     </label>
                 </div>
             </div>

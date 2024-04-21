@@ -63,7 +63,7 @@ export class ConfirmPaymentComponent implements OnInit{
           }
         );
       } else {
-        const sub1 = this.dialogService.openDialog("Please pay the professional directly and ask them to accept payment to complete the order.", true).subscribe(
+        const sub1 = this.dialogService.openDialog("Please pay the professional directly and ask them to accept payment to complete the order.", true, true).subscribe(
           (response) => {
             const sub2 = this.orderService.initiateDirectPayment(this.orderId).subscribe(
               () => {
