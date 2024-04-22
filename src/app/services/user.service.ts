@@ -18,6 +18,8 @@ import { PaymentAccount } from '../common/payment-account';
 export class UserService {
 
   private baseUrl = constants.API_SERVER+'/api/v1/customer';
+  private rewardsBaseUrl = constants.API_SERVER+'/api/v1/rewards'
+
   private isFirstLogin$ = new Subject<boolean>();
   private currentUser$ = new BehaviorSubject<Customer>(constants.DEFAULT_CUSTOMER);
 
@@ -39,6 +41,16 @@ export class UserService {
   getCertificationsByEmail(email: string): Observable<Certification[]> {
     const getUrl = `${this.baseUrl}/certification/all?email=${email}`;
     return this.httpClient.get<Certification[]>(getUrl);
+  }
+
+  getReferralCodeInfo(): Observable<any> {
+    const getUrl = `${this.rewardsBaseUrl}/customer/referralCode`;
+    return this.httpClient.get<any>(getUrl);
+  }
+
+  linkUserToReferralCode(code: string): Observable<BaseResponse> {
+    const postUrl = `${this.rewardsBaseUrl}/customer/referralCode/apply?code=${code}`;
+    return this.httpClient.post<BaseResponse>(postUrl, {});
   }
 
   getPaymentAccountByEmail(email: string) {
