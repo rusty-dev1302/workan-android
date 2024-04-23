@@ -24,7 +24,7 @@ export class LandingPageComponent implements OnInit{
   }
 
   displayDemo() {
-    this.dialogService.openDialog("We are yet to get LIVE!",true);
+    this.dialogService.openDialog("We are still in TESTING MODE!",true, true);
   }
 
 }
