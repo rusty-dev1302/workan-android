@@ -13,7 +13,9 @@ i {
     font-family: FontAwesome !important;
 }
 
-
+html {
+    background-color: #e1e1e1;
+}
 
 .no-cursor {
     -webkit-user-select: none;

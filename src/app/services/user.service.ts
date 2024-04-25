@@ -48,6 +48,11 @@ export class UserService {
     return this.httpClient.get<any>(getUrl);
   }
 
+  getCompletedOrdersInfo(month: number): Observable<number> {
+    const getUrl = `${this.rewardsBaseUrl}/professional/completedOrders?month=${month}`;
+    return this.httpClient.get<number>(getUrl);
+  }
+
   linkUserToReferralCode(code: string): Observable<BaseResponse> {
     const postUrl = `${this.rewardsBaseUrl}/customer/referralCode/apply?code=${code}`;
     return this.httpClient.post<BaseResponse>(postUrl, {});

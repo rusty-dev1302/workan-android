@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
@@ -23,7 +23,7 @@ import { RedeemWalletComponent } from '../redeem-wallet/redeem-wallet.component'
     templateUrl: './dashboard-payments.component.html',
     styleUrls: ['./dashboard-payments.component.css'],
     standalone: true,
-    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent]
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent, CommonModule]
 })
 export class DashboardPaymentsComponent implements OnInit {
 

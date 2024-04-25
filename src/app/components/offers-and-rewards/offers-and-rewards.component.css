@@ -30,3 +30,7 @@ td {
     border-style:dashed;
     background-color: rgb(109, 205, 109)!important;
 }
+
+.dropdown-select {
+    background-color: rgb(218, 230, 255);
+}

@@ -1,21 +1,20 @@
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
+import { ToastrService } from 'ngx-toastr';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
-import { KeycloakService } from 'keycloak-angular';
 import { constants } from 'src/environments/constants';
-import { Customer } from 'src/app/common/customer';
-import { ToastrService } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-offers-and-rewards',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgFor],
   templateUrl: './offers-and-rewards.component.html',
   styleUrls: ['./offers-and-rewards.component.css']
 })
-export class OffersAndRewardsComponent implements OnInit{
+export class OffersAndRewardsComponent implements OnInit {
 
   user!: any;
   referralCode!: any;
@@ -23,11 +22,17 @@ export class OffersAndRewardsComponent implements OnInit{
 
   codeVisible: boolean = false;
 
+  monthList: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  currentMonth: number = new Date().getMonth()+1;
+
+  completedOrders: number = 0;
+
   constructor(
     private navigationService: NavigationService,
     private userService: UserService,
     private keycloakService: KeycloakService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
 
   }
@@ -37,14 +42,16 @@ export class OffersAndRewardsComponent implements OnInit{
       (user) => {
         this.user = user;
         this.navigationService.pageLoaded();
-        if(!this.user.professional) {
+        if (!this.user.professional) {
           this.getReferralCodeInfo();
+        } else {
+          this.getCompletedOrdersInfo();
         }
         console.log(JSON.stringify(user))
         sub.unsubscribe();
       }
     );
-  
+
   }
 
   viewEditCode(input: boolean) {
@@ -55,7 +62,7 @@ export class OffersAndRewardsComponent implements OnInit{
     console.log("hello")
     const sub = this.userService.linkUserToReferralCode(this.inputCode).subscribe(
       (res) => {
-        if(res.state==constants.ERROR_STATE) {
+        if (res.state == constants.ERROR_STATE) {
           this.toastr.warning(res.message);
         } else {
           this.toastr.success(res.state);
@@ -84,7 +91,7 @@ export class OffersAndRewardsComponent implements OnInit{
   getReferralCodeInfo() {
     const sub = this.userService.getReferralCodeInfo().subscribe(
       (code) => {
-        if(code.state!=constants.ERROR_STATE) {
+        if (code.state != constants.ERROR_STATE) {
           this.referralCode = code;
         }
 
@@ -93,6 +100,20 @@ export class OffersAndRewardsComponent implements OnInit{
     );
   }
 
+  selectMonth(month: number) {
+    this.currentMonth = month;
+    this.getCompletedOrdersInfo();
+  }
 
+  getCompletedOrdersInfo() {
+    const sub = this.userService.getCompletedOrdersInfo(this.currentMonth).subscribe(
+      (numOrders) => {
+
+        this.completedOrders = numOrders;
+
+        sub.unsubscribe();
+      }
+    );
+  }
 
 }

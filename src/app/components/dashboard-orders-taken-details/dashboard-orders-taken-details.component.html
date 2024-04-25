@@ -153,9 +153,9 @@
                       </button>
                     </div>
                     <div *ngIf="order.status=='ACCEPTED'||order.status=='SCHEDULED'" class="col-12 py-2">
-                      <button *ngIf="!lowBalance" class="btn btn-warning btn-rounded col-12" type="button"
+                      <button class="btn btn-warning btn-rounded col-12" type="button"
                         data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
-                        (click)="scheduleOrder(order)">Schedule / Reschedule Appointment
+                        (click)="scheduleOrder(order)">Schedule / Reschedule
                       </button>
                     </div>
                     <div
