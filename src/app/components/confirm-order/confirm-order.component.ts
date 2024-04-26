@@ -20,16 +20,16 @@ import { constants } from 'src/environments/constants';
   templateUrl: './confirm-order.component.html',
   styleUrls: ['./confirm-order.component.css']
 })
-export class ConfirmOrderComponent implements OnInit{
+export class ConfirmOrderComponent implements OnInit {
 
   @Input()
-  professionalView:boolean = false;
+  professionalView: boolean = false;
 
-  @Input() 
+  @Input()
   selectedOrderId: number = 0;
 
   @Input()
-  selectedMenuItems: any[]=[];
+  selectedMenuItems: any[] = [];
 
   @Input()
   appointmentDate!: Date;
@@ -42,10 +42,12 @@ export class ConfirmOrderComponent implements OnInit{
 
   totalMenuCharges: number = 0
 
-  currentDate: any="Select a date";
+  currentDate: any = "Select a date";
 
   currentSlots!: any[];
   currentStep: number = 0;
+
+  availabilityRange = new Map();
 
   selectedDate!: Date;
   selectedSlot!: SlotTemplateItem;
@@ -65,11 +67,68 @@ export class ConfirmOrderComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    const sub = this.listingService.getListingByEmail(this.keycloakService.getUsername()).subscribe(
+      (listing) => {
+        if (listing && listing.id) {
+          this.getAvailability(listing.id);
+        }
+        sub.unsubscribe();
+      }
+    );
+
+  }
+
+  getAvailability(listingId: number) {
+    this.availabilityRange = new Map();
+
+    const subscription = this.listingService.getAvailabilityRange(listingId).subscribe(
+      (data) => {
+
+        // See for unavailability for next 7 days
+        let dates: string[] = [];
+
+        for (let i = 0; i < 7; i++) {
+          let date: Date = new Date();
+          date.setDate(new Date().getDate() + i)
+
+          dates.push(this.dateTimeService.truncateTimezoneToString(date));
+        }
+
+        const sub = this.listingService.getUnavailableDatesFromDates(listingId, dates).subscribe(
+          (data1) => {
+            // Set of unavailable day names
+            let unavailableDays: Map<string, string> = new Map();
+
+            data1.forEach(
+              (ud) => {
+                let day: string = this.datePipe.transform(new Date(ud), "EEEE", '+0000')!;
+                unavailableDays.set(day, ud);
+              }
+            );
+
+            // Converting range to array with day as key and range as value 
+            Object.keys(data).map((key: any) => {
+              let dd = (data[key] as unknown as string).split(",")[0];
+              if (!unavailableDays.has(dd)) {
+                this.availabilityRange.set((data[key] as unknown as string).split(",")[0], (data[key] as unknown as string).split(",")[1]);
+              }
+            });
+
+            // method to get the time range for selected date 
+            // this.getSlotsForDay(new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd", "+000000")!), 0);
+
+            sub.unsubscribe();
+          }
+        );
+
+        subscription.unsubscribe();
+      }
+    );
   }
 
   slotDate(index: number): Date {
-    let date: Date = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(new Date(),"yyyy-MM-dd")!));
-    date.setDate(date.getDate() + (index+1));
+    let date: Date = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(new Date(), "yyyy-MM-dd")!));
+    date.setDate(date.getDate() + (index + 1));
 
     return date;
   }
@@ -112,10 +171,10 @@ export class ConfirmOrderComponent implements OnInit{
     this.totalMenuCharges = 0;
     items.forEach(
       (mi) => {
-        if(mi.quantity==null) {
-          mi.quantity=0;
+        if (mi.quantity == null) {
+          mi.quantity = 0;
         }
-        this.totalMenuCharges += mi.quantity*mi.charges;
+        this.totalMenuCharges += mi.quantity * mi.charges;
       }
     );
     return this.totalMenuCharges;
@@ -149,8 +208,8 @@ export class ConfirmOrderComponent implements OnInit{
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-      this.selectedDate = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!))
-       let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, this.dateTimeService.truncateTimezone(this.selectedDate), null!, null!);
+        this.selectedDate = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!))
+        let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, this.dateTimeService.truncateTimezone(this.selectedDate), null!, null!);
         const subscription = this.orderService.scheduleOrderAppointment(this.selectedOrderId, this.selectedSlot.id, createOrderRequest!).subscribe(
           (data) => {
             if (data.state == constants.SUCCESS_STATE) {

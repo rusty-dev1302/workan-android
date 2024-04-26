@@ -1,0 +1,9 @@
+.selected {
+    pointer-events: none;
+    background-color: rgb(213, 213, 213);
+    color: rgb(56, 56, 56);
+}
+
+.strike-through {
+    text-decoration: line-through;
+}
