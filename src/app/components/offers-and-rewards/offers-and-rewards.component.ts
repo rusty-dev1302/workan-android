@@ -65,6 +65,7 @@ export class OffersAndRewardsComponent implements OnInit {
         if (res.state == constants.ERROR_STATE) {
           this.toastr.warning(res.message);
         } else {
+          window.location.reload();
           this.toastr.success(res.state);
         }
         sub.unsubscribe();
