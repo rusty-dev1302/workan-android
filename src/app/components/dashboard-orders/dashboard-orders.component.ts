@@ -77,7 +77,6 @@ export class DashboardOrdersComponent implements OnInit {
 
   onScroll() {
     if(this.pageNumber!=-1) {
-      console.log("loading "+this.pageNumber);
       this.loadOrders();
     }
   }

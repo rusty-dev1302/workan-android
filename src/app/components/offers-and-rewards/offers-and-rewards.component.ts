@@ -61,14 +61,11 @@ export class OffersAndRewardsComponent implements OnInit {
         } else {
           this.getCompletedOrdersInfo();
         }
-        console.log(JSON.stringify(user))
         sub.unsubscribe();
       }
     );
 
     this.createMonths();
-    console.log(this.currentMonthStart);
-    console.log(JSON.stringify(this.monthStartList))
   }
 
   viewEditCode(input: boolean) {
@@ -76,7 +73,6 @@ export class OffersAndRewardsComponent implements OnInit {
   }
 
   applyCode() {
-    console.log("hello")
     const sub = this.userService.linkUserToReferralCode(this.inputCode).subscribe(
       (res) => {
         if (res.state == constants.ERROR_STATE) {
@@ -124,7 +120,6 @@ export class OffersAndRewardsComponent implements OnInit {
   }
 
   getCompletedOrdersInfo() {
-    console.log(this.currentMonthStart);
     const sub = this.userService.getCompletedOrdersInfo(this.dateTimeService.truncateTimezone(this.currentMonthStart)).subscribe(
       (numOrders) => {
 

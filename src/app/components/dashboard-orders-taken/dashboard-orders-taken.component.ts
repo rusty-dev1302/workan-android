@@ -67,7 +67,6 @@ export class DashboardOrdersTakenComponent {
           const subscription = this.orderService.getOrdersForProfessional(user.id, this.ordersStatus, this.pageNumber).subscribe(
             (data) => {
               if (data[0] && data[0].state != constants.ERROR_STATE) {
-                console.log(data)
                 this.allOrders = this.allOrders.concat(data);
                 this.pageNumber++;
               } else {
@@ -86,7 +85,6 @@ export class DashboardOrdersTakenComponent {
 
   onScroll() {
     if(this.pageNumber!=-1) {
-      console.log("loading "+this.pageNumber);
       this.loadOrders();
     }
   }
