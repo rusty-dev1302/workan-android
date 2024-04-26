@@ -1,4 +1,4 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, DatePipe, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
@@ -22,9 +22,9 @@ export class OffersAndRewardsComponent implements OnInit {
 
   codeVisible: boolean = false;
 
-  monthList: string[] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  monthStartList: Date[] = [];
 
-  currentMonth: number = new Date().getMonth()+1;
+  currentMonthStart!: Date;
 
   completedOrders: number = 0;
 
@@ -33,11 +33,24 @@ export class OffersAndRewardsComponent implements OnInit {
     private userService: UserService,
     private keycloakService: KeycloakService,
     private toastr: ToastrService,
+    private datePipe: DatePipe
   ) {
 
   }
 
+  createMonths() {
+    for (let i = 0; i < 12; i++) {
+      let date = new Date();
+      date.setMonth(date.getMonth()-i);
+      date.setDate(1);
+      this.monthStartList.push(date);
+    }
+  }
+
   ngOnInit(): void {
+    this.currentMonthStart = new Date();
+    this.currentMonthStart.setDate(1);
+
     const sub = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         this.user = user;
@@ -52,6 +65,7 @@ export class OffersAndRewardsComponent implements OnInit {
       }
     );
 
+    this.createMonths();
   }
 
   viewEditCode(input: boolean) {
@@ -101,13 +115,13 @@ export class OffersAndRewardsComponent implements OnInit {
     );
   }
 
-  selectMonth(month: number) {
-    this.currentMonth = month;
+  selectMonth(date: Date) {
+    this.currentMonthStart = date;
     this.getCompletedOrdersInfo();
   }
 
   getCompletedOrdersInfo() {
-    const sub = this.userService.getCompletedOrdersInfo(this.currentMonth).subscribe(
+    const sub = this.userService.getCompletedOrdersInfo(this.currentMonthStart).subscribe(
       (numOrders) => {
 
         this.completedOrders = numOrders;

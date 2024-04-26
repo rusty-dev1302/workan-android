@@ -48,8 +48,8 @@ export class UserService {
     return this.httpClient.get<any>(getUrl);
   }
 
-  getCompletedOrdersInfo(month: number): Observable<number> {
-    const getUrl = `${this.rewardsBaseUrl}/professional/completedOrders?month=${month}`;
+  getCompletedOrdersInfo(currentMonthStart: Date): Observable<number> {
+    const getUrl = `${this.rewardsBaseUrl}/professional/completedOrders?startDate=${currentMonthStart}`;
     return this.httpClient.get<number>(getUrl);
   }
 

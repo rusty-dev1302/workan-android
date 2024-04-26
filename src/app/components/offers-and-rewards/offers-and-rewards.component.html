@@ -54,12 +54,12 @@
                 Current Month:
             </button>
             <ul class="dropdown-menu" aria-labelledby="currentMonthButton">
-                <li (click)="selectMonth(i+1)" *ngFor="let month of monthList; let i=index"
-                    [ngClass]="currentMonth==i+1?'dropdown-select':''"><a class="dropdown-item"
-                        style="text-align: center;">{{month}}</a></li>
+                <li *ngFor="let month of monthStartList"
+                    [ngClass]="currentMonthStart==month?'dropdown-select':''"><a (click)="selectMonth(month)" class="dropdown-item"
+                        style="text-align: center;">{{month|date:'MMMM yy'}}</a></li>
             </ul>
             <span class="px-2 py-1"
-                style="background-color: rgb(55, 55, 55);border-radius: .3rem;margin-left: .4rem;">{{monthList[currentMonth-1]}}</span>
+                style="background-color: rgb(55, 55, 55);border-radius: .3rem;margin-left: .4rem;">{{currentMonthStart|date:'MMM yy'}}</span>
         </div>
     </li>
     <li *ngIf="user&&user.professional" class="nav-item border p-1"
