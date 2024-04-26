@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
+import { DateTimeService } from 'src/app/common/services/date-time.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
@@ -33,7 +34,7 @@ export class OffersAndRewardsComponent implements OnInit {
     private userService: UserService,
     private keycloakService: KeycloakService,
     private toastr: ToastrService,
-    private datePipe: DatePipe
+    private dateTimeService: DateTimeService
   ) {
 
   }
@@ -66,6 +67,8 @@ export class OffersAndRewardsComponent implements OnInit {
     );
 
     this.createMonths();
+    console.log(this.currentMonthStart);
+    console.log(JSON.stringify(this.monthStartList))
   }
 
   viewEditCode(input: boolean) {
@@ -121,7 +124,8 @@ export class OffersAndRewardsComponent implements OnInit {
   }
 
   getCompletedOrdersInfo() {
-    const sub = this.userService.getCompletedOrdersInfo(this.currentMonthStart).subscribe(
+    console.log(this.currentMonthStart);
+    const sub = this.userService.getCompletedOrdersInfo(this.dateTimeService.truncateTimezone(this.currentMonthStart)).subscribe(
       (numOrders) => {
 
         this.completedOrders = numOrders;

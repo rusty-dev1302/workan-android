@@ -54,9 +54,9 @@
                 Current Month:
             </button>
             <ul class="dropdown-menu" aria-labelledby="currentMonthButton">
-                <li *ngFor="let month of monthStartList"
-                    [ngClass]="currentMonthStart==month?'dropdown-select':''"><a (click)="selectMonth(month)" class="dropdown-item"
-                        style="text-align: center;">{{month|date:'MMMM yy'}}</a></li>
+                <li *ngFor="let monthStart of monthStartList"
+                    [ngClass]="currentMonthStart==monthStart?'dropdown-select':''"><a (click)="selectMonth(monthStart)" class="dropdown-item"
+                        style="text-align: center;">{{monthStart|date:'MMMM yy'}}</a></li>
             </ul>
             <span class="px-2 py-1"
                 style="background-color: rgb(55, 55, 55);border-radius: .3rem;margin-left: .4rem;">{{currentMonthStart|date:'MMM yy'}}</span>

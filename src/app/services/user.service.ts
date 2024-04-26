@@ -49,8 +49,9 @@ export class UserService {
   }
 
   getCompletedOrdersInfo(currentMonthStart: Date): Observable<number> {
-    const getUrl = `${this.rewardsBaseUrl}/professional/completedOrders?startDate=${currentMonthStart}`;
-    return this.httpClient.get<number>(getUrl);
+    let request = {appointmentDate: currentMonthStart};
+    const getUrl = `${this.rewardsBaseUrl}/professional/completedOrders`;
+    return this.httpClient.post<number>(getUrl, request);
   }
 
   linkUserToReferralCode(code: string): Observable<BaseResponse> {
