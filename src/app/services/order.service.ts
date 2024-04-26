@@ -40,13 +40,13 @@ export class OrderService {
     return this.httpClient.get<any[]>(getUrl)
   }
 
-  getOrdersForCustomer(customerId: number, ordersStatus: string): Observable<Order[]> {
-    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}&&ordersStatus=${ordersStatus}`;
+  getOrdersForCustomer(customerId: number, ordersStatus: string, pageNumber: number=0): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}&&ordersStatus=${ordersStatus}&&pageNumber=${pageNumber}`;
     return this.httpClient.get<Order[]>(getUrl)
   }
 
-  getOrdersForProfessional(professionalId: number, ordersStatus: string): Observable<Order[]> {
-    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}&&ordersStatus=${ordersStatus}`;
+  getOrdersForProfessional(professionalId: number, ordersStatus: string, pageNumber: number=0): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}&&ordersStatus=${ordersStatus}&&pageNumber=${pageNumber}`;
     return this.httpClient.get<Order[]>(getUrl)
   }
 

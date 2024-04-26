@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { Order } from 'src/app/common/order';
 import { DateTimeService } from 'src/app/common/services/date-time.service';
 import { NavigationService } from 'src/app/services/navigation.service';
@@ -15,13 +16,15 @@ import { constants } from 'src/environments/constants';
   templateUrl: './dashboard-orders.component.html',
   styleUrls: ['./dashboard-orders.component.css'],
   standalone: true,
-  imports: [NgFor, FormsModule, NgClass, NgIf, RouterLink, DecimalPipe, DatePipe]
+  imports: [NgFor, FormsModule, NgClass, NgIf, RouterLink, DecimalPipe, DatePipe, InfiniteScrollModule]
 })
 export class DashboardOrdersComponent implements OnInit {
 
-  allOrders!: Order[];
+  allOrders: Order[] = [];
   subscription: any;
   ordersStatus: string = 'ALL';
+
+  pageNumber: number = 0;
 
   constructor(
     private orderService: OrderService,
@@ -36,7 +39,7 @@ export class DashboardOrdersComponent implements OnInit {
 
   ngOnInit() {
     this.navigationService.showLoader();
-    if(this.route.snapshot.queryParamMap.has('status')) {
+    if (this.route.snapshot.queryParamMap.has('status')) {
       this.ordersStatus = this.route.snapshot.queryParamMap.get('status')!;
     }
     this.loadOrders();
@@ -47,9 +50,15 @@ export class DashboardOrdersComponent implements OnInit {
     this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if (user.state == constants.SUCCESS_STATE) {
-          const subscription = this.orderService.getOrdersForCustomer(user.id, this.ordersStatus).subscribe(
+          const subscription = this.orderService.getOrdersForCustomer(user.id, this.ordersStatus, this.pageNumber).subscribe(
             (data) => {
-              this.allOrders = data;
+              if (data[0] && data[0].state != constants.ERROR_STATE) {
+                this.allOrders = this.allOrders.concat(data);
+                this.pageNumber++;
+              } else {
+                this.pageNumber = -1;
+              }
+              
               this.navigationService.pageLoaded();
               subscription.unsubscribe();
             }
@@ -61,9 +70,15 @@ export class DashboardOrdersComponent implements OnInit {
   }
 
   toggleTabs(input: string) {
-    this.router.navigate(['/dashboard/orders'], { queryParams: {status:input} }).then(() => {
+    this.router.navigate(['/dashboard/orders'], { queryParams: { status: input } }).then(() => {
       window.location.reload();
     });;
   }
 
+  onScroll() {
+    if(this.pageNumber!=-1) {
+      console.log("loading "+this.pageNumber);
+      this.loadOrders();
+    }
+  }
 }

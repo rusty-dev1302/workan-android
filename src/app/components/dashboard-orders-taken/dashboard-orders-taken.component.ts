@@ -10,18 +10,21 @@ import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { PhonePipe } from '../../pipes/phone-pipe';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
-    selector: 'app-dashboard-orders-taken',
-    templateUrl: './dashboard-orders-taken.component.html',
-    styleUrls: ['./dashboard-orders-taken.component.css'],
-    standalone: true,
-    imports: [NgFor, FormsModule, NgClass, NgIf, RouterLink, DecimalPipe, DatePipe, PhonePipe]
+  selector: 'app-dashboard-orders-taken',
+  templateUrl: './dashboard-orders-taken.component.html',
+  styleUrls: ['./dashboard-orders-taken.component.css'],
+  standalone: true,
+  imports: [NgFor, FormsModule, NgClass, NgIf, RouterLink, DecimalPipe, DatePipe, PhonePipe, InfiniteScrollModule]
 })
 export class DashboardOrdersTakenComponent {
 
-  allOrders!: Order[];
+  allOrders: Order[] = [];
   subscription: any;
+
+  pageNumber: number = 0;
 
   ordersStatus: string = 'ALL';
 
@@ -39,7 +42,7 @@ export class DashboardOrdersTakenComponent {
 
   ngOnInit() {
     this.navigationService.showLoader();
-    if(this.route.snapshot.queryParamMap.has('status')) {
+    if (this.route.snapshot.queryParamMap.has('status')) {
       this.ordersStatus = this.route.snapshot.queryParamMap.get('status')!;
     }
     this.loadOrders();
@@ -49,9 +52,9 @@ export class DashboardOrdersTakenComponent {
     const strDate = this.datePipe.transform(date, 'dd MMM (EEE)', '+0000');
     return strDate;
   }
-  
+
   toggleTabs(input: string) {
-    this.router.navigate(['/dashboard/myorders'], { queryParams: {status:input} }).then(() => {
+    this.router.navigate(['/dashboard/myorders'], { queryParams: { status: input } }).then(() => {
       window.location.reload();
     });;
   }
@@ -60,10 +63,17 @@ export class DashboardOrdersTakenComponent {
 
     this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
-        if(user.state==constants.SUCCESS_STATE) {
-          const subscription = this.orderService.getOrdersForProfessional(user.id, this.ordersStatus).subscribe(
+        if (user.state == constants.SUCCESS_STATE) {
+          const subscription = this.orderService.getOrdersForProfessional(user.id, this.ordersStatus, this.pageNumber).subscribe(
             (data) => {
-              this.allOrders = data;
+              if (data[0] && data[0].state != constants.ERROR_STATE) {
+                console.log(data)
+                this.allOrders = this.allOrders.concat(data);
+                this.pageNumber++;
+              } else {
+                this.pageNumber = -1;
+              }
+
               this.navigationService.pageLoaded();
               subscription.unsubscribe();
             }
@@ -74,8 +84,11 @@ export class DashboardOrdersTakenComponent {
     );
   }
 
-  getGroupDate() {
-    return "hello"
+  onScroll() {
+    if(this.pageNumber!=-1) {
+      console.log("loading "+this.pageNumber);
+      this.loadOrders();
+    }
   }
 
 }
