@@ -35,18 +35,18 @@ export class OrderService {
     return this.httpClient.post<BaseResponse>(postUrl, {});
   }
 
-  getOrdersForCustomer(customerId: number, cancelledOrders: boolean): Observable<Order[]> {
-    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}&&cancelledOrders=${cancelledOrders}`;
-    return this.httpClient.get<Order[]>(getUrl)
-  }
-
   getMenuItemsForOrder(orderId: number): Observable<any[]> {
     const getUrl = `${this.baseUrl}/menuItems?orderId=${orderId}`;
     return this.httpClient.get<any[]>(getUrl)
   }
 
-  getOrdersForProfessional(professionalId: number, cancelledOrders: boolean): Observable<Order[]> {
-    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}&&cancelledOrders=${cancelledOrders}`;
+  getOrdersForCustomer(customerId: number, ordersStatus: string): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/customer/all?customerId=${customerId}&&ordersStatus=${ordersStatus}`;
+    return this.httpClient.get<Order[]>(getUrl)
+  }
+
+  getOrdersForProfessional(professionalId: number, ordersStatus: string): Observable<Order[]> {
+    const getUrl = `${this.baseUrl}/professional/all?professionalId=${professionalId}&&ordersStatus=${ordersStatus}`;
     return this.httpClient.get<Order[]>(getUrl)
   }
 

@@ -16,11 +16,16 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
   <li class="nav-item">
-    <a type="button" class="nav-link nav-tab" [ngClass]="!cancelledOrdersSelected?'active':''" (click)="toggleTabs(false)">Orders</a>
+    <a type="button" class="nav-link nav-tab" [ngClass]="ordersStatus=='ALL'?'active':''"
+      (click)="toggleTabs('ALL')">Orders</a>
   </li>
   <li class="nav-item">
-    <a type="button" class="nav-link nav-tab" [ngClass]="cancelledOrdersSelected?'active':''" (click)="toggleTabs(true)">Cancelled
-      Orders</a>
+    <a type="button" class="nav-link nav-tab" [ngClass]="ordersStatus=='COMPLETED'?'active':''"
+      (click)="toggleTabs('COMPLETED')">Completed Orders</a>
+  </li>
+  <li class="nav-item">
+    <a type="button" class="nav-link nav-tab" [ngClass]="ordersStatus=='CANCELLED'?'active':''"
+      (click)="toggleTabs('CANCELLED')">Cancelled Orders</a>
   </li>
 </ul>
 
@@ -36,7 +41,7 @@
       <!-- <h1>Profile</h1> -->
       <div class="row">
 
-        <div *ngIf="!cancelledOrdersSelected">
+        <div *ngIf="ordersStatus=='ALL'||ordersStatus=='COMPLETED'">
           <!-- to be iterated over orders start  -->
           <div *ngFor="let order of allOrders;let i=index;let f=first" class="col-12">
             <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
@@ -114,7 +119,7 @@
           <!-- to be iterated over orders end  -->
         </div>
 
-        <div *ngIf="cancelledOrdersSelected">
+        <div *ngIf="ordersStatus=='CANCELLED'">
           <!-- to be iterated over orders start  -->
           <div *ngFor="let order of allOrders;let i=index;let f=first" class="col-12">
             <h1 class="btn btn-marker disabled px-3 py-2" style="margin-top: 3rem;" *ngIf="f||datePipe.transform(allOrders[i]?.appointmentDate,'dd-MMM-yyyy','+0000')!=datePipe.transform(allOrders[i-1]?.appointmentDate,'dd-MMM-yyyy','+0000')">{{order.appointmentDate|date:'dd-MMM-yyyy':'+0000'}}</h1>
@@ -193,10 +198,7 @@
         </div>
 
         <div class="col-12" style="padding-top: 150px;padding-bottom: 150px;">
-          <div *ngIf="!cancelledOrdersSelected&&(!allOrders||allOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
-            No orders found.
-          </div>
-          <div *ngIf="cancelledOrdersSelected&&(!allOrders||allOrders?.length == 0)" class="alert alert-warning col-12" role="alert">
+          <div *ngIf="!allOrders||allOrders?.length == 0" class="alert alert-warning col-12" role="alert">
             No orders found.
           </div>
         </div>

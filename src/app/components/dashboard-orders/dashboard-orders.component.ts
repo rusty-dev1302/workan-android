@@ -21,7 +21,7 @@ export class DashboardOrdersComponent implements OnInit {
 
   allOrders!: Order[];
   subscription: any;
-  cancelledOrdersSelected: boolean = false;
+  ordersStatus: string = 'ALL';
 
   constructor(
     private orderService: OrderService,
@@ -36,8 +36,8 @@ export class DashboardOrdersComponent implements OnInit {
 
   ngOnInit() {
     this.navigationService.showLoader();
-    if(this.route.snapshot.queryParamMap.has('cancelledSelected')) {
-      this.cancelledOrdersSelected = this.route.snapshot.queryParamMap.get('cancelledSelected') ? this.route.snapshot.queryParamMap.get('cancelledSelected')=='true'! : false;
+    if(this.route.snapshot.queryParamMap.has('status')) {
+      this.ordersStatus = this.route.snapshot.queryParamMap.get('status')!;
     }
     this.loadOrders();
   }
@@ -47,7 +47,7 @@ export class DashboardOrdersComponent implements OnInit {
     this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if (user.state == constants.SUCCESS_STATE) {
-          const subscription = this.orderService.getOrdersForCustomer(user.id, this.cancelledOrdersSelected).subscribe(
+          const subscription = this.orderService.getOrdersForCustomer(user.id, this.ordersStatus).subscribe(
             (data) => {
               this.allOrders = data;
               this.navigationService.pageLoaded();
@@ -60,8 +60,8 @@ export class DashboardOrdersComponent implements OnInit {
     );
   }
 
-  toggleTabs(input: boolean) {
-    this.router.navigate(['/dashboard/orders'], { queryParams: {cancelledSelected:input} }).then(() => {
+  toggleTabs(input: string) {
+    this.router.navigate(['/dashboard/orders'], { queryParams: {status:input} }).then(() => {
       window.location.reload();
     });;
   }

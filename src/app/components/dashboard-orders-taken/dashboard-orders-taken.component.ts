@@ -23,7 +23,7 @@ export class DashboardOrdersTakenComponent {
   allOrders!: Order[];
   subscription: any;
 
-  cancelledOrdersSelected: boolean = false;
+  ordersStatus: string = 'ALL';
 
 
   constructor(
@@ -39,8 +39,8 @@ export class DashboardOrdersTakenComponent {
 
   ngOnInit() {
     this.navigationService.showLoader();
-    if(this.route.snapshot.queryParamMap.has('cancelledSelected')) {
-      this.cancelledOrdersSelected = this.route.snapshot.queryParamMap.get('cancelledSelected') ? this.route.snapshot.queryParamMap.get('cancelledSelected')=='true'! : false;
+    if(this.route.snapshot.queryParamMap.has('status')) {
+      this.ordersStatus = this.route.snapshot.queryParamMap.get('status')!;
     }
     this.loadOrders();
   }
@@ -50,8 +50,8 @@ export class DashboardOrdersTakenComponent {
     return strDate;
   }
   
-  toggleTabs(input: boolean) {
-    this.router.navigate(['/dashboard/myorders'], { queryParams: {cancelledSelected:input} }).then(() => {
+  toggleTabs(input: string) {
+    this.router.navigate(['/dashboard/myorders'], { queryParams: {status:input} }).then(() => {
       window.location.reload();
     });;
   }
@@ -61,7 +61,7 @@ export class DashboardOrdersTakenComponent {
     this.subscription = this.userService.getUserShortByEmail(this.keycloakService.getUsername()).subscribe(
       (user) => {
         if(user.state==constants.SUCCESS_STATE) {
-          const subscription = this.orderService.getOrdersForProfessional(user.id, this.cancelledOrdersSelected).subscribe(
+          const subscription = this.orderService.getOrdersForProfessional(user.id, this.ordersStatus).subscribe(
             (data) => {
               this.allOrders = data;
               this.navigationService.pageLoaded();
