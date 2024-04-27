@@ -30,6 +30,10 @@ export class DashboardPaymentsComponent implements OnInit {
 
   showWallet: boolean = true;
 
+  monthStartList: Date[] = [];
+
+  currentMonthStart!: Date;
+
   paymentAccount!: PaymentAccount;
   orderTransactions: Transaction[] = [];
   walletTransactions: Transaction[] = [];
@@ -40,7 +44,8 @@ export class DashboardPaymentsComponent implements OnInit {
 
   isProfessional: boolean = false;
 
-  pageNumber: number = 0;
+  orderPageNumber: number = 0;
+  walletPageNumber: number = 0;
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -60,7 +65,10 @@ export class DashboardPaymentsComponent implements OnInit {
   ngOnInit(): void {
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
     this.navigationService.showLoader();
+    this.currentMonthStart = new Date();
+    this.currentMonthStart.setDate(1);
     this.loadPaymentAccount();
+    this.createMonths();
   }
 
   toggleEditEmail() {
@@ -153,13 +161,12 @@ export class DashboardPaymentsComponent implements OnInit {
           const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
             (account) => {
               this.paymentAccount = account;
-              this.orderTransactions = this.paymentAccount.transactions.filter(
-                t => !t.mode.toLowerCase().includes("wallet")
-              ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
-              this.walletTransactions = this.paymentAccount.transactions.filter(
-                t => t.mode.toLowerCase().includes("wallet")
-              ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+              if(this.showWallet) {
+                this.loadWalletTransactions();
+              } else {
+                this.loadOrderTransactions();
+              }
 
               this.navigationService.pageLoaded();
               sub.unsubscribe();
@@ -167,6 +174,38 @@ export class DashboardPaymentsComponent implements OnInit {
           );
         }
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  loadWalletTransactions(pageNumber: number = 0) {
+    const sub1 = this.userService.getPaymentTransactions(this.currentMonthStart, 'wallet', pageNumber).subscribe(
+      (transactions) => {
+        if(pageNumber==0) {
+          this.walletTransactions = transactions;
+        } else {
+          this.walletTransactions = this.walletTransactions.concat(transactions);
+        }
+        if(transactions.length==0) {
+          this.walletPageNumber = -1;
+        }
+        sub1.unsubscribe();
+      }
+    );
+  }
+
+  loadOrderTransactions(pageNumber: number = 0) {
+    const sub1 = this.userService.getPaymentTransactions(this.currentMonthStart, 'direct,paypal', pageNumber).subscribe(
+      (transactions) => {
+        if(pageNumber==0) {
+          this.orderTransactions = transactions;
+        } else {
+          this.orderTransactions = this.orderTransactions.concat(transactions);
+        }
+        if(transactions.length==0) {
+          this.orderPageNumber = -1;
+        }
+        sub1.unsubscribe();
       }
     );
   }
@@ -235,12 +274,46 @@ export class DashboardPaymentsComponent implements OnInit {
 
   toggleTabs(status: boolean) {
     this.showWallet = status;
+    this.currentMonthStart = this.monthStartList[0];
+    
+    if(this.showWallet) {
+      this.walletPageNumber = 0;
+      this.loadWalletTransactions();
+    } else {
+      this.orderPageNumber = 0;
+      this.loadOrderTransactions();
+    }
+  }
+
+  createMonths() {
+    for (let i = 0; i < 12; i++) {
+      let date = new Date();
+      date.setMonth(date.getMonth()-i);
+      date.setDate(1);
+      this.monthStartList.push(date);
+    }
+  }
+
+  selectMonth(date: Date) {
+    this.currentMonthStart = date;
+    if(this.showWallet) {
+      this.walletPageNumber = 0;
+      this.loadWalletTransactions();
+    } else {
+      this.orderPageNumber = 0;
+      this.loadOrderTransactions();
+    }
   }
 
   onScroll() {
-    if (this.pageNumber > -1) {
-      console.log("scrolled")
-      // this.handleListProducts();
+    if (this.showWallet) {
+      if(this.walletPageNumber>-1) {
+        this.loadWalletTransactions(this.walletPageNumber++);
+      }
+    } else {
+      if(this.orderPageNumber>-1) {
+        this.loadOrderTransactions(this.orderPageNumber++);
+      }
     }
   }
 

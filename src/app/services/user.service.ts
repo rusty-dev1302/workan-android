@@ -9,6 +9,7 @@ import { Certification } from '../common/certification';
 import { ContactDetail } from '../common/contact-detail';
 import { Customer } from '../common/customer';
 import { PaymentAccount } from '../common/payment-account';
+import { Transaction } from '../common/transaction';
 
 
 
@@ -62,6 +63,12 @@ export class UserService {
   getPaymentAccountByEmail(email: string) {
     const getUrl = `${this.baseUrl}/paymentAccount/detail?email=${email}`;
     return this.httpClient.get<PaymentAccount>(getUrl);
+  }
+
+  getPaymentTransactions(startDate: Date, mode: string, pageNumber: number=0): Observable<Transaction[]> {
+    let request = {startDate: startDate, mode: mode}
+    const postUrl = `${this.baseUrl}/paymentAccount/transactions?startDate=${startDate}&&pageNumber=${pageNumber}`;
+    return this.httpClient.post<Transaction[]>(postUrl, request);
   }
 
   getContactDetailByUserId(userId: number): Observable<ContactDetail> {

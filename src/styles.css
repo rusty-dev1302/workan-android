@@ -137,6 +137,10 @@ a {
     margin: .1rem!important;
 }
 
+.dropdown-select {
+    background-color: rgb(218, 230, 255);
+}
+
 .nav-link {
     color: var(--bs-main-color) !important;
     font-weight: bold;

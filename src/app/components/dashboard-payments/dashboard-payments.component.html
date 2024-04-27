@@ -22,17 +22,9 @@
         <a type="button" class="nav-link nav-tab" [ngClass]="showWallet?'active':''" (click)="toggleTabs(true)">Wallet</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link nav-tab" [ngClass]="!showWallet?'active':''" (click)="toggleTabs(false)">Order
-            History</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="!showWallet?'active':''" (click)="toggleTabs(false)">Order History</a>
     </li>
 </ul>
-
-<ul class="nav nav-pills px-3 py-2 bg-color justify-content-center">
-    <li *ngIf="isProfessional" class="nav-item">
-        <a type="button" class="nav-link nav-tab" (click)="toggleTabs(true)">Wallet</a>
-    </li>
-</ul>
-
 
 <!-- Edit Section Starts  -->
 
@@ -55,6 +47,26 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <h3>Order Transactions</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <div style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;">
+                                            <div class="dropdown nav-link nav-tab">
+                                                <button class="btn btn-outline-secondary btn-small dropdown-toggle py-1 px-2" type="button" id="currentMonthButton"
+                                                    style="background-color: #dedede;color: black;font-weight: bold;font-size: 1rem!important;"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Month
+                                                </button>
+                                                <ul class="dropdown-menu m-1" aria-labelledby="currentMonthButton">
+                                                    <li *ngFor="let monthStart of monthStartList"
+                                                        [ngClass]="currentMonthStart==monthStart?'dropdown-select':''"><a (click)="selectMonth(monthStart)" class="dropdown-item"
+                                                            style="text-align: center;">{{monthStart|date:'MMMM yy'}}</a></li>
+                                                </ul>
+                                                <span class="border px-2"
+                                                    style="background-color: #dedede;color: black;margin-left: .4rem;border-radius: .3rem;padding-top: .4rem;padding-bottom: .5rem;">{{currentMonthStart|date:'MMMM yy'}}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -254,6 +266,26 @@
                                         <div class="col">
                                             <div class="form-group">
                                                 <h3>Wallet Transactions</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <div style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;">
+                                                <div class="dropdown nav-link nav-tab">
+                                                    <button class="btn btn-outline-secondary btn-small dropdown-toggle py-1 px-2" type="button" id="currentMonthButton"
+                                                        style="background-color: #dedede;color: black;font-weight: bold;font-size: 1rem!important;"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Month
+                                                    </button>
+                                                    <ul class="dropdown-menu m-1" aria-labelledby="currentMonthButton">
+                                                        <li *ngFor="let monthStart of monthStartList"
+                                                            [ngClass]="currentMonthStart==monthStart?'dropdown-select':''"><a (click)="selectMonth(monthStart)" class="dropdown-item"
+                                                                style="text-align: center;">{{monthStart|date:'MMMM yy'}}</a></li>
+                                                    </ul>
+                                                    <span class="border px-2"
+                                                        style="background-color: #dedede;color: black;margin-left: .4rem;border-radius: .3rem;padding-top: .4rem;padding-bottom: .5rem;">{{currentMonthStart|date:'MMMM yy'}}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
