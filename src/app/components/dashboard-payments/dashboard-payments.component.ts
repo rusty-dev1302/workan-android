@@ -17,13 +17,14 @@ import { constants } from 'src/environments/constants';
 import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
 import { AddToWalletComponent } from '../add-to-wallet/add-to-wallet.component';
 import { RedeemWalletComponent } from '../redeem-wallet/redeem-wallet.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
     selector: 'app-dashboard-payments',
     templateUrl: './dashboard-payments.component.html',
     styleUrls: ['./dashboard-payments.component.css'],
     standalone: true,
-    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent, CommonModule]
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent, CommonModule, InfiniteScrollModule]
 })
 export class DashboardPaymentsComponent implements OnInit {
 
@@ -38,6 +39,8 @@ export class DashboardPaymentsComponent implements OnInit {
   isRedeemFlow: boolean = true;
 
   isProfessional: boolean = false;
+
+  pageNumber: number = 0;
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -79,7 +82,7 @@ export class DashboardPaymentsComponent implements OnInit {
     this.setRedeemFlow(false);
 
     this.emailSpinner = true;
-    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true, true).subscribe(
+    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+".<br> Please enter it after clicking on verify to connect your email.", true, true).subscribe(
       (response)=> {
         if(response) {
           const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
@@ -232,6 +235,13 @@ export class DashboardPaymentsComponent implements OnInit {
 
   toggleTabs(status: boolean) {
     this.showWallet = status;
+  }
+
+  onScroll() {
+    if (this.pageNumber > -1) {
+      console.log("scrolled")
+      // this.handleListProducts();
+    }
   }
 
 }
