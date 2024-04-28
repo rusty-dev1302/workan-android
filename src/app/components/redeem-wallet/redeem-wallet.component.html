@@ -44,7 +44,7 @@
                                 *Decimal values are not accepted</h5>
                             <h5 *ngIf="!minBalanceValid"
                                 style="letter-spacing: .08;color: rgb(184, 0, 0);font-weight: bold;" class="small-text">
-                                *The minimum wallet balance after redeeming should be $10</h5>
+                                *The minimum wallet balance after redeeming should not be negative</h5>
                             <div class="modal-footer">
                                 <button *ngIf="!spinner" type="submit" class="btn btn-primary btn-rounded col-12"
                                     [disabled]="redeemAmount<=0||invalidInput||!minBalanceValid" data-bs-toggle="modal"

@@ -161,7 +161,7 @@
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
                                             <button class="btn btn-warning btn-rounded col-12" type="button" (click)="setRedeemFlow(true)"
-                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>10)"
+                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>=1)"
                                                 data-bs-toggle="modal" data-bs-target="#redeemWalletModal">
                                                 Redeem Wallet Balance</button>
                                         </div>
@@ -368,7 +368,7 @@
 <!-- addToWalletModal ends  -->
 
 <!-- redeemWalletModal begins  -->
-<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>10"
+<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>=1"
     class="modal fade" id="redeemWalletModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="redeemWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">
