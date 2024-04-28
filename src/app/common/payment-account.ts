@@ -7,6 +7,7 @@ export class PaymentAccount{
         public id: number,
         public owner: Customer,
         public balance: number,
+        public credits: number,
         public transactions: Transaction[],
         public paypalAccount: PaypalAccount
     ) {

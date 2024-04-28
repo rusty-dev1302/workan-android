@@ -99,8 +99,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <hr class="style1">
+                                <div *ngIf="!walletTransactions||walletTransactions.length<=0" class="alert alert-warning text-center" role="alert">
+                                    No transactions found.
+                                </div>
                             </div>
                             <!-- User Form Ends -->
                         </div>
@@ -124,13 +126,18 @@
                                 <!-- User Form Starts -->
                                 <div class="mb-3">
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col d-flex justify-content-between">
                                             <div class="form-group">
                                                 <h3><b>Wallet </b></h3>
-                                                <h6 *ngIf="paymentAccount&&paymentAccount.balance<=0"
+                                                <h6 *ngIf="paymentAccount&&paymentAccount.balance<=0&&paymentAccount.credits<=0"
                                                     style="color: rgb(209, 51, 51);">
                                                     <b>Low Wallet Balance</b>
                                                 </h6>
+                                            </div>
+                                            <div *ngIf="paymentAccount.credits>=0" class="form-group">
+                                                <h4 class="px-2" style="background-color: rgb(234, 255, 228);border-radius: .3rem;padding-bottom: .3rem;"><span style="font-size: 1rem!important;font-weight: bold;">Joining Credits: </span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;font-size: 1rem!important;font-weight: bold;"></i>
+                                                    <span style="font-size: 1rem!important;font-weight: bold;" [ngClass]="paymentAccount.credits<=0?'negative-balance':'positive-balance'">{{findAbsolute(paymentAccount.credits) | number :
+                                                        '1.2-2'}}</span> </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -139,7 +146,7 @@
 
                                         <div class="col-xxl-6 col-lg-6 col-12 py-2">
                                             <div class="form-group">
-                                                <h4 class="px-2"><span [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{paymentAccount.balance<0?'-':''}}</span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;"></i><span
+                                                <h4 class="px-2"><label style="margin-right: .2rem;">Balance:</label><span [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{paymentAccount.balance<0?'-':''}}</span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;"></i><span
                                                         [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{findAbsolute(paymentAccount.balance) | number :
                                                         '1.2-2'}}</span> </h4>
                                             </div>
@@ -318,8 +325,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-
                                     <hr class="style1">
+                                    <div *ngIf="!walletTransactions||walletTransactions.length<=0" class="alert alert-warning text-center" role="alert">
+                                        No transactions found.
+                                    </div>
                                 </div>
                                 <!-- User Form Ends -->
                             </div>
