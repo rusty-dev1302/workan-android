@@ -150,7 +150,7 @@ bootstrapApplication(AppComponent, {
             resourceServer: {
                 sendAccessToken: true
             }
-        }), KeycloakAngularModule, ToastrModule.forRoot(), NgxDaterangepickerMd.forRoot()),
+        }), KeycloakAngularModule, ToastrModule.forRoot({maxOpened: 1}), NgxDaterangepickerMd.forRoot()),
         ListingService,
         UserService,
         {

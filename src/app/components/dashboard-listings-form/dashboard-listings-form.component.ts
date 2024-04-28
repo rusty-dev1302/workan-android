@@ -268,7 +268,7 @@ export class DashboardListingsFormComponent implements OnInit {
       );
 
     } else {
-      this.toastrService.error("StartTime Should be Less Than EndTime");
+      this.toastrService.error("Invalid Time Range");
     }
   }
 
@@ -291,7 +291,7 @@ export class DashboardListingsFormComponent implements OnInit {
         }
       );
     } else {
-      this.toastrService.error("StartTime Should be Less Than EndTime");
+      this.toastrService.error("Invalid Time Range");
     }
     this.resetSlotDialog();
 

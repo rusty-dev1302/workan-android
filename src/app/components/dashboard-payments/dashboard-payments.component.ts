@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
@@ -17,17 +17,22 @@ import { constants } from 'src/environments/constants';
 import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.component';
 import { AddToWalletComponent } from '../add-to-wallet/add-to-wallet.component';
 import { RedeemWalletComponent } from '../redeem-wallet/redeem-wallet.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @Component({
     selector: 'app-dashboard-payments',
     templateUrl: './dashboard-payments.component.html',
     styleUrls: ['./dashboard-payments.component.css'],
     standalone: true,
-    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent]
+    imports: [NgClass, NgIf, NgFor, FormsModule, DecimalPipe, DatePipe, EnterOtpModalComponent, AddToWalletComponent, RedeemWalletComponent, CommonModule, InfiniteScrollModule]
 })
 export class DashboardPaymentsComponent implements OnInit {
 
   showWallet: boolean = true;
+
+  monthStartList: Date[] = [];
+
+  currentMonthStart!: Date;
 
   paymentAccount!: PaymentAccount;
   orderTransactions: Transaction[] = [];
@@ -38,6 +43,9 @@ export class DashboardPaymentsComponent implements OnInit {
   isRedeemFlow: boolean = true;
 
   isProfessional: boolean = false;
+
+  orderPageNumber: number = 0;
+  walletPageNumber: number = 0;
 
   pdfMake = require('pdfmake/build/pdfmake');
   pdfFonts = require('pdfmake/build/vfs_fonts');
@@ -57,7 +65,10 @@ export class DashboardPaymentsComponent implements OnInit {
   ngOnInit(): void {
     this.pdfMake.vfs = this.pdfFonts.pdfMake.vfs;
     this.navigationService.showLoader();
+    this.currentMonthStart = new Date();
+    this.currentMonthStart.setDate(1);
     this.loadPaymentAccount();
+    this.createMonths();
   }
 
   toggleEditEmail() {
@@ -79,7 +90,7 @@ export class DashboardPaymentsComponent implements OnInit {
     this.setRedeemFlow(false);
 
     this.emailSpinner = true;
-    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+". Please enter it after clicking on verify to connect your email.", true, true).subscribe(
+    const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+".<br> Please enter it after clicking on verify to connect your email.", true, true).subscribe(
       (response)=> {
         if(response) {
           const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
@@ -150,13 +161,12 @@ export class DashboardPaymentsComponent implements OnInit {
           const sub = this.userService.getPaymentAccountByEmail(this.keycloakService.getUsername()).subscribe(
             (account) => {
               this.paymentAccount = account;
-              this.orderTransactions = this.paymentAccount.transactions.filter(
-                t => !t.mode.toLowerCase().includes("wallet")
-              ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
 
-              this.walletTransactions = this.paymentAccount.transactions.filter(
-                t => t.mode.toLowerCase().includes("wallet")
-              ).sort((t1, t2) => new Date(t2.transactionDate).getTime() - new Date(t1.transactionDate).getTime());
+              if(this.showWallet) {
+                this.loadWalletTransactions();
+              } else {
+                this.loadOrderTransactions();
+              }
 
               this.navigationService.pageLoaded();
               sub.unsubscribe();
@@ -164,6 +174,38 @@ export class DashboardPaymentsComponent implements OnInit {
           );
         }
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  loadWalletTransactions(pageNumber: number = 0) {
+    const sub1 = this.userService.getPaymentTransactions(this.currentMonthStart, 'wallet', pageNumber).subscribe(
+      (transactions) => {
+        if(pageNumber==0) {
+          this.walletTransactions = transactions;
+        } else {
+          this.walletTransactions = this.walletTransactions.concat(transactions);
+        }
+        if(transactions.length==0) {
+          this.walletPageNumber = -1;
+        }
+        sub1.unsubscribe();
+      }
+    );
+  }
+
+  loadOrderTransactions(pageNumber: number = 0) {
+    const sub1 = this.userService.getPaymentTransactions(this.currentMonthStart, 'direct,paypal', pageNumber).subscribe(
+      (transactions) => {
+        if(pageNumber==0) {
+          this.orderTransactions = transactions;
+        } else {
+          this.orderTransactions = this.orderTransactions.concat(transactions);
+        }
+        if(transactions.length==0) {
+          this.orderPageNumber = -1;
+        }
+        sub1.unsubscribe();
       }
     );
   }
@@ -232,6 +274,47 @@ export class DashboardPaymentsComponent implements OnInit {
 
   toggleTabs(status: boolean) {
     this.showWallet = status;
+    this.currentMonthStart = this.monthStartList[0];
+    
+    if(this.showWallet) {
+      this.walletPageNumber = 0;
+      this.loadWalletTransactions();
+    } else {
+      this.orderPageNumber = 0;
+      this.loadOrderTransactions();
+    }
+  }
+
+  createMonths() {
+    for (let i = 0; i < 12; i++) {
+      let date = new Date();
+      date.setMonth(date.getMonth()-i);
+      date.setDate(1);
+      this.monthStartList.push(date);
+    }
+  }
+
+  selectMonth(date: Date) {
+    this.currentMonthStart = date;
+    if(this.showWallet) {
+      this.walletPageNumber = 0;
+      this.loadWalletTransactions();
+    } else {
+      this.orderPageNumber = 0;
+      this.loadOrderTransactions();
+    }
+  }
+
+  onScroll() {
+    if (this.showWallet) {
+      if(this.walletPageNumber>-1) {
+        this.loadWalletTransactions(this.walletPageNumber++);
+      }
+    } else {
+      if(this.orderPageNumber>-1) {
+        this.loadOrderTransactions(this.orderPageNumber++);
+      }
+    }
   }
 
 }

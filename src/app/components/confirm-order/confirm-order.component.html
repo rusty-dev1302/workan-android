@@ -99,7 +99,8 @@
                         Select
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="slotDayButton1">
-                        <li *ngFor="let e of dayBoolArray; let i = index"><a [ngClass]="e==true?'disabled':''"
+                        <li *ngFor="let e of dayBoolArray; let i = index"><a 
+                            [ngClass]="[e==true?'selected':'', availabilityRange&&availabilityRange.get(slotDate(i)|date:'EEEE')?'':'strike-through disabled']"
                             class="dropdown-item" type="button"
                             (click)="getSlotsForDay(slotDate(i), i)">{{slotDate(i)|date:'dd MMM (EE)'}}</a>
                         </li>

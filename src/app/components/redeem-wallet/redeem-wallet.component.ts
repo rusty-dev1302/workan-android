@@ -42,7 +42,7 @@ export class RedeemWalletComponent {
       this.invalidInput = true;
     } else {
       this.invalidInput = false
-      if(Math.floor(this.accountBalance-input)<10) {
+      if(Math.floor(this.accountBalance-input)<0) {
         this.minBalanceValid = false;
       } else {
         this.minBalanceValid = true;

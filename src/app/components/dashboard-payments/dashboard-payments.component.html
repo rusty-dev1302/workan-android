@@ -22,17 +22,15 @@
         <a type="button" class="nav-link nav-tab" [ngClass]="showWallet?'active':''" (click)="toggleTabs(true)">Wallet</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link nav-tab" [ngClass]="!showWallet?'active':''" (click)="toggleTabs(false)">Order
-            History</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="!showWallet?'active':''" (click)="toggleTabs(false)">Order History</a>
     </li>
 </ul>
-
 
 <!-- Edit Section Starts  -->
 
 <section class="common-section business-section" id="online_services">
 
-    <div *ngIf="paymentAccount" class="container" style="min-height: 26rem;">
+    <div *ngIf="paymentAccount" class="container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()" style="min-height: 26rem;">
 
         <div *ngIf="!showWallet" class="row g-5">
             <div class="col-xl-12 col-md-12 ">
@@ -52,6 +50,26 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <div style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;">
+                                            <div class="dropdown nav-link nav-tab">
+                                                <button class="btn btn-outline-secondary btn-small dropdown-toggle py-1 px-2" type="button" id="currentMonthButton"
+                                                    style="background-color: #dedede;color: black;font-weight: bold;font-size: 1rem!important;"
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Month
+                                                </button>
+                                                <ul class="dropdown-menu m-1" aria-labelledby="currentMonthButton">
+                                                    <li *ngFor="let monthStart of monthStartList"
+                                                        [ngClass]="currentMonthStart==monthStart?'dropdown-select':''"><a (click)="selectMonth(monthStart)" class="dropdown-item"
+                                                            style="text-align: center;">{{monthStart|date:'MMMM yy'}}</a></li>
+                                                </ul>
+                                                <span class="border px-2"
+                                                    style="background-color: #dedede;color: black;margin-left: .4rem;border-radius: .3rem;padding-top: .4rem;padding-bottom: .5rem;">{{currentMonthStart|date:'MMMM yy'}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <hr *ngIf="orderTransactions&&orderTransactions.length>0" class="style1"
                                     style="margin-top: 0.5rem;margin-bottom: 2rem;">
                                 <div *ngIf="orderTransactions&&orderTransactions.length>0" class="table-responsive">
@@ -62,8 +80,7 @@
                                                 <th scope="col" class="text-center">Date</th>
                                                 <th scope="col" class="text-center">Description</th>
                                                 <th scope="col" class="text-center">Mode</th>
-                                                <th scope="col" class="text-center">Type</th>
-                                                <th scope="col" class="text-center">Amount</th>
+                                                <th scope="col" class="text-center">Amount (CA$)</th>
                                                 <th scope="col" class="text-center">Invoice</th>
                                             </tr>
                                         </thead>
@@ -72,9 +89,8 @@
                                                 <td class="text-center">
                                                     {{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
                                                 <td class="text-center">{{transaction.description}}</td>
-                                                <td class="text-center">{{transaction.mode}}</td>
-                                                <td class="text-center">{{transaction.type}}</td>
-                                                <td class="text-center">${{transaction.total| number : '1.2-2'}}</td>
+                                                <td class="text-center">{{transaction.mode | uppercase}}</td>
+                                                <td class="text-center">{{transaction.total| number : '1.2-2'}}</td>
                                                 <td class="text-center"><a class="link" type="button"
                                                         (click)="generatePdf(dateToString(transaction.transactionDate), transaction.invoice)"><i
                                                             class="fa fa-download" aria-hidden="true"></i>
@@ -83,8 +99,10 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <hr class="style1">
+                                <div *ngIf="!walletTransactions||walletTransactions.length<=0" class="alert alert-warning text-center" role="alert">
+                                    No transactions found.
+                                </div>
                             </div>
                             <!-- User Form Ends -->
                         </div>
@@ -108,13 +126,18 @@
                                 <!-- User Form Starts -->
                                 <div class="mb-3">
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col d-flex justify-content-between">
                                             <div class="form-group">
                                                 <h3><b>Wallet </b></h3>
-                                                <h6 *ngIf="paymentAccount&&paymentAccount.balance<=0"
+                                                <h6 *ngIf="paymentAccount&&paymentAccount.balance<=0&&paymentAccount.credits<=0"
                                                     style="color: rgb(209, 51, 51);">
                                                     <b>Low Wallet Balance</b>
                                                 </h6>
+                                            </div>
+                                            <div *ngIf="paymentAccount.credits>=0" class="form-group">
+                                                <h4 class="px-2" style="background-color: rgb(234, 255, 228);border-radius: .3rem;padding-bottom: .3rem;"><span style="font-size: 1rem!important;font-weight: bold;">Joining Credits: </span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;font-size: 1rem!important;font-weight: bold;"></i>
+                                                    <span style="font-size: 1rem!important;font-weight: bold;" [ngClass]="paymentAccount.credits<=0?'negative-balance':'positive-balance'">{{findAbsolute(paymentAccount.credits) | number :
+                                                        '1.2-2'}}</span> </h4>
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +146,7 @@
 
                                         <div class="col-xxl-6 col-lg-6 col-12 py-2">
                                             <div class="form-group">
-                                                <h4 class="px-2"><span [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{paymentAccount.balance<0?'-':''}}</span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;"></i><span
+                                                <h4 class="px-2"><label style="margin-right: .2rem;">Balance:</label><span [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{paymentAccount.balance<0?'-':''}}</span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;"></i><span
                                                         [ngClass]="paymentAccount.balance<=0?'negative-balance':'positive-balance'">{{findAbsolute(paymentAccount.balance) | number :
                                                         '1.2-2'}}</span> </h4>
                                             </div>
@@ -138,7 +161,7 @@
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
                                             <button class="btn btn-warning btn-rounded col-12" type="button" (click)="setRedeemFlow(true)"
-                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>10)"
+                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>=1)"
                                                 data-bs-toggle="modal" data-bs-target="#redeemWalletModal">
                                                 Redeem Wallet Balance</button>
                                         </div>
@@ -165,10 +188,10 @@
 
                                 <!-- User Form Starts -->
                                 <div class="mb-3">
-                                    <div class="row">
+                                    <div class="row py-2 px-1">
                                         <div class="col">
                                             <div class="form-group">
-                                                <h3><img width="10%" src="assets/paypal.png"></h3>
+                                                <h3><img width="130rem" src="assets/paypal.png"></h3>
                                             </div>
                                         </div>
                                     </div>
@@ -253,6 +276,26 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col text-center">
+                                            <div style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;">
+                                                <div class="dropdown nav-link nav-tab">
+                                                    <button class="btn btn-outline-secondary btn-small dropdown-toggle py-1 px-2" type="button" id="currentMonthButton"
+                                                        style="background-color: #dedede;color: black;font-weight: bold;font-size: 1rem!important;"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Month
+                                                    </button>
+                                                    <ul class="dropdown-menu m-1" aria-labelledby="currentMonthButton">
+                                                        <li *ngFor="let monthStart of monthStartList"
+                                                            [ngClass]="currentMonthStart==monthStart?'dropdown-select':''"><a (click)="selectMonth(monthStart)" class="dropdown-item"
+                                                                style="text-align: center;">{{monthStart|date:'MMMM yy'}}</a></li>
+                                                    </ul>
+                                                    <span class="border px-2"
+                                                        style="background-color: #dedede;color: black;margin-left: .4rem;border-radius: .3rem;padding-top: .4rem;padding-bottom: .5rem;">{{currentMonthStart|date:'MMMM yy'}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <hr *ngIf="walletTransactions&&walletTransactions.length>0" class="style1"
                                         style="margin-top: 0.5rem;margin-bottom: 2rem;">
                                     <div *ngIf="walletTransactions&&walletTransactions.length>0"
@@ -263,9 +306,7 @@
                                                 <tr>
                                                     <th scope="col" class="text-center">Date</th>
                                                     <th scope="col" class="text-center">Description</th>
-                                                    <th scope="col" class="text-center">Mode</th>
-                                                    <th scope="col" class="text-center">Type</th>
-                                                    <th scope="col" class="text-center">Amount</th>
+                                                    <th scope="col" class="text-center">Amount (CA$)</th>
                                                     <th scope="col" class="text-center">Invoice</th>
                                                 </tr>
                                             </thead>
@@ -274,9 +315,7 @@
                                                     <td class="text-center">
                                                         {{transaction.transactionDate|date:'dd-MMM-yyyy'}}</td>
                                                     <td class="text-center">{{transaction.description}}</td>
-                                                    <td class="text-center">{{transaction.mode}}</td>
-                                                    <td class="text-center">{{transaction.type}}</td>
-                                                    <td class="text-center">${{transaction.total| number : '1.2-2'}}
+                                                    <td class="text-center">{{transaction.total| number : '1.2-2'}}
                                                     </td>
                                                     <td class="text-center"><a class="link" type="button"
                                                             (click)="prepareInvoiceForProfessional(dateToString(transaction.transactionDate), transaction.invoice)"><i
@@ -286,8 +325,10 @@
                                             </tbody>
                                         </table>
                                     </div>
-
                                     <hr class="style1">
+                                    <div *ngIf="!walletTransactions||walletTransactions.length<=0" class="alert alert-warning text-center" role="alert">
+                                        No transactions found.
+                                    </div>
                                 </div>
                                 <!-- User Form Ends -->
                             </div>
@@ -327,7 +368,7 @@
 <!-- addToWalletModal ends  -->
 
 <!-- redeemWalletModal begins  -->
-<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>10"
+<div *ngIf="paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>=1"
     class="modal fade" id="redeemWalletModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="redeemWalletModalLabel" aria-hidden="true">
     <div class="modal-dialog">

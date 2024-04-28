@@ -27,7 +27,6 @@ export class ConfirmationDialogComponent implements OnInit {
       (response)=>{
         this.dialogMessage = response.message;
         this.textCenter = response.textCenter;
-        console.log("txtCenter: "+this.textCenter)
         this.link = response.link;
         this.linkText = response.linkText;
         this.postMessage = response.postMessage;

@@ -67,6 +67,7 @@ export class ConfirmPaymentComponent implements OnInit{
           (response) => {
             const sub2 = this.orderService.initiateDirectPayment(this.orderId).subscribe(
               () => {
+                window.location.reload();
                 sub2.unsubscribe();
               }
             );
