@@ -100,7 +100,7 @@
                                     </table>
                                 </div>
                                 <hr class="style1">
-                                <div *ngIf="!walletTransactions||walletTransactions.length<=0" class="alert alert-warning text-center" role="alert">
+                                <div *ngIf="!orderTransactions||orderTransactions.length<=0" class="alert alert-warning text-center" role="alert">
                                     No transactions found.
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
 
                                         <div *ngIf="isProfessional" class="col-12 mt-2">
                                             <button class="btn btn-warning btn-rounded col-12" type="button" (click)="setRedeemFlow(true)"
-                                                [disabled]="!(paymentAccount&&paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>=1)"
+                                                [disabled]="!(paymentAccount&&paymentAccount.paypalAccount&&paymentAccount.paypalAccount.email&&paymentAccount.paypalAccount.verified&&paymentAccount.balance>=1)"
                                                 data-bs-toggle="modal" data-bs-target="#redeemWalletModal">
                                                 Redeem Wallet Balance</button>
                                         </div>
