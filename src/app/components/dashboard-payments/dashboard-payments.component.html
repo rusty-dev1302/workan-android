@@ -134,7 +134,7 @@
                                                     <b>Low Wallet Balance</b>
                                                 </h6>
                                             </div>
-                                            <div *ngIf="paymentAccount.credits>=0" class="form-group">
+                                            <div *ngIf="paymentAccount.credits>0" class="form-group">
                                                 <h4 class="px-2" style="background-color: rgb(234, 255, 228);border-radius: .3rem;padding-bottom: .3rem;"><span style="font-size: 1rem!important;font-weight: bold;">Joining Credits: </span><i class="fa-solid fa-dollar-sign" style="color: rgb(85, 85, 85);margin-left: .3rem;margin-right: .1rem;font-size: 1rem!important;font-weight: bold;"></i>
                                                     <span style="font-size: 1rem!important;font-weight: bold;" [ngClass]="paymentAccount.credits<=0?'negative-balance':'positive-balance'">{{findAbsolute(paymentAccount.credits) | number :
                                                         '1.2-2'}}</span> </h4>

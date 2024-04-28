@@ -279,6 +279,8 @@
                             <hr class="style1">
                             <h6 class="small-text">&bull; Please upload <b>relevant documents/certifications</b>.
                             </h6>
+                            <h6 class="small-text">&bull; While uploading an identity proof, make sure to <b>hide all the confidential information except name, photo and date of expiry</b>.
+                            </h6>
                             <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max
                                 size
                                 per attachment is <b>2Mb</b>.
@@ -594,7 +596,7 @@
 
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="certName">Certification Name</label>
+                                                <label for="certName">Document Name</label>
                                                 <input #certName="ngModel" required [(ngModel)]="addCertName"
                                                     minlength="3" maxlength="50" name="certName" id="certName"
                                                     type="text" class="form-control" autocomplete="off">
