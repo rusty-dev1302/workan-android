@@ -570,7 +570,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   verifyCertification(certId: number) {
     const subs = this.dialogService
-      .openDialog("You are sending the certification for verification, you will not be able to add/change its attachment(s).", true).subscribe(
+      .openDialog("You are sending the certification for verification, you will not be able to add/change its attachment(s).", true, true).subscribe(
         (response) => {
           if (response) {
             const sub = this.userService.sendCertForVerification(certId).subscribe(
