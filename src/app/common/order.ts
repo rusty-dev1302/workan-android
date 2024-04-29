@@ -17,6 +17,7 @@ export class Order extends BaseResponse{
         public preferredEndTimeHhmm: number,
         public subCategoryName: string,
         public listingDistance: number,
+        public numSchedule: number,
         public paymentStatus:string,
         public otp: string,
         public directInitiated: boolean,

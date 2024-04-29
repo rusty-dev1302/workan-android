@@ -132,7 +132,7 @@
                     </div>
                   </div>
                   <label class="py-2" *ngIf="order.listingDistance" style="color: rgb(183, 25, 25);">Customer is at a distance of {{order.listingDistance|number:'1.2-2'}}km from the listing address</label>
-
+                  <label class="py-2" *ngIf="order.status=='ACCEPTED'||order.status=='SCHEDULED'">&bull; Scheduling Requests: {{order.numSchedule}}<br>&bull; An order can be scheduled/rescheduled for a maximum of 4 times.</label>
                   <hr class="style1">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
                     <div *ngIf="order.status=='STARTING'" class="col-12 py-1">
