@@ -183,5 +183,5 @@ DAY_BOOL_ARRAY_INIT: [
 DAY_BOOL_ARRAY_CLEAR: [
   false, false, false, false, false, false, false
 ],
-ACCEPT_ORDER_TERMS: "Please read the following before continuing.<br><label class='mt-2'>Terms and Conditions:</label><br><h6 class='mt-1'>1. Accepting the order will <b>reveal the customer's details</b>.<br>2. You can then contact the customer to schedule and complete the order using the platform.<br>3. A commission of <b>CA$2 + 3% of Total Charges</b> will be deducted from the wallet (non-refundable).<br>4. You can accept new orders only when your <b>wallet balance is above CA$0</b>.<br>5. Continuing means you have <b>read and understood</b> the terms and conditions.</h6>"
+ACCEPT_ORDER_TERMS: "Please read the following before continuing.<br><label class='mt-2'>Terms and Conditions:</label><br><h6 class='mt-1'>1. Accepting the order will <b>reveal the customer's details</b>.<br>2. You can then contact the customer to schedule and complete the order using the platform.<br>3. A commission of <b>CA$2 + 3% of Total Charges</b> will be deducted from the wallet (non-refundable).<br>4. Joining credits will be utilised before wallet balance.<br>5. You can accept new orders only when either your <b>joining credits or wallet balance is above CA$0</b>.<br>6. Continuing means you have <b>read and understood</b> the terms and conditions.</h6>"
 };

@@ -730,14 +730,14 @@
                                 <div class="row">
                                     <div class="modal-footer" style="border-top: 0!important;">
                                         <button type="submit" class="btn btn-danger btn-rounded col-12"
-                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
+                                            [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<15||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
                                             data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add
                                             Service</button>
                                     </div>
                                 </div>
                             </form>
                             <button *ngIf="editServicePricingId" class="btn btn-warning btn-rounded col-12" (click)="saveServicePricing(true)"
-                                        [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<10||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
+                                        [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<15||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
                                         data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add Duplicate</button>
                             <!-- User Form Ends -->
                         </div>
