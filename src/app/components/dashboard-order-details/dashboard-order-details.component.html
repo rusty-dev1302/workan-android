@@ -198,7 +198,7 @@
   <!-- Cancellation Reason Modal ends-->
 
   <!-- Confirm payment Modal begins  -->
-  <div *ngIf="order" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"
+  <div *ngIf="order&&order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="modal fade" id="confirmPaymentModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="confirmPaymentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <app-confirm-payment [orderId]="order.id" [amount]="order.charges"></app-confirm-payment>
