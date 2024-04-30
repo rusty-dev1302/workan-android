@@ -527,7 +527,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   onClickSubmit() {
     if (this.listing.id != 0 && this.listing.subCategory.subCategoryName != this.displayListing.subCategory.subCategoryName) {
-      this.dialogService.openDialog("Changing the speciality will deactivate the current listing and require reverification! Are you sure you want to continue?", true, true)
+      this.dialogService.openDialog("Changing the speciality will deactivate the current listing and require reverification!<br>Are you sure you want to continue?", true, true)
         .subscribe((res) => {
           if (res) {
             this.updateListing();
