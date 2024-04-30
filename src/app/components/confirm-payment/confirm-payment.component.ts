@@ -1,4 +1,4 @@
-import { DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationDialogService } from 'src/app/services/confirmation-dialog.service';
@@ -13,7 +13,7 @@ import { constants } from 'src/environments/constants';
     templateUrl: './confirm-payment.component.html',
     styleUrls: ['./confirm-payment.component.css'],
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, DecimalPipe]
+    imports: [NgIf, NgFor, FormsModule, DecimalPipe, CommonModule]
 })
 export class ConfirmPaymentComponent implements OnInit{
 
@@ -47,6 +47,10 @@ export class ConfirmPaymentComponent implements OnInit{
         sub.unsubscribe();
       }
     );
+  }
+
+  closeDialog() {
+    window.location.reload();
   }
 
   makePayment() {
