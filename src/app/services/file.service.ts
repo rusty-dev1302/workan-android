@@ -124,28 +124,8 @@ export class FileService {
                   {
                     columns: [
                       {
-                        text: 'Receipt No.',
-                        color: '#aaaaab',
-                        bold: true,
-                        width: '*',
-                        fontSize: 12,
-                        alignment: 'right',
-                      },
-                      {
-                        text: invoice.id,
-                        bold: true,
-                        color: '#333333',
-                        fontSize: 12,
-                        alignment: 'right',
-                        width: 100,
-                      },
-                    ],
-                  },
-                  {
-                    columns: [
-                      {
                         text: 'Date Issued',
-                        color: '#aaaaab',
+                        color: '#515151',
                         bold: true,
                         width: '*',
                         fontSize: 12,
@@ -165,7 +145,7 @@ export class FileService {
                     columns: [
                       {
                         text: 'Status',
-                        color: '#aaaaab',
+                        color: '#515151',
                         bold: true,
                         fontSize: 12,
                         alignment: 'right',
@@ -189,16 +169,16 @@ export class FileService {
         {
           columns: [
             {
-              text: 'From',
-              color: '#aaaaab',
+              text: 'Customer',
+              color: '#515151',
               bold: true,
               fontSize: 14,
               alignment: 'left',
               margin: [0, 20, 0, 5],
             },
             {
-              text: 'To',
-              color: '#aaaaab',
+              text: 'Professional',
+              color: '#515151',
               bold: true,
               fontSize: 14,
               alignment: 'left',
@@ -222,39 +202,11 @@ export class FileService {
             },
           ],
         },
-        {
-          columns: [
-            {
-              text: 'Address',
-              color: '#aaaaab',
-              bold: true,
-              margin: [0, 7, 0, 3],
-            },
-            {
-              text: 'Address',
-              color: '#aaaaab',
-              bold: true,
-              margin: [0, 7, 0, 3],
-            },
-          ],
-        },
-        {
-          columns: [
-            {
-              text: invoice.fromAddress == null ? 'N/A' : invoice.fromAddress,
-              style: 'invoiceBillingAddress',
-            },
-            {
-              text: invoice.toAddress == null ? 'N/A' : invoice.toAddress,
-              style: 'invoiceBillingAddress',
-            },
-          ],
-        },
         '\n\n',
         {
           width: '100%',
           alignment: 'center',
-          text: 'Invoice No. ' + invoice.id,
+          text: 'Invoice No. ' + this.datePipe.transform(invoice.dateCreated, 'YYYY.MM.dd.')+invoice.id,
           bold: true,
           margin: [0, 10, 0, 10],
           fontSize: 15,
@@ -406,7 +358,7 @@ export class FileService {
           style: 'notesTitle',
         },
         {
-          text: '1. For more information please read our Terms Of Use (www.workan.ca/termsOfUse).',
+          text: '1. The amount includes taxes, payable by the freelance professional.\n2. For more information please read our Terms Of Use (www.workan.ca/termsOfUse).',
           style: 'notesText',
         },
       ],

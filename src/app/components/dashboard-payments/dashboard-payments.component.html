@@ -308,7 +308,6 @@
                                                     <th scope="col" class="text-center">Date</th>
                                                     <th scope="col" class="text-center">Description</th>
                                                     <th scope="col" class="text-center">Amount (CA$)</th>
-                                                    <th scope="col" class="text-center">Invoice</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -318,10 +317,6 @@
                                                     <td class="text-center">{{transaction.description}}</td>
                                                     <td class="text-center">{{transaction.total| number : '1.2-2'}}
                                                     </td>
-                                                    <td class="text-center"><a class="link" type="button"
-                                                            (click)="prepareInvoiceForProfessional(dateToString(transaction.transactionDate), transaction.invoice)"><i
-                                                                class="fa fa-download" aria-hidden="true"></i>
-                                                        </a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
