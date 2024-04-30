@@ -143,7 +143,6 @@ export class SlotSelectorComponent implements OnInit {
   loadCustomer() {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
-        console.log(data)
         this.customerAddress = data.mobile?data.contact:null!;
         sub.unsubscribe();
       }
