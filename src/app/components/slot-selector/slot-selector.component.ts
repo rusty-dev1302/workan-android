@@ -32,7 +32,7 @@ export class SlotSelectorComponent implements OnInit {
   availableMenuItems!: any[];
   totalMenuCharges: number = 0;
   currentStep: number = 0;
-  avgDuration: string = "--"
+  avgDuration: string = "--";
 
   timeSlots: string[] = constants.TIMESLOTS;
 
@@ -173,9 +173,25 @@ export class SlotSelectorComponent implements OnInit {
         startTimeHhmm: this.availabilityRange.get(day).split("-")[0],
         endTimeHhmm: this.availabilityRange.get(day).split("-")[1]
       };
+
+      // if today date
+      if(day==this.datePipe.transform(new Date(), 'EEEE')) {
+        let dateStr = new Date().toTimeString().split(':');
+        let currentTime = +((+dateStr[1]<1?dateStr[0]:(+dateStr[0]+1))+"00");
+        currentTime +=100;
+
+        // time is beyond range
+        if(currentTime>this.currentTimeRange.endTimeHhmm) {
+          this.currentTimeRange = null;
+        } else {
+          this.currentTimeRange.startTimeHhmm  = currentTime+"";
+        }
+
+      }
+
       this.selectedTimeRange = {
-        startTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[0]),
-        endTime: this.dateTimeService.convertTimeToString(this.availabilityRange.get(day).split("-")[1])
+        startTime: this.dateTimeService.convertTimeToString(this.currentTimeRange.startTimeHhmm),
+        endTime: this.dateTimeService.convertTimeToString(this.currentTimeRange.endTimeHhmm)
       };
 
       this.filterTimeRange();
