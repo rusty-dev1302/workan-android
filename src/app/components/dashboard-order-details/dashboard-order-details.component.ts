@@ -27,6 +27,8 @@ export class DashboardOrderDetailsComponent implements OnInit {
   private currentOrderId!: number;
   private autoRefresh!: Subscription;
 
+  dateToday!: Date;
+
   order!: CustomerOrder;
   cancellationReason = constants.CANCEL_REASON_CUSTOMER;
 
@@ -37,10 +39,14 @@ export class DashboardOrderDetailsComponent implements OnInit {
     private navigationService: NavigationService,
     private router: Router,
     private navigation: NavigationService,
-    public dateTimeService: DateTimeService
+    public dateTimeService: DateTimeService,
+    public datePipe: DatePipe
   ) { }
 
+
   ngOnInit() {
+    this.dateToday = this.dateTimeService.truncateTimezone(new Date);
+
     this.navigationService.showLoader();
     this.route.paramMap.subscribe(()=>{
       this.handleOrderRouting();
@@ -66,6 +72,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
+          console.log(this.order.appointmentDate);
         } else {
           this.router.navigateByUrl(`/dashboard/orders`);
         }
