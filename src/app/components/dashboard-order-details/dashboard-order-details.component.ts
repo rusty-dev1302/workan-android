@@ -72,7 +72,6 @@ export class DashboardOrderDetailsComponent implements OnInit {
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
-          console.log(this.order.appointmentDate);
         } else {
           this.router.navigateByUrl(`/dashboard/orders`);
         }
