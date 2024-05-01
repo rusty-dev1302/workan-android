@@ -178,7 +178,6 @@ export class SlotSelectorComponent implements OnInit {
       if(day==this.datePipe.transform(new Date(), 'EEEE')) {
         let dateStr = new Date().toTimeString().split(':');
         let currentTime = +((+dateStr[1]<1?dateStr[0]:(+dateStr[0]+1))+"00");
-        currentTime +=100;
 
         // time is beyond range
         if(currentTime>=this.currentTimeRange.endTimeHhmm||this.currentTimeRange.endTimeHhmm-currentTime<100) {
