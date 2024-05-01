@@ -181,7 +181,7 @@ export class SlotSelectorComponent implements OnInit {
         currentTime +=100;
 
         // time is beyond range
-        if(currentTime>=this.currentTimeRange.endTimeHhmm) {
+        if(currentTime>=this.currentTimeRange.endTimeHhmm||this.currentTimeRange.endTimeHhmm-currentTime<100) {
           this.currentTimeRange = null;
         } else {
           this.currentTimeRange.startTimeHhmm  = currentTime+"";
