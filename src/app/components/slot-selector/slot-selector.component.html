@@ -1,6 +1,7 @@
 <div class="modal-content">
   <div class="modal-header">
-    <h5 class="modal-title" id="slotSelectorModalLabel">Book Appointment</h5>
+    <h5 *ngIf="!professionalView" class="modal-title" id="slotSelectorModalLabel">Book Appointment</h5>
+    <h5 *ngIf="professionalView" class="modal-title" id="slotSelectorModalLabel">View Schedule</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDialog()"></button>
   </div>
 
@@ -112,8 +113,8 @@
                     <div class="form-group">
                       <div *ngIf="currentTimeRange">
                         <!-- If professional available for the day  -->
-                        <label>Preferred Time Range:</label>
-                        <h6 style="font-size: .9rem;">(Professional availability is
+                        <label *ngIf="!professionalView">Preferred Time Range:</label>
+                        <h6 *ngIf="!professionalView" style="font-size: .9rem;">(Professional availability is
                           {{dateTimeService.convertTimeToString(currentTimeRange.startTimeHhmm)}} -
                           {{dateTimeService.convertTimeToString(currentTimeRange.endTimeHhmm)}})</h6>
                         <div class="col-12 mt-3">
@@ -139,9 +140,9 @@
                               {{timeSlot}}</option>
                           </select>
                         </div>
-                        <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; Select the <b>preferred time
+                        <span *ngIf="!professionalView" style="font-size: .87rem;margin-top: 2rem!important;">&bull; Select the <b>preferred time
                             range</b> in which you want the professional to arrive</span><br>
-                        <span style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be <b>allocated an
+                        <span *ngIf="!professionalView" style="font-size: .87rem;margin-top: 2rem!important;">&bull; You will be <b>allocated an
                             appointment</b> within the preferred time range</span>
                       </div>
 
