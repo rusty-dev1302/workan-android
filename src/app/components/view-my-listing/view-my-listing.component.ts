@@ -13,13 +13,13 @@ import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
 
 @Component({
-    selector: 'app-view-my-listing',
-    templateUrl: './view-my-listing.component.html',
-    styleUrls: ['./view-my-listing.component.css'],
-    standalone: true,
-    imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
+  selector: 'app-view-my-listing',
+  templateUrl: './view-my-listing.component.html',
+  styleUrls: ['./view-my-listing.component.css'],
+  standalone: true,
+  imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
 })
-export class ViewMyListingComponent implements OnInit{
+export class ViewMyListingComponent implements OnInit {
 
   listing!: Listing;
   professional!: Professional;
@@ -30,6 +30,8 @@ export class ViewMyListingComponent implements OnInit{
   totalRatings: number = 1;
   DISTANT_LOCATION = constants.DISTANT_LOCATION;
 
+  reviewPage: number = 0;
+
   timezoneOffset = new Date().getTimezoneOffset();
 
   constructor(
@@ -37,7 +39,7 @@ export class ViewMyListingComponent implements OnInit{
     private orderService: OrderService,
     private navigation: NavigationService,
     private keycloakService: KeycloakService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.navigation.showLoader();
@@ -47,13 +49,13 @@ export class ViewMyListingComponent implements OnInit{
   loadListingDetails() {
     const subscription = this.listingService.getListingByEmail(this.keycloakService.getUsername()).subscribe(
       (listing) => {
-        if(listing.state!=constants.ERROR_STATE){
+        if (listing.state != constants.ERROR_STATE) {
           this.listing = listing;
           const sub = this.listingService.getProfessionalById(this.listing.professional.id).subscribe(
             (professional) => {
               this.professional = professional;
-              let total:number = professional.oneRating+professional.twoRating+professional.threeRating+professional.fourRating+professional.fiveRating;
-              this.totalRatings = total>0?total:1;
+              let total: number = professional.oneRating + professional.twoRating + professional.threeRating + professional.fourRating + professional.fiveRating;
+              this.totalRatings = total > 0 ? total : 1;
               this.getReviewsForProfessional();
               sub.unsubscribe();
             }
@@ -65,11 +67,25 @@ export class ViewMyListingComponent implements OnInit{
     );
   }
 
+  loadMore() {
+    if (this.reviewPage != -1) {
+      this.getReviewsForProfessional();
+    }
+  }
+
+
   getReviewsForProfessional() {
-    const subscription = this.orderService.getReviewsForProfessional(this.professional.id).subscribe(
+    const subscription = this.orderService.getReviewsForProfessional(this.professional.id, this.reviewPage).subscribe(
       (reviews) => {
-        if(reviews.length>0 && reviews[0].state!=constants.ERROR_STATE) {
+        if (reviews.length > 0 && reviews[0].state != constants.ERROR_STATE) {
           this.reviews = reviews;
+          if (reviews.length < 3) {
+            this.reviewPage = -1;
+          } else {
+            this.reviewPage++;
+          }
+        } else {
+          this.reviewPage = -1;
         }
         subscription.unsubscribe();
       }

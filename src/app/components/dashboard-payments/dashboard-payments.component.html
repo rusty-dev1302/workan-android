@@ -92,7 +92,7 @@
                                                 <td class="text-center">{{transaction.mode | uppercase}}</td>
                                                 <td class="text-center">{{transaction.total| number : '1.2-2'}}</td>
                                                 <td class="text-center"><a class="link" type="button"
-                                                        (click)="generatePdf(dateToString(transaction.transactionDate), transaction.invoice)"><i
+                                                        (click)="generatePdf(datePipe.transform(transaction.transactionDate, 'yyyy-MM-dd')!, transaction.invoice)"><i
                                                             class="fa fa-download" aria-hidden="true"></i>
                                                     </a></td>
                                             </tr>
