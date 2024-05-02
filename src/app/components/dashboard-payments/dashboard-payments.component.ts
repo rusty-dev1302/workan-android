@@ -93,6 +93,7 @@ export class DashboardPaymentsComponent implements OnInit {
     const sub1 = this.dialogService.openDialog("An OTP will be sent to "+this.keycloakService.getUsername()+".<br> Please enter it after clicking on verify to connect your email.", true, true).subscribe(
       (response)=> {
         if(response) {
+          this.inputEmail = this.inputEmail.toLowerCase().trim();
           const sub = this.userService.addPaypalAccount(this.inputEmail).subscribe(
             (response) => {
               if (!(response.state == constants.ERROR_STATE)) {
