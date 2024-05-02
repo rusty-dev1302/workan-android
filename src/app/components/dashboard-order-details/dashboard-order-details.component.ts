@@ -45,8 +45,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.dateToday = this.dateTimeService.truncateTimezone(new Date);
-    console.log(this.datePipe.transform(this.dateToday, 'yyyy-MM-dd'))
+    this.dateToday = new Date;
 
     this.navigationService.showLoader();
     this.route.paramMap.subscribe(()=>{
@@ -73,7 +72,6 @@ export class DashboardOrderDetailsComponent implements OnInit {
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
-          console.log("from db"+this.datePipe.transform(this.order.appointmentDate, 'yyyy-MM-dd', '+0000'))
 
         } else {
           this.router.navigateByUrl(`/dashboard/orders`);

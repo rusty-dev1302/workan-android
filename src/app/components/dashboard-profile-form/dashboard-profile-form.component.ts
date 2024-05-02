@@ -98,7 +98,6 @@ export class DashboardProfileFormComponent implements OnInit {
         const subscription = this.orderService.getReviewsForProfessional(this.user.id, this.reviewPage).subscribe(
           (reviews) => {
             if (reviews.length > 0 && reviews[0].state != constants.ERROR_STATE) {
-              console.log(reviews)
               this.reviews = this.reviews.concat(reviews);
               this.reviewPage++;
               if(reviews.length<3) {
