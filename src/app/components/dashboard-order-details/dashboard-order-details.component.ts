@@ -73,7 +73,7 @@ export class DashboardOrderDetailsComponent implements OnInit {
       (order) => {
         if(order.state!=constants.ERROR_STATE){
           this.order = order;
-          console.log(this.datePipe.transform(this.order.appointmentDate, 'yyyy-MM-dd', '+0000'))
+          console.log("from db"+this.datePipe.transform(this.order.appointmentDate, 'yyyy-MM-dd', '+0000'))
 
         } else {
           this.router.navigateByUrl(`/dashboard/orders`);
