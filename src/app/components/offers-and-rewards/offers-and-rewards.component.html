@@ -56,10 +56,10 @@
             <ul class="dropdown-menu" aria-labelledby="currentMonthButton">
                 <li *ngFor="let monthStart of monthStartList"
                     [ngClass]="currentMonthStart==monthStart?'dropdown-select':''"><a (click)="selectMonth(monthStart)" class="dropdown-item"
-                        style="text-align: center;">{{monthStart|date:'MMMM yy'}}</a></li>
+                        style="text-align: center;">{{monthStart|date:'MMMM yyyy'}}</a></li>
             </ul>
             <span class="px-2 py-1"
-                style="background-color: rgb(55, 55, 55);border-radius: .3rem;margin-left: .4rem;">{{currentMonthStart|date:'MMM yy'}}</span>
+                style="background-color: rgb(55, 55, 55);border-radius: .3rem;margin-left: .4rem;">{{currentMonthStart|date:'MMM yyyy'}}</span>
         </div>
     </li>
     <li *ngIf="user&&user.professional" class="nav-item border p-1"
@@ -132,7 +132,7 @@
         <label class="mt-0" style="font-weight: normal!important;">&bull; Every month, on completion of 100 orders you will earn CA$50.</label>
         <label class="mt-0" style="font-weight: normal!important;">&bull; You can earn a maximum of CA$100 per month.</label>
         <label class="mt-0" style="font-weight: normal!important;">&bull; Earned money will be credited to your wallet.</label>
-        <label class="mt-0" style="font-weight: normal!important;">&bull; Wallet money can be redeemed using the payments dashboard.</label>
+        <label class="mt-0" style="font-weight: normal!important;">&bull; Wallet balance can be redeemed using the payments dashboard.</label>
     </div>
 </div>
 
