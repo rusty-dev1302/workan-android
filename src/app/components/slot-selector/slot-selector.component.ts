@@ -183,7 +183,9 @@ export class SlotSelectorComponent implements OnInit {
         if(currentTime>=this.currentTimeRange.endTimeHhmm||this.currentTimeRange.endTimeHhmm-currentTime<100) {
           this.currentTimeRange = null;
         } else {
-          this.currentTimeRange.startTimeHhmm  = currentTime+"";
+          if(currentTime>this.currentTimeRange.startTimeHhmm) {
+            this.currentTimeRange.startTimeHhmm  = currentTime+"";
+          }
         }
 
       }
