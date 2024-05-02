@@ -27,6 +27,8 @@ export class ListingDetailsComponent implements OnInit {
 
   listing!: Listing;
 
+  reviewPage: number = 0;
+
   professional!: Professional;
   isProfessional: boolean = false;
   currentListingId: number = 0;
@@ -105,11 +107,24 @@ export class ListingDetailsComponent implements OnInit {
 
   }
 
+  loadMore() {
+    if (this.reviewPage != -1) {
+      this.getReviewsForProfessional();
+    }
+  }
+
   getReviewsForProfessional() {
-    const subscription = this.orderService.getReviewsForProfessional(this.professional.id).subscribe(
+    const subscription = this.orderService.getReviewsForProfessional(this.professional.id, this.reviewPage).subscribe(
       (reviews) => {
         if (reviews.length > 0 && reviews[0].state != constants.ERROR_STATE) {
-          this.reviews = reviews;
+          this.reviews = this.reviews.concat(reviews);
+          if (reviews.length < 3) {
+            this.reviewPage = -1;
+          } else {
+            this.reviewPage++;
+          }
+        } else {
+          this.reviewPage = -1;
         }
         subscription.unsubscribe();
       }

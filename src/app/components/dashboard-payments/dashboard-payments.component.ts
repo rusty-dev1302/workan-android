@@ -57,7 +57,8 @@ export class DashboardPaymentsComponent implements OnInit {
     private keycloakService: KeycloakService,
     private pdfService: FileService,
     private toastrService: ToastrService,
-    private paymentService: PaymentService
+    private paymentService: PaymentService,
+    public datePipe: DatePipe
   ) {
 
   }
@@ -262,11 +263,6 @@ export class DashboardPaymentsComponent implements OnInit {
 
   generatePdf(fileName: string, invoice: Invoice) {
     this.pdfService.generatePdfForInvoice(fileName, invoice);
-  }
-
-  dateToString(date: Date): string {
-    let stringDate = date.toString();
-    return stringDate.substring(0, stringDate.indexOf("T"));
   }
 
   findAbsolute(num: number) {

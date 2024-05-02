@@ -30,7 +30,7 @@ export class FileService {
 
   generatePdfForInvoice(fileName: string, invoice: Invoice) {
 
-    this.pdfMake.createPdf(this.prepareInvoice(invoice)).download('invoice_' + fileName + '.pdf');
+    this.pdfMake.createPdf(this.prepareInvoice(invoice)).download('invoice_' + fileName + '-' + invoice.id + '.pdf');
 
   }
 

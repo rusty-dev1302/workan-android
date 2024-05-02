@@ -54,6 +54,8 @@ export class DashboardProfileFormComponent implements OnInit {
   profileFormDirty: boolean = false;
   profileFormValid: boolean = false;
 
+  reviewPage: number = 0;
+
   constructor(
     private keycloakService: KeycloakService,
     private profilePhotoService: ProfilePhotoService,
@@ -82,15 +84,28 @@ export class DashboardProfileFormComponent implements OnInit {
     this.loadUserData();
   }
 
+  loadMore() {
+    if(this.reviewPage!=-1) {
+      this.loadReviews();
+    }
+  }
+
   loadReviews() {
 
     const sub = this.listingService.getProfessionalById(this.user.id).subscribe(
       (professional) => {
         this.professional = professional;
-        const subscription = this.orderService.getReviewsForProfessional(this.user.id).subscribe(
+        const subscription = this.orderService.getReviewsForProfessional(this.user.id, this.reviewPage).subscribe(
           (reviews) => {
             if (reviews.length > 0 && reviews[0].state != constants.ERROR_STATE) {
-              this.reviews = reviews;
+              console.log(reviews)
+              this.reviews = this.reviews.concat(reviews);
+              this.reviewPage++;
+              if(reviews.length<3) {
+                this.reviewPage = -1;
+              }
+            } else {
+              this.reviewPage = -1;
             }
 
             let total: number = this.professional.oneRating + this.professional.twoRating + this.professional.threeRating + this.professional.fourRating + this.professional.fiveRating;

@@ -70,8 +70,8 @@ export class OrderService {
     return this.httpClient.post<BaseResponse>(postUrl, review);
   }
 
-  getReviewsForProfessional(professionalId: number): Observable<Review[]> {
-    const getUrl = `${this.baseUrl}/review/all?professionalId=${professionalId}`;
+  getReviewsForProfessional(professionalId: number, pageNumber: number=0): Observable<Review[]> {
+    const getUrl = `${this.baseUrl}/review/all?professionalId=${professionalId}&&pageNumber=${pageNumber}`;
     return this.httpClient.get<Review[]>(getUrl)
   }
 
