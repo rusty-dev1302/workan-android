@@ -208,7 +208,7 @@ export class ConfirmOrderComponent implements OnInit {
     const sub = this.userService.getUserByEmail(this.keycloakService.getUsername()).subscribe(
       (data) => {
         customer = data;
-        this.selectedDate = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd')!))
+        this.selectedDate = this.dateTimeService.truncateTimezone(new Date(this.datePipe.transform(this.dateTimeService.truncateTimezone(this.selectedDate), 'yyyy-MM-dd')!))
         let createOrderRequest = new CreateOrderRequest(null!, null!, null!, null!, this.dateTimeService.truncateTimezone(this.selectedDate), null!, null!);
         const subscription = this.orderService.scheduleOrderAppointment(this.selectedOrderId, this.selectedSlot.id, createOrderRequest!).subscribe(
           (data) => {
