@@ -43,7 +43,7 @@
     <li *ngIf="user&&!user.professional" class="nav-item border"
         style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(45, 45, 45)!important;">
         <a class="nav-link nav-tab">Completed Referrals: <span class="px-2 py-1"
-                style="background-color: rgb(55, 55, 55);border-radius: .3rem;">{{referralCode?.totalCompletedReferrals}}</span></a>
+                style="background-color: rgb(55, 55, 55);border-radius: .3rem;">{{referralCode?.totalCompletedReferrals<=10?referralCode.totalCompletedReferrals:'10'}}</span></a>
     </li>
     <li *ngIf="user&&user.professional" class="nav-item border"
         style="border-radius: .3rem;margin-left: .2rem;margin-top: .4rem;border-color: rgb(45, 45, 45)!important;">
