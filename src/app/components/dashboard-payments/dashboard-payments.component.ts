@@ -18,6 +18,7 @@ import { EnterOtpModalComponent } from '../enter-otp-modal/enter-otp-modal.compo
 import { AddToWalletComponent } from '../add-to-wallet/add-to-wallet.component';
 import { RedeemWalletComponent } from '../redeem-wallet/redeem-wallet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { interval } from 'rxjs';
 
 @Component({
     selector: 'app-dashboard-payments',
@@ -230,6 +231,11 @@ export class DashboardPaymentsComponent implements OnInit {
           this.toastrService.info("Otp sent to your email")
         } else {
           this.toastrService.error(res.message);
+          interval(2000).subscribe(
+            ()=>{
+              window.location.reload();
+            }
+          );
         }
       }
     )
@@ -239,11 +245,15 @@ export class DashboardPaymentsComponent implements OnInit {
     this.paymentService.redeemWalletConfirmOtp(otp, this.paymentAccount.id+"").subscribe(
       (res)=>{
         if(res.state!=constants.ERROR_STATE) {
-          this.toastrService.info(res.state)
+          this.toastrService.info(res.state);
         } else {
           this.toastrService.error(res.message);
         }
-        window.location.reload();
+        interval(2000).subscribe(
+          ()=>{
+            window.location.reload();
+          }
+        );
       }
     )
   }
