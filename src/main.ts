@@ -6,7 +6,7 @@ import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatDialogModule } from '@angular/material/dialog';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
+import { BrowserModule, HammerModule, bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { Routes, provideRouter, withInMemoryScrolling } from '@angular/router';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -160,9 +160,11 @@ bootstrapApplication(AppComponent, {
             deps: [KeycloakService]
         },
         DatePipe,
+        HammerModule,
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled' })),
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimations(),
+        
     ]
 })
   .catch(err => console.error(err));
