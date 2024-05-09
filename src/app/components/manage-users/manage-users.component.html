@@ -296,6 +296,7 @@
                                             <th scope="col" class="text-center">Attachments</th>
                                             <th scope="col" class="text-center">Status</th>
                                             <th scope="col" class="text-center">Profile Visibility</th>
+                                            <th scope="col" class="text-center">Deletable</th>
                                             <th scope="col" class="text-center">Actions</th>
                                         </tr>
                                     </thead>
@@ -337,10 +338,15 @@
                                                 {{certification.profileVisibility?'Visible':'Hidden'}}
                                             </td>
                                             <td class="text-center">
+                                                {{certification.deleteAllowed?'Yes':'No'}}
+                                            </td>
+                                            <td class="text-center">
                                                 <button class="btn btn-primary btn-rounded btn-small m-1" type="button"
                                                     (click)="verifyCertificationById(certification.id)">Verify</button>
                                                 <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
                                                     (click)="rejectCertificationById(certification.id)">Reject</button>
+                                                <button class="btn btn-primary btn-rounded btn-small m-1" type="button"
+                                                (click)="toggleDeletableById(certification.id)">Deletable</button>
                                             </td>
                                         </tr>
                                     </tbody>

@@ -33,6 +33,10 @@ export class AdminService {
     return this.httpClient.get<any>(getUrl);
   }
 
+  toggleDeletableById(certificationId: number): Observable<BaseResponse> {
+    const getUrl = `${this.baseUrl}/certification/deleteAllowed?certificationId=${certificationId}`;
+    return this.httpClient.get<any>(getUrl);
+  }
 
   getUserByEmail(email: string) {
     const getUrl = `${this.baseUrl}/customer?email=${email}`;

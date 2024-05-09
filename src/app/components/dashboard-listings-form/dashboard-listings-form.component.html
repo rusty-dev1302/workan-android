@@ -271,7 +271,7 @@
                                                     class="px-1"
                                                     style="font-size: .8rem!important;color:rgb(105, 105, 105);"><i
                                                         class="fa-light fa-ellipsis-vertical"></i></a>
-                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
+                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button" [disabled]="!certification.deleteAllowed"
                                                     (click)="removeCertification(certification.id)">Remove</button>
                                             </td>
                                         </tr>
