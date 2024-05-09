@@ -195,6 +195,15 @@ export class ManageUsersComponent implements OnInit {
     );
   }
 
+  toggleDeletableById(certificationId: number) {
+    const sub = this.adminService.toggleDeletableById(certificationId).subscribe(
+      () => {
+        this.getCertificationsByEmail();
+        sub.unsubscribe();
+      }
+    );
+  }
+
   downloadAttachments(certificationId: number) {
     const sub = this.fileService.getAttachmentsForCertificate(certificationId).subscribe(
       (attachments) => {

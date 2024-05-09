@@ -6,6 +6,7 @@ export class Certification{
         public status: string,
         public attachments: any[],
         public profileVisibility: boolean,
+        public deleteAllowed: boolean,
     ) {
     }
 }
