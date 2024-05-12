@@ -4,7 +4,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="profilePhotoModalLabel">Profile Photo</h5>
+        <h5 class="modal-title" id="profilePhotoModalLabel">{{customerId>0?'Profile Photo':'Portfolio Photo'}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="reloadComponent()"></button>
       </div>
       <div class="modal-body">
@@ -13,14 +13,14 @@
           <div *ngIf="base64Data!=''||imgChangeEvt!=''" class="col-12">
             <image-cropper [imageChangedEvent]="imgChangeEvt"
               [imageBase64]="base64Data"
-              [roundCropper] = true
+              [roundCropper] = "customerId>0?true:false"
               [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
               [resizeToWidth]="512" format="png" 
               (imageCropped)="cropImg($event)">
             </image-cropper>
           </div>
           <div *ngIf="base64Data==''&&imgChangeEvt==''" class="d-flex col-12 justify-content-center">
-            <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" width="100%" src="assets/profile.png">
+            <img *ngIf="!profilePhoto" alt="..." class="img-fluid profile-photo" [ngClass]="customerId>0?'profile-photo':'portfolio-photo'" width="100%" [src]="customerId>0?'assets/profile.png':'assets/portfolio.png'">
           </div>
 
         </section>
@@ -38,7 +38,7 @@
               <label type="button" class="col-12"><i class="fa-solid fa-floppy-disk" (click)="uploadPhoto()" data-bs-dismiss="modal"></i>
               <span style="font-size: medium;"><br>Save</span></label>
             </div>
-            <div class="col">
+            <div *ngIf="customerId>0" class="col">
               <label type="button" class="col-12"><i class="fa-solid fa-solid fa-trash" (click)="removePhoto()" data-bs-dismiss="modal"></i>
               <span style="font-size: medium;"><br>Delete</span></label>
             </div>

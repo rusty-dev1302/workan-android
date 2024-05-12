@@ -1,5 +1,5 @@
-import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DatePipe, DecimalPipe, NgFor, NgIf, SlicePipe } from '@angular/common';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { ToastrService } from 'ngx-toastr';
@@ -18,13 +18,15 @@ import { constants } from 'src/environments/constants';
 import { SelectMapLocationComponent } from '../select-map-location/select-map-location.component';
 import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unavailability-calendar.component';
 import { NotificationService } from 'src/app/services/notification.service';
+import { PhotoUploaderComponent } from '../photo-uploader/photo-uploader.component';
+import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 
 @Component({
   selector: 'app-dashboard-listings-form',
   templateUrl: './dashboard-listings-form.component.html',
   styleUrls: ['./dashboard-listings-form.component.css'],
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent]
+  imports: [FormsModule, NgIf, NgFor, SlicePipe, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent, PhotoUploaderComponent]
 })
 export class DashboardListingsFormComponent implements OnInit {
 
@@ -81,6 +83,8 @@ export class DashboardListingsFormComponent implements OnInit {
 
   allowListing: boolean = false;
 
+  showUploader:boolean = true;
+
   constructor(
     private keycloakService: KeycloakService,
     private listingService: ListingService,
@@ -90,7 +94,9 @@ export class DashboardListingsFormComponent implements OnInit {
     private userService: UserService,
     private fileService: FileService,
     public dateTimeService: DateTimeService,
-    public notificationService: NotificationService
+    public notificationService: NotificationService,
+    private changeDetector: ChangeDetectorRef,
+    private profilePhotoService: ProfilePhotoService,
   ) { }
 
   ngOnInit(): void {
@@ -570,7 +576,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   verifyCertification(certId: number) {
     const subs = this.dialogService
-      .openDialog("<b>NOTE</b>: <br>&bull; You are sending the certification for verification.<br>&bull; You will not be able to add/change its attachment(s).<br>&bull; Verification can take 1-2 business days.", false, true).subscribe(
+      .openDialog("<b>NOTE</b>: <br>&bull; You are sending the certification for verification.<br>&bull; You will not be able to add/change its attachment(s).<br>&bull; Verification can take upto 2 business days.", false, true).subscribe(
         (response) => {
           if (response) {
             const sub = this.userService.sendCertForVerification(certId).subscribe(
@@ -648,6 +654,16 @@ export class DashboardListingsFormComponent implements OnInit {
         }
         subs.unsubscribe();
       });
+  }
+
+  reloadUploader() {
+    this.showUploader = false;
+    this.changeDetector.detectChanges();
+    this.showUploader = true;
+  }
+
+  loadEditPhotoModal() {
+    this.profilePhotoService.emitLoadPhotoEditor(true);
   }
 
 }

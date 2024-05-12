@@ -14,7 +14,6 @@ import { PhotoUploaderComponent } from '../photo-uploader/photo-uploader.compone
 export class DashboardProfileComponent implements OnInit{
 
   customerId: number=0;
-  base64Image: any = '';
 
   showUploader:boolean = true;
 
@@ -29,10 +28,6 @@ export class DashboardProfileComponent implements OnInit{
 
   updateCustomerId(customerId: number) {
     this.customerId = customerId;
-  }
-
-  updateProfilePhoto(base64Image: any) {
-    this.base64Image = base64Image;
   }
 
   reloadUploader() {

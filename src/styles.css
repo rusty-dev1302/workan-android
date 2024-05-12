@@ -747,6 +747,10 @@ hr.style1 {
     border-radius: 100% !important;
 }
 
+.portfolio-photo {
+    border-radius: 1% !important;
+}
+
 .card-cover {
     background: linear-gradient(0deg, white 75%, #ececec)
 }
