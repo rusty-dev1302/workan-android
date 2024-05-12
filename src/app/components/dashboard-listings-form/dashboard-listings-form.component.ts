@@ -570,7 +570,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   verifyCertification(certId: number) {
     const subs = this.dialogService
-      .openDialog("You are sending the certification for verification, you will not be able to add/change its attachment(s).", true, true).subscribe(
+      .openDialog("<b>NOTE</b>: <br>&bull; You are sending the certification for verification.<br>&bull; You will not be able to add/change its attachment(s).<br>&bull; Verification can take 1-2 business days.", false, true).subscribe(
         (response) => {
           if (response) {
             const sub = this.userService.sendCertForVerification(certId).subscribe(

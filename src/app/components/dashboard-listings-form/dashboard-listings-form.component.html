@@ -140,7 +140,8 @@
                                                 : '1.2-2'}}
                                             </td>
                                             <td class="text-center">
-                                                {{servicePricing.serviceTimeHh>0?servicePricing.serviceTimeHh+'hr':''}} {{servicePricing.serviceTimeMm>0?servicePricing.serviceTimeMm+'min':''}}
+                                                {{servicePricing.serviceTimeHh>0?servicePricing.serviceTimeHh+'hr':''}}
+                                                {{servicePricing.serviceTimeMm>0?servicePricing.serviceTimeMm+'min':''}}
                                             </td>
                                             <td class="text-center">
                                                 <i type="button" class="fa-sharp fa-pen-to-square"
@@ -160,7 +161,7 @@
                             <h6 class="small-text">&bull; Parts/Material cost to be directly paid to the professional.
                             </h6>
                             <h6 class="small-text">&bull; The charges should <b>include all the taxes, payable by the
-                                freelance professional</b>.
+                                    freelance professional</b>.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -271,7 +272,8 @@
                                                     class="px-1"
                                                     style="font-size: .8rem!important;color:rgb(105, 105, 105);"><i
                                                         class="fa-light fa-ellipsis-vertical"></i></a>
-                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button" [disabled]="!certification.deleteAllowed"
+                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
+                                                    [disabled]="!certification.deleteAllowed"
                                                     (click)="removeCertification(certification.id)">Remove</button>
                                             </td>
                                         </tr>
@@ -279,9 +281,11 @@
                                 </table>
                             </div>
                             <hr class="style1">
-                            <h6 class="small-text">&bull; Please upload a <b>government issued ID</b> and make sure <b>the photo matches your profile picture</b>.
+                            <h6 class="small-text">&bull; Please upload a <b>government issued ID</b> and make sure
+                                <b>the photo matches your profile picture</b>.
                             </h6>
-                            <h6 class="small-text">&bull; Please upload all the <b>relevant documents / certifications</b>.
+                            <h6 class="small-text">&bull; Please upload all the <b>relevant documents /
+                                    certifications</b>.
                             </h6>
                             <h6 class="small-text">&bull; Only <b>image and pdf</b> files allowed as attachments. Max
                                 size
@@ -466,6 +470,126 @@
         </form>
         <!-- User Form Ends -->
     </div>
+
+    <div *ngIf="menuItem==3" class="row g-5">
+        <div class="col-xl-12 col-md-12 ">
+            <!-- Documents panel starts -->
+            <div class="row g-5">
+
+                <div class="col-xl-12 col-md-12">
+
+                    <div class="form-section p-3 m-3">
+
+                        <!-- documents Form Starts -->
+                        <div class="mb-3">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <h3><b>My Portfolio </b><i type="button" data-bs-toggle="modal"
+                                                data-bs-target="#addCertificationModal"
+                                                class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
+                                        <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
+                                            Certifications</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
+                            <h6 *ngIf="displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                                style="color: red;"><b>Please add all the relevant documents.</b></h6>
+                            <div class="table-responsive">
+                                <table class="table table-bordered th-sm">
+                                    <thead
+                                        style="background-color: rgb(222, 222, 222);border-color: rgb(156, 156, 156);">
+                                        <tr>
+                                            <th scope="col" class="text-center">Name</th>
+                                            <th scope="col" class="text-center">Attachments</th>
+                                            <th scope="col" class="text-center">Status</th>
+                                            <th scope="col" class="text-center">Profile Visibility</th>
+                                            <th scope="col" class="text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let certification of certifications">
+                                            <td class="text-center">
+                                                {{certification.name}}
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="col">
+                                                    <a *ngFor="let attachment of certification.attachments; let first=first"
+                                                        style="font-size: .9rem!important;"><a *ngIf="!first">,
+                                                        </a>{{attachment.name}}</a>
+                                                    <a *ngIf="certification.attachments.length<=0"
+                                                        style="font-size: .9rem!important;color: grey;">
+                                                        No Attachments
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a class="link px-1" type="button"
+                                                        *ngIf="certification.status=='Unverified'"
+                                                        (click)="setClickCertId(certification.id)">
+                                                        <label type="button" for="files" class="col-12"><i
+                                                                class="fa fa-plus-circle"
+                                                                style="color: #0d6efd;"></i></label>
+                                                    </a>
+                                                    <a *ngIf="certification.attachments.length>0" class=" px-1"
+                                                        type="button" (click)="downloadAttachments(certification.id)"><i
+                                                            class="fa fa-download" aria-hidden="true"></i></a>
+                                                    <a *ngIf="certification.attachments.length>0&&certification.status=='Unverified'"
+                                                        class="link px-1" type="button"
+                                                        (click)="clearAllAttachments(certification.id)"><i
+                                                            class="fa fa-trash primary-cancel"
+                                                            aria-hidden="true"></i></a>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-download px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                    <i *ngIf="certification.attachments.length<=0&&certification.status=='Unverified'"
+                                                        class="fa fa-trash px-1" style="color: rgb(162, 162, 162);"
+                                                        aria-hidden="true"></i>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                {{certification.status}}
+                                                <i *ngIf="certification.status=='Rejected'" class="fa fa-times-circle"
+                                                    aria-hidden="true" style="color: rgb(255, 71, 71);"></i>
+                                                <i *ngIf="certification.status=='Verified'" class="fa fa-check-circle"
+                                                    aria-hidden="true" style="color: green;"></i>
+                                            </td>
+                                            <td class="text-center">
+                                                {{certification.profileVisibility?'Visible':'Hidden'}}
+                                            </td>
+                                            <td class="text-center">
+                                                <button *ngIf="certification.status=='Unverified'"
+                                                    class="btn btn-primary btn-rounded btn-small m-1" type="button"
+                                                    (click)="verifyCertification(certification.id)">Verify
+                                                    Cert.</button>
+                                                <button *ngIf="certification.status=='Verified'"
+                                                    class="btn btn-primary btn-rounded btn-small m-1" type="button"
+                                                    (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
+                                                    from profile':'Show on profile'}}</button>
+                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                    class="px-1"
+                                                    style="font-size: .8rem!important;color:rgb(105, 105, 105);"><i
+                                                        class="fa-light fa-ellipsis-vertical"></i></a>
+                                                <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
+                                                    [disabled]="!certification.deleteAllowed"
+                                                    (click)="removeCertification(certification.id)">Remove</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <hr class="style1">
+                            <h6 class="small-text">&bull; You can add a maximum of <b>6 portfolio images</b>.
+                            </h6>
+                        </div>
+                        <!-- User Form Ends -->
+                    </div>
+                </div>
+
+            </div>
+            <!-- Ratings panel ends -->
+        </div>
+    </div>
 </div>
 
 
@@ -552,7 +676,8 @@
                                                 <h6 class="small-text">&bull; <b>Listing Address:</b> Used for letting
                                                     customers get an idea of how far you are from them.
                                                 </h6>
-                                                <h6 class="small-text">&bull; Listing Address <b>should NOT</b> be your personal address.
+                                                <h6 class="small-text">&bull; Listing Address <b>should NOT</b> be your
+                                                    personal address.
                                                 </h6>
                                             </a>
                                             <button type="submit" class="btn btn-danger btn-rounded col-12" [disabled]="listing.subCategory.subCategoryName==''
@@ -712,17 +837,27 @@
                                             <div class="form-group">
                                                 <label for="serviceCharges">Average Duration:</label>
                                                 <div class="input-group mb-3" style="margin-top: .3rem;">
-                                                    <span class="m-2 py-1 border col-6" style="border-radius: .3rem;width: 8.3rem;padding-left: .55rem">Hours: <i type="button" class="fa fa-angle-down primary-blue"
-                                                            aria-hidden="true" style="margin-right: .4rem;" (click)="addSubHours(false)"></i>
-                                                            <span class="p-1" style="background-color: rgb(240, 240, 240);border-radius: .3rem">{{addServiceTimeHh}}</span>
-                                                            <i type="button" class="fa fa-angle-up primary-blue" (click)="addSubHours(true)"
-                                                            style="margin-left: .4rem;" aria-hidden="true"></i>
+                                                    <span class="m-2 py-1 border col-6"
+                                                        style="border-radius: .3rem;width: 8.3rem;padding-left: .55rem">Hours:
+                                                        <i type="button" class="fa fa-angle-down primary-blue"
+                                                            aria-hidden="true" style="margin-right: .4rem;"
+                                                            (click)="addSubHours(false)"></i>
+                                                        <span class="p-1"
+                                                            style="background-color: rgb(240, 240, 240);border-radius: .3rem">{{addServiceTimeHh}}</span>
+                                                        <i type="button" class="fa fa-angle-up primary-blue"
+                                                            (click)="addSubHours(true)" style="margin-left: .4rem;"
+                                                            aria-hidden="true"></i>
                                                     </span>
-                                                    <span class="m-2 py-1 border col-6" style="border-radius: .3rem;width: 8.3rem;padding-left: .8rem">Mins: <i type="button" class="fa fa-angle-down primary-blue"
-                                                            aria-hidden="true" style="margin-right: .4rem;" (click)="addSubMins(false)"></i>
-                                                            <span class="p-1" style="background-color: rgb(240, 240, 240);border-radius: .3rem">{{addServiceTimeMm}}</span>
-                                                            <i type="button" class="fa fa-angle-up primary-blue" 
-                                                            style="margin-left: .4rem;" aria-hidden="true" (click)="addSubMins(true)"></i>
+                                                    <span class="m-2 py-1 border col-6"
+                                                        style="border-radius: .3rem;width: 8.3rem;padding-left: .8rem">Mins:
+                                                        <i type="button" class="fa fa-angle-down primary-blue"
+                                                            aria-hidden="true" style="margin-right: .4rem;"
+                                                            (click)="addSubMins(false)"></i>
+                                                        <span class="p-1"
+                                                            style="background-color: rgb(240, 240, 240);border-radius: .3rem">{{addServiceTimeMm}}</span>
+                                                        <i type="button" class="fa fa-angle-up primary-blue"
+                                                            style="margin-left: .4rem;" aria-hidden="true"
+                                                            (click)="addSubMins(true)"></i>
                                                     </span>
                                                 </div>
                                             </div>
@@ -740,9 +875,10 @@
                                     </div>
                                 </div>
                             </form>
-                            <button *ngIf="editServicePricingId" class="btn btn-warning btn-rounded col-12" (click)="saveServicePricing(true)"
-                                        [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<15||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
-                                        data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add Duplicate</button>
+                            <button *ngIf="editServicePricingId" class="btn btn-warning btn-rounded col-12"
+                                (click)="saveServicePricing(true)"
+                                [disabled]='addServicePriceName==""||!addServicePriceCharges||addServicePriceCharges<15||(!(addServiceTimeHh>0)&&!(addServiceTimeMm>0))'
+                                data-bs-toggle="modal" data-bs-target="#addServicePriceModal">Add Duplicate</button>
                             <!-- User Form Ends -->
                         </div>
 
