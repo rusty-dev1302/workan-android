@@ -14,6 +14,9 @@ export class PhotoViewerComponent {
   image: any;
 
   @Input() 
+  enableEdit: boolean = false;
+
+  @Input() 
   nextbtn: boolean = false;
 
   @Input() 
