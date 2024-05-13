@@ -50,6 +50,18 @@ export class ViewMyListingComponent implements OnInit {
     this.loadListingDetails();
   }
 
+  filterPortImages(images: any[]) {
+    let res:any[] = [];
+    images.forEach(
+      (i)=>{
+        if(i.approved==true) {
+          res.push(i);
+        }
+      }
+    );
+    return res;
+  }
+
   loadListingDetails() {
     const subscription = this.listingService.getListingByEmail(this.keycloakService.getUsername()).subscribe(
       (listing) => {
@@ -75,7 +87,15 @@ export class ViewMyListingComponent implements OnInit {
   loadPortFolio() {
     const sub = this.profilePhotoService.getPortImagesByListingId(this.listing.id).subscribe(
       (response) => {
-        this.portfolioImages = response;
+        let res: any[] = [];
+        response.forEach(
+          (i)=>{
+            if(i.approved==true) {
+              res.push(i);
+            }
+          }
+        );
+        this.portfolioImages = res;
       }
     );
   }

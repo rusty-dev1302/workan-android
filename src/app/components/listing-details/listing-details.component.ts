@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
+import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 
 @Component({
   selector: 'app-listing-details',
@@ -41,6 +42,8 @@ export class ListingDetailsComponent implements OnInit {
 
   timezoneOffset = new Date().getTimezoneOffset();
 
+  portfolioImages:any[] = [];
+
   constructor(
     private listingService: ListingService,
     private orderService: OrderService,
@@ -48,7 +51,8 @@ export class ListingDetailsComponent implements OnInit {
     private navigation: NavigationService,
     private dialogService: ConfirmationDialogService,
     private userService: UserService,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private profilePhotoService: ProfilePhotoService
   ) { }
 
   ngOnInit(): void {
@@ -72,9 +76,26 @@ export class ListingDetailsComponent implements OnInit {
         if (listing.state != constants.ERROR_STATE) {
           this.listing = listing;
           this.assignProfessionalAndLoadData();
+          this.loadPortFolio();
         }
         this.navigation.pageLoaded();
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  loadPortFolio() {
+    const sub = this.profilePhotoService.getPortImagesByListingId(this.listing.id).subscribe(
+      (response) => {
+        let res: any[] = [];
+        response.forEach(
+          (i)=>{
+            if(i.approved==true) {
+              res.push(i);
+            }
+          }
+        );
+        this.portfolioImages = res;
       }
     );
   }
