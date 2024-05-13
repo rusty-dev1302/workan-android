@@ -16,13 +16,14 @@ import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
+import { PhotoViewerComponent } from '../photo-viewer/photo-viewer.component';
 
 @Component({
   selector: 'app-listing-details',
   templateUrl: './listing-details.component.html',
   styleUrls: ['./listing-details.component.css'],
   standalone: true,
-  imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
+  imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe, PhotoViewerComponent]
 })
 export class ListingDetailsComponent implements OnInit {
 
@@ -43,6 +44,14 @@ export class ListingDetailsComponent implements OnInit {
   timezoneOffset = new Date().getTimezoneOffset();
 
   portfolioImages:any[] = [];
+
+  viewImage:any;
+
+  showPrevPic: boolean = false;
+
+  showNextPic: boolean = false;
+
+  currentPortIndex:number = 0;
 
   constructor(
     private listingService: ListingService,
@@ -162,6 +171,35 @@ export class ListingDetailsComponent implements OnInit {
 
   navigateBack(): void {
     this.navigation.back()
+  }
+
+  prevPortPic() {
+    this.currentPortIndex--;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  nextPortPic() {
+    this.currentPortIndex++;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  loadPortfolioImage(imageId: number, thumbnail: any, index: number) {
+    this.viewImage = thumbnail;
+    this.currentPortIndex = index;
+    this.showPrevPic = true;
+    this.showNextPic = true;
+    if(this.currentPortIndex==0) {
+      this.showPrevPic = false;
+    }
+    if(this.currentPortIndex==this.portfolioImages.length-1) {
+      this.showNextPic = false;
+    }
+    // get full portfolio image 
+    this.profilePhotoService.getFullPortImage(imageId).subscribe(
+      (image)=>{
+        this.viewImage = image.picByte;
+      }
+    );
   }
 
   bookError() {

@@ -12,13 +12,14 @@ import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
+import { PhotoViewerComponent } from '../photo-viewer/photo-viewer.component';
 
 @Component({
   selector: 'app-view-my-listing',
   templateUrl: './view-my-listing.component.html',
   styleUrls: ['./view-my-listing.component.css'],
   standalone: true,
-  imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe]
+  imports: [NgIf, FormsModule, NgFor, SlotSelectorComponent, DecimalPipe, VerifiedCertificatePipe, PhotoViewerComponent]
 })
 export class ViewMyListingComponent implements OnInit {
 
@@ -31,11 +32,19 @@ export class ViewMyListingComponent implements OnInit {
   totalRatings: number = 1;
   DISTANT_LOCATION = constants.DISTANT_LOCATION;
 
-  portfolioImages:any[] = [];
+  portfolioImages: any[] = [];
 
   reviewPage: number = 0;
 
   timezoneOffset = new Date().getTimezoneOffset();
+
+  viewImage: any;
+
+  showPrevPic: boolean = false;
+
+  showNextPic: boolean = false;
+
+  currentPortIndex: number = 0;
 
   constructor(
     private listingService: ListingService,
@@ -51,10 +60,10 @@ export class ViewMyListingComponent implements OnInit {
   }
 
   filterPortImages(images: any[]) {
-    let res:any[] = [];
+    let res: any[] = [];
     images.forEach(
-      (i)=>{
-        if(i.approved==true) {
+      (i) => {
+        if (i.approved == true) {
           res.push(i);
         }
       }
@@ -89,8 +98,8 @@ export class ViewMyListingComponent implements OnInit {
       (response) => {
         let res: any[] = [];
         response.forEach(
-          (i)=>{
-            if(i.approved==true) {
+          (i) => {
+            if (i.approved == true) {
               res.push(i);
             }
           }
@@ -121,6 +130,35 @@ export class ViewMyListingComponent implements OnInit {
           this.reviewPage = -1;
         }
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  prevPortPic() {
+    this.currentPortIndex--;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  nextPortPic() {
+    this.currentPortIndex++;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  loadPortfolioImage(imageId: number, thumbnail: any, index: number) {
+    this.viewImage = thumbnail;
+    this.currentPortIndex = index;
+    this.showPrevPic = true;
+    this.showNextPic = true;
+    if (this.currentPortIndex == 0) {
+      this.showPrevPic = false;
+    }
+    if (this.currentPortIndex == this.portfolioImages.length - 1) {
+      this.showNextPic = false;
+    }
+    // get full portfolio image 
+    this.profilePhotoService.getFullPortImage(imageId).subscribe(
+      (image) => {
+        this.viewImage = image.picByte;
       }
     );
   }
