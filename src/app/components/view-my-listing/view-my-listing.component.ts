@@ -11,6 +11,7 @@ import { OrderService } from 'src/app/services/order.service';
 import { constants } from 'src/environments/constants';
 import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
+import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 
 @Component({
   selector: 'app-view-my-listing',
@@ -30,6 +31,8 @@ export class ViewMyListingComponent implements OnInit {
   totalRatings: number = 1;
   DISTANT_LOCATION = constants.DISTANT_LOCATION;
 
+  portfolioImages:any[] = [];
+
   reviewPage: number = 0;
 
   timezoneOffset = new Date().getTimezoneOffset();
@@ -38,7 +41,8 @@ export class ViewMyListingComponent implements OnInit {
     private listingService: ListingService,
     private orderService: OrderService,
     private navigation: NavigationService,
-    private keycloakService: KeycloakService
+    private keycloakService: KeycloakService,
+    private profilePhotoService: ProfilePhotoService
   ) { }
 
   ngOnInit(): void {
@@ -60,9 +64,18 @@ export class ViewMyListingComponent implements OnInit {
               sub.unsubscribe();
             }
           );
+          this.loadPortFolio();
         }
         this.navigation.pageLoaded();
         subscription.unsubscribe();
+      }
+    );
+  }
+
+  loadPortFolio() {
+    const sub = this.profilePhotoService.getPortImagesByListingId(this.listing.id).subscribe(
+      (response) => {
+        this.portfolioImages = response;
       }
     );
   }

@@ -96,8 +96,23 @@
                         </div>
                       </div>
                     </div>
-                    <hr class="style1">
+                    <!-- Portfolio Starts -->
+                    <div *ngIf="portfolioImages.length>0" class="mb-3 mt-3" style="overflow-x:auto;">
+                      <table>
+                        <tr>
+                          <td style="min-width: 100px;" *ngFor="let image of portfolioImages">
+                            <img alt="GIF Image" class="img-fluid" [src]="'data:image/png;base64,'+image.thumbnail"
+                                width="100px" height="100px">
+                          </td>
+                          <td *ngIf="portfolioImages.length<3" style="min-width: 100px;">
+                          </td>
+                          <td *ngIf="portfolioImages.length<4" style="min-width: 100px;">
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
                     <!-- User Form Starts -->
+                    <hr class="style1">
                     <div *ngIf="listing" class="row">
 
                       <div class="col-12">
@@ -131,7 +146,8 @@
 
                       <div class="col-12">
                         <button *ngIf="timezoneOffset==listing.timezoneOffset" class="btn btn-danger btn-rounded col-12"
-                          type="button" data-bs-toggle="modal" data-bs-target="#slotSelectorModal">View Schedule</button>
+                          type="button" data-bs-toggle="modal" data-bs-target="#slotSelectorModal">View
+                          Schedule</button>
                       </div>
                     </div>
                   </div>
@@ -234,7 +250,8 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-light btn-small" (click)="loadMore()" [hidden]="reviewPage==-1">Load More</button>
+                  <button type="button" class="btn btn-light btn-small" (click)="loadMore()"
+                    [hidden]="reviewPage==-1">Load More</button>
                 </div>
                 <!-- end of card section (to be iterated over reviews) -->
 

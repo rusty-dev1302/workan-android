@@ -142,7 +142,6 @@ export class DashboardListingsFormComponent implements OnInit {
     const subscription = this.dialogService.openDialog(" delete current image",true).subscribe(
       (res)=>{
         if(res) {
-          console.log(this.portfolioImages[this.currentPortIndex].id)
           const sub = this.profilePhotoService.removePortImage(this.portfolioImages[this.currentPortIndex].id).subscribe(
             () =>{
               

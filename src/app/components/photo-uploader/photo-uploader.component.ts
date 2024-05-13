@@ -87,7 +87,6 @@ export class PhotoUploaderComponent implements OnInit {
         }
       );
     } else if (this.listingId > 0) {
-      console.log(this.listingId);
       uploadImageData.append('imageFile', this.selectedFile);
 
       const subscription = this.profilePhotoService.uploadPortImage(uploadImageData).subscribe(
