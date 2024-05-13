@@ -17,6 +17,7 @@ export class PhotoUploaderComponent implements OnInit {
   @Input() customerId: number = 0;
   @Input() listingId: number = 0;
   @Output() reloadEvent = new EventEmitter<boolean>();
+  @Output() reloadPortfolio = new EventEmitter<boolean>();
   base64Data: any = '';
 
 
@@ -72,10 +73,11 @@ export class PhotoUploaderComponent implements OnInit {
   uploadPhoto() {
 
     let uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, "" + this.customerId);
 
     //check if photo uploader or portfolio
     if (this.customerId > 0) {
+      uploadImageData.append('imageFile', this.selectedFile, "" + this.customerId);
+
       const subscription = this.profilePhotoService.uploadImage(uploadImageData).subscribe(
         (response) => {
           if (response.state != constants.ERROR_STATE) {
@@ -85,25 +87,28 @@ export class PhotoUploaderComponent implements OnInit {
         }
       );
     } else if (this.listingId > 0) {
+      console.log(this.listingId);
+      uploadImageData.append('imageFile', this.selectedFile);
 
+      const subscription = this.profilePhotoService.uploadPortImage(uploadImageData).subscribe(
+        (response) => {
+          this.reloadPortfolio.emit(true);
+          subscription.unsubscribe();
+        }
+      );
     }
 
   }
 
   removePhoto() {
-    //check if photo uploader or portfolio
-    if (this.customerId > 0) {
-      const subscription = this.profilePhotoService.removeImage().subscribe(
-        (response) => {
-          if (response.state != constants.ERROR_STATE) {
-            this.reloadCurrentPage();
-          }
-          subscription.unsubscribe();
+    const subscription = this.profilePhotoService.removeImage().subscribe(
+      (response) => {
+        if (response.state != constants.ERROR_STATE) {
+          this.reloadCurrentPage();
         }
-      );
-    } else if (this.listingId > 0) {
-
-    }
+        subscription.unsubscribe();
+      }
+    );
   }
 
   reloadCurrentPage() {

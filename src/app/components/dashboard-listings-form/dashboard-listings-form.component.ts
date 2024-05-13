@@ -20,13 +20,14 @@ import { UnavailabilityCalendarComponent } from '../unavailability-calendar/unav
 import { NotificationService } from 'src/app/services/notification.service';
 import { PhotoUploaderComponent } from '../photo-uploader/photo-uploader.component';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
+import { PhotoViewerComponent } from '../photo-viewer/photo-viewer.component';
 
 @Component({
   selector: 'app-dashboard-listings-form',
   templateUrl: './dashboard-listings-form.component.html',
   styleUrls: ['./dashboard-listings-form.component.css'],
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, SlicePipe, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent, PhotoUploaderComponent]
+  imports: [FormsModule, NgIf, NgFor, SlicePipe, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent, PhotoUploaderComponent, PhotoViewerComponent]
 })
 export class DashboardListingsFormComponent implements OnInit {
 
@@ -85,6 +86,16 @@ export class DashboardListingsFormComponent implements OnInit {
 
   showUploader:boolean = true;
 
+  portfolioImages:any[] = [];
+
+  currentPortIndex:number = 0;
+
+  showPrevPic: boolean = false;
+
+  showNextPic: boolean = false;
+
+  viewImage:any;
+
   constructor(
     private keycloakService: KeycloakService,
     private listingService: ListingService,
@@ -104,6 +115,43 @@ export class DashboardListingsFormComponent implements OnInit {
     this.loadFormValues();
     this.loadAllSubcategories();
     this.getCertificationsByEmail();
+  }
+
+  loadPortfolioImage(imageId: number, thumbnail: any, index: number) {
+    this.viewImage = thumbnail;
+    this.currentPortIndex = index;
+    this.showPrevPic = true;
+    this.showNextPic = true;
+    if(this.currentPortIndex==0) {
+      this.showPrevPic = false;
+    }
+    if(this.currentPortIndex==this.portfolioImages.length-1) {
+      this.showNextPic = false;
+    }
+    // get full portfolio image 
+    this.profilePhotoService.getFullPortImage(imageId).subscribe(
+      (image)=>{
+        this.viewImage = image.picByte;
+      }
+    );
+  }
+
+  removePortPic() {
+    const subscription = this.dialogService.openDialog(" delete current image",true).subscribe(
+      (res)=>{
+        if(res) {
+          console.log(this.portfolioImages[this.currentPortIndex].id)
+          const sub = this.profilePhotoService.removePortImage(this.portfolioImages[this.currentPortIndex].id).subscribe(
+            () =>{
+              
+              this.loadPortFolio();
+      
+              sub.unsubscribe();
+            }
+          );
+        }
+      }
+    );
   }
 
   selectSlot(day: string) {
@@ -148,6 +196,7 @@ export class DashboardListingsFormComponent implements OnInit {
           this.getAvailability(this.listing.id);
           this.getUnavailabilityForProfessional();
           this.loadServicePricings();
+          this.loadPortFolio();
           this.currentListingEvent.emit(this.listing);
         }
 
@@ -179,6 +228,15 @@ export class DashboardListingsFormComponent implements OnInit {
       (response) => {
         this.servicePricings = response;
         sub.unsubscribe();
+      }
+    );
+  }
+
+  loadPortFolio() {
+    const sub = this.profilePhotoService.getPortImagesByListingId(this.listing.id).subscribe(
+      (response) => {
+        this.portfolioImages = response;
+        this.reloadUploader();
       }
     );
   }
@@ -576,7 +634,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   verifyCertification(certId: number) {
     const subs = this.dialogService
-      .openDialog("<b>NOTE</b>: <br>&bull; You are sending the certification for verification.<br>&bull; You will not be able to add/change its attachment(s).<br>&bull; Verification can take upto 2 business days.", false, true).subscribe(
+      .openDialog("<b>NOTE</b>: <br>&bull; You are sending the certification for verification.<br>&bull; You will not be able to add/change its attachment(s).<br>&bull; Verifications can take upto 2 business days.", false, true).subscribe(
         (response) => {
           if (response) {
             const sub = this.userService.sendCertForVerification(certId).subscribe(
@@ -656,6 +714,25 @@ export class DashboardListingsFormComponent implements OnInit {
       });
   }
 
+  requestPortfolioVerification() {
+    const subs = this.dialogService.openDialog(" send portfolio for verification", true, false)
+      .subscribe((resp) => {
+        if (resp) {
+          const subject = "Portfolio Verification";
+          const body = "Please verify portfolio for: " + this.keycloakService.getUsername() + ".";
+          const sub = this.notificationService.sendFeedbackQuery(subject, body).subscribe(
+            (res) => {
+              if (res) {
+                this.toastrService.success("Verification Request Sent")
+              }
+              sub.unsubscribe();
+            }
+          );
+        }
+        subs.unsubscribe();
+      });
+  }
+
   reloadUploader() {
     this.showUploader = false;
     this.changeDetector.detectChanges();
@@ -664,6 +741,16 @@ export class DashboardListingsFormComponent implements OnInit {
 
   loadEditPhotoModal() {
     this.profilePhotoService.emitLoadPhotoEditor(true);
+  }
+
+  prevPortPic() {
+    this.currentPortIndex--;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  nextPortPic() {
+    this.currentPortIndex++;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
   }
 
 }

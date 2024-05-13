@@ -313,7 +313,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <h3><b>Day Availability Template</b>
+                            <h3><b>Availability Template</b>
                             </h3>
                         </div>
                     </div>
@@ -485,35 +485,45 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <h3><b>My Portfolio </b><i type="button" data-bs-toggle="modal"
-                                                data-bs-target="#profilePhotoModal" (click)="loadEditPhotoModal()"
-                                                class="fa fa-plus-circle primary-blue" aria-hidden="true"></i></h3>
-                                        <!-- <a class="link" type="button" style="font-size: .9rem!important;">Recommended
-                                            Certifications</a> -->
+                                        <h3><b>My Portfolio </b><i *ngIf="portfolioImages&&portfolioImages.length<6"
+                                                type="button" data-bs-toggle="modal" data-bs-target="#profilePhotoModal"
+                                                (click)="loadEditPhotoModal()" class="fa fa-plus-circle primary-blue"
+                                                aria-hidden="true"></i></h3>
+                                        <button (click)="requestPortfolioVerification()"
+                                            class="btn btn-primary btn-rounded btn-small mt-1">Verify Portfolio</button>
                                     </div>
                                 </div>
                             </div>
                             <hr class="style1" style="margin-top: 0.5rem;margin-bottom: 2rem;">
                             <h6 *ngIf="displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 style="color: red;"><b>Please add all the relevant documents.</b></h6>
-                            <div class="table-responsive">
-                                <table class="table th-sm">
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center col-4" *ngFor="let certification of certifications | slice:0:3">
-                                                {{certification.name}}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center col-4" *ngFor="let certification of certifications | slice:3:6">
-                                                {{certification.name}}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="text-center col m-2 py-3" style="background-color: rgb(246, 246, 246);"
+                                    *ngFor="let image of portfolioImages; let i=index">
+                                    <div type="button" disabled data-bs-toggle="modal" data-bs-target="#viewPhotoModal"
+                                        (click)="loadPortfolioImage(image.id, image.thumbnail, i)">
+                                        <div>
+                                            <img alt="GIF Image" class="img-fluid"
+                                                [src]="'data:image/png;base64,'+image.thumbnail" width="200px">
+                                        </div>
+                                        <button type="button" class="btn btn-success btn-small mt-1"
+                                            disabled>APPROVED</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 py-3">
+                                <div *ngIf="portfolioImages?.length == 0" class="alert alert-warning col-12"
+                                    role="alert">
+                                    No images found.
+                                </div>
                             </div>
                             <hr class="style1">
                             <h6 class="small-text">&bull; You can add a maximum of <b>6 portfolio images</b>.
+                            </h6>
+                            <h6 class="small-text">&bull; Portfolio approvals can take upto <b>2 working days</b>.
+                            </h6>
+                            <h6 class="small-text">&bull; Images should be related to your <b>work and not include
+                                    personal information</b> like phone numbers, business cards, etc.
                             </h6>
                         </div>
                         <!-- User Form Ends -->
@@ -911,12 +921,17 @@
 
 <!-- Edit Photo Modal -->
 <app-photo-uploader *ngIf="showUploader&&displayListing" [listingId]="displayListing.id"
-    (reloadEvent)="reloadUploader()"></app-photo-uploader>
+    (reloadEvent)="reloadUploader()" (reloadPortfolio)="loadPortFolio()"></app-photo-uploader>
 <!-- Edit Photo Modal Ends -->
 
 <!-- hidden file input starts -->
 <input id="files" type="file" (change)="handleAttachment($event)" style="visibility:hidden;">
 <!-- hidden file input ends -->
+
+<!-- Edit Photo Modal -->
+<app-photo-viewer [image]="viewImage" (prevPic)="prevPortPic()" (nextPic)="nextPortPic()" (removePic)="removePortPic()"
+    [prevbtn]="showPrevPic" [nextbtn]="showNextPic"></app-photo-viewer>
+<!-- Edit Photo Modal -->
 
 <script>
     $('#customfileinput').on('change', function () {
