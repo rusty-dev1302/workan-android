@@ -96,6 +96,8 @@ export class DashboardListingsFormComponent implements OnInit {
 
   viewImage:any;
 
+  enablePortVerify: boolean = false;
+
   constructor(
     private keycloakService: KeycloakService,
     private listingService: ListingService,
@@ -236,6 +238,11 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.profilePhotoService.getPortImagesByListingId(this.listing.id).subscribe(
       (response) => {
         this.portfolioImages = response;
+        this.portfolioImages.forEach((im)=>{
+          if(!im.approved&&!im.rejected) {
+            this.enablePortVerify=true;
+          }
+        });
         this.reloadUploader();
       }
     );

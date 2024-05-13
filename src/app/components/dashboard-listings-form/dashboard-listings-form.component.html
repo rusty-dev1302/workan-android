@@ -489,7 +489,7 @@
                                                 type="button" data-bs-toggle="modal" data-bs-target="#profilePhotoModal"
                                                 (click)="loadEditPhotoModal()" class="fa fa-plus-circle primary-blue"
                                                 aria-hidden="true"></i></h3>
-                                        <button (click)="requestPortfolioVerification()"
+                                        <button (click)="requestPortfolioVerification()" [disabled]="!enablePortVerify"
                                             class="btn btn-primary btn-rounded btn-small mt-1">Verify Portfolio</button>
                                     </div>
                                 </div>
@@ -506,8 +506,12 @@
                                             <img alt="GIF Image" class="img-fluid"
                                                 [src]="'data:image/png;base64,'+image.thumbnail" width="200px">
                                         </div>
-                                        <button type="button" class="btn btn-success btn-small mt-1"
+                                        <button *ngIf="image.approved" type="button" class="btn btn-success btn-small mt-1"
                                             disabled>APPROVED</button>
+                                        <button *ngIf="!image.approved&&!image.rejected" type="button" class="btn btn-warning btn-small mt-1"
+                                            disabled>PENDING APPROVAL</button>
+                                        <button *ngIf="image.rejected" type="button" class="btn btn-danger btn-small mt-1"
+                                            disabled>REJECTED</button>
                                     </div>
                                 </div>
                             </div>
@@ -522,7 +526,7 @@
                             </h6>
                             <h6 class="small-text">&bull; Portfolio approvals can take upto <b>2 working days</b>.
                             </h6>
-                            <h6 class="small-text">&bull; Images should be related to your <b>work and not include
+                            <h6 class="small-text">&bull; Images should <b>showcase your work</b> and <b>not include
                                     personal information</b> like phone numbers, business cards, etc.
                             </h6>
                         </div>
