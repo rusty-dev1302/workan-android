@@ -33,6 +33,16 @@ export class AdminService {
     return this.httpClient.get<any>(getUrl);
   }
 
+  acceptRejectPortImage(portPhotoId: number, status: boolean): Observable<BaseResponse> {
+    let getUrl = "";
+    if(status) {
+      getUrl = `${this.baseUrl}/portfolio/enable?portPhotoId=${portPhotoId}`;
+    } else {
+      getUrl = `${this.baseUrl}/portfolio/disable?portPhotoId=${portPhotoId}`;
+    }
+    return this.httpClient.get<any>(getUrl);
+  }
+
   toggleDeletableById(certificationId: number): Observable<BaseResponse> {
     const getUrl = `${this.baseUrl}/certification/deleteAllowed?certificationId=${certificationId}`;
     return this.httpClient.get<any>(getUrl);

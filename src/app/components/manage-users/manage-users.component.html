@@ -146,9 +146,11 @@
                             <div class="col">
                                 <div class="form-group">
                                     <h3><b>Listing Details</b><br>
-                                        <button *ngIf="displayListing&&!displayListing.enabled" class="btn btn-primary btn-small btn-rounded mt-2"
+                                        <button *ngIf="displayListing&&!displayListing.enabled"
+                                            class="btn btn-primary btn-small btn-rounded mt-2"
                                             (click)="activateDeactivateListing()">Activate</button>
-                                        <button *ngIf="displayListing&&displayListing.enabled" class="btn btn-danger btn-small btn-rounded mt-2"
+                                        <button *ngIf="displayListing&&displayListing.enabled"
+                                            class="btn btn-danger btn-small btn-rounded mt-2"
                                             (click)="activateDeactivateListing()">Deactivate</button>
                                     </h3>
                                 </div>
@@ -156,6 +158,28 @@
                         </div>
                         <hr class="style1">
                         <div *ngIf="displayListing" class="row">
+                            <div *ngIf="portfolioImages.length>0" class="mb-3 mt-3" style="overflow-x:auto;">
+                                <table>
+                                    <tr>
+                                        <td style="min-width: 100px;"
+                                            *ngFor="let image of portfolioImages; let i=index">
+                                            <div class="row">
+                                                <span style="font-weight: bold;">{{image.approved&&!image.rejected?'APPROVED':''}} {{!image.approved&&image.rejected?'REJECTED':''}} {{!image.approved&&!image.rejected?'PENDING':''}}</span>
+                                                <img data-bs-toggle="modal" data-bs-target="#viewPhotoModal"
+                                                    type="button" style="width: 50%!important;"
+                                                    (click)="loadPortfolioImage(image.id, image.thumbnail, i)"
+                                                    alt="GIF Image" class="img-fluid"
+                                                    [src]="'data:image/png;base64,'+image.thumbnail">
+                                                <span><button class="btn btn-success btn-small btn-rounded m-1 mt-2" (click)="acceptPortImage(image.id)">Accept</button><button class="btn btn-danger btn-small btn-rounded m-1 mt-2" (click)="rejectPortImage(image.id)">Reject</button></span>
+                                            </div>
+                                        </td>
+                                        <td *ngIf="portfolioImages.length<3" style="min-width: 100px;">
+                                        </td>
+                                        <td *ngIf="portfolioImages.length<4" style="min-width: 100px;">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
 
                             <div class="col-xxl-6 col-lg-6 col-12">
                                 <div class="col-xxl-6 col-lg-6 col-12">
@@ -346,7 +370,7 @@
                                                 <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
                                                     (click)="rejectCertificationById(certification.id)">Reject</button>
                                                 <button class="btn btn-primary btn-rounded btn-small m-1" type="button"
-                                                (click)="toggleDeletableById(certification.id)">Deletable</button>
+                                                    (click)="toggleDeletableById(certification.id)">Deletable</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -360,6 +384,11 @@
             </div>
         </div>
         <!-- Edit Section ends -->
+
+        <!-- Edit Photo Modal -->
+        <app-photo-viewer [image]="viewImage" (prevPic)="prevPortPic()" (nextPic)="nextPortPic()"
+            [prevbtn]="showPrevPic" [nextbtn]="showNextPic"></app-photo-viewer>
+        <!-- Edit Photo Modal -->
 
         <script>
             $('#customfileinput').on('change', function () {

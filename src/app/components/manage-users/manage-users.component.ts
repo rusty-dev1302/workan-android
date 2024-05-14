@@ -17,13 +17,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Certification } from 'src/app/common/certification';
 import { FileService } from 'src/app/services/file.service';
 import { UserService } from 'src/app/services/user.service';
+import { PhotoViewerComponent } from '../photo-viewer/photo-viewer.component';
 
 @Component({
   selector: 'app-manage-users',
   templateUrl: './manage-users.component.html',
   styleUrls: ['./manage-users.component.css'],
   standalone: true,
-  imports: [SearchComponent, FormsModule, NgIf, NgFor, DecimalPipe, PhonePipe]
+  imports: [SearchComponent, FormsModule, NgIf, NgFor, DecimalPipe, PhonePipe, PhotoViewerComponent]
 })
 export class ManageUsersComponent implements OnInit {
 
@@ -55,6 +56,16 @@ export class ManageUsersComponent implements OnInit {
 
   profileFormDirty: boolean = false;
   profileFormValid: boolean = false;
+
+  viewImage:any;
+
+  currentPortIndex:number = 0;
+
+  portfolioImages:any[] = [];
+
+  showPrevPic: boolean = false;
+
+  showNextPic: boolean = false;
 
   constructor(
     private profilePhotoService: ProfilePhotoService,
@@ -148,6 +159,7 @@ export class ManageUsersComponent implements OnInit {
           // Populate form from data
           this.displayListing = data;
           this.loadServicePricings();
+          this.loadPortFolio();
         }
 
         subscription.unsubscribe();
@@ -221,6 +233,61 @@ export class ManageUsersComponent implements OnInit {
     const sub = this.userService.getCertificationsByEmail(this.user.email).subscribe(
       (certifications) => {
         this.certifications = certifications;
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  prevPortPic() {
+    this.currentPortIndex--;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  nextPortPic() {
+    this.currentPortIndex++;
+    this.loadPortfolioImage(this.portfolioImages[this.currentPortIndex].id, this.portfolioImages[this.currentPortIndex].thumbnail, this.currentPortIndex);
+  }
+
+  loadPortfolioImage(imageId: number, thumbnail: any, index: number) {
+    this.viewImage = thumbnail;
+    this.currentPortIndex = index;
+    this.showPrevPic = true;
+    this.showNextPic = true;
+    if(this.currentPortIndex==0) {
+      this.showPrevPic = false;
+    }
+    if(this.currentPortIndex==this.portfolioImages.length-1) {
+      this.showNextPic = false;
+    }
+    // get full portfolio image 
+    this.profilePhotoService.getFullPortImage(imageId).subscribe(
+      (image)=>{
+        this.viewImage = image.picByte;
+      }
+    );
+  }
+
+  loadPortFolio() {
+    const sub = this.profilePhotoService.getPortImagesByListingId(this.displayListing.id).subscribe(
+      (response) => {
+        this.portfolioImages = response;
+      }
+    );
+  }
+
+  acceptPortImage(portPhotoId: number) {
+    const sub = this.adminService.acceptRejectPortImage(portPhotoId, true).subscribe(
+      ()=>{
+        this.loadPortFolio();
+        sub.unsubscribe();
+      }
+    );
+  }
+
+  rejectPortImage(portPhotoId: number) {
+    const sub = this.adminService.acceptRejectPortImage(portPhotoId, false).subscribe(
+      ()=>{
+        this.loadPortFolio();
         sub.unsubscribe();
       }
     );
