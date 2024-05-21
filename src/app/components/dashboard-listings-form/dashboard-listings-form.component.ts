@@ -458,7 +458,9 @@ export class DashboardListingsFormComponent implements OnInit {
 
     let uploadData = new FormData();
 
-    uploadData.append('attachment', file);
+    console.log(file)
+
+    uploadData.append('attachment ', file);
 
     const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
       () => {
