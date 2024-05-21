@@ -458,8 +458,6 @@ export class DashboardListingsFormComponent implements OnInit {
 
     let uploadData = new FormData();
 
-    console.log(file)
-
     uploadData.append('attachment ', file);
 
     const sub = this.fileService.uploadAttachment(uploadData, certId).subscribe(
@@ -482,8 +480,6 @@ export class DashboardListingsFormComponent implements OnInit {
 
   handleAttachment(event: any) {
     const file: File = event.target.files[0];
-
-    console.log("hello")
 
     if (file.type.includes("image") || file.type.includes("pdf")) {
       this.attachmentChangeEvt = event;
