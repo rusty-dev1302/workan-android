@@ -938,14 +938,3 @@
 <app-photo-viewer [image]="viewImage" (prevPic)="prevPortPic()" (nextPic)="nextPortPic()" (removePic)="removePortPic()"
     [prevbtn]="showPrevPic" [nextbtn]="showNextPic" [enableEdit]="true"></app-photo-viewer>
 <!-- Edit Photo Modal -->
-
-<script>
-    $('#customfileinput').on('change', function () {
-        files = $(this)[0].files;
-        name = '';
-        for (var i = 0; i < files.length; i++) {
-            name += '\"' + files[i].name + '\"' + (i != files.length - 1 ? ", " : "");
-        }
-        $(".custom-file-label").html(name);
-    })
-</script>
