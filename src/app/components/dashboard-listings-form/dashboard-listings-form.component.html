@@ -226,10 +226,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a class="link px-1" type="button"
-                                                        *ngIf="certification.status=='Unverified'"
-                                                        (click)="setClickCertId(certification.id)">
-                                                        <label type="button" for="files" class="col-12"><i
+                                                    <a class="link px-1" *ngIf="certification.status=='Unverified'" type="button">
+                                                        <label type="button" for="files" class="col-12" (click)="setClickCertId(certification.id)"><i
                                                                 class="fa fa-plus-circle"
                                                                 style="color: #0d6efd;"></i></label>
                                                     </a>
