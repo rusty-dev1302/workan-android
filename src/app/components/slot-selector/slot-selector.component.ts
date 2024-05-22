@@ -34,7 +34,7 @@ export class SlotSelectorComponent implements OnInit {
   currentStep: number = 0;
   avgDuration: string = "--";
 
-  timeSlots: string[] = constants.TIMESLOTS;
+  timeSlots: string[] = JSON.parse(JSON.stringify(constants.TIMESLOTS));
 
   availabilityRange = new Map();
 
@@ -67,6 +67,7 @@ export class SlotSelectorComponent implements OnInit {
   }
 
   filterTimeRange() {
+    this.timeSlots = JSON.parse(JSON.stringify(constants.TIMESLOTS));
     let startBool = false;
     let endBool = false;
     this.timeSlots = this.timeSlots.filter(
