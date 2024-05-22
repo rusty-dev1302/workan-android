@@ -35,7 +35,9 @@
                       </div>
                       <div class="col-12">
                         <div class="form-group">
-                          <h4>{{professional.firstName}} {{professional.lastName}}</h4>
+                          <h4>{{professional.firstName}} {{professional.lastName}}<button
+                            (click)="copyCode()" class="btn btn-primary btn-small btn-rounded mt-2 mb-2"
+                            style="margin-left: .6rem;">Share Listing</button></h4>
                           <h6 *ngIf="listing.subCategory.verificationMandatory&&!listing.enabled" style="color: red;">
                             <b>Pending Verification</b>
                           </h6>

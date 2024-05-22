@@ -57,7 +57,7 @@
                                             <tr *ngFor="let verificationRequest of verificationRequests">
                                                 <td class="text-center">
                                                     {{verificationRequest.professional.firstName}} {{verificationRequest.professional.lastName}}</td>
-                                                <td class="text-center">{{verificationRequest.professional.email}}</td>
+                                                <td class="text-center" style="user-select: text!important;">{{verificationRequest.professional.email}}</td>
                                                 <td class="text-center">{{verificationRequest.name}}</td>
                                             </tr>
                                         </tbody>

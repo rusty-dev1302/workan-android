@@ -13,6 +13,7 @@ import { VerifiedCertificatePipe } from '../../pipes/verified-cert-pipe';
 import { SlotSelectorComponent } from '../slot-selector/slot-selector.component';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { PhotoViewerComponent } from '../photo-viewer/photo-viewer.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-my-listing',
@@ -51,7 +52,8 @@ export class ViewMyListingComponent implements OnInit {
     private orderService: OrderService,
     private navigation: NavigationService,
     private keycloakService: KeycloakService,
-    private profilePhotoService: ProfilePhotoService
+    private profilePhotoService: ProfilePhotoService,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -161,6 +163,21 @@ export class ViewMyListingComponent implements OnInit {
         this.viewImage = image.picByte;
       }
     );
+  }
+
+  copyCode() {
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = "Hi,\n\nPlease check out my listing on Workan and get discounts upto CA$30:\n"+constants.API_SERVER+"/listingDetail/"+this.listing.id+"\n\nFollow Workan on Instagram for offers & updates:\nhttps://www.instagram.com/workancanada?igsh=MTNyYmFpdHU0Z3kydw%3D%3D&utm_source=qr";
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.toastr.info("Copied to Clipboard")
   }
 
   navigateBack(): void {

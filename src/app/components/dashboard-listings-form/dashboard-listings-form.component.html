@@ -266,12 +266,12 @@
                                                     class="btn btn-primary btn-rounded btn-small m-1" type="button"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
                                                     from profile':'Show on profile'}}</button>
-                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'" [hidden]="!certification.deleteAllowed"
                                                     class="px-1"
                                                     style="font-size: .8rem!important;color:rgb(105, 105, 105);"><i
                                                         class="fa-light fa-ellipsis-vertical"></i></a>
                                                 <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
-                                                    [disabled]="!certification.deleteAllowed"
+                                                    [hidden]="!certification.deleteAllowed"
                                                     (click)="removeCertification(certification.id)">Remove</button>
                                             </td>
                                         </tr>
