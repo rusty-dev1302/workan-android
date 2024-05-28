@@ -110,6 +110,12 @@ export class DashboardProfileFormComponent implements OnInit {
             let total: number = this.professional.oneRating + this.professional.twoRating + this.professional.threeRating + this.professional.fourRating + this.professional.fiveRating;
             this.totalRatings = total > 0 ? total : 1;
 
+            if (!(this.displayUser.firstName != "" && this.displayUser.gender == "")) {
+              if(!this.professional.hasListing) {
+                this.toastr.info("Please create a listing now.");
+              }
+            }
+
             subscription.unsubscribe();
           }
         );
@@ -146,7 +152,7 @@ export class DashboardProfileFormComponent implements OnInit {
         if (this.displayUser.firstName != "" && this.displayUser.gender == "") {
           if (this.displayPersonalDetails) {
             this.toastr.info("Please complete your profile.");
-          }
+          } 
         }
         subscription.unsubscribe();
       }
