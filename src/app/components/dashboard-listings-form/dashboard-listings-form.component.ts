@@ -51,6 +51,9 @@ export class DashboardListingsFormComponent implements OnInit {
   copyEndTime!: string;
   pasteItems: SlotTemplateItem[] = [];
 
+  showGuidelines: boolean = false;
+  mandatoryDocs: boolean = false;
+
   // Add time slot dialog values
   dialogSlotTemplateId: number = 0;
   dialogSlotTemplateStartTime: string = "";
@@ -117,6 +120,14 @@ export class DashboardListingsFormComponent implements OnInit {
     this.loadFormValues();
     this.loadAllSubcategories();
     this.getCertificationsByEmail();
+  }
+
+  toggleGuidelines() {
+    this.showGuidelines = !this.showGuidelines;
+  }
+
+  toggleMandatoryDocs() {
+    this.mandatoryDocs = !this.mandatoryDocs;
   }
 
   loadPortfolioImage(imageId: number, thumbnail: any, index: number) {
@@ -702,7 +713,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   requestVerification() {
-    const subs = this.dialogService.openDialog("Please make sure all the relevant documents have been attached and sent for verification / verified", true, true)
+    const subs = this.dialogService.openDialog("Please make sure all the <b>mandatory documents</b> have been verified using 'My Documents'.", true, true)
       .subscribe((resp) => {
         if (resp) {
           const subject = "Verification Request";
