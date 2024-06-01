@@ -52,7 +52,6 @@ export class DashboardListingsFormComponent implements OnInit {
   pasteItems: SlotTemplateItem[] = [];
 
   showGuidelines: boolean = false;
-  mandatoryDocs: boolean = false;
 
   // Add time slot dialog values
   dialogSlotTemplateId: number = 0;
@@ -126,9 +125,6 @@ export class DashboardListingsFormComponent implements OnInit {
     this.showGuidelines = !this.showGuidelines;
   }
 
-  toggleMandatoryDocs() {
-    this.mandatoryDocs = !this.mandatoryDocs;
-  }
 
   loadPortfolioImage(imageId: number, thumbnail: any, index: number) {
     this.viewImage = thumbnail;
