@@ -22,13 +22,15 @@
                                     class="fa-regular fa-circle-trash primary-cancel" style="margin-left: 5px;"
                                     type="button" (click)="removeListing(displayListing.id)"></i> -->
                             </h3>
-                            <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
-                                style="color: red;">
-                                <b>Pending Verification</b>
-                            </h6>
-                            <button (click)="requestVerification()" [disabled]="this.certifications.length<=0"
+                            <button (click)="requestVerification()" [disabled]="certifications.length<=0"
                                 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 class="btn btn-primary btn-rounded btn-small mt-1">Request Verification</button>
+                            <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                                style="color: red;" class="mt-2">
+                                <b>Pending Verification</b><br>
+                                <label *ngIf="certifications.length<=0" class="mt-1" style="font-size: .9rem;">(Please add your documents to complete
+                                    verification)</label>
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -91,7 +93,8 @@
                     <b>verified/sent</b> for verification.
                 </h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
-                    class="small-text">&bull; In case you want us to disable your listing use <b>'Feedback & Support'</b> and submit a request.
+                    class="small-text">&bull; In case you want us to disable your listing use <b>'Feedback &
+                        Support'</b> and submit a request.
                 </h6>
             </div>
         </form>
@@ -214,7 +217,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let certification of certifications" [hidden]="!certification.deleteAllowed">
+                                        <tr *ngFor="let certification of certifications"
+                                            [hidden]="!certification.deleteAllowed">
                                             <td class="text-center">
                                                 {{certification.name}}
                                             </td>
@@ -229,8 +233,10 @@
                                                     </a>
                                                 </div>
                                                 <div class="col">
-                                                    <a class="link px-1" *ngIf="certification.status=='Unverified'" type="button">
-                                                        <label type="button" for="files" class="col-12" (click)="setClickCertId(certification.id)"><i
+                                                    <a class="link px-1" *ngIf="certification.status=='Unverified'"
+                                                        type="button">
+                                                        <label type="button" for="files" class="col-12"
+                                                            (click)="setClickCertId(certification.id)"><i
                                                                 class="fa fa-plus-circle"
                                                                 style="color: #0d6efd;"></i></label>
                                                     </a>
@@ -269,8 +275,8 @@
                                                     class="btn btn-primary btn-rounded btn-small m-1" type="button"
                                                     (click)="certificationVisibility(certification.id)">{{certification.profileVisibility?'Hide
                                                     from profile':'Show on profile'}}</button>
-                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'" [hidden]="!certification.deleteAllowed"
-                                                    class="px-1"
+                                                <a *ngIf="certification.status=='Unverified'||certification.status=='Verified'"
+                                                    [hidden]="!certification.deleteAllowed" class="px-1"
                                                     style="font-size: .8rem!important;color:rgb(105, 105, 105);"><i
                                                         class="fa-light fa-ellipsis-vertical"></i></a>
                                                 <button class="btn btn-danger btn-rounded btn-small m-1" type="button"
@@ -285,19 +291,25 @@
                             <h6><b>Terms & Conditions:</b></h6>
                             <h6 class="small-text mt-3"><b>MANDATORY DOCUMENTS</b>
                             </h6>
-                            <h6 class="small-text">1. <b>Government issued ID</b>: Please upload an ID proof issued by the government of Canada and make sure
+                            <h6 class="small-text">1. <b>Government issued ID</b>: Please upload an ID proof issued by
+                                the government of Canada and make sure
                                 the photo matches your profile picture.
                             </h6>
-                            <h6 class="small-text">2. <b>Professional certifications (If applicable)</b>: Please upload all the relevant documents /
-                                    certifications (if required by the profession).
+                            <h6 class="small-text">2. <b>Professional certifications (If applicable)</b>: Please upload
+                                all the relevant documents /
+                                certifications (if required by the profession).
                             </h6>
-                            <h6 class="small-text mt-2"><b>GUIDELINES </b><i (click)="toggleGuidelines()" type="button" *ngIf="!showGuidelines" class="fa-solid fa-plus"></i><i (click)="toggleGuidelines()" type="button" *ngIf="showGuidelines" class="fa-solid fa-minus"></i>
+                            <h6 class="small-text mt-2"><b>GUIDELINES </b><i (click)="toggleGuidelines()" type="button"
+                                    *ngIf="!showGuidelines" class="fa-solid fa-plus"></i><i (click)="toggleGuidelines()"
+                                    type="button" *ngIf="showGuidelines" class="fa-solid fa-minus"></i>
                             </h6>
-                            <h6 *ngIf="showGuidelines" class="small-text">1. Only image and pdf files allowed as attachments. Max
+                            <h6 *ngIf="showGuidelines" class="small-text">1. Only image and pdf files allowed as
+                                attachments. Max
                                 size
                                 per attachment is 2Mb.
                             </h6>
-                            <h6 *ngIf="showGuidelines" class="small-text">2. You can allow certifications to be shown on your profile by
+                            <h6 *ngIf="showGuidelines" class="small-text">2. You can allow certifications to be shown on
+                                your profile by
                                 clicking on 'show on profile'.
                             </h6>
                         </div>
@@ -510,17 +522,19 @@
                                             <img alt="GIF Image" class="img-fluid"
                                                 [src]="'data:image/png;base64,'+image.thumbnail" width="200px">
                                         </div>
-                                        <button *ngIf="image.approved" type="button" class="btn btn-success btn-small mt-1"
-                                            disabled>APPROVED</button>
-                                        <button *ngIf="!image.approved&&!image.rejected" type="button" class="btn btn-warning btn-small mt-1"
-                                            disabled>PENDING APPROVAL</button>
-                                        <button *ngIf="image.rejected" type="button" class="btn btn-danger btn-small mt-1"
-                                            disabled>REJECTED</button>
+                                        <button *ngIf="image.approved" type="button"
+                                            class="btn btn-success btn-small mt-1" disabled>APPROVED</button>
+                                        <button *ngIf="!image.approved&&!image.rejected" type="button"
+                                            class="btn btn-warning btn-small mt-1" disabled>PENDING APPROVAL</button>
+                                        <button *ngIf="image.rejected" type="button"
+                                            class="btn btn-danger btn-small mt-1" disabled>REJECTED</button>
                                     </div>
                                 </div>
-                                <div *ngIf="portfolioImages.length%2==1" class="text-center col m-2 py-3" style="width: 200px;">
+                                <div *ngIf="portfolioImages.length%2==1" class="text-center col m-2 py-3"
+                                    style="width: 200px;">
                                 </div>
-                                <div *ngIf="portfolioImages.length<3" class="text-center col m-2 py-3" style="width: 200px;">
+                                <div *ngIf="portfolioImages.length<3" class="text-center col m-2 py-3"
+                                    style="width: 200px;">
                                 </div>
                             </div>
                             <div class="col-12 py-3">
@@ -937,10 +951,12 @@
 <!-- Edit Photo Modal Ends -->
 
 <!-- hidden file input starts -->
-<input *ngIf="menuItem==1" id="files" name="files" type="file" (change)="handleAttachment($event)" style="visibility:hidden;">
+<input *ngIf="menuItem==1" id="files" name="files" type="file" (change)="handleAttachment($event)"
+    style="visibility:hidden;">
 <!-- hidden file input ends -->
 
 <!-- Edit Photo Modal -->
-<app-photo-viewer *ngIf="menuItem==3" [image]="viewImage" (prevPic)="prevPortPic()" (nextPic)="nextPortPic()" (removePic)="removePortPic()"
-    [prevbtn]="showPrevPic" [nextbtn]="showNextPic" [enableEdit]="true"></app-photo-viewer>
+<app-photo-viewer *ngIf="menuItem==3" [image]="viewImage" (prevPic)="prevPortPic()" (nextPic)="nextPortPic()"
+    (removePic)="removePortPic()" [prevbtn]="showPrevPic" [nextbtn]="showNextPic"
+    [enableEdit]="true"></app-photo-viewer>
 <!-- Edit Photo Modal -->
