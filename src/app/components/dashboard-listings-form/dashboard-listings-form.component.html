@@ -78,8 +78,8 @@
 
                 </div>
                 <hr
-                    *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled">
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                    *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory">
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
                     class="small-text">&bull; This specialization <b>requires verified</b> documents to post
                     listing.</h6>
                 <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
@@ -90,7 +90,7 @@
                     class="small-text">&bull; Click on 'Request Verification' once all the relevant documents get
                     <b>verified/sent</b> for verification.
                 </h6>
-                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
+                <h6 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory"
                     class="small-text">&bull; In case you want us to disable your listing use <b>'Feedback & Support'</b> and submit a request.
                 </h6>
             </div>
