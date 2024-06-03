@@ -124,7 +124,6 @@ export class DashboardListingsFormComponent implements OnInit {
     this.navigation.showLoader();
     this.loadFormValues();
     this.loadAllSubcategories();
-    this.getCertificationsByEmail();
   }
 
   toggleGuidelines() {
@@ -210,6 +209,7 @@ export class DashboardListingsFormComponent implements OnInit {
           this.getAvailability(this.listing.id);
           this.getUnavailabilityForProfessional();
           this.loadServicePricings();
+          this.getCertificationsByEmail();
           this.loadPortFolio();
           this.currentListingEvent.emit(this.listing);
         }
@@ -236,7 +236,6 @@ export class DashboardListingsFormComponent implements OnInit {
             enabled: JSON.parse((data[key] as unknown as string).split(",")[2])
           }
         });
-        console.log(this.availabilityRange);
         this.scheduleCompleteEvent.emit(schedulePresent);
         subscription.unsubscribe();
       }
@@ -614,6 +613,8 @@ export class DashboardListingsFormComponent implements OnInit {
         this.certifications = certifications;
         if(this.certifications.length>0) {
           this.documentsCompleteEvent.emit(true);
+        } else {
+          this.toastrService.info("Please add your documents.");
         }
         sub.unsubscribe();
       }

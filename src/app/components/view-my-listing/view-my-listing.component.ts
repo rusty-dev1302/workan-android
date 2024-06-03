@@ -177,7 +177,7 @@ export class ViewMyListingComponent implements OnInit {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
-    this.toastr.info("Copied to Clipboard")
+    this.toastr.info("Copied to Clipboard.")
   }
 
   navigateBack(): void {

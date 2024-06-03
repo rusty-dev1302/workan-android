@@ -228,7 +228,7 @@ export class DashboardPaymentsComponent implements OnInit {
     this.paymentService.redeemWalletStart(amount+"", this.paymentAccount.id+"").subscribe(
       (res)=>{
         if(res.state!=constants.ERROR_STATE) {
-          this.toastrService.info("Otp sent to your email")
+          this.toastrService.info("Otp sent to your email.")
         } else {
           this.toastrService.error(res.message);
           interval(2000).subscribe(
