@@ -35,6 +35,12 @@ export class DashboardListingsFormComponent implements OnInit {
 
   @Output() currentListingEvent = new EventEmitter<Listing>();
 
+  @Output() portfolioCompleteEvent = new EventEmitter<boolean>();
+
+  @Output() documentsCompleteEvent = new EventEmitter<boolean>();
+
+  @Output() scheduleCompleteEvent = new EventEmitter<boolean>();
+
   isEditable: boolean = false;
 
   isServicePriceSelect: boolean = true;
@@ -217,7 +223,11 @@ export class DashboardListingsFormComponent implements OnInit {
   getAvailability(listingId: number) {
     const subscription = this.listingService.getAvailabilityRange(listingId, true).subscribe(
       (data) => {
+        let schedulePresent = false;
         this.availabilityRange = Object.keys(data).map((key: any) => {
+          if((data[key] as unknown as string).split(",")[1].split("-")[1]) {
+            schedulePresent = true;
+          }
           return {
             templateId: key,
             dayName: (data[key] as unknown as string).split(",")[0],
@@ -226,6 +236,8 @@ export class DashboardListingsFormComponent implements OnInit {
             enabled: JSON.parse((data[key] as unknown as string).split(",")[2])
           }
         });
+        console.log(this.availabilityRange);
+        this.scheduleCompleteEvent.emit(schedulePresent);
         subscription.unsubscribe();
       }
     );
@@ -249,6 +261,9 @@ export class DashboardListingsFormComponent implements OnInit {
             this.enablePortVerify=true;
           }
         });
+        if(this.portfolioImages.length>0) {
+          this.portfolioCompleteEvent.emit(true);
+        }
         this.reloadUploader();
       }
     );
@@ -597,6 +612,9 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.userService.getCertificationsByEmail(this.keycloakService.getUsername()).subscribe(
       (certifications) => {
         this.certifications = certifications;
+        if(this.certifications.length>0) {
+          this.documentsCompleteEvent.emit(true);
+        }
         sub.unsubscribe();
       }
     );

@@ -21,16 +21,20 @@
 
 <ul class="nav nav-pills px-3 py-2 bg-color justify-content-end">
     <li class="nav-item">
-        <a type="button" class="nav-link nav-tab" [ngClass]="menuItem==0?'active':''" (click)="setMenu(0)">Listing Details</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="menuItem==0?'active':''" (click)="setMenu(0)"><i *ngIf="!currentListing" class="fa fa-circle" aria-hidden="true"
+            style="font-size: .5rem!important;color: red;margin-right: .2rem!important;"></i>Listing Details</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==3?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(3)">My Portfolio</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==3?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(3)"><i *ngIf="currentListing&&!portfolioComplete" class="fa fa-circle" aria-hidden="true"
+            style="font-size: .5rem!important;color: red;margin-right: .2rem!important;"></i>My Portfolio</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==1?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(1)">My Documents</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==1?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(1)"><i *ngIf="currentListing&&!documentsComplete" class="fa fa-circle" aria-hidden="true"
+            style="font-size: .5rem!important;color: red;margin-right: .2rem!important;"></i>My Documents</a>
     </li>
     <li class="nav-item">
-        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==2?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(2)">My Schedule</a>
+        <a type="button" class="nav-link nav-tab" [ngClass]="[menuItem==2?'active':'', currentListing&&currentListing.id>0?'':'disabled disabled-menu']" (click)="setMenu(2)"><i *ngIf="currentListing&&!scheduleComplete" class="fa fa-circle" aria-hidden="true"
+            style="font-size: .5rem!important;color: red;margin-right: .2rem!important;"></i>My Schedule</a>
     </li>
 </ul>
 
@@ -46,7 +50,7 @@
                 <!-- Ratings panel starts -->
                 <div class="row g-5">
 
-                    <app-dashboard-listings-form [menuItem]="menuItem"
+                    <app-dashboard-listings-form [menuItem]="menuItem" (portfolioCompleteEvent)="setPortfolioComplete($event)" (documentsCompleteEvent)="setDocumentsComplete($event)" (scheduleCompleteEvent)="setScheduleComplete($event)"
                         (currentListingEvent)="setCurrentListing($event)"></app-dashboard-listings-form>
 
                 </div>
