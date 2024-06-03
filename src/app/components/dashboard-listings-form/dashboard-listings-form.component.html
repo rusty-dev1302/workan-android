@@ -26,7 +26,7 @@
                                 style="color: red;">
                                 <b>Pending Verification</b>
                             </h6>
-                            <button (click)="requestVerification()"
+                            <button (click)="requestVerification()" [disabled]="this.certifications.length<=0"
                                 *ngIf="displayListing&&displayListing.subCategory&&displayListing.subCategory.verificationMandatory&&!displayListing.enabled"
                                 class="btn btn-primary btn-rounded btn-small mt-1">Request Verification</button>
                         </div>
