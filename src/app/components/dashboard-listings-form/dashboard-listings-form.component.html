@@ -2,6 +2,22 @@
 
 <div class="col-xl-12 col-md-12">
 
+    <div *ngIf="infoBox!=null" class="form-section px-1 m-3" style="padding-top: .5rem!important;padding-bottom: .5rem!important;padding-left: .3rem!important;">
+
+        <!-- Info Section Starts -->
+        <div class="row">
+            <label><i class="fa-regular fa-circle-exclamation" style="color: rgb(255, 187, 0);"></i> Next Step: 
+                <span *ngIf="infoBox==0" type="button" style="color: #0070E0;" routerLink="/dashboard/profile">Please complete your profile.</span>
+
+                <span *ngIf="infoBox==1">Create a listing!</span>
+                <span type="button" *ngIf="infoBox==2" [ngClass]="menuItem!=0?'info-link':'no-hover'" (click)="setMenuItem(0)">Add a service price chart.</span>
+                <span type="button" *ngIf="infoBox==3" [ngClass]="menuItem!=1?'info-link':'no-hover'" (click)="setMenuItem(1)">Please add your documents.</span>
+                <span type="button" *ngIf="infoBox==4" [ngClass]="menuItem!=2?'info-link':'no-hover'" (click)="setMenuItem(2)">Please add your schedule.</span>
+            </label>
+        </div>
+        <!-- Info Section Ends -->
+    </div>
+
     <div *ngIf="menuItem==0" class="form-section p-3 m-3">
 
         <!-- User Form Starts -->
@@ -101,7 +117,7 @@
         <!-- User Form Ends -->
     </div>
 
-    <div *ngIf="menuItem==0&&listing.id>0" class="row g-5">
+    <div *ngIf="menuItem==0&&listing.id>0" class="row">
         <div class="col-xl-12 col-md-12 ">
             <!-- Ratings panel starts -->
             <div class="row g-5">
@@ -179,7 +195,7 @@
         </div>
     </div>
 
-    <div *ngIf="menuItem==1" class="row g-5">
+    <div *ngIf="menuItem==1" class="form-section p-3 m-3">
         <div class="col-xl-12 col-md-12 ">
             <!-- Documents panel starts -->
             <div class="row g-5">
@@ -489,7 +505,7 @@
         <!-- User Form Ends -->
     </div>
 
-    <div *ngIf="menuItem==3" class="row g-5">
+    <div *ngIf="menuItem==3" class="form-section p-3 m-3">
         <div class="col-xl-12 col-md-12 ">
             <!-- Documents panel starts -->
             <div class="row g-5">

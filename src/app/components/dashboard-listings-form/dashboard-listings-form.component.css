@@ -2,6 +2,10 @@
     background-color: #0752c3;
 }
 
+.info-link {
+    color: #0070E0!important;
+}
+
 .link-disabled {
     color: grey;
 }

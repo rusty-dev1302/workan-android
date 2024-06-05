@@ -15,13 +15,14 @@ import { SelectMapLocationComponent } from '../select-map-location/select-map-lo
 import { OrderService } from 'src/app/services/order.service';
 import { Review } from 'src/app/common/review';
 import { ListingService } from 'src/app/services/listing.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-profile-form',
   templateUrl: './dashboard-profile-form.component.html',
   styleUrls: ['./dashboard-profile-form.component.css'],
   standalone: true,
-  imports: [NgIf, FormsModule, CommonModule, NgFor, NgClass, SelectMapLocationComponent, KeyValuePipe, PhonePipe]
+  imports: [NgIf, FormsModule, CommonModule, NgFor, NgClass, SelectMapLocationComponent, KeyValuePipe, PhonePipe, RouterLink]
 })
 export class DashboardProfileFormComponent implements OnInit {
 
@@ -35,6 +36,8 @@ export class DashboardProfileFormComponent implements OnInit {
   displayUser!: Customer;
   contactDetail: ContactDetail = constants.DEFAULT_CONTACT_DETAIL;
   displayContact!: ContactDetail;
+
+  infoBox!: number;
 
   profilePhoto!: ProfilePhoto;
   genderValue: string = "";
@@ -113,6 +116,7 @@ export class DashboardProfileFormComponent implements OnInit {
             if (!(this.displayUser.firstName != "" && this.displayUser.gender == "")) {
               if(!this.professional.hasListing) {
                 this.toastr.info("Please create a listing now.");
+                this.infoBox=1;
               }
             }
 
@@ -152,6 +156,7 @@ export class DashboardProfileFormComponent implements OnInit {
         if (this.displayUser.firstName != "" && this.displayUser.gender == "") {
           if (this.displayPersonalDetails) {
             this.toastr.info("Please complete your profile.");
+            this.infoBox=0;
           } 
         }
         subscription.unsubscribe();

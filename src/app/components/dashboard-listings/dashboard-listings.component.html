@@ -50,8 +50,8 @@
                 <!-- Ratings panel starts -->
                 <div class="row g-5">
 
-                    <app-dashboard-listings-form [menuItem]="menuItem" (portfolioCompleteEvent)="setPortfolioComplete($event)" (documentsCompleteEvent)="setDocumentsComplete($event)" (scheduleCompleteEvent)="setScheduleComplete($event)"
-                        (currentListingEvent)="setCurrentListing($event)"></app-dashboard-listings-form>
+                    <app-dashboard-listings-form [menuItem]="menuItem" (menuItemEvent)="setMenu($event)" (portfolioCompleteEvent)="setPortfolioComplete($event)" (documentsCompleteEvent)="setDocumentsComplete($event)" (scheduleCompleteEvent)="setScheduleComplete($event)"
+                        (currentListingEvent)="setCurrentListing($event)" ></app-dashboard-listings-form>
 
                 </div>
                 <!-- Ratings panel ends -->

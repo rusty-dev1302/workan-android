@@ -1,4 +1,4 @@
-import { DatePipe, DecimalPipe, NgFor, NgIf, SlicePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass, NgFor, NgIf, SlicePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
@@ -21,13 +21,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { PhotoUploaderComponent } from '../photo-uploader/photo-uploader.component';
 import { ProfilePhotoService } from 'src/app/services/profile-photo.service';
 import { PhotoViewerComponent } from '../photo-viewer/photo-viewer.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-listings-form',
   templateUrl: './dashboard-listings-form.component.html',
   styleUrls: ['./dashboard-listings-form.component.css'],
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, SlicePipe, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent, PhotoUploaderComponent, PhotoViewerComponent]
+  imports: [FormsModule, NgIf, NgClass, NgFor, SlicePipe, SelectMapLocationComponent, DecimalPipe, DatePipe, UnavailabilityCalendarComponent, PhotoUploaderComponent, PhotoViewerComponent, RouterLink]
 })
 export class DashboardListingsFormComponent implements OnInit {
 
@@ -40,6 +41,8 @@ export class DashboardListingsFormComponent implements OnInit {
   @Output() documentsCompleteEvent = new EventEmitter<boolean>();
 
   @Output() scheduleCompleteEvent = new EventEmitter<boolean>();
+
+  @Output() menuItemEvent = new EventEmitter<number>();
 
   isEditable: boolean = false;
 
@@ -92,19 +95,21 @@ export class DashboardListingsFormComponent implements OnInit {
 
   allowListing: boolean = false;
 
-  showUploader:boolean = true;
+  showUploader: boolean = true;
 
-  portfolioImages:any[] = [];
+  portfolioImages: any[] = [];
 
-  currentPortIndex:number = 0;
+  currentPortIndex: number = 0;
 
   showPrevPic: boolean = false;
 
   showNextPic: boolean = false;
 
-  viewImage:any;
+  viewImage: any;
 
   enablePortVerify: boolean = false;
+
+  infoBox!: number;
 
   constructor(
     private keycloakService: KeycloakService,
@@ -136,29 +141,29 @@ export class DashboardListingsFormComponent implements OnInit {
     this.currentPortIndex = index;
     this.showPrevPic = true;
     this.showNextPic = true;
-    if(this.currentPortIndex==0) {
+    if (this.currentPortIndex == 0) {
       this.showPrevPic = false;
     }
-    if(this.currentPortIndex==this.portfolioImages.length-1) {
+    if (this.currentPortIndex == this.portfolioImages.length - 1) {
       this.showNextPic = false;
     }
     // get full portfolio image 
     this.profilePhotoService.getFullPortImage(imageId).subscribe(
-      (image)=>{
+      (image) => {
         this.viewImage = image.picByte;
       }
     );
   }
 
   removePortPic() {
-    const subscription = this.dialogService.openDialog(" delete current image",true).subscribe(
-      (res)=>{
-        if(res) {
+    const subscription = this.dialogService.openDialog(" delete current image", true).subscribe(
+      (res) => {
+        if (res) {
           const sub = this.profilePhotoService.removePortImage(this.portfolioImages[this.currentPortIndex].id).subscribe(
-            () =>{
-              
+            () => {
+
               this.loadPortFolio();
-      
+
               sub.unsubscribe();
             }
           );
@@ -171,19 +176,19 @@ export class DashboardListingsFormComponent implements OnInit {
     this.selectedDay = day;
   }
 
-  addSubHours(add:boolean) {
-    if(add) {
-      this.addServiceTimeHh  = (this.addServiceTimeHh+1)%13
+  addSubHours(add: boolean) {
+    if (add) {
+      this.addServiceTimeHh = (this.addServiceTimeHh + 1) % 13
     } else {
-      this.addServiceTimeHh = (this.addServiceTimeHh-1)<0?12:(this.addServiceTimeHh-1);
+      this.addServiceTimeHh = (this.addServiceTimeHh - 1) < 0 ? 12 : (this.addServiceTimeHh - 1);
     }
   }
 
-  addSubMins(add:boolean) {
-    if(add) {
-      this.addServiceTimeMm  = (this.addServiceTimeMm+15)%75
+  addSubMins(add: boolean) {
+    if (add) {
+      this.addServiceTimeMm = (this.addServiceTimeMm + 15) % 75
     } else {
-      this.addServiceTimeMm = (this.addServiceTimeMm-15)<0?60:(this.addServiceTimeMm-15);
+      this.addServiceTimeMm = (this.addServiceTimeMm - 15) < 0 ? 60 : (this.addServiceTimeMm - 15);
     }
   }
 
@@ -194,28 +199,41 @@ export class DashboardListingsFormComponent implements OnInit {
         if (!(data.state == constants.ERROR_STATE)) {
           if (data.mobile != 0) {
             this.allowListing = true;
+
+            this.subscription = this.listingService.getListingByEmail(this.emailValue).subscribe(
+              (data) => {
+                if (data.state == constants.SUCCESS_STATE) {
+                  // Populate form from data
+                  this.listing = data;
+                  this.displayListing = JSON.parse(JSON.stringify(this.listing));
+                  this.getAvailability(this.listing.id);
+                  this.getUnavailabilityForProfessional();
+                  this.loadServicePricings();
+                  this.loadPortFolio();
+                  this.getCertificationsByEmail();
+                  this.currentListingEvent.emit(this.listing);
+                  if(this.infoBox==1) {
+                    this.infoBox=null!;
+                  }
+                } else {
+                  if (this.infoBox == null) {
+                    this.infoBox = 1;
+                  }
+                }
+
+                this.navigation.pageLoaded();
+                this.subscription.unsubscribe();
+              }
+            );
+
           } else {
             this.toastrService.info("Please complete your profile first.")
+            if (this.infoBox == null) {
+              this.infoBox = 0;
+            }
           }
         }
-      }
-    );
-    this.subscription = this.listingService.getListingByEmail(this.emailValue).subscribe(
-      (data) => {
-        if (data.state == constants.SUCCESS_STATE) {
-          // Populate form from data
-          this.listing = data;
-          this.displayListing = JSON.parse(JSON.stringify(this.listing));
-          this.getAvailability(this.listing.id);
-          this.getUnavailabilityForProfessional();
-          this.loadServicePricings();
-          this.getCertificationsByEmail();
-          this.loadPortFolio();
-          this.currentListingEvent.emit(this.listing);
-        }
-
-        this.navigation.pageLoaded();
-        this.subscription.unsubscribe();
+        sub.unsubscribe();
       }
     );
   }
@@ -225,7 +243,7 @@ export class DashboardListingsFormComponent implements OnInit {
       (data) => {
         let schedulePresent = false;
         this.availabilityRange = Object.keys(data).map((key: any) => {
-          if((data[key] as unknown as string).split(",")[1].split("-")[1]) {
+          if ((data[key] as unknown as string).split(",")[1].split("-")[1]) {
             schedulePresent = true;
           }
           return {
@@ -237,15 +255,37 @@ export class DashboardListingsFormComponent implements OnInit {
           }
         });
         this.scheduleCompleteEvent.emit(schedulePresent);
+        if (!schedulePresent) {
+          if (this.infoBox == null) {
+            this.infoBox = 4;
+          }
+        } else {
+          if(this.infoBox==4) {
+            this.infoBox=null!;
+          }
+        }
         subscription.unsubscribe();
       }
     );
+  }
+
+  setInfoBox() {
+
   }
 
   loadServicePricings() {
     const sub = this.listingService.getServicePricings(this.listing.id).subscribe(
       (response) => {
         this.servicePricings = response;
+        if (this.servicePricings.length <= 0) {
+          if (this.infoBox == null) {
+            this.infoBox = 2;
+          }
+        } else {
+          if(this.infoBox==2) {
+            this.infoBox=null!;
+          }
+        }
         sub.unsubscribe();
       }
     );
@@ -255,12 +295,12 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.profilePhotoService.getPortImagesByListingId(this.listing.id).subscribe(
       (response) => {
         this.portfolioImages = response;
-        this.portfolioImages.forEach((im)=>{
-          if(!im.approved&&!im.rejected) {
-            this.enablePortVerify=true;
+        this.portfolioImages.forEach((im) => {
+          if (!im.approved && !im.rejected) {
+            this.enablePortVerify = true;
           }
         });
-        if(this.portfolioImages.length>0) {
+        if (this.portfolioImages.length > 0) {
           this.portfolioCompleteEvent.emit(true);
         }
         this.reloadUploader();
@@ -422,7 +462,7 @@ export class DashboardListingsFormComponent implements OnInit {
     this.addCertName = '';
   }
 
-  setEditServicePricing(id: number, serviceName: string, charges: number, addServiceTimeHh: number, addServiceTimeMm: number){
+  setEditServicePricing(id: number, serviceName: string, charges: number, addServiceTimeHh: number, addServiceTimeMm: number) {
     this.editServicePricingId = id;
     this.addServicePriceName = serviceName;
     this.addServicePriceCharges = charges;
@@ -432,7 +472,7 @@ export class DashboardListingsFormComponent implements OnInit {
   }
 
   saveServicePricing(createDup: boolean = false) {
-    if(createDup) {
+    if (createDup) {
       this.editServicePricingId = null!;
     }
     let servicePricing = new ServicePricing(this.editServicePricingId, this.addServicePriceName, this.addServicePriceCharges, this.addServiceTimeHh, this.addServiceTimeMm, "", "");
@@ -529,7 +569,7 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.fileService.getAttachmentsForCertificate(certificationId).subscribe(
       (attachments) => {
         attachments.map(
-          (a:any) => {
+          (a: any) => {
             this.fileService.downloadAttachment(a.attachmentByte, a.name, a.type);
           }
         );
@@ -611,14 +651,25 @@ export class DashboardListingsFormComponent implements OnInit {
     const sub = this.userService.getCertificationsByEmail(this.keycloakService.getUsername()).subscribe(
       (certifications) => {
         this.certifications = certifications;
-        if(this.certifications.length>0) {
+        if (this.certifications.length > 0) {
           this.documentsCompleteEvent.emit(true);
+          if(this.infoBox==3) {
+            this.infoBox=null!;
+          }
         } else {
           this.toastrService.info("Please add your documents.");
+          if (this.infoBox == null) {
+            this.infoBox = 3;
+          }
         }
         sub.unsubscribe();
       }
     );
+  }
+
+  setMenuItem(value: number) {
+    this.menuItem = value;
+    this.menuItemEvent.emit(value);
   }
 
   onClickSubmit() {

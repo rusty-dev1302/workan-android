@@ -1,6 +1,20 @@
 <!-- Edit Section starts -->
 <div class="col-xl-12 col-md-12">
 
+    <div *ngIf="infoBox!=null" class="form-section p-3 m-3"  style="padding-top: .5rem!important;padding-bottom: .5rem!important;padding-left: .3rem!important;">
+
+        <!-- Info Section Starts -->
+        <form #editListing="ngForm">
+            <div class="row">
+                <label><i class="fa-regular fa-circle-exclamation" style="color: rgb(255, 187, 0);"></i> Next Step: 
+                    <span *ngIf="infoBox==0">Please Complete Your Profile!</span>
+                    <span *ngIf="infoBox==1" type="button" style="color: #0070E0;" routerLink="/dashboard/managelisting">Create A Listing.</span>
+                </label>
+            </div>
+        </form>
+        <!-- Info Section Ends -->
+    </div>
+
     <div class="col">
         <div *ngIf="displayPersonalDetails" class="form-section p-3 m-3 card-cover">
 
