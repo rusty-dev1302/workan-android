@@ -46,6 +46,7 @@ export class SlotSelectorComponent implements OnInit {
   dayBoolArray: boolean[] = JSON.parse(JSON.stringify(constants.DAY_BOOL_ARRAY_INIT));
 
   @Input() listingId: number = 0;
+  @Input() isProfessional: boolean = false;
   customerAddress!: ContactDetail;
 
   constructor(

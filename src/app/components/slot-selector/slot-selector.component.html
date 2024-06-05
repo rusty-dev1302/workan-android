@@ -60,6 +60,9 @@
                   </div>
                   <hr class="style1">
                   <h6 class="small-text">&bull; Please select quantity of each service</h6>
+                  <span *ngIf="isProfessional" class="primary-cancel"
+                            style="font-size: .8rem;font-weight: bold;letter-spacing:.7px">A professional cannot book
+                            other's appointment<br></span>
                 </div>
 
               </div>
@@ -67,7 +70,7 @@
             <!-- Slots end -->
             <div class="d-flex">
               <button type="button" class="btn btn-danger btn-rounded col-12" (click)="nextStep()"
-                [disabled]="totalMenuCharges<=0">Next</button>
+                [disabled]="totalMenuCharges<=0||isProfessional">Next</button>
             </div>
             <!-- Selector card end -->
           </div>

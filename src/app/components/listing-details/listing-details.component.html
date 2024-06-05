@@ -154,10 +154,10 @@
                       <div class="col-12">
                         <button *ngIf="timezoneOffset==listing.timezoneOffset&&listingDistance<=DISTANT_LOCATION"
                           class="btn btn-danger btn-rounded col-12" type="button" data-bs-toggle="modal"
-                          data-bs-target="#slotSelectorModal" [disabled]="!listing.enabled||isProfessional">Book
+                          data-bs-target="#slotSelectorModal" [disabled]="!listing.enabled">Book
                           Appointment</button>
                         <button *ngIf="timezoneOffset!=listing.timezoneOffset||listingDistance>DISTANT_LOCATION"
-                          [disabled]="!listing.enabled||isProfessional" class="btn btn-danger btn-rounded col-12"
+                          [disabled]="!listing.enabled" class="btn btn-danger btn-rounded col-12"
                           type="button" (click)="bookError()">Book Appointment</button>
                       </div>
                     </div>
@@ -293,7 +293,7 @@
   <div *ngIf="listing" class="modal fade" id="slotSelectorModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="slotSelectorModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <app-slot-selector [listingId]="listing.id"></app-slot-selector>
+      <app-slot-selector [listingId]="listing.id" [isProfessional]="isProfessional"></app-slot-selector>
     </div>
   </div>
   <!-- Slot Selector Modal Ends -->
