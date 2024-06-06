@@ -36,7 +36,8 @@
 
             <form>
               <div class="mb-3">
-                <button class="btn btn-small btn-rounded disabled mb-2" [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
+                <button class="btn btn-small btn-rounded disabled mb-2"
+                  [ngClass]="[order.status=='CANCELLED'?'btn-cancelled':'',
                 order.status=='COMPLETED'?'btn-completed':'btn-prime', order.status=='ACCEPTED'?'btn-accepted':'',order.status=='SCHEDULED'?'btn-scheduled':'',order.status=='STARTING'?'btn-starting':'',order.status=='STARTED'?'btn-started':'']">{{order.status}}</button>
                 <!-- display profile and name  -->
                 <div class="row px-1 mt-1">
@@ -58,14 +59,17 @@
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Preferred Time</label>
-                      <h5>{{dateTimeService.convertTimeToString(order.preferredStartTimeHhmm)}}-{{dateTimeService.convertTimeToString(order.preferredEndTimeHhmm)}}</h5>
+                      <h5>
+                        {{dateTimeService.convertTimeToString(order.preferredStartTimeHhmm)}}-{{dateTimeService.convertTimeToString(order.preferredEndTimeHhmm)}}
+                      </h5>
                     </div>
                   </div>
 
                   <div class="col-xl-2 col-md-4 col-sm-6 col-xs-6 py-1">
                     <div class="form-group">
                       <label>Total Amount</label>
-                      <h5 class="px-2"><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges | number :
+                      <h5 class="px-2"><i class="fa-solid fa-dollar-sign" style="color: green;"></i> {{order.charges |
+                        number :
                         '1.2-2'}} </h5>
                     </div>
                   </div>
@@ -93,7 +97,8 @@
                     <div class="form-group">
                       <label class="py-1" style="font-weight: bold;">Customer Name</label>
                       <div class="col-12">
-                        <h5 class="px-2" *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}</h5>
+                        <h5 class="px-2" *ngIf="order.customer">{{order.customer.firstName}} {{order.customer.lastName}}
+                        </h5>
                         <h5 class="px-2" *ngIf="!order.customer" style="color: rgb(100, 100, 100);">**************</h5>
                       </div>
                     </div>
@@ -127,13 +132,17 @@
                       </div>
                       <div class="form-group">
                         <label class="py-1" style="font-weight: bold;">Service Items</label>
-                        <h5 class="px-2" *ngFor="let item of order.menuItems">&bull; {{item.serviceName}} x({{item.quantity}})</h5>
+                        <h5 class="px-2" *ngFor="let item of order.menuItems">&bull; {{item.serviceName}}
+                          x({{item.quantity}})</h5>
                       </div>
                     </div>
                   </div>
-                  <label class="py-2" *ngIf="order.listingDistance" style="color: rgb(183, 25, 25);">Customer is at a distance of {{order.listingDistance|number:'1.2-2'}}km from the listing address</label>
-                  <label class="py-2" *ngIf="order.status=='ACCEPTED'||order.status=='SCHEDULED'">&bull; Scheduling Requests: {{order.numSchedule}}<br>&bull; An order can be scheduled / rescheduled for a maximum of 4 times.</label>
-                  <hr class="style1">
+                  <label class="py-2" *ngIf="order.listingDistance" style="color: rgb(183, 25, 25);">Customer is at a
+                    distance of {{order.listingDistance|number:'1.2-2'}}km from the listing address</label>
+                  <label class="py-2" *ngIf="order.status=='ACCEPTED'||order.status=='SCHEDULED'">&bull; Scheduling
+                    Requests: {{order.numSchedule}}<br>&bull; An order can be scheduled / rescheduled for a maximum of 4
+                    times.</label>
+                  <hr class="mb-0">
                   <div *ngIf="order.status!='CANCELLED'&&order.status!='COMPLETED'">
                     <div *ngIf="order.status=='STARTING'" class="col-12 py-1">
                       <button class="btn btn-success btn-rounded col-12" type="button" data-bs-toggle="modal"
@@ -153,9 +162,8 @@
                       </button>
                     </div>
                     <div *ngIf="order.status=='ACCEPTED'||order.status=='SCHEDULED'" class="col-12 py-2">
-                      <button class="btn btn-warning btn-rounded col-12" type="button"
-                        data-bs-toggle="modal" data-bs-target="#confirmOrderModal"
-                        (click)="scheduleOrder(order)">Schedule / Reschedule
+                      <button class="btn btn-warning btn-rounded col-12" type="button" data-bs-toggle="modal"
+                        data-bs-target="#confirmOrderModal" (click)="scheduleOrder(order)">Schedule / Reschedule
                       </button>
                     </div>
                     <div
@@ -165,6 +173,9 @@
                         data-bs-target="#cancellationReasonModal">Cancel Order</button>
                     </div>
                     <div *ngIf="order.status=='STARTED'&&order.paymentStatus!='COMPLETE'" class="col-12 py-2">
+                      <label class="small-text mb-3 py-0" for="payMethodDirect"><br>
+                        &bull; Customer discounts(if any) will be credited to your wallet on order completion.
+                      </label>
                       <button class="btn btn-warning btn-rounded col-12" type="button" (click)="confirmDirectPayment()"
                         [disabled]="!order.directInitiated">Accept Direct Payment
                       </button>
@@ -205,8 +216,8 @@
     </div>
   </div>
 
-    <!-- Accept Order Modal -->
-    <div class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  <!-- Accept Order Modal -->
+  <div class="modal fade" id="confirmOrderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <app-confirm-order [appointmentDate]="selectedAppointmentDate"
