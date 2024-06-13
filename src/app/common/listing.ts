@@ -13,6 +13,7 @@ export class Listing extends BaseResponse{
         public enabled: boolean,
         public professionalEmail: string,
         public location: string,
+        public shortLocation: string,
         public professionalId: number,
         public professional: Professional,
         public subCategory: SubCategory,

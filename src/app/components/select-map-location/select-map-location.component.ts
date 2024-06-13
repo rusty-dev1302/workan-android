@@ -90,6 +90,10 @@ export class SelectMapLocationComponent implements OnInit {
         output["geoHash"] = Geohash.encode(this.currentLocationLatLng.lat(), this.currentLocationLatLng.lng(), 8);
         output["latitude"] = this.currentLocationLatLng.lat();
         output["longitude"] = this.currentLocationLatLng.lng();
+        output["addressShort"] = this.autoComplete?.getPlace().address_components?.find(p=>(
+          p.types[0]=="administrative_area_level_2"))?.short_name+", "+this.autoComplete?.getPlace().address_components?.find(p=>(
+          p.types[0]=="administrative_area_level_1"))?.long_name+", "+this.autoComplete?.getPlace().address_components?.find(p=>(
+            p.types[0]=="country"))?.long_name;
 
         this.outputEvent.emit(output);
       }

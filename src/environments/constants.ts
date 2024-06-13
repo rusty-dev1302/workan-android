@@ -65,6 +65,7 @@ export const constants = {
       verificationMandatory: false
     },
     location: "",
+    shortLocation: "",
     geoHash: "",
     professional: {
       id: 0,

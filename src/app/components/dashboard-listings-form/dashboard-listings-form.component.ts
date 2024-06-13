@@ -642,6 +642,7 @@ export class DashboardListingsFormComponent implements OnInit {
 
   locationSelectorOutput(data: any) {
     this.listing.location = data.address;
+    this.listing.shortLocation = data.addressShort;
     this.listing.geoHash = data.geoHash;
     this.listing.latitude = data.latitude;
     this.listing.longitude = data.longitude;
