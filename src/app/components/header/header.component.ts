@@ -29,6 +29,9 @@ export class HeaderComponent implements OnInit{
 
   showLoader: boolean = false;
 
+  adNumber: number = 0;
+
+  totalAds: number = 2;
 
   constructor(
     private userService: UserService,
@@ -50,9 +53,17 @@ export class HeaderComponent implements OnInit{
       }
     );
     this.userService.updateFirstLogin();
+    this.playAds();
   }
 
-
+  playAds(){
+    interval(5000).subscribe(
+      ()=>{
+        this.adNumber++;
+        this.adNumber = this.adNumber%this.totalAds;
+      }
+    );
+  }
 
   getNotificationsForUser() {
     this.showLoader = true;

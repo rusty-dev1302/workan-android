@@ -26,5 +26,44 @@
   </div>
 </nav>
 
+<!-- Ads bar  -->
+<nav *ngIf="isAuthenticated&&!isFirstLogin" class="navbar navbar-expand-lg navbar-dark bg-color workan-header" style="background-color: rgb(36, 36, 36);border-top: 1px solid rgb(30, 30, 30);border-bottom: 1px solid rgb(30, 30, 30);">
+  <!-- for customers -->
+  <div class="container-fluid d-flex justify-content-center text-center">
+    <span type="button" class="scale-in-center" *ngIf="adNumber==0" style="color: white;">
+      <span class="fa-stack" style="font-size: .6rem!important;">
+        <i class="fa fa-certificate fa-stack-2x"></i>
+        <i class="fa fa-dollar fa-stack-1x fa-inverse" style="color: black!important;"></i>
+      </span>
+      <span style="font-size: .9rem;"> Get <b>$10</b> Joining Credits !</span>
+    </span>
+    <span type="button" class="scale-in-center" *ngIf="adNumber==1" style="color: white;">
+      <span class="fa-stack" style="font-size: .6rem!important;">
+        <i class="fa fa-certificate fa-stack-2x"></i>
+        <i class="fa fa-dollar fa-stack-1x fa-inverse" style="color: black!important;"></i>
+      </span>
+      <span style="font-size: .9rem;"> Add-On Bonus Upto <b>$100</b> Every Month !</span>
+    </span>
+  </div>
+  <!-- for professionals -->
+  <div class="container-fluid d-flex justify-content-center text-center">
+    <span type="button" class="scale-in-center" *ngIf="adNumber==0" style="color: white;">
+      <span class="fa-stack" style="font-size: .6rem!important;">
+        <i class="fa fa-certificate fa-stack-2x"></i>
+        <i class="fa fa-dollar fa-stack-1x fa-inverse" style="color: black!important;"></i>
+      </span>
+      <span style="font-size: .9rem;"> Get <b>$10</b> Joining Credits !</span>
+    </span>
+    <span type="button" class="scale-in-center" *ngIf="adNumber==1" style="color: white;">
+      <span class="fa-stack" style="font-size: .6rem!important;">
+        <i class="fa fa-certificate fa-stack-2x"></i>
+        <i class="fa fa-dollar fa-stack-1x fa-inverse" style="color: black!important;"></i>
+      </span>
+      <span style="font-size: .9rem;"> Add-On Bonus Upto <b>$100</b> Every Month !</span>
+    </span>
+  </div>
+</nav>
+<!--EO Ads bar  -->
+
 <app-sidebar *ngIf="isAuthenticated"></app-sidebar>
 <app-notification-sidebar [unreadCount]="+notificationCount" *ngIf="isAuthenticated" [notifications]="notifications" (readAllEvent)="readAllMessages()" (readMessageEvent)="messageRead()" [showLoader]="showLoader"></app-notification-sidebar>
