@@ -33,6 +33,8 @@ export class HeaderComponent implements OnInit{
 
   totalAds: number = 2;
 
+  isProfessional: boolean = false;
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -54,6 +56,10 @@ export class HeaderComponent implements OnInit{
     );
     this.userService.updateFirstLogin();
     this.playAds();
+  }
+
+  setProfessional(input: boolean) {
+    this.isProfessional = input;
   }
 
   playAds(){

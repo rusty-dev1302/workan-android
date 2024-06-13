@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
@@ -28,6 +28,9 @@ export class SidebarComponent implements OnInit {
   currentUser!: Customer;
   profilePhoto!: ProfilePhoto;
 
+  @Output()
+  isProfessional = new EventEmitter<boolean>();
+
   constructor(private keycloakService: KeycloakService,
     private userService: UserService,
     private profilePhotoService: ProfilePhotoService,
@@ -40,6 +43,11 @@ export class SidebarComponent implements OnInit {
       (user) => {
         if (user.state == constants.SUCCESS_STATE) {
           this.currentUser = user;
+          if(user.professional) {
+            this.isProfessional.emit(true);
+          } else {
+            this.isProfessional.emit(false);
+          }
           this.loadProfilePhoto();
           this.lowWalletWarning();
         }
